@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import PlaceholderPage from './components/PlaceholderPage';
 import HomePage from './pages/HomePage';
 import InputOutputTool from './pages/InputOutputTool';
-import MouseSkillsGame from './pages/MouseSkillsGame';
+import ITSkillsGame from './pages/ITSkillsGame';
 
 export default function App() {
     // This 'state' variable controls which page is currently visible.
@@ -24,7 +24,7 @@ export default function App() {
             case 'algorithms':
                 return <PlaceholderPage title="Algorithms" icon="🔄" />;
             case 'it-skills':
-                return <MouseSkillsGame />;
+                return <ITSkillsGame />;
             default:
                 return <HomePage setActivePage={setActivePage} />;
         }

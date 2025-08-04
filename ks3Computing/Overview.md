@@ -33,7 +33,7 @@ Input & Output Tool: A drag-and-drop activity where students categorize computer
 Modules in Development:
 IT Skills: This section will focus on fundamental computer literacy.
 
-Mouse Skills Game (Next Priority): An interactive game designed to help students master essential mouse operations:
+Mouse Skills Game (Made): An interactive game designed to help students master essential mouse operations:
 
 Single-clicking
 
