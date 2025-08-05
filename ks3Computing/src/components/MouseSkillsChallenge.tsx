@@ -30,7 +30,7 @@ const MouseSkillsChallenge = () => {
                     <div className="text-center p-8">
                         <h2 className="text-4xl font-bold text-slate-800 mb-4">Mouse Skills Challenge</h2>
                         <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">Get ready to test your mouse skills! This game has four stages to help you practice tracing, clicking, dragging and dropping. Click the button below to start.</p>
-                        <GameButton onClick={() => setStage('dragging')}>Start Challenge</GameButton>
+                        <GameButton onClick={() => setStage('tracing')}>Start Challenge</GameButton>
                     </div>
                 );
             case 'tracing':

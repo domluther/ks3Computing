@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { CheckCircle, XCircle, Shield, Wifi, WifiOff, Lock, HelpCircle } from 'lucide-react';
 import GameButton from '../components/GameButton';
 
@@ -78,171 +78,171 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             ],
             followUpQuestion: "State three signs that an email or message might be a phishing scam."
         },
-        // {
-        //     id: 6,
-        //     text: "You're about to post a photo from a party. You look a bit silly in it, but it's funny.",
-        //     choices: [
-        //         { text: "Post it. It's just a laugh and part of my digital footprint.", points: -15, feedback: "This photo is now part of your digital footprint forever. Future schools or employers might see it." },
-        //         { text: "Ask the friends in the photo if they're okay with you posting it.", points: 20, feedback: "Great idea. Always get consent before posting photos of others." },
-        //         { text: "Post it but only to your 'close friends' list.", points: 5, feedback: "Better, but 'close friends' can still screenshot and share it. Think before you post." },
-        //         { text: "Decide not to post it.", points: 10, feedback: "A safe choice. Not everything needs to be shared online." },
-        //     ],
-        //     followUpQuestion: "Define what 'digital footprint' means. Explain how a photo you post today could affect you in the future."
-        // },
-        // {
-        //     id: 7,
-        //     text: "You get a text from an unknown number: \"Hi mum, I've broken my phone. Can you send me £50 to get it fixed?\"",
-        //     choices: [
-        //         { text: "Send the money immediately. You have to help!", points: -30, feedback: "This is a common scam. Scammers pretend to be family members in trouble." },
-        //         { text: "Text back asking \"who is this?\".", points: -5, feedback: "Replying confirms your number is active. They might target you with more scams." },
-        //         { text: "Try to call your mum's original number to check if she's okay.", points: 25, feedback: "The best action. Always verify unusual requests through a different, trusted method." },
-        //         { text: "Ignore and delete the message.", points: 15, feedback: "A good, safe option." },
-        //     ],
-        //     followUpQuestion: "Explain why you shouldn't reply to a scam text message, even to ask who it is."
-        // },
-        // {
-        //     id: 8,
-        //     text: "Your friend tells you a secret and makes you promise not to tell anyone. Later, your other friend asks you what's going on.",
-        //     choices: [
-        //         { text: "Tell them the secret. They're your best friend too.", points: -25, feedback: "Breaking someone's trust by sharing information without consent can damage a friendship." },
-        //         { text: "Tell them you can't say because you promised.", points: 20, feedback: "Respecting people's privacy and consent is a key part of being a good friend." },
-        //         { text: "Hint at the secret without giving all the details.", points: -10, feedback: "This is still a form of gossip and can lead to the secret getting out." },
-        //         { text: "Change the subject or distract them without mentioning the secret.", points: 10, feedback: "A subtle way to protect your friend's privacy without creating tension." },
-        //     ],
-        //     followUpQuestion: "Define what 'consent' means in the context of sharing information online."
-        // },
-        // {
-        //     id: 9,
-        //     text: "In a YouTube comment section, you see someone making discriminatory racist comments about a creator.",
-        //     choices: [
-        //         { text: "Reply to the comment and argue with them.", points: -5, feedback: "Arguing with trolls often encourages them. It's better not to engage directly." },
-        //         { text: "Report the comment for hate speech.", points: 25, feedback: "Perfect. Reporting is the most effective tool to get harmful content removed." },
-        //         { text: "'Dislike' the comment.", points: 5, feedback: "A small action, but reporting is much more powerful." },
-        //         { text: "Just scroll past it.", points: 0, feedback: "Ignoring it doesn't help, but at least you're not making it worse." },
-        //     ],
-        //     followUpQuestion: "Describe why it is more effective to report hateful comments than to argue with the person who posted them."
-        // },
-        // {
-        //     id: 10,
-        //     text: "You post a video of your new hobby, and a troll comments \"this is so boring, get a life\".",
-        //     choices: [
-        //         { text: "Post an angry reply defending your hobby.", points: -10, feedback: "This is what a troll wants! They feed on angry reactions." },
-        //         { text: "Delete their comment and block the user.", points: 20, feedback: "A great way to manage your online space. You don't have to put up with negativity." },
-        //         { text: "Reply with a joke.", points: 10, feedback: "Sometimes humour can disarm a troll, but blocking is often safer and easier." },
-        //         { text: "Feel sad and delete your video.", points: -15, feedback: "Don't let one negative person stop you from enjoying your hobbies." },
-        //     ],
-        //     followUpQuestion: "State what a 'troll' is. Describe what the best way to deal with trolling comments is."
-        // },
-        // {
-        //     id: 11,
-        //     text: "A cool online quiz promises to tell you your 'spirit animal' if you enter your full name, date of birth, and primary school.",
-        //     choices: [
-        //         { text: "Enter all the details to get your result.", points: -25, feedback: "This is way too much personal information. It can be used for identity theft." },
-        //         { text: "Make up fake details to do the quiz.", points: 15, feedback: "A clever way to protect your privacy while still having fun." },
-        //         { text: "Close the page. It's not worth the risk.", points: 20, feedback: "A very sensible and safe decision." },
-        //         { text: "Use your real name but a fake birthday and school.", points: -10, feedback: "Still risky. Your full name is a key piece of personal data." },
-        //     ],
-        //     followUpQuestion: "List three pieces of personal information you should never share online and explain why."
-        // },
-        // {
-        //     id: 12,
-        //     text: "You and your friends are hanging out in a town centre. You notice there are lots of CCTV cameras.",
-        //     choices: [
-        //         { text: "Do a silly dance in front of a camera.", points: 0, feedback: "Harmless fun, but it highlights that you are being recorded in public spaces." },
-        //         { text: "Feel worried and want to go home.", points: -5, feedback: "It's okay to be aware of cameras, but they are also there for public safety." },
-        //         { text: "Discuss with your friends why the cameras are there.", points: 15, feedback: "Good. Thinking critically about surveillance and its purpose (like safety) is a smart habit." },
-        //         { text: "Look around to see if there are signs explaining who owns the cameras.", points: 15, feedback: "Good thinking. It's useful to know who is collecting data in public spaces." },
-        //     ],
-        //     followUpQuestion: "State two pros and cons of having CCTV cameras in public places."
-        // },
-        // {
-        //     id: 13,
-        //     text: "You're playing a game on your phone that's connected to your parents' account. A pop-up offers a special item for £9.99.",
-        //     choices: [
-        //         { text: "Buy it without asking. You can pay them back later.", points: -30, feedback: "Making purchases without permission is like stealing and can get you into serious trouble." },
-        //         { text: "Ask your parents if you can buy it.", points: 25, feedback: "The only correct answer. Always get permission before spending money online." },
-        //         { text: "Close the pop-up and keep playing without the item.", points: 15, feedback: "Good self-control! You don't need to spend money to have fun." },
-        //     ],
-        //     followUpQuestion: "Describe why it is important to always get permission before making any in-app purchases."
-        // },
-        // {
-        //     id: 14,
-        //     text: "You see a shocking headline on a news site you've never heard of: \"Scientists Prove Eating Chocolate Cures All Illness!\".",
-        //     choices: [
-        //         { text: "Share it on social media immediately. Everyone needs to know!", points: -20, feedback: "Spreading misinformation is easy. Always check the source before you share." },
-        //         { text: "Check a trusted news source like the BBC to see if they are reporting it.", points: 25, feedback: "Excellent critical thinking. Verifying information with reliable sources is a vital skill." },
-        //         { text: "Assume it's probably fake and just ignore it.", points: 10, feedback: "A good assumption, but actively verifying is even better." },
-        //         { text: "Ask someone like a parent or teacher what they think before sharing.", points: 15, feedback: "Talking to a trusted adult can help you avoid spreading false information." },
+        {
+            id: 6,
+            text: "You're about to post a photo from a party. You look a bit silly in it, but it's funny.",
+            choices: [
+                { text: "Post it. It's just a laugh and part of my digital footprint.", points: -15, feedback: "This photo is now part of your digital footprint forever. Future schools or employers might see it." },
+                { text: "Ask the friends in the photo if they're okay with you posting it.", points: 20, feedback: "Great idea. Always get consent before posting photos of others." },
+                { text: "Post it but only to your 'close friends' list.", points: 5, feedback: "Better, but 'close friends' can still screenshot and share it. Think before you post." },
+                { text: "Decide not to post it.", points: 10, feedback: "A safe choice. Not everything needs to be shared online." },
+            ],
+            followUpQuestion: "Define what 'digital footprint' means. Explain how a photo you post today could affect you in the future."
+        },
+        {
+            id: 7,
+            text: "You get a text from an unknown number: \"Hi mum, I've broken my phone. Can you send me £50 to get it fixed?\"",
+            choices: [
+                { text: "Send the money immediately. You have to help!", points: -30, feedback: "This is a common scam. Scammers pretend to be family members in trouble." },
+                { text: "Text back asking \"who is this?\".", points: -5, feedback: "Replying confirms your number is active. They might target you with more scams." },
+                { text: "Try to call your mum's original number to check if she's okay.", points: 25, feedback: "The best action. Always verify unusual requests through a different, trusted method." },
+                { text: "Ignore and delete the message.", points: 15, feedback: "A good, safe option." },
+            ],
+            followUpQuestion: "Explain why you shouldn't reply to a scam text message, even to ask who it is."
+        },
+        {
+            id: 8,
+            text: "Your friend tells you a secret and makes you promise not to tell anyone. Later, your other friend asks you what's going on.",
+            choices: [
+                { text: "Tell them the secret. They're your best friend too.", points: -25, feedback: "Breaking someone's trust by sharing information without consent can damage a friendship." },
+                { text: "Tell them you can't say because you promised.", points: 20, feedback: "Respecting people's privacy and consent is a key part of being a good friend." },
+                { text: "Hint at the secret without giving all the details.", points: -10, feedback: "This is still a form of gossip and can lead to the secret getting out." },
+                { text: "Change the subject or distract them without mentioning the secret.", points: 10, feedback: "A subtle way to protect your friend's privacy without creating tension." },
+            ],
+            followUpQuestion: "Define what 'consent' means in the context of sharing information online."
+        },
+        {
+            id: 9,
+            text: "In a YouTube comment section, you see someone making discriminatory racist comments about a creator.",
+            choices: [
+                { text: "Reply to the comment and argue with them.", points: -5, feedback: "Arguing with trolls often encourages them. It's better not to engage directly." },
+                { text: "Report the comment for hate speech.", points: 25, feedback: "Perfect. Reporting is the most effective tool to get harmful content removed." },
+                { text: "'Dislike' the comment.", points: 5, feedback: "A small action, but reporting is much more powerful." },
+                { text: "Just scroll past it.", points: 0, feedback: "Ignoring it doesn't help, but at least you're not making it worse." },
+            ],
+            followUpQuestion: "Describe why it is more effective to report hateful comments than to argue with the person who posted them."
+        },
+        {
+            id: 10,
+            text: "You post a video of your new hobby, and a troll comments \"this is so boring, get a life\".",
+            choices: [
+                { text: "Post an angry reply defending your hobby.", points: -10, feedback: "This is what a troll wants! They feed on angry reactions." },
+                { text: "Delete their comment and block the user.", points: 20, feedback: "A great way to manage your online space. You don't have to put up with negativity." },
+                { text: "Reply with a joke.", points: 10, feedback: "Sometimes humour can disarm a troll, but blocking is often safer and easier." },
+                { text: "Feel sad and delete your video.", points: -15, feedback: "Don't let one negative person stop you from enjoying your hobbies." },
+            ],
+            followUpQuestion: "State what a 'troll' is. Describe what the best way to deal with trolling comments is."
+        },
+        {
+            id: 11,
+            text: "A cool online quiz promises to tell you your 'spirit animal' if you enter your full name, date of birth, and primary school.",
+            choices: [
+                { text: "Enter all the details to get your result.", points: -25, feedback: "This is way too much personal information. It can be used for identity theft." },
+                { text: "Make up fake details to do the quiz.", points: 15, feedback: "A clever way to protect your privacy while still having fun." },
+                { text: "Close the page. It's not worth the risk.", points: 20, feedback: "A very sensible and safe decision." },
+                { text: "Use your real name but a fake birthday and school.", points: -10, feedback: "Still risky. Your full name is a key piece of personal data." },
+            ],
+            followUpQuestion: "List three pieces of personal information you should never share online and explain why."
+        },
+        {
+            id: 12,
+            text: "You and your friends are hanging out in a town centre. You notice there are lots of CCTV cameras.",
+            choices: [
+                { text: "Do a silly dance in front of a camera.", points: 0, feedback: "Harmless fun, but it highlights that you are being recorded in public spaces." },
+                { text: "Feel worried and want to go home.", points: -5, feedback: "It's okay to be aware of cameras, but they are also there for public safety." },
+                { text: "Discuss with your friends why the cameras are there.", points: 15, feedback: "Good. Thinking critically about surveillance and its purpose (like safety) is a smart habit." },
+                { text: "Look around to see if there are signs explaining who owns the cameras.", points: 15, feedback: "Good thinking. It's useful to know who is collecting data in public spaces." },
+            ],
+            followUpQuestion: "State two pros and cons of having CCTV cameras in public places."
+        },
+        {
+            id: 13,
+            text: "You're playing a game on your phone that's connected to your parents' account. A pop-up offers a special item for £9.99.",
+            choices: [
+                { text: "Buy it without asking. You can pay them back later.", points: -30, feedback: "Making purchases without permission is like stealing and can get you into serious trouble." },
+                { text: "Ask your parents if you can buy it.", points: 25, feedback: "The only correct answer. Always get permission before spending money online." },
+                { text: "Close the pop-up and keep playing without the item.", points: 15, feedback: "Good self-control! You don't need to spend money to have fun." },
+            ],
+            followUpQuestion: "Describe why it is important to always get permission before making any in-app purchases."
+        },
+        {
+            id: 14,
+            text: "You see a shocking headline on a news site you've never heard of: \"Scientists Prove Eating Chocolate Cures All Illness!\".",
+            choices: [
+                { text: "Share it on social media immediately. Everyone needs to know!", points: -20, feedback: "Spreading misinformation is easy. Always check the source before you share." },
+                { text: "Check a trusted news source like the BBC to see if they are reporting it.", points: 25, feedback: "Excellent critical thinking. Verifying information with reliable sources is a vital skill." },
+                { text: "Assume it's probably fake and just ignore it.", points: 10, feedback: "A good assumption, but actively verifying is even better." },
+                { text: "Ask someone like a parent or teacher what they think before sharing.", points: 15, feedback: "Talking to a trusted adult can help you avoid spreading false information." },
 
-        //     ],
-        //     followUpQuestion: "Describe how you can check if a news story you see online is real or fake. Name a trusted news source."
-        // },
-        // {
-        //     id: 15,
-        //     text: "You're signing up for a new website. It asks for a password.",
-        //     choices: [
-        //         { text: "Use the same password you use for everything else.", points: -25, feedback: "If one account gets hacked, all your accounts are at risk. Use unique passwords." },
-        //         { text: "Use your pet's name and your birthday, like \"Fluffy2012\".", points: -15, feedback: "This is easy for someone who knows you to guess." },
-        //         { text: "Use three random words, like \"CorrectHorseBattery\".", points: 20, feedback: "A great method for creating strong, memorable passwords." },
-        //         { text: "Use a password manager to generate a random password.", points: 25, feedback: "The gold standard for password security. Fantastic choice." },
-        //     ],
-        //     followUpQuestion: "Explain why using the same password for multiple websites is a bad idea. Describe how to create a strong password."
-        // },
-        // {
-        //     id: 16,
-        //     text: "You post a great photo on Instagram from your family holiday.",
-        //     choices: [
-        //         { text: "Tag the exact hotel you are staying at.", points: -20, feedback: "This tells everyone you're not at home, which could make your house a target for burglary." },
-        //         { text: "Tag the general city you're in, like \"London\".", points: 5, feedback: "Better, but still gives away that you are away from home." },
-        //         { text: "Post the photo, but don't add any location tag.", points: 15, feedback: "A safe option. You're sharing the memory without sharing your live location." },
-        //         { text: "Wait until you get home to post your holiday photos.", points: 25, feedback: "The safest way to share holiday pictures. It protects your privacy and security." },
-        //     ],
-        //     followUpQuestion: "Explain how posting photos while you are on holiday could be a security risk."
-        // },
-        // {
-        //     id: 17,
-        //     text: "In a class WhatsApp group, a few people are making fun of someone's new haircut using unkind memes.",
-        //     choices: [
-        //         { text: "'Like' or react to the funny memes.", points: -25, feedback: "This makes you part of the cyberbullying problem. Your reaction encourages the bullies." },
-        //         { text: "Leave the group.", points: -5, feedback: "This removes you from the situation but doesn't help the person being targeted." },
-        //         { text: "Privately message the person being made fun of and ask if they are okay.", points: 20, feedback: "An incredibly kind and supportive action. It can make a huge difference." },
-        //         { text: "Take a screenshot and show it to a teacher or your parents.", points: 25, feedback: "Excellent. Reporting the bullying to a trusted adult is the best way to make it stop." },
-        //     ],
-        //     followUpQuestion: "Describe two different positive actions you could take if you see cyberbullying happening in a group chat."
-        // },
-        // {
-        //     id: 18,
-        //     text: "You're installing a new game. A huge wall of text appears (the Terms & Conditions).",
-        //     choices: [
-        //         { text: "Scroll to the bottom and click 'Agree' without reading.", points: -10, feedback: "Very common, but you could be agreeing to anything, like letting them sell your personal information." },
-        //         { text: "Ask a parent or older sibling to look at it with you.", points: 15, feedback: "A good idea to get help understanding what you're agreeing to." },
-        //         { text: "Try to find a summary of the T&Cs online.", points: 20, feedback: "A great research skill. Some websites simplify these long documents." },
-        //         { text: "Look for a 'key points' or 'TL;DR' section at the top.", points: 15, feedback: "Smart! Many apps now include summaries — they're easier to understand." },
-        //     ],
-        //     followUpQuestion: "State what kind of things might you be agreeing to if you don't read the Terms & Conditions."
-        // },
-        // {
-        //     id: 19,
-        //     text: "A friend tags you in a post where you are complaining about a teacher. This affects your digital footprint.",
-        //     choices: [
-        //         { text: "Laugh and share the post.", points: -20, feedback: "This is now part of your digital footprint. It looks disrespectful and could get you in trouble at school." },
-        //         { text: "Untag yourself from the post.", points: 15, feedback: "Good. This removes the direct link to your profile." },
-        //         { text: "Untag yourself and ask your friend to delete the post.", points: 25, feedback: "The best response. It manages your own reputation and shows respect for others." },
-        //         { text: "Comment on the post saying it was just a joke.", points: -5, feedback: "Even if you say it's a joke, the post still reflects poorly on you and stays online." },
-        //     ],
-        //     followUpQuestion: "Explain how a negative post about a teacher could damage your digital footprint."
-        // },
-        // {
-        //     id: 20,
-        //     text: "You find a website that lets you upload a photo of a friend and put their face into a funny video clip.",
-        //     choices: [
-        //         { text: "Do it without asking them. It's just a joke.", points: -25, feedback: "This is creating a 'deepfake'. Doing this without consent is a serious breach of their privacy." },
-        //         { text: "Ask your friend for permission before you do it.", points: 20, feedback: "Consent is key. If they say yes, it's just harmless fun." },
-        //         { text: "Decide not to do it, as it feels a bit weird.", points: 10, feedback: "Trusting your instincts is important. If something feels wrong, it's often best to avoid it." },
-        //         { text: "Use a celebrity photo instead of your friend's.", points: 5, feedback: "Better than using a friend without consent — but always consider ethical use and copyright." },
-        //     ],
-        //     followUpQuestion: "State what a deepfake is. Explain why creating one of a friend without their permission is a bad idea."
-        // }
+            ],
+            followUpQuestion: "Describe how you can check if a news story you see online is real or fake. Name a trusted news source."
+        },
+        {
+            id: 15,
+            text: "You're signing up for a new website. It asks for a password.",
+            choices: [
+                { text: "Use the same password you use for everything else.", points: -25, feedback: "If one account gets hacked, all your accounts are at risk. Use unique passwords." },
+                { text: "Use your pet's name and your birthday, like \"Fluffy2012\".", points: -15, feedback: "This is easy for someone who knows you to guess." },
+                { text: "Use three random words, like \"CorrectHorseBattery\".", points: 20, feedback: "A great method for creating strong, memorable passwords." },
+                { text: "Use a password manager to generate a random password.", points: 25, feedback: "The gold standard for password security. Fantastic choice." },
+            ],
+            followUpQuestion: "Explain why using the same password for multiple websites is a bad idea. Describe how to create a strong password."
+        },
+        {
+            id: 16,
+            text: "You post a great photo on Instagram from your family holiday.",
+            choices: [
+                { text: "Tag the exact hotel you are staying at.", points: -20, feedback: "This tells everyone you're not at home, which could make your house a target for burglary." },
+                { text: "Tag the general city you're in, like \"London\".", points: 5, feedback: "Better, but still gives away that you are away from home." },
+                { text: "Post the photo, but don't add any location tag.", points: 15, feedback: "A safe option. You're sharing the memory without sharing your live location." },
+                { text: "Wait until you get home to post your holiday photos.", points: 25, feedback: "The safest way to share holiday pictures. It protects your privacy and security." },
+            ],
+            followUpQuestion: "Explain how posting photos while you are on holiday could be a security risk."
+        },
+        {
+            id: 17,
+            text: "In a class WhatsApp group, a few people are making fun of someone's new haircut using unkind memes.",
+            choices: [
+                { text: "'Like' or react to the funny memes.", points: -25, feedback: "This makes you part of the cyberbullying problem. Your reaction encourages the bullies." },
+                { text: "Leave the group.", points: -5, feedback: "This removes you from the situation but doesn't help the person being targeted." },
+                { text: "Privately message the person being made fun of and ask if they are okay.", points: 20, feedback: "An incredibly kind and supportive action. It can make a huge difference." },
+                { text: "Take a screenshot and show it to a teacher or your parents.", points: 25, feedback: "Excellent. Reporting the bullying to a trusted adult is the best way to make it stop." },
+            ],
+            followUpQuestion: "Describe two different positive actions you could take if you see cyberbullying happening in a group chat."
+        },
+        {
+            id: 18,
+            text: "You're installing a new game. A huge wall of text appears (the Terms & Conditions).",
+            choices: [
+                { text: "Scroll to the bottom and click 'Agree' without reading.", points: -10, feedback: "Very common, but you could be agreeing to anything, like letting them sell your personal information." },
+                { text: "Ask a parent or older sibling to look at it with you.", points: 15, feedback: "A good idea to get help understanding what you're agreeing to." },
+                { text: "Try to find a summary of the T&Cs online.", points: 20, feedback: "A great research skill. Some websites simplify these long documents." },
+                { text: "Look for a 'key points' or 'TL;DR' section at the top.", points: 15, feedback: "Smart! Many apps now include summaries — they're easier to understand." },
+            ],
+            followUpQuestion: "State what kind of things might you be agreeing to if you don't read the Terms & Conditions."
+        },
+        {
+            id: 19,
+            text: "A friend tags you in a post where you are complaining about a teacher. This affects your digital footprint.",
+            choices: [
+                { text: "Laugh and share the post.", points: -20, feedback: "This is now part of your digital footprint. It looks disrespectful and could get you in trouble at school." },
+                { text: "Untag yourself from the post.", points: 15, feedback: "Good. This removes the direct link to your profile." },
+                { text: "Untag yourself and ask your friend to delete the post.", points: 25, feedback: "The best response. It manages your own reputation and shows respect for others." },
+                { text: "Comment on the post saying it was just a joke.", points: -5, feedback: "Even if you say it's a joke, the post still reflects poorly on you and stays online." },
+            ],
+            followUpQuestion: "Explain how a negative post about a teacher could damage your digital footprint."
+        },
+        {
+            id: 20,
+            text: "You find a website that lets you upload a photo of a friend and put their face into a funny video clip.",
+            choices: [
+                { text: "Do it without asking them. It's just a joke.", points: -25, feedback: "This is creating a 'deepfake'. Doing this without consent is a serious breach of their privacy." },
+                { text: "Ask your friend for permission before you do it.", points: 20, feedback: "Consent is key. If they say yes, it's just harmless fun." },
+                { text: "Decide not to do it, as it feels a bit weird.", points: 10, feedback: "Trusting your instincts is important. If something feels wrong, it's often best to avoid it." },
+                { text: "Use a celebrity photo instead of your friend's.", points: 5, feedback: "Better than using a friend without consent — but always consider ethical use and copyright." },
+            ],
+            followUpQuestion: "State what a deepfake is. Explain why creating one of a friend without their permission is a bad idea."
+        }
     ];
 
     // --- STATE MANAGEMENT ---
@@ -257,12 +257,12 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
 
     // --- GAME LOGIC ---
 
-    const shuffleArray = (array) => {
-        const newArr = [...array];
-        for (let i = newArr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
-        }
+const shuffleArray = <T,>(array: T[]): T[] => {
+    const newArr = [...array];
+    for (let i = newArr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+    }
     return newArr;
 };
 
