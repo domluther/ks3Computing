@@ -7,6 +7,7 @@ import PlaceholderPage from './components/PlaceholderPage';
 import HomePage from './pages/HomePage';
 import InputOutputTool from './pages/InputOutputTool';
 import ITSkillsGame from './pages/ITSkillsGame';
+import OnlineSafetyPage from './pages/OnlineSafetyPage';
 
 export default function App() {
     // This 'state' variable controls which page is currently visible.
@@ -30,8 +31,8 @@ export default function App() {
                 return <HomePage setActivePage={handleSetActivePage} />;
             case 'input-output':
                 return <InputOutputTool key={pageKey}/>;
-            case 'networks':
-                return <PlaceholderPage key={pageKey} title="Networks" icon="🌐" />;
+            case 'online-safety':
+                return <OnlineSafetyPage key={pageKey} />;
             case 'algorithms':
                 return <PlaceholderPage key={pageKey} title="Algorithms" icon="🔄" />;
             case 'it-skills':

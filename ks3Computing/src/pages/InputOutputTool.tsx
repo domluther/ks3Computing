@@ -115,18 +115,18 @@ const InputOutputTool: React.FC = () => {
 
                     {/* Drop Zones */}
                     <div onDrop={(e) => handleDrop(e, 'input')} onDragOver={handleDragOver} onDragLeave={handleDragLeave} className="absolute top-[15%] left-[12%] w-[25%] h-[60%] rounded-full flex flex-wrap gap-2 p-2 justify-center content-start transition-colors">
-                        {placedItems.filter(item => userAnswers[item] === 'input').map(item => (
-                            <div
-                                key={item}
-                                draggable
-                                onDragStart={(e) => handleDragStart(e, item)}
-                                onDragEnd={handleDragEnd}
-                                onClick={() => returnItemToList(item)}
-                                className={`${getItemClasses(item)} cursor-grab active:cursor-grabbing`}
-                            >
-                                {item}
-                            </div>
-                        ))}
+                    {placedItems.filter(item => userAnswers[item] === 'input').map(item => (
+                        <div
+                            key={item}
+                            draggable
+                            onDragStart={(e) => handleDragStart(e, item)}
+                            onDragEnd={handleDragEnd}
+                            onClick={() => returnItemToList(item)}
+                            className={`${getItemClasses(item)} cursor-grab active:cursor-grabbing`}
+                        >
+                            {item}
+                        </div>
+                    ))}
                     </div>
                     <div onDrop={(e) => handleDrop(e, 'output')} onDragOver={handleDragOver} onDragLeave={handleDragLeave} className="absolute top-[15%] right-[12%] w-[25%] h-[60%] rounded-full flex flex-wrap gap-2 p-2 justify-center content-start transition-colors">
                          {placedItems.filter(item => userAnswers[item] === 'output').map(item => (

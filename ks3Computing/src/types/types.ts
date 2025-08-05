@@ -1,4 +1,4 @@
-export type Page = 'home' | 'input-output' | 'networks' | 'algorithms' | 'it-skills';
+export type Page = 'home' | 'input-output' | 'online-safety' | 'algorithms' | 'it-skills';
 
 export interface HardwareData {
   [key: string]: 'input' | 'output' | 'both';
