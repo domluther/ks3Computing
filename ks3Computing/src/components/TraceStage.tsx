@@ -58,19 +58,21 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 
     ctx.beginPath();
     switch (level) {
-      case 'line':
+      case 'line':{
         startPos = { x: w * 0.1, y: h * 0.5 };
         endPos = { x: w * 0.9, y: h * 0.5 };
         ctx.moveTo(startPos.x, startPos.y);
         ctx.lineTo(endPos.x, endPos.y);
         break;
-      case 'wave':
+      }
+      case 'wave':{
         startPos = { x: w * 0.1, y: h * 0.5 };
         endPos = { x: w * 0.9, y: h * 0.5 };
         ctx.moveTo(startPos.x, startPos.y);
         ctx.bezierCurveTo(w * 0.3, h * 0.2, w * 0.7, h * 0.8, endPos.x, endPos.y);
         break;
-      case 'square':
+      }
+      case 'square':{
         startPos = { x: w * 0.2, y: h * 0.8 };
         endPos = { x: w * 0.8, y: h * 0.8 };
         ctx.moveTo(startPos.x, startPos.y);
@@ -78,7 +80,8 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
         ctx.lineTo(w * 0.8, h * 0.2);
         ctx.lineTo(endPos.x, endPos.y);
         break;
-      case 'circle':
+      }
+      case 'circle': {
         const circleCentreX = w / 2;
         const circleCentreY = h / 2;
         const radius = h * 0.35;
@@ -90,7 +93,8 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
         endPos = { x: circleCentreX + radius * Math.cos(circleEndAngle), y: circleCentreY + radius * Math.sin(circleEndAngle) };
         ctx.arc(circleCentreX, circleCentreY, radius, circleStartAngle, circleEndAngle);
         break;
-      case 'star':
+      }
+      case 'star':{
         const starCentreX = w / 2;
         const starCentreY = h / 2;
         const outerRadius = h * 0.3;
@@ -132,6 +136,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
         // Final line to the exact end position
         ctx.lineTo(endPos.x, endPos.y);
         break;
+      }
     }
 
     startRef.current = startPos;

@@ -75,7 +75,7 @@ const InputOutputTool: React.FC = () => {
     
     // Helper to get styling for placed items
     const getItemClasses = (item: string) => {
-        let baseClass = 'bg-green-500 text-white py-2 px-4 rounded-full cursor-pointer transition-all';
+        const baseClass = 'bg-green-500 text-white py-2 px-4 rounded-full cursor-pointer transition-all';
         if (isMarked && showAnswers) {
             const isCorrect = hardwareData[item] === userAnswers[item];
             return `${baseClass} ${isCorrect ? 'ring-2 ring-offset-2 ring-green-500' : 'bg-red-500 ring-2 ring-offset-2 ring-red-500'}`;

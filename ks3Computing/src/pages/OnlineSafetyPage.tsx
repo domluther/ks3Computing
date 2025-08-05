@@ -162,6 +162,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
                 { text: "Buy it without asking. You can pay them back later.", points: -30, feedback: "Making purchases without permission is like stealing and can get you into serious trouble." },
                 { text: "Ask your parents if you can buy it.", points: 25, feedback: "The only correct answer. Always get permission before spending money online." },
                 { text: "Close the pop-up and keep playing without the item.", points: 15, feedback: "Good self-control! You don't need to spend money to have fun." },
+                { text: "Look for a free alternative to the paid item.", points: 10, feedback: "A creative solution — you’re making thoughtful financial decisions." },
             ],
             followUpQuestion: "Describe why it is important to always get permission before making any in-app purchases."
         },
@@ -283,6 +284,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
             setDiscussionQuestions(questions);
         }
     }, [stage, poorChoiceQuestions]);
+    // TODO  React Hook useEffect has a missing dependency: 'scenarios'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
 
 
     const handleChoice = (points: number, feedback: string) => {
@@ -416,7 +418,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
     const renderResults = () => {
         let resultData;
         // New score boundaries for 20 questions
-        if (score >= 800) {
+        if (score >= 700) {
             resultData = {
                 title: "Excellent Digital Citizen!",
                 color: "text-green-600",
@@ -428,14 +430,14 @@ const shuffleArray = <T,>(array: T[]): T[] => {
                 ],
                 message: "Your positive and responsible online actions have earned you a high social credit score. You've helped make the internet a better place!"
             };
-        } else if (score < 300) {
+        } else if (score < 500) {
             resultData = {
                 title: "Low Social Score Warning",
                 color: "text-red-600",
                 icon: <XCircle className="w-20 h-20 mx-auto" />,
                 perks: [
                     { text: "Restricted internet speeds", icon: <WifiOff className="w-6 h-6 text-red-500" /> },
-                    { text: "Limited access to social apps", icon: <Lock className="w-6 h-6 text-red-500" /> },
+                    { text: "Limited access to social media", icon: <Lock className="w-6 h-6 text-red-500" /> },
                     { text: "Online posts require review", icon: <Shield className="w-6 h-6 text-red-500" /> }
                 ],
                 message: "Your choices have resulted in a low social credit score. This could lead to online restrictions. Reflect on how to be a safer and more respectful digital citizen."
