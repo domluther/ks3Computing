@@ -166,14 +166,17 @@ const InputOutputTool: React.FC = () => {
                     <button onClick={resetAll} className="bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:scale-105 transition-transform">
                         Reset
                     </button>
-                    <label className="flex items-center gap-2 text-lg">
-                        <input type="checkbox" checked={showAnswers} onChange={(e) => setShowAnswers(e.target.checked)} className="w-5 h-5"/>
-                        Show Answers
-                    </label>
+                    
                     {isMarked && (
+                    <>
+                        <label className="flex items-center gap-2 text-lg">
+                            <input type="checkbox" checked={showAnswers} onChange={(e) => setShowAnswers(e.target.checked)} className="w-5 h-5"/>
+                            Answer feedback
+                        </label>
                         <div className="bg-green-200 text-green-800 font-bold text-xl py-3 px-6 rounded-full">
                             Score: {score} / {placedItems.length}
                         </div>
+                    </>
                     )}
                 </div>
             </main>
