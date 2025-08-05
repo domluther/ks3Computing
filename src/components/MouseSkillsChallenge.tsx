@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import ClickStage from '../components/ClickStage';
-import DragStage from '../components/DragStage';
-import GameButton from '../components/GameButton';
-import DragDropStage from '../components/DragDropStage';
-import TraceStage from '../components/TraceStage';
+import ClickStage from './ClickStage';
+import DragStage from './DragStage';
+import GameButton from './GameButton';
+import DragDropStage from './DragDropStage';
+import TraceStage from './TraceStage';
 
 const MouseSkillsChallenge = () => {
     type MouseGameStage = 'intro' | 'tracing' | 'clicking' | 'dragging' | 'dragDropping' | 'results';

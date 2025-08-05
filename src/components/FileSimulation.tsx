@@ -1,6 +1,6 @@
 // src/pages/ITSkillsGame.tsx
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import GameButton from '../components/GameButton';
+import GameButton from './GameButton';
 
 // --- SVG ICONS ---
 const FolderIcon = ({ className }: { className?: string }) => (
