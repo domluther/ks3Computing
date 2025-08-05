@@ -125,6 +125,121 @@ const simulationLevels: Level[] = [
             }},
         ]
     },
+    {
+        id: 4,
+        title: "Level 4: Sorting School Subjects",
+        initialItems: {
+            'root': { id: 'root', name: 'Desktop', type: 'folder', parentId: null },
+            'docs': { id: 'docs', name: 'Documents', type: 'folder', parentId: 'root' },
+            'maths_homework': { id: 'maths_homework', name: 'Fractions Practice.pdf', type: 'file', parentId: 'docs' },
+            'eng_essay': { id: 'eng_essay', name: 'First Day Essay.docx', type: 'file', parentId: 'docs' },
+            'sci_project': { id: 'sci_project', name: 'Volcano Presentation.pptx', type: 'file', parentId: 'docs' },
+        },
+        steps: [
+            { id: 1, description: "Open the 'Documents' folder.", isCompleted: (_, currentId) => currentId === 'docs' },
+            { id: 2, description: "Create folders named 'Maths', 'English', and 'Science'.", isCompleted: (items, currentId) => {
+                const children = Object.values(items).filter(i => i.parentId === currentId);
+                return ['Maths', 'English', 'Science'].every(name => children.some(c => c.name === name));
+            }},
+            { id: 3, description: "Move 'Fractions Practice.pdf' into the 'Maths' folder.", isCompleted: (items) => {
+                const maths = Object.values(items).find(i => i.name === 'Maths');
+                return !!(maths && items['maths_homework'].parentId === maths.id);
+            }},
+            { id: 4, description: "Move 'First Day Essay.docx' into the 'English' folder.", isCompleted: (items) => {
+                const english = Object.values(items).find(i => i.name === 'English');
+                return !!(english && items['eng_essay'].parentId === english.id);
+            }},
+            { id: 5, description: "Move 'Volcano Presentation.pptx' into the 'Science' folder.", isCompleted: (items) => {
+                const science = Object.values(items).find(i => i.name === 'Science');
+                return !!(science && items['sci_project'].parentId === science.id);
+            }},
+        ]
+    },
+    {
+        id: 5,
+        title: "Level 5: Cleaning Up Documents",
+        initialItems: {
+            'root': { id: 'root', name: 'Desktop', type: 'folder', parentId: null },
+            'documents': { id: 'documents', name: 'Documents', type: 'folder', parentId: 'root' },
+            'downloads': { id: 'downloads', name: 'Downloads', type: 'folder', parentId: 'root' },
+            'file1': { id: 'file1', name: 'Times Tables Practice.docx', type: 'file', parentId: 'documents' },
+            'file2': { id: 'file2', name: 'Review.docx', type: 'file', parentId: 'documents' },
+            'file3': { id: 'file3', name: 'Silly Face.png', type: 'file', parentId: 'documents' },
+            'file4': { id: 'file4', name: 'Checklist.docx', type: 'file', parentId: 'documents' },
+            'file5': { id: 'file5', name: 'Funny Dog.jpg', type: 'file', parentId: 'documents' },
+        },
+        steps: [
+            { id: 1, description: "Open the 'Documents' folder.", isCompleted: (_, currentId) => currentId === 'documents' },
+            { id: 2, description: "Delete the files that are not school-related: 'Silly Face.png' and 'Funny Dog.jpg'.", isCompleted: (items) => {
+                return !items['file3'] && !items['file5'];
+            }},
+            { id: 3, description: "Create folders: 'Maths', 'English', and 'Other'.", isCompleted: (items, currentId) => {
+                const children = Object.values(items).filter(i => i.parentId === currentId);
+                return ['Maths', 'English', 'Other'].every(name => children.some(c => c.name === name));
+            }},
+            { id: 4, description: "Move 'Times Tables Practice.docx' into the 'Maths' folder.", isCompleted: (items) => {
+                const maths = Object.values(items).find(i => i.name === 'Maths');
+                return !!(maths && items['file1']?.parentId === maths.id);
+            }},
+            { id: 5, description: "Rename 'Review.docx' to 'Book Review.docx' and move it into the 'English' folder.", isCompleted: (items) => {
+                const english = Object.values(items).find(i => i.name === 'English');
+                const renamedFile = Object.values(items).find(i => i.name === 'Book Review.docx');
+                return !!(english && renamedFile && renamedFile.parentId === english.id);
+            }},
+            { id: 6, description: "Move 'Checklist.docx' into the 'Other' folder.", isCompleted: (items) => {
+                const other = Object.values(items).find(i => i.name === 'Other');
+                return !!(other && items['file4']?.parentId === other.id);
+            }},
+        ]
+    },
+    {
+        id: 6,
+        title: "Level 6: Getting Ready for a Presentation",
+        initialItems: {
+            'root': { id: 'root', name: 'Desktop', type: 'folder', parentId: null },
+            'documents': { id: 'documents', name: 'Documents', type: 'folder', parentId: 'root' },
+            'desktop_file1': { id: 'desktop_file1', name: 'Climate Change.pptx', type: 'file', parentId: 'root' },
+            'desktop_file2': { id: 'desktop_file2', name: 'Speaker Notes.docx', type: 'file', parentId: 'root' },
+            'desktop_file3': { id: 'desktop_file3', name: 'Melting Glacier.png', type: 'file', parentId: 'root' },
+        },
+        steps: [
+            { id: 1, description: "Move all three files into the 'Documents' folder.", isCompleted: (items) => {
+                return ['desktop_file1', 'desktop_file2', 'desktop_file3'].every(id => items[id]?.parentId === 'documents');
+            }},
+            { id: 2, description: "Create a new folder inside 'Documents' called 'Science'.", isCompleted: (items) => {
+                return !!Object.values(items).find(i => i.name === 'Science' && i.parentId === 'documents');
+            }},
+            { id: 3, description: "Move all three files into the 'Science' folder.", isCompleted: (items) => {
+                const science = Object.values(items).find(i => i.name === 'Science' && i.parentId === 'documents');
+                if (!science) return false;
+                return ['desktop_file1', 'desktop_file2', 'desktop_file3'].every(id => items[id]?.parentId === science.id);
+            }},
+            { id: 4, description: "Open the 'Science' folder.", isCompleted: (items, currentId) => {
+                return items[currentId]?.name === 'Science';
+            }},
+            { id: 5, description: "Create a new folder inside 'Science' called 'Climate Change'.", isCompleted: (items, currentId) => {
+                return !!Object.values(items).find(i => i.name === 'Climate Change' && i.parentId === currentId);
+            }},
+            { id: 6, description: "Move all three files into the 'Climate Change' folder.", isCompleted: (items) => {
+                const presentation = Object.values(items).find(i => i.name === 'Climate Change');
+                if (!presentation) return false;
+                return ['desktop_file1', 'desktop_file2', 'desktop_file3'].every(id => items[id]?.parentId === presentation.id);
+            }},
+            { id: 7, description: "Open the 'Climate Change' folder.", isCompleted: (items, currentId) => {
+                return items[currentId]?.name === 'Climate Change';
+            }},
+            { id: 8, description: "Create a new folder inside 'Climate Change' called 'Images'.", isCompleted: (items, currentId) => {
+                return !!Object.values(items).find(i => i.name === 'Images' && i.parentId === currentId);
+            }},
+            { id: 9, description: "Move 'Melting Glacier.png' into the 'Images' folder.", isCompleted: (items) => {
+                const images = Object.values(items).find(i => i.name === 'Images');
+                return !!(images && items['desktop_file3']?.parentId === images.id);
+            }},
+        ]
+    }
+
+
+
     // More levels can be added here
 ];
 
