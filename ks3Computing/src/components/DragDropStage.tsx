@@ -101,19 +101,31 @@ const DragDropStage: React.FC<DragDropStageProps> = ({ onComplete, onRestart }) 
                (x + duckRadius > w * 0.45 && x - duckRadius < w * 0.45 + 30 && 
                 y + duckRadius > h * 0.65 && y - duckRadius < h * 0.9);
       case 'maze':
-        // TODO Check geometry - seems wrong + doesn't match what is shown in the canvas
-        return (x + duckRadius > w * 0.15 && x - duckRadius < w * 0.15 + 30 && 
-                y + duckRadius > h * 0.0 && y - duckRadius < h * 0.4) ||
-               (x + duckRadius > w * 0.35 && x - duckRadius < w * 0.35 + 30 && 
+        return ( // Wall 1: vertical left
+                (x + duckRadius > w * 0.15 && x - duckRadius < w * 0.15 + 30 &&
+                y + duckRadius > 0 && y - duckRadius < h * 0.4) ||
+
+                // Wall 2: vertical mid
+                (x + duckRadius > w * 0.35 && x - duckRadius < w * 0.35 + 30 &&
                 y + duckRadius > h * 0.25 && y - duckRadius < h * 0.65) ||
-               (x + duckRadius > w * 0.55 && x - duckRadius < w * 0.55 + 30 && 
-                y + duckRadius > h * 0.0 && y - duckRadius < h * 0.35) ||
-               (x + duckRadius > w * 0.75 && x - duckRadius < w * 0.75 + 30 && 
+
+                // Wall 3: vertical right-top
+                (x + duckRadius > w * 0.55 && x - duckRadius < w * 0.55 + 30 &&
+                y + duckRadius > 0 && y - duckRadius < h * 0.35) ||
+
+                // Wall 4: vertical right-bottom
+                (x + duckRadius > w * 0.75 && x - duckRadius < w * 0.75 + 30 &&
                 y + duckRadius > h * 0.5 && y - duckRadius < h * 1.0) ||
-               (x + duckRadius > w * 0.25 && x - duckRadius < w * 0.65 + 30 && 
+
+                // Wall 5: horizontal mid-bottom
+                (x + duckRadius > w * 0.25 && x - duckRadius < w * 0.25 + w * 0.4 &&
                 y + duckRadius > h * 0.7 && y - duckRadius < h * 0.7 + 30) ||
-               (x + duckRadius > w * 0.05 && x - duckRadius < w * 0.25 + 30 && 
-                y + duckRadius > h * 0.6 && y - duckRadius < h * 0.6 + 30);
+
+                // Wall 6: horizontal left-bottom
+                (x + duckRadius > w * 0.05 && x - duckRadius < w * 0.05 + w * 0.2 &&
+                y + duckRadius > h * 0.6 && y - duckRadius < h * 0.6 + 30)
+              );
+
       default:
         return false;
     }
@@ -155,7 +167,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({ onComplete, onRestart }) 
     // Draw pond (goal)
     ctx.fillStyle = '#3b82f6';
     ctx.beginPath();
-    ctx.arc(goalPos.x, goalPos.y, 50, 0, 2 * Math.PI);
+    ctx.arc(goalPos.x, goalPos.y, 75, 0, 2 * Math.PI);
     ctx.fill();
     
     // Add pond label
@@ -163,7 +175,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({ onComplete, onRestart }) 
     ctx.font = 'bold 16px sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('POND', goalPos.x, goalPos.y);
+    // ctx.fillText('POND', goalPos.x, goalPos.y);
 
     // Draw duck emoji
     ctx.font = '50px Arial';
@@ -229,7 +241,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({ onComplete, onRestart }) 
     if (isPointNear(x, y, goalPos.x, goalPos.y, 60)) {
       setMessage('Great! Now drop the duck in the pond to complete the level!');
     } else {
-      setMessage('Keep going! Drag the duck to the pond.');
+      setMessage('Keep going! Drag the duck to the middle of the pond.');
     }
   };
 

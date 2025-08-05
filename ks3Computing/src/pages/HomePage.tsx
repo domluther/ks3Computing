@@ -14,8 +14,11 @@ const HomePage: React.FC<HomePageProps> = ({ setActivePage }) => (
             Hello Year 7, 8, and 9 students! This website contains a collection of interactive tools and activities designed to help you learn and practice key concepts in Computing.
         </p>
         <div className="grid md:grid-cols-3 gap-6">
+            {/* Don't show the home button on the home screen */}
             {navItems.map(item => (
-            <HomePageButton key={item.id} navItem={item} setActivePage={setActivePage} />
+                item.id !== 'home' ? (
+                    <HomePageButton key={item.id} navItem={item} setActivePage={setActivePage} />
+                ) : null
             ))}
 
         </div>
