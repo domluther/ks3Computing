@@ -33,23 +33,21 @@ Input & Output Tool: A drag-and-drop activity where students categorize computer
 Modules in Development:
 IT Skills: This section will focus on fundamental computer literacy.
 
-Mouse Skills Game (Made): An interactive game designed to help students master essential mouse operations:
+Mouse Skills Game (Completed): An interactive game designed to help students master essential mouse operations:
+-Single-clicking
+-Double-clicking
+-Dragging and dropping
 
-Single-clicking
+File & Folder Simulation (Completed): A tool that simulates the Windows desktop environment, allowing students to safely practice:
+-Creating folders
+-Renaming files and folders
+-Deleting files and folders
 
-Double-clicking
-
-Dragging and dropping
-
-File & Folder Simulation (Planned): A tool that simulates the Windows desktop environment, allowing students to safely practice:
-
-Creating folders
-
-Renaming files and folders
-
-Deleting files and folders
+Email - Undecided what this should involve.
 
 Future Modules (Placeholders):
-Networks: To teach concepts like network topologies, IP addresses, and the internet.
-
-Algorithms: To introduce fundamental sorting and searching algorithms visually.
+Computational Thinking?
+What is a computer? Input Process Output examples
+Online safety - click on concerns in phishing email
+Social credit score game?
+ASCII decoding?

@@ -11,22 +11,33 @@ import ITSkillsGame from './pages/ITSkillsGame';
 export default function App() {
     // This 'state' variable controls which page is currently visible.
     const [activePage, setActivePage] = useState<Page>('home');
+    const [pageKey, setPageKey] = useState<number>(0);
+
+    // This function updates the active page and forces a re-render if the same page is clicked again.
+    const handleSetActivePage = (page: Page) => {
+        if (page === activePage) {
+            setPageKey(prev => prev + 1);
+        } else {
+            setActivePage(page);
+            setPageKey(prev => prev + 1);
+        }
+    };
 
     // This function determines which component to render based on the activePage state.
     const renderPage = () => {
         switch (activePage) {
             case 'home':
-                return <HomePage setActivePage={setActivePage} />;
+                return <HomePage setActivePage={handleSetActivePage} />;
             case 'input-output':
-                return <InputOutputTool />;
+                return <InputOutputTool key={pageKey}/>;
             case 'networks':
-                return <PlaceholderPage title="Networks" icon="🌐" />;
+                return <PlaceholderPage key={pageKey} title="Networks" icon="🌐" />;
             case 'algorithms':
-                return <PlaceholderPage title="Algorithms" icon="🔄" />;
+                return <PlaceholderPage key={pageKey} title="Algorithms" icon="🔄" />;
             case 'it-skills':
-                return <ITSkillsGame />;
+                return <ITSkillsGame key={pageKey}/>;
             default:
-                return <HomePage setActivePage={setActivePage} />;
+                return <HomePage key={pageKey} setActivePage={handleSetActivePage} />;
         }
     };
 
@@ -34,7 +45,7 @@ export default function App() {
         <div className="bg-slate-50 min-h-screen font-sans">
             <div className="max-w-7xl mx-auto bg-white shadow-2xl rounded-b-lg">
                 <Header />
-                <Navbar activePage={activePage} setActivePage={setActivePage} />
+                <Navbar activePage={activePage} setActivePage={handleSetActivePage} />
                 <main>
                     {renderPage()}
                 </main>
