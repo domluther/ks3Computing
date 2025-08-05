@@ -7,3 +7,5 @@ export interface HardwareData {
 export interface UserAnswers {
   [key: string]: 'input' | 'output' | 'both';
 }
+
+export type PageDescription = { id: Page; emoji: string; title: string; description: string; enabled: boolean }
