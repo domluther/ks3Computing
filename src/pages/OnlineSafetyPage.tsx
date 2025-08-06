@@ -38,7 +38,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             id: 2,
             text: "A new app asks for permission to access your contacts, location, and photos. The app lets you add funny filters to pictures.",
             choices: [
-                { text: "Accept all permissions without reading. You want the filters!", points: -20, feedback: "Always question why an app needs certain data. Giving away personal info can be risky." },
+                { text: "Accept all permissions without reading. You want the filters!", points: -25, feedback: "Always question why an app needs certain data. Giving away personal info can be risky." },
                 { text: "Deny all permissions.", points: 5, feedback: "This is safe, but you might miss out on app features. There's a more balanced option." },
                 { text: "Check the app's privacy policy and only grant permissions that seem necessary.", points: 25, feedback: "Perfect! Being an informed digital citizen means understanding what you're sharing." },
                 { text: "Only allow the permissions while using the app.", points: 15, feedback: "A smart compromise — this limits access and improves privacy while using the app." },
@@ -51,7 +51,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             choices: [
                 { text: "Follow them back and start a conversation.", points: -25, feedback: "Interacting with strangers online can be dangerous. You don't know who they really are." },
                 { text: "Check their profile for mutual friends before deciding.", points: 10, feedback: "A good first step, but profiles can be faked. It's still a risk." },
-                { text: "Ignore the message and block the user.", points: 20, feedback: "This is the safest option. You are in control of who you interact with online." },
+                { text: "Ignore the message and block the user.", points: 25, feedback: "This is the safest option. You are in control of who you interact with online." },
                 { text: "Ask a parent or trusted adult what to do before responding.", points: 15, feedback: "Excellent. Seeking adult advice before acting is always a good step." },
             ],
             followUpQuestion: "Explain why it is risky to talk to strangers online, even if they seem friendly or have mutual friends."
@@ -60,7 +60,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             id: 4,
             text: "You're playing an online game and another player starts using abusive language towards your teammate.",
             choices: [
-                { text: "Join in and insult them back.", points: -30, feedback: "Adding to the negativity makes the online space worse for everyone." },
+                { text: "Join in and insult them back.", points: -40, feedback: "Adding to the negativity makes the online space worse for everyone." },
                 { text: "Use the game's 'report player' function.", points: 25, feedback: "The best action. Reporting helps keep the game fun and safe for all players." },
                 { text: "Send your teammate a supportive message.", points: 15, feedback: "A kind gesture that can make a big difference to someone's experience." },
                 { text: "Quit the game.", points: -5, feedback: "While this removes you from the situation, it doesn't help solve the problem." },
@@ -80,10 +80,10 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
         },
         {
             id: 6,
-            text: "You're about to post a photo from a party. You look a bit silly in it, but it's funny.",
+            text: "You're about to post a group photo from a party. You look a bit silly in it, but it's funny.",
             choices: [
                 { text: "Post it. It's just a laugh and part of my digital footprint.", points: -15, feedback: "This photo is now part of your digital footprint forever. Future schools or employers might see it." },
-                { text: "Ask the friends in the photo if they're okay with you posting it.", points: 20, feedback: "Great idea. Always get consent before posting photos of others." },
+                { text: "Ask the friends in the photo if they're okay with you posting it.", points: 25, feedback: "Great idea. Always get consent before posting photos of others." },
                 { text: "Post it but only to your 'close friends' list.", points: 5, feedback: "Better, but 'close friends' can still screenshot and share it. Think before you post." },
                 { text: "Decide not to post it.", points: 10, feedback: "A safe choice. Not everything needs to be shared online." },
             ],
@@ -93,7 +93,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             id: 7,
             text: "You get a text from an unknown number: \"Hi mum, I've broken my phone. Can you send me £50 to get it fixed?\"",
             choices: [
-                { text: "Send the money immediately. You have to help!", points: -30, feedback: "This is a common scam. Scammers pretend to be family members in trouble." },
+                { text: "Send the money immediately. You have to help!", points: -40, feedback: "This is a common scam. Scammers pretend to be family members in trouble." },
                 { text: "Text back asking \"who is this?\".", points: -5, feedback: "Replying confirms your number is active. They might target you with more scams." },
                 { text: "Try to call your mum's original number to check if she's okay.", points: 25, feedback: "The best action. Always verify unusual requests through a different, trusted method." },
                 { text: "Ignore and delete the message.", points: 15, feedback: "A good, safe option." },
@@ -105,9 +105,9 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             text: "Your friend tells you a secret and makes you promise not to tell anyone. Later, your other friend asks you what's going on.",
             choices: [
                 { text: "Tell them the secret. They're your best friend too.", points: -25, feedback: "Breaking someone's trust by sharing information without consent can damage a friendship." },
-                { text: "Tell them you can't say because you promised.", points: 20, feedback: "Respecting people's privacy and consent is a key part of being a good friend." },
+                { text: "Tell them you can't say because you promised.", points: 25, feedback: "Respecting people's privacy and consent is a key part of being a good friend." },
                 { text: "Hint at the secret without giving all the details.", points: -10, feedback: "This is still a form of gossip and can lead to the secret getting out." },
-                { text: "Change the subject or distract them without mentioning the secret.", points: 10, feedback: "A subtle way to protect your friend's privacy without creating tension." },
+                { text: "Change the subject or distract them without mentioning the secret.", points: 15, feedback: "A subtle way to protect your friend's privacy without creating tension." },
             ],
             followUpQuestion: "Define what 'consent' means in the context of sharing information online."
         },
@@ -127,7 +127,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             text: "You post a video of your new hobby, and a troll comments \"this is so boring, get a life\".",
             choices: [
                 { text: "Post an angry reply defending your hobby.", points: -10, feedback: "This is what a troll wants! They feed on angry reactions." },
-                { text: "Delete their comment and block the user.", points: 20, feedback: "A great way to manage your online space. You don't have to put up with negativity." },
+                { text: "Delete their comment and block the user.", points: 25, feedback: "A great way to manage your online space. You don't have to put up with negativity." },
                 { text: "Reply with a joke.", points: 10, feedback: "Sometimes humour can disarm a troll, but blocking is often safer and easier." },
                 { text: "Feel sad and delete your video.", points: -15, feedback: "Don't let one negative person stop you from enjoying your hobbies." },
             ],
@@ -139,7 +139,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             choices: [
                 { text: "Enter all the details to get your result.", points: -25, feedback: "This is way too much personal information. It can be used for identity theft." },
                 { text: "Make up fake details to do the quiz.", points: 15, feedback: "A clever way to protect your privacy while still having fun." },
-                { text: "Close the page. It's not worth the risk.", points: 20, feedback: "A very sensible and safe decision." },
+                { text: "Close the page. It's not worth the risk.", points: 25, feedback: "A very sensible and safe decision." },
                 { text: "Use your real name but a fake birthday and school.", points: -10, feedback: "Still risky. Your full name is a key piece of personal data." },
             ],
             followUpQuestion: "List three pieces of personal information you should never share online and explain why."
@@ -151,16 +151,16 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
                 { text: "Do a silly dance in front of a camera.", points: 0, feedback: "Harmless fun, but it highlights that you are being recorded in public spaces." },
                 { text: "Feel worried and want to go home.", points: -5, feedback: "It's okay to be aware of cameras, but they are also there for public safety." },
                 { text: "Discuss with your friends why the cameras are there.", points: 15, feedback: "Good. Thinking critically about surveillance and its purpose (like safety) is a smart habit." },
-                { text: "Look around to see if there are signs explaining who owns the cameras.", points: 15, feedback: "Good thinking. It's useful to know who is collecting data in public spaces." },
+                { text: "Look around to see if there are signs explaining who owns the cameras.", points: 25, feedback: "Good thinking. It's useful to know who is collecting data in public spaces." },
             ],
             followUpQuestion: "State two pros and cons of having CCTV cameras in public places."
         },
         {
             id: 13,
-            text: "You're playing a game on your phone that's connected to your parents' account. A pop-up offers a special item for £9.99.",
+            text: "You're playing a game on your phone that's connected to your parents' account. A pop-up offers a special item that you want for £9.99.",
             choices: [
                 { text: "Buy it without asking. You can pay them back later.", points: -30, feedback: "Making purchases without permission is like stealing and can get you into serious trouble." },
-                { text: "Ask your parents if you can buy it.", points: 25, feedback: "The only correct answer. Always get permission before spending money online." },
+                { text: "Ask your parents if you can buy it.", points: 25, feedback: "You always have to get permission before spending money online." },
                 { text: "Close the pop-up and keep playing without the item.", points: 15, feedback: "Good self-control! You don't need to spend money to have fun." },
                 { text: "Look for a free alternative to the paid item.", points: 10, feedback: "A creative solution — you’re making thoughtful financial decisions." },
             ],
@@ -217,7 +217,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             choices: [
                 { text: "Scroll to the bottom and click 'Agree' without reading.", points: -10, feedback: "Very common, but you could be agreeing to anything, like letting them sell your personal information." },
                 { text: "Ask a parent or older sibling to look at it with you.", points: 15, feedback: "A good idea to get help understanding what you're agreeing to." },
-                { text: "Try to find a summary of the T&Cs online.", points: 20, feedback: "A great research skill. Some websites simplify these long documents." },
+                { text: "Try to find a summary of the T&Cs online.", points: 25, feedback: "A great research skill. Some websites simplify these long documents." },
                 { text: "Look for a 'key points' or 'TL;DR' section at the top.", points: 15, feedback: "Smart! Many apps now include summaries — they're easier to understand." },
             ],
             followUpQuestion: "State what kind of things might you be agreeing to if you don't read the Terms & Conditions."
@@ -238,7 +238,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             text: "You find a website that lets you upload a photo of a friend and put their face into a funny video clip.",
             choices: [
                 { text: "Do it without asking them. It's just a joke.", points: -25, feedback: "This is creating a 'deepfake'. Doing this without consent is a serious breach of their privacy." },
-                { text: "Ask your friend for permission before you do it.", points: 20, feedback: "Consent is key. If they say yes, it's just harmless fun." },
+                { text: "Ask your friend for permission before you do it.", points: 25, feedback: "Consent is key. If they say yes, it's just harmless fun." },
                 { text: "Decide not to do it, as it feels a bit weird.", points: 10, feedback: "Trusting your instincts is important. If something feels wrong, it's often best to avoid it." },
                 { text: "Use a celebrity photo instead of your friend's.", points: 5, feedback: "Better than using a friend without consent — but always consider ethical use and copyright." },
             ],

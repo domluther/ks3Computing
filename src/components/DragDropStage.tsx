@@ -268,7 +268,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({ onComplete, onRestart }) 
 
   return (
     <div className="w-full h-[60vh] flex flex-col items-center justify-center p-4">
-      <h3 className="text-2xl font-bold text-slate-700 mb-2">Stage 4: Duck Dragging</h3>
+      <h3 className="text-2xl font-bold text-slate-700 mb-2">Stage 3: Duck Dragging</h3>
       <p className="text-lg text-slate-500 mb-2 bg-yellow-100 p-2 rounded-lg">{message}</p>
       <div className="mb-2 text-lg font-semibold text-slate-700">Time: {elapsed.toFixed(1)}s</div>
       <div className="mb-2 text-md text-slate-600">

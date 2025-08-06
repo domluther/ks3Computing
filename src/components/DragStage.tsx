@@ -23,7 +23,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 
   const generateDucks = useCallback(() => {
     const newDucks = [];
-    for (let i = 0; i < 15; i++) { // Generate 15 ducks
+    for (let i = 0; i < 5; i++) { // Generate 15 ducks
       newDucks.push({
         id: i,
         x: Math.random() * 85,
@@ -124,7 +124,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 
   return (
     <div className="w-full h-[60vh] flex flex-col items-center p-4">
-      <h3 className="text-2xl font-bold text-slate-700 mb-2">Stage 3: Drag and Drop</h3>
+      <h3 className="text-2xl font-bold text-slate-700 mb-2">Stage 4: Drag and Duck</h3>
       <p className="text-lg text-slate-500 mb-2 bg-yellow-100 p-2 rounded-lg">Drag all the ducks to the pond!</p>
       <div className="mb-2 text-lg font-semibold text-slate-700">
         Time: {elapsed.toFixed(1)}s | Ducks remaining: {ducks.length}

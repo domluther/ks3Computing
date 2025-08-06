@@ -281,6 +281,22 @@ const FileSimulation = ({ onExit }: { onExit: () => void }) => {
             setFeedback(null);
         }
     }, [levelIndex]);
+
+    // Handle Enter key  when level is complete - Accidentally triggers if they press enter to name folder
+    // useEffect(() => {
+    //     const handleKeyDown = (e: KeyboardEvent) => {
+    //         if (e.key === 'Enter' && isLevelComplete && !isGameComplete) {
+    //             handleNext();
+    //         }
+    //         if (e.key === 'Enter' && isLevelComplete && isGameComplete) {
+    //             restartGame();
+    //         }
+    //     };
+
+    //     window.addEventListener('keydown', handleKeyDown);
+    //     return () => window.removeEventListener('keydown', handleKeyDown);
+    // }, [isLevelComplete, isGameComplete]);
+
     
     const restartLevel = () => {
         // This re-triggers the useEffect by setting the same index
@@ -375,8 +391,7 @@ const FileSimulation = ({ onExit }: { onExit: () => void }) => {
         }
     };
     
-    const
- handleContainerClick = (e: React.MouseEvent) => {
+    const handleContainerClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         setSelectedId(null);
         if (renamingId) {
@@ -397,7 +412,13 @@ const FileSimulation = ({ onExit }: { onExit: () => void }) => {
         e.preventDefault();
         e.stopPropagation();
         if (renamingId) return;
-        setContextMenu({ x: e.clientX, y: e.clientY, visible: true, targetId: itemId });
+        // Take into account window scroll position
+        setContextMenu({ 
+            x: e.clientX + window.scrollX, 
+            y: e.clientY + window.scrollY, 
+            visible: true, 
+            targetId: itemId 
+        });
         if(itemId) setSelectedId(itemId);
     };
 
@@ -519,7 +540,7 @@ const FileSimulation = ({ onExit }: { onExit: () => void }) => {
             </div>
             
             <div 
-                className="w-full h-[70vh] bg-teal-600 p-4 relative" 
+                className="w-full h-[50vh] bg-teal-600 p-4 relative" 
                 onClick={handleContainerClick} 
                 onContextMenu={(e) => handleRightClick(e, currentPathId === 'root' ? 'root' : null)}
             >

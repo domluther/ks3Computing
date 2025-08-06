@@ -1,18 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ClickStage from './ClickStage';
 import DragStage from './DragStage';
 import GameButton from './GameButton';
 import DragDropStage from './DragDropStage';
 import TraceStage from './TraceStage';
+import CelebrationModal from './CelebrationModal';
 
 const MouseSkillsChallenge = () => {
     type MouseGameStage = 'intro' | 'tracing' | 'clicking' | 'dragging' | 'dragDropping' | 'results';
-    interface TimeRecord { tracing: number | null; clicking: number | null; dragging: number | null; dragDropping: number | null; }
+    interface TimeRecord { tracing: number | null; clicking: number | null; dragDropping: number | null; dragging: number | null;  }
 
     const [stage, setStage] = useState<MouseGameStage>('intro');
-    const [times, setTimes] = useState<TimeRecord>({ tracing: null, clicking: null, dragging: null, dragDropping: null });
+    const [times, setTimes] = useState<TimeRecord>({ tracing: null, clicking: null, dragDropping: null, dragging: null });
+    const [showCelebration, setShowCelebration] = useState(false);
 
+    // ✅ Trigger celebration modal when stage becomes "results"
+    useEffect(() => {
+        if (stage === 'results') {
+            setShowCelebration(true);
+        }   
+    }, [stage]);
+
+  
     const handleComplete = (stageName: keyof TimeRecord, time: number, nextStage: MouseGameStage) => {
         setTimes(prev => ({ ...prev, [stageName]: time }));
         setStage(nextStage);
@@ -21,6 +31,7 @@ const MouseSkillsChallenge = () => {
     const resetGame = () => {
         setTimes({ tracing: null, clicking: null, dragging: null, dragDropping: null });
         setStage('intro');
+        setShowCelebration(false); // reset modal
     };
 
     const renderStage = () => {
@@ -36,11 +47,11 @@ const MouseSkillsChallenge = () => {
             case 'tracing':
                 return <TraceStage onComplete={(time) => handleComplete('tracing', time, 'clicking')} onRestart={resetGame} />;
             case 'clicking':
-                return <ClickStage onComplete={(time) => handleComplete('clicking', time, 'dragging')} onRestart={resetGame} />;
-            case 'dragging':
-                return <DragStage onComplete={(time) => handleComplete('dragging', time, 'dragDropping')} onRestart={resetGame} />;
+                return <ClickStage onComplete={(time) => handleComplete('clicking', time, 'dragDropping')} onRestart={resetGame} />;
             case 'dragDropping':
-                return <DragDropStage onComplete={(time) => handleComplete('dragDropping', time, 'results')} onRestart={resetGame} />;
+                return <DragDropStage onComplete={(time) => handleComplete('dragDropping', time, 'dragging')} onRestart={resetGame} />;
+            case 'dragging':
+                return <DragStage onComplete={(time) => handleComplete('dragging', time, 'results')} onRestart={resetGame} />;
             case 'results': {
                 const totalTimeSeconds = Object.values(times).reduce((sum, t) => sum + (t ?? 0), 0);
                 const minutes = Math.floor(totalTimeSeconds / 60);
@@ -69,7 +80,12 @@ const MouseSkillsChallenge = () => {
             }
         }
     };
-    return <>{renderStage()}</>;
+  return (
+    <>
+      {renderStage()}
+      {showCelebration && <CelebrationModal onClose={() => setShowCelebration(false)} />}
+    </>
+  );
 }
 
 export default MouseSkillsChallenge;
