@@ -41,7 +41,12 @@ const MouseSkillsChallenge = () => {
                 return <DragStage onComplete={(time) => handleComplete('dragging', time, 'dragDropping')} onRestart={resetGame} />;
             case 'dragDropping':
                 return <DragDropStage onComplete={(time) => handleComplete('dragDropping', time, 'results')} onRestart={resetGame} />;
-            case 'results':
+            case 'results': {
+                const totalTimeSeconds = Object.values(times).reduce((sum, t) => sum + (t ?? 0), 0);
+                const minutes = Math.floor(totalTimeSeconds / 60);
+                const seconds = Math.round(totalTimeSeconds % 60);
+                const formattedTotal = `${minutes}m ${seconds}s`;
+
                 return (
                     <div className="text-center p-8">
                         <h2 className="text-4xl font-bold text-slate-800 mb-4">🏆 Well Done! 🏆</h2>
@@ -53,10 +58,15 @@ const MouseSkillsChallenge = () => {
                                     <span>{value?.toFixed(2)} seconds</span>
                                 </div>
                             ))}
+                            <div className="flex justify-between text-xl font-bold pt-4 border-t border-slate-200">
+                                <span>Total time:</span>
+                                <span>{formattedTotal}</span>
+                            </div>
                         </div>
                         <GameButton onClick={resetGame} className="mt-8">Play Again</GameButton>
                     </div>
                 );
+            }
         }
     };
     return <>{renderStage()}</>;
