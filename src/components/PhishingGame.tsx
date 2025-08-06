@@ -74,14 +74,15 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
         {
             id: 3,
             type: 'phishing',
-            fromName: { text: 'Micro-soft Account Team', isSuspicious: true, reason: "The sender's name 'Micro-soft' is misspelled. Scammers often use slightly incorrect names to trick you." },
-            fromEmail: { text: 'security@microsft.com', isSuspicious: true, reason: "The sender's email 'microsft.com' is misspelled. Legitimate companies have correct spelling." },
+            fromName: { text: 'Micro-soft Account Team', isSuspicious: true, reason: "The sender's name 'Micro-soft' is misspellt. Scammers often use slightly incorrect names to trick you." },
+            fromEmail: { text: 'security@microsft.com', isSuspicious: true, reason: "The sender's email 'microsft.com' is misspellt. Legitimate companies have correct spelling." },
             subject: { text: 'Urgent: Unusual Sign-in Activity', isSuspicious: false, reason: "" },
             body: [
                 { text: `Hi ${name},`, isSuspicious: false, reason: "" },
                 { text: "We detected an unusual sign-in to your account from a new location.", isSuspicious: false, reason: "" },
                 { text: "If this wasn't you, please reset your pasword immediately to secure your account.", isSuspicious: true, reason: "Spelling mistakes like 'pasword' are a red flag. Professional companies check their emails for errors." },
                 { text: "If you don't do this, your account will be locked in 1 hour.", isSuspicious: true, reason: "Threatening to lock your account is a way to make you rush into a bad decision." },
+                { text: "Thank you", isSuspicious: false, reason: "" },
             ]
         },
         {
@@ -92,8 +93,8 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             subject: { text: 'Computing Homework - Algorithms', isSuspicious: false, reason: "" },
             body: [
                 { text: `Hello ${name},`, isSuspicious: false, reason: "" },
-                { text: "Hope you're having a good week.", isSuspicious: false, reason: "" },
-                { text: "Just confirming that the homework on algorithms is due in this Friday. Hand it in on the assignment in our Team.", isSuspicious: false, reason: "" },
+                { text: "Thank you for the email.", isSuspicious: false, reason: "" },
+                { text: "I'm just confirming that the Quiz It homework on algorithms is due in this Friday. If you've lost your sheet come to S7 for a spare copy.", isSuspicious: false, reason: "" },
                 { text: "Let me know if you have any questions.", isSuspicious: false, reason: "" },
                 { text: "Best wishes,\nMr. Luther", isSuspicious: false, reason: "" },
             ]
@@ -106,8 +107,8 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             subject: { text: 'Your School Storage is Almost Full', isSuspicious: false, reason: "" },
             body: [
                 { text: "Dear Student,", isSuspicious: true, reason: "A generic greeting like 'Dear Student' is suspicious. A real email from school would likely use your name." },
-                { text: "Your school cloud storage is 98% full. You will not be able to save your work soon.", isSuspicious: false, reason: "" },
-                { text: "To avoid disruption, please log in at the portal below to upgrade to a larger storage plan for free.", isSuspicious: true, reason: "An unexpected request to log in via a link can be a trick to steal your password. Go to the official website yourself instead.", url: "http://sandbach-login.com/storage" },
+                { text: "Your home drive is 90% full. You will not be able to save your work soon.", isSuspicious: false, reason: "" },
+                { text: "To avoid disruption, please log in to the website below to upgrade to a larger storage plan for free.", isSuspicious: true, reason: "An unexpected request to log in via a link can be a trick to steal your password. Go to the official website yourself instead.", url: "http://sandbach-login.com/storage" },
                 { text: "Failure to do so may result in loose of files.", isSuspicious: true, reason: "Spelling mistakes like 'loose' instead of 'loss' are a big red flag." },
             ]
         },
@@ -132,21 +133,21 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             subject: { text: 'Film Club this Thursday', isSuspicious: false, reason: "" },
             body: [
                 { text: `Hi everyone,`, isSuspicious: false, reason: "" },
-                { text: "A quick reminder that Film Club is on this Thursday after school in Room 12.", isSuspicious: false, reason: "" },
-                { text: "We'll be watching 'Spirited Away'. Hope to see you there!", isSuspicious: false, reason: "" },
+                { text: "A quick reminder that Film Club is on this Thursday after school in G8Way2.", isSuspicious: false, reason: "" },
+                { text: "We'll be watching 'Duck Tales'. Hope to see you there!", isSuspicious: false, reason: "" },
                 { text: "Mr. Jones", isSuspicious: false, reason: "" },
             ]
         },
         {
             id: 8,
             type: 'phishing',
-            fromName: { text: 'Instagran', isSuspicious: true, reason: "The name is misspelled as 'Instagran' instead of 'Instagram'." },
+            fromName: { text: 'Instagran', isSuspicious: true, reason: "The name is misspellt as 'Instagran' instead of 'Instagram'." },
             fromEmail: { text: 'login@instagran.net', isSuspicious: true, reason: "The domain is 'instagran.net', not the official 'instagram.com'." },
             subject: { text: 'Instagram Password Reset Request', isSuspicious: false, reason: "" },
             body: [
                 { text: "Someone tried to log in to your account from an unrecognised device.", isSuspicious: false, reason: "" },
                 { text: "If this was you, you can ignore this email.", isSuspicious: false, reason: "" },
-                { text: "If this wasn't you, secure your account here.", isSuspicious: true, reason: "This link goes to a fake website designed to steal your password.", url: "http://instagran-secure.com/reset" },
+                { text: "If this wasn't you, secure you're account here.", isSuspicious: true, reason: "This link goes to a fake website designed to steal your password and they wrote 'you're account'.", url: "http://instagran-secure.com/reset" },
                 { text: "Thanks,\nInstagran Support Team", isSuspicious: true, reason: "The sign-off is generic and doesn't match the official communication style." },
             ]
         },
@@ -154,12 +155,12 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             id: 9,
             type: 'phishing',
             fromName: { text: 'Sandbach High School', isSuspicious: false, reason: "" },
-            fromEmail: { text: 'noreply@sandbachigh.co.uk', isSuspicious: true, reason: "The domain 'sandbachigh' is misspelled. A real school email would come from 'sandbachhigh.co.uk'." },
+            fromEmail: { text: 'noreply@sandbachigh.co.uk', isSuspicious: true, reason: "The domain 'sandbachigh' is misspellt. A real school email would come from 'sandbachhigh.co.uk'." },
             subject: { text: 'Weekly Newsletter', isSuspicious: false, reason: "" },
             body: [
                 { text: "Dear Parents and Students,", isSuspicious: false, reason: "" },
                 { text: "Welcome to this week's newsletter.", isSuspicious: false, reason: "" },
-                { text: "You can read about our recent charity bake sale and see upcoming dates for your diary on the school website.", isSuspicious: true, reason: "Hovering over the link reveals a misspelled domain. Always check links before you click.", url: "https://www.sandbachigh.co.uk/news" },
+                { text: "You can read about our recent charity bake sale and see upcoming dates for your diary on the school website.", isSuspicious: true, reason: "Hovering over the link reveals a misspellt domain. Always check links before you click.", url: "https://www.sandbachigh.co.uk/news" },
                 { text: "Have a great weekend!\n Bob Bobberson", isSuspicious: true, reason: "A generic or unusual sign-off can be a red flag. Official school communications usually have a clear, professional closing." },
             ]
         },
@@ -168,12 +169,13 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             type: 'phishing',
             fromName: { text: 'School Payments', isSuspicious: false, reason: "" },
             fromEmail: { text: 'admin@sandbachhigh-school.com', isSuspicious: true, reason: "The domain 'sandbachhigh-school.com' is very close to the real one, but the extra hyphen is a giveaway that it's a fake." },
-            subject: { text: 'Urgent: Payment Required for School Trip', isSuspicious: false, reason: "" },
+            subject: { text: 'Payment Required for School Trip', isSuspicious: false, reason: "" },
             body: [
                 { text: "Dear Parent/Guardian,", isSuspicious: true, reason: "A generic greeting is often used in phishing emails." },
-                { text: "A payment of £25 is urgently required for the upcoming Geography trip.", isSuspicious: false, reason: "" },
+                { text: "A payment of £25 is required for the upcoming Geography trip.", isSuspicious: false, reason: "" },
                 { text: "Please submit payment by the end of today to secure your childs place.", isSuspicious: true, reason: "Grammar mistakes like a missing apostrophe in 'childs' are unprofessional and suspicious." },
                 { text: "Pay now via our secure online portal.", isSuspicious: true, reason: "This link leads to a fake payment site to steal card details.", url: "https://www.sandbach-payments.co/trip" },
+                { text: "Cheers \nThe Admin Team", isSuspicious: true, reason: "This is too informal for a school communication." },
             ]
         },
         {
@@ -185,20 +187,20 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             body: [
                 { text: "Dear Valued Customer,", isSuspicious: true, reason: "Banks will almost always address you by your full name, not a generic title." },
                 { text: "For you're protection, we have temporarily suspended your account due to suspicious activity.", isSuspicious: true, reason: "Using the wrong word ('you're' instead of 'your') is a clear sign of an unprofessional, and likely malicious, email." },
-                { text: "Please log in immediately to reactivate your account and review the transaction.", isSuspicious: true, reason: "This link leads to a fake login page designed to steal your bank details.", url: "http://yourbank-login-portal.com/auth" },
+                { text: "log in immediately to reactivate your account and stop your money getten taking.", isSuspicious: true, reason: "Poor English and this link leads to a fake login page designed to steal your bank details.", url: "http://yourbank-login-portal.com/auth" },
             ]
         },
         {
             id: 12,
             type: 'legitimate',
-            fromName: { text: 'Miss Williams', isSuspicious: false, reason: "" },
-            fromEmail: { text: 'sally.williams@sandbachhigh.co.uk', isSuspicious: false, reason: "" },
+            fromName: { text: 'Team History', isSuspicious: false, reason: "" },
+            fromEmail: { text: 'team.history@sandbachhigh.co.uk', isSuspicious: false, reason: "" },
             subject: { text: 'Year 10 History Trip to Chester - Update', isSuspicious: false, reason: "" },
             body: [
                 { text: `Hi ${name},`, isSuspicious: false, reason: "" },
                 { text: "Just a quick update about our trip next Tuesday. The coach will be leaving from the front of school at 8:45 AM sharp, so please be there by 8:30 AM.", isSuspicious: false, reason: "" },
                 { text: "Remember to bring a packed lunch and some water. You can find the full itinerary on the school website.", isSuspicious: false, reason: "" },
-                { text: "See you then,\nMiss Williams", isSuspicious: false, reason: "" },
+                { text: "See you then,\nTeam History", isSuspicious: false, reason: "" },
             ]
         },
         {
@@ -210,7 +212,7 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             body: [
                 { text: "Hi there,", isSuspicious: true, reason: "A real invoice email would likely be addressed to a specific person or company name." },
                 { text: "Attached is invoice INV-0876 for payment. This payment is now overdue.", isSuspicious: true, reason: "Receiving an unexpected invoice or attachment is a common phishing tactic." },
-                { text: "Please remit payment immediatly to avoid late fees.", isSuspicious: true, reason: "Spelling mistakes like 'immediatly' are a major red flag in a professional email." },
+                { text: "Please remit payment immediatly to avoid more late fees or closing account.", isSuspicious: true, reason: "Spelling mistakes like 'immediatly' are a major red flag in a professional email." },
                 { text: "Click here to view and pay the invoice.", isSuspicious: true, reason: "This link points to a non-official website to trick you into entering payment information.", url: "http://qb-pay-portal.com/inv-0876" },
             ]
         },
@@ -236,7 +238,7 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             body: [
                 { text: "Dear students,", isSuspicious: false, reason: "" },
                 { text: "Don't forget that the annual Careers Fair is taking place in the school hall next Wednesday afternoon.", isSuspicious: false, reason: "" },
-                { text: "We have representatives from lots of local businesses, colleges, and universities attending. It's a great opportunity to explore your options for the future.", isSuspicious: false, reason: "" },
+                { text: "We have representatives from lots of local businesses, colleges, and apprenticeship programs attending. It's a great opportunity to explore your options for the future.", isSuspicious: false, reason: "" },
                 { text: "Hope to see you all there!\nMrs. Palin", isSuspicious: false, reason: "" },
             ]
         },
@@ -274,7 +276,8 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             body: [
                 { text: "Hi,", isSuspicious: false, reason: "" },
                 { text: "Welcome to Code Club! We're so excited to have you.", isSuspicious: false, reason: "" },
-                { text: "Your first project, 'Scratch Cat Animator', is ready for you to start. Just log in to your account to get started. Happy coding!", isSuspicious: false, reason: "" },
+                { text: "Your first project, 'Scratch Cat Animator', is ready for you to start. Just log in to your account on the Code Club website to get started.", isSuspicious: false, reason: "" },
+                { text: "Happy coding!", isSuspicious: false, reason: "" },
             ]
         },
         {
@@ -318,7 +321,7 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
             id: 22,
             type: 'phishing',
             fromName: { text: 'Google Docs', isSuspicious: false, reason: "" },
-            fromEmail: { text: 'sharing-noreply@goooogle.com', isSuspicious: true, reason: "A misspelled domain like 'goooogle.com' is one of the most common and effective tricks scammers use." },
+            fromEmail: { text: 'sharing-noreply@goooogle.com', isSuspicious: true, reason: "A misspellt domain like 'goooogle.com' is one of the most common and effective tricks scammers use." },
             subject: { text: 'A document has been shared with you', isSuspicious: false, reason: "" },
             body: [
                 { text: `Hi, a document titled 'IMPORTANT: Class List' has been shared with you by a teacher.`, isSuspicious: false, reason: "" },
@@ -648,7 +651,7 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
                     <div className="text-left bg-sky-50 border-t-4 border-sky-400 p-4 rounded-lg my-8">
                         <h4 className="font-bold text-lg mb-2 text-sky-800">Key Takeaways: 3 Top Tips</h4>
                         <ul className="space-y-3 list-decimal list-inside text-sky-900">
-                           <li><strong>Check the Sender:</strong> Look closely at the "From" name and email address. Scammers often use misspelled names (like 'Micro-soft') or strange domains that look almost real (like 'school.co.uk.net').</li>
+                           <li><strong>Check the Sender:</strong> Look closely at the "From" name and email address. Scammers often use misspellt names (like 'Micro-soft') or strange domains that look almost real (like 'school.co.uk.net').</li>
                            <li><strong>Look for Mistakes & Urgency:</strong> Professional companies rarely send emails with spelling or grammar errors. Be suspicious of messages that pressure you to act "immediately" or threaten you with negative consequences.</li>
                            <li><strong>Hover, Don't Click:</strong> Always hover your mouse over links before clicking. A tooltip will show you the real website address. If it looks suspicious or doesn't match where the link claims to go, don't click it.</li>
                         </ul>
