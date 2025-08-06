@@ -1,5 +1,6 @@
 // src/pages/ITSkillsGame.tsx
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import GameButton from './GameButton';
 
 // --- SVG ICONS ---
@@ -243,7 +244,9 @@ const simulationLevels: Level[] = [
     // More levels can be added here
 ];
 
-const FileSimulation = ({ onExit }: { onExit: () => void }) => {
+const FileSimulation = () => {
+    const navigate = useNavigate();
+    
     // --- STATE MANAGEMENT ---
     const [levelIndex, setLevelIndex] = useState(0);
     const [stepIndex, setStepIndex] = useState(0);
@@ -536,7 +539,7 @@ const FileSimulation = ({ onExit }: { onExit: () => void }) => {
                         `Step ${stepIndex + 1}: ${currentStep?.description}`
                     }
                 </p>
-                <GameButton onClick={onExit} className="!absolute top-1/2 -translate-y-1/2 right-4 !py-2 !px-4">Exit</GameButton>
+                <GameButton onClick={() => navigate({ to: '/it-skills' as any })} className="!absolute top-1/2 -translate-y-1/2 right-4 !py-2 !px-4">Exit</GameButton>
             </div>
             
             <div 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { CheckCircle, XCircle, Shield, Mail, Fish, User, AtSign, AlertTriangle } from 'lucide-react';
+import { useNavigate } from '@tanstack/react-router';
 import GameButton from '../components/GameButton';
 import { shuffleArray } from '../utils/utils';
 
@@ -7,7 +8,9 @@ import { shuffleArray } from '../utils/utils';
 const EMAILS_PER_GAME = 10;
 
 // --- PHISHING GAME COMPONENT ---
-const PhishingGame = ({ onExit }: { onExit: () => void }) => {
+const PhishingGame = () => {
+    const navigate = useNavigate();
+    
     // --- TYPE DEFINITIONS ---
     type GameStage = 'intro' | 'playing' | 'identifying' | 'feedback' | 'results';
     type EmailType = 'phishing' | 'legitimate';
@@ -435,7 +438,7 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
                 </div>
                 <GameButton onClick={startGame} className="w-full">Start Game </GameButton>
             </div>
-             <button onClick={onExit} className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6 mt-6">Back to Hub</button>
+             <button onClick={() => navigate({ to: '/online-safety' as any })} className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6 mt-6">Back to Hub</button>
         </div>
     );
     
@@ -659,7 +662,7 @@ const PhishingGame = ({ onExit }: { onExit: () => void }) => {
                     
                     <div className="flex justify-center gap-4 mt-8">
                         <GameButton onClick={resetGame}>Play Again</GameButton>
-                        <button onClick={onExit} className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6">Back to Hub</button>
+                        <button onClick={() => navigate({ to: '/online-safety' as any })} className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6">Back to Hub</button>
                     </div>
                 </div>
             </div>

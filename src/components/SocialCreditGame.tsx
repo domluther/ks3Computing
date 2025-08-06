@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { CheckCircle, XCircle, Shield, Wifi, WifiOff, Lock, HelpCircle } from 'lucide-react';
+import { useNavigate } from '@tanstack/react-router';
 import GameButton from '../components/GameButton';
 import { shuffleArray } from '../utils/utils';
 
-const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
+const SocialCreditGame = () => {
+    const navigate = useNavigate();
+    
     // --- TYPE DEFINITIONS ---
     type GameStage = 'intro' | 'playing' | 'feedback' | 'results';
 
@@ -340,7 +343,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             </p>
             <div className="flex justify-center gap-4">
                  <GameButton onClick={startGame}>Start Game</GameButton>
-                 <button onClick={onExit} className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6">Back to Hub</button>
+                 <button onClick={() => navigate({ to: '/online-safety' as any })} className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6">Back to Hub</button>
             </div>
         </div>
     );
@@ -472,7 +475,7 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
 
                     <div className="flex justify-center gap-4 mt-8">
                         <GameButton onClick={resetGame}>Play Again</GameButton>
-                        <button onClick={onExit} className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6">Back to Hub</button>
+                        <button onClick={() => navigate({ to: '/online-safety' as any })} className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6">Back to Hub</button>
                     </div>
                 </div>
             </div>
