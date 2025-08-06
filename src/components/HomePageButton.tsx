@@ -1,12 +1,25 @@
 import React from 'react';
-import type { Page, PageDescription } from '../types/types';
+import type { PageDescription } from '../types/types';
+import type { UseNavigateResult } from '@tanstack/react-router';
 
 type Props = {
   navItem: PageDescription;
-  setActivePage: (page: Page) => void;
+  navigate: UseNavigateResult<string>;
 };
 
-const HomePageButton: React.FC<Props> = ({ navItem, setActivePage }) => {
+// Map page IDs to routes
+const pageToRoute = (pageId: string): string => {
+  switch (pageId) {
+    case 'home': return '/';
+    case 'input-output': return '/input-output';
+    case 'online-safety': return '/online-safety';
+    case 'algorithms': return '/algorithms';
+    case 'it-skills': return '/it-skills';
+    default: return '/';
+  }
+};
+
+const HomePageButton: React.FC<Props> = ({ navItem, navigate }) => {
   const isEnabled = navItem.enabled;
 
   const baseClasses =
@@ -22,7 +35,7 @@ const HomePageButton: React.FC<Props> = ({ navItem, setActivePage }) => {
       className={`${baseClasses} ${
         isEnabled ? enabledClasses : disabledClasses
       }`}
-      onClick={isEnabled ? () => setActivePage(navItem.id) : undefined}
+      onClick={isEnabled ? () => navigate({ to: pageToRoute(navItem.id) }) : undefined}
     >
       <h3 className="text-2xl font-bold mb-2">
         {navItem.emoji} {navItem.title}

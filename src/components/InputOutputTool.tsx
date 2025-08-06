@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import type { UserAnswers } from '../types/types';
+import type { HardwareTypes } from '../types/types';
 import { hardwareData, sortedHardwareItems } from '../data/hardwareData';
 
 const InputOutputTool: React.FC = () => {
     // State management using React Hooks
-    const [userAnswers, setUserAnswers] = useState<UserAnswers>({});
+    const [userAnswers, setUserAnswers] = useState<HardwareTypes>({});
     const [isMarked, setIsMarked] = useState(false);
     const [showAnswers, setShowAnswers] = useState(false);
     const [draggedItem, setDraggedItem] = useState<string | null>(null);

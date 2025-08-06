@@ -1,22 +1,42 @@
 import React from 'react';
-import type { Page } from '../types/types';
+import { useNavigate, useLocation } from '@tanstack/react-router';
 import { navItems } from '../data/pages';
 
-interface NavbarProps {
-    activePage: Page;
-    setActivePage: (page: Page) => void;
-}
+// Map page IDs to routes
+const pageToRoute = (pageId: string): string => {
+  switch (pageId) {
+    case 'home': return '/';
+    case 'input-output': return '/input-output';
+    case 'online-safety': return '/online-safety';
+    case 'algorithms': return '/algorithms';
+    case 'it-skills': return '/it-skills';
+    default: return '/';
+  }
+};
 
-const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage }) => {
+// Map current pathname to page ID for active state
+const pathToPageId = (pathname: string): string => {
+  if (pathname === '/') return 'home';
+  if (pathname === '/input-output') return 'input-output';
+  if (pathname.startsWith('/online-safety')) return 'online-safety';
+  if (pathname === '/algorithms') return 'algorithms';
+  if (pathname.startsWith('/it-skills')) return 'it-skills';
+  return 'home';
+};
+
+const Navbar: React.FC = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const currentPageId = pathToPageId(location.pathname);
 
     return (
         <nav className="bg-slate-800 flex justify-center flex-wrap">
             {navItems.map(item => (
                 <button
                     key={item.id}
-                    onClick={() => setActivePage(item.id)}
+                    onClick={() => navigate({ to: pageToRoute(item.id) })}
                     className={`flex-1 min-w-[150px] p-4 text-white font-semibold text-lg cursor-pointer transition-all duration-300
-                        ${activePage === item.id ? 'bg-red-500' : 'bg-slate-700 hover:bg-blue-600'}`}
+                        ${currentPageId === item.id ? 'bg-red-500' : 'bg-slate-700 hover:bg-blue-600'}`}
                 >
                     {item.title}
                 </button>

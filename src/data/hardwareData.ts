@@ -1,7 +1,7 @@
-import type { HardwareData } from '../types/types';
+import type { HardwareTypes } from '../types/types';
 
 // The data for the input/output tool.
-export const hardwareData: HardwareData = {
+export const hardwareData: HardwareTypes = {
     'Headphones': 'output',
     'Printer': 'output',
     'Scanner': 'input',
