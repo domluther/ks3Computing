@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CheckCircle, XCircle, Shield, Wifi, WifiOff, Lock, HelpCircle } from 'lucide-react';
 import GameButton from '../components/GameButton';
+import { shuffleArray } from '../utils/utils';
 
 // --- SOCIAL CREDIT GAME COMPONENT ---
 // This is the new game component for the social credit score activity.
@@ -18,7 +19,6 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             feedback: string;
         }[];
         followUpQuestion: string;
-        shuffledChoices?: { text: string; points: number; feedback: string }[];
     }
 
     // --- GAME DATA ---
@@ -245,6 +245,8 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
             followUpQuestion: "State what a deepfake is. Explain why creating one of a friend without their permission is a bad idea."
         }
     ];
+    const questionsToAsk = scenarios.length;
+    // const questionsToAsk = 5;
 
     // --- STATE MANAGEMENT ---
     const [stage, setStage] = useState<GameStage>('intro');
@@ -253,35 +255,26 @@ const SocialCreditGame = ({ onExit }: { onExit: () => void }) => {
     const [currentScenarioIndex, setCurrentScenarioIndex] = useState(0);
     const [lastChoice, setLastChoice] = useState<{ points: number; feedback: string } | null>(null);
     const [poorChoiceQuestions, setPoorChoiceQuestions] = useState<string[]>([]);
-    const [discussionQuestions, setDiscussionQuestions] = useState<string[]>([]);
+    const [followUpQuestions, setFollowUpQuestions] = useState<string[]>([]);
 
 
     // --- GAME LOGIC ---
 
-const shuffleArray = <T,>(array: T[]): T[] => {
-    const newArr = [...array];
-    for (let i = newArr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
-    }
-    return newArr;
-};
-
-    // Determine discussion questions when results stage is reached
+    // Determine follow-up questions when results stage is reached
     useEffect(() => {
         if (stage === 'results') {
-            let questions: string[] = [];
+            let tempQuestions: string[] = [];
             if (poorChoiceQuestions.length > 0) {
-                // Shuffle poor choices and take the first two
-                questions = [...poorChoiceQuestions].sort(() => 0.5 - Math.random()).slice(0, 2);
+                // Shuffle poor choices and take the first two (only 1 mistake -> 1 question)
+                tempQuestions = shuffleArray(poorChoiceQuestions).slice(0, 2);
             } else {
                 // Pick two random questions from all scenarios for perfect players
-                questions = scenarios
+                tempQuestions = scenarios
                     .map(s => s.followUpQuestion)
                     .sort(() => 0.5 - Math.random())
                     .slice(0, 2);
             }
-            setDiscussionQuestions(questions);
+            setFollowUpQuestions(tempQuestions);
         }
     }, [stage, poorChoiceQuestions]);
     // TODO  React Hook useEffect has a missing dependency: 'scenarios'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
@@ -301,7 +294,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
     };
 
     const handleNext = () => {
-        if (currentScenarioIndex < scenarios.length - 1) {
+        if (currentScenarioIndex < questionsToAsk - 1) {
             setCurrentScenarioIndex(prev => prev + 1);
             setStage('playing');
         } else {
@@ -313,7 +306,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
     const startGame = () => {
         const shuffled = shuffleArray(scenarios).map((s) => ({
             ...s,
-            shuffledChoices: shuffleArray(s.choices),
+            choices: shuffleArray(s.choices),
         }));
 
         setShuffledScenarios(shuffled);
@@ -321,16 +314,22 @@ const shuffleArray = <T,>(array: T[]): T[] => {
         setCurrentScenarioIndex(0);
         setLastChoice(null);
         setPoorChoiceQuestions([]);
-        setDiscussionQuestions([]);
+        setFollowUpQuestions([]);
         setStage('playing');
     }
 
     const resetGame = () => {
+        const shuffled = shuffleArray(scenarios).map((s) => ({
+            ...s,
+            choices: shuffleArray(s.choices),
+        }));
+
+        setShuffledScenarios(shuffled);
         setScore(500);
         setCurrentScenarioIndex(0);
         setLastChoice(null);
         setPoorChoiceQuestions([]);
-        setDiscussionQuestions([]);
+        setFollowUpQuestions([]);
         setStage('intro');
     };
 
@@ -352,7 +351,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
                 In some places, technology is used to track citizens' behaviour. This creates a 'social credit score' that can affect their lives.
             </p>
             <p className="text-lg text-slate-600 mb-8">
-                In this game, you'll face 20 online situations. Your choices will change your social credit score. At the end, you'll get some questions to discuss. See how your digital citizenship skills measure up!
+                In this game, you'll face {questionsToAsk} online situations. Your choices will change your social credit score. At the end, you'll get some questions to discuss. See how your digital citizenship skills measure up!
             </p>
             <div className="flex justify-center gap-4">
                  <GameButton onClick={startGame}>Start Game</GameButton>
@@ -364,19 +363,15 @@ const shuffleArray = <T,>(array: T[]): T[] => {
     const renderPlaying = () => {
         if (shuffledScenarios.length === 0) return null;
         const scenario = shuffledScenarios[currentScenarioIndex];
-        // console.log('Current Scenario:', scenario);
-        console.log('All Scenarios:', shuffledScenarios);
-        console.log(currentScenarioIndex, 'of', shuffledScenarios.length);
-        const choices = scenario.shuffledChoices ?? scenario.choices;
 
         return (
             <div className="w-full max-w-3xl p-8">
                 {renderScoreBar()}
                 <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-                    <p className="text-gray-500 font-medium mb-4">Question {currentScenarioIndex + 1} of {scenarios.length}</p>
+                    <p className="text-gray-500 font-medium mb-4">Question {currentScenarioIndex + 1} of {questionsToAsk}</p>
                     <p className="text-2xl font-semibold text-slate-700 mb-8">{scenario.text}</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {choices.map((choice, index) => (
+                        {scenario.choices.map((choice, index) => (
                             <button
                                 key={index}
                                 onClick={() => handleChoice(choice.points, choice.feedback)}
@@ -408,7 +403,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
                     </h3>
                     <p className="text-xl text-slate-600 mb-8">{lastChoice.feedback}</p>
                     <GameButton onClick={handleNext}>
-                        {currentScenarioIndex < scenarios.length - 1 ? 'Next Question' : 'See Results'}
+                        {currentScenarioIndex < questionsToAsk - 1 ? 'Next Question' : 'See Results'}
                     </GameButton>
                  </div>
             </div>
@@ -475,14 +470,14 @@ const shuffleArray = <T,>(array: T[]): T[] => {
                         </ul>
                     </div>
                     
-                    {discussionQuestions.length > 0 && (
+                    {followUpQuestions.length > 0 && (
                         <div className="text-left bg-amber-50 border-l-4 border-amber-400 p-6 rounded-lg max-w-2xl mx-auto mt-8">
                             <h4 className="font-bold text-xl mb-4 text-amber-800 flex items-center">
                                 <HelpCircle className="w-6 h-6 mr-2" />
-                                Points to Consider
+                                Follow up questions:
                             </h4>
                             <ul className="space-y-4 list-disc list-inside text-slate-700">
-                                {discussionQuestions.map((q, i) => (
+                                {followUpQuestions.map((q, i) => (
                                     <li key={i} className="text-lg">{q}</li>
                                 ))}
                             </ul>
