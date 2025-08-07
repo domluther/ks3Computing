@@ -196,16 +196,16 @@ const InputOutputTool: React.FC = () => {
 				{/* Controls */}
 				<div className="flex items-center gap-4 flex-wrap justify-center">
 					<button
-						type="button"
 						onClick={handleMarkWork}
 						className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:scale-105 transition-transform"
+						type="button"
 					>
 						Mark My Work
 					</button>
 					<button
-						type="button"
 						onClick={resetAll}
 						className="bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:scale-105 transition-transform"
+						type="button"
 					>
 						Reset
 					</button>

@@ -769,6 +769,7 @@ const SocialCreditGame = () => {
 				<button
 					onClick={() => navigate({ to: "/online-safety" })}
 					className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
+                    type="button"
 				>
 					Back to Hub
 				</button>
@@ -796,6 +797,7 @@ const SocialCreditGame = () => {
 								key={index}
 								onClick={() => handleChoice(choice.points, choice.feedback)}
 								className="bg-slate-100 text-slate-800 font-semibold p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left"
+								type="button"
 							>
 								{choice.text}
 							</button>
@@ -956,6 +958,7 @@ const SocialCreditGame = () => {
 						<button
 							onClick={() => navigate({ to: "/online-safety" })}
 							className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
+                            type="button"
 						>
 							Back to Hub
 						</button>

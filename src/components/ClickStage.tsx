@@ -103,12 +103,12 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 			>
 				{items.map((item) => (
 					<button
-						type="button"
 						key={item.id}
 						onMouseDown={(e) => handleClick(e, item)}
 						className={`absolute w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold text-white cursor-pointer select-none transition-transform hover:scale-110
               ${item.type.startsWith("L") ? "bg-blue-500" : "bg-red-500"}`}
 						style={{ left: `${item.x}%`, top: `${item.y}%` }}
+						type="button"
 					>
 						{item.type}
 					</button>
