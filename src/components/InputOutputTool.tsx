@@ -17,7 +17,7 @@ const InputOutputTool: React.FC = () => {
 
 	// Drag and Drop Handlers
 	const handleDragStart = (
-		e: React.DragEvent<HTMLDivElement>,
+		e: React.DragEvent<HTMLButtonElement>,
 		item: string,
 	) => {
 		setDraggedItem(item);
@@ -100,14 +100,15 @@ const InputOutputTool: React.FC = () => {
 				<h3 className="text-xl font-bold text-center mb-4">Hardware Items</h3>
 				<div className="space-y-3">
 					{availableItems.map((item) => (
-						<div
+						<button
 							key={item}
 							draggable
 							onDragStart={(e) => handleDragStart(e, item)}
-							className={`p-3 rounded-lg shadow cursor-grab active:cursor-grabbing text-white font-semibold text-center bg-gradient-to-r from-blue-500 to-cyan-500 ${draggedItem === item ? "opacity-50" : ""}`}
+							className={`p-3 rounded-lg shadow cursor-grab active:cursor-grabbing text-white font-semibold text-center bg-gradient-to-r from-blue-500 to-cyan-500 appearance-none border-none w-full block focus:outline-none ${draggedItem === item ? "opacity-50" : ""}`}
+							type="button"
 						>
 							{item}
-						</div>
+						</button>
 					))}
 				</div>
 			</aside>
@@ -137,16 +138,17 @@ const InputOutputTool: React.FC = () => {
 						{placedItems
 							.filter((item) => userAnswers[item] === "input")
 							.map((item) => (
-								<div
+								<button
 									key={item}
 									draggable
 									onDragStart={(e) => handleDragStart(e, item)}
 									onDragEnd={handleDragEnd}
 									onClick={() => returnItemToList(item)}
 									className={`${getItemClasses(item)} cursor-grab active:cursor-grabbing`}
+									type="button"
 								>
 									{item}
-								</div>
+								</button>
 							))}
 					</div>
 					<div
@@ -158,16 +160,17 @@ const InputOutputTool: React.FC = () => {
 						{placedItems
 							.filter((item) => userAnswers[item] === "output")
 							.map((item) => (
-								<div
+								<button
 									key={item}
 									draggable
 									onDragStart={(e) => handleDragStart(e, item)}
 									onDragEnd={handleDragEnd}
 									onClick={() => returnItemToList(item)}
 									className={`${getItemClasses(item)} cursor-grab active:cursor-grabbing`}
+									type="button"
 								>
 									{item}
-								</div>
+								</button>
 							))}
 					</div>
 					<div
@@ -179,16 +182,17 @@ const InputOutputTool: React.FC = () => {
 						{placedItems
 							.filter((item) => userAnswers[item] === "both")
 							.map((item) => (
-								<div
+								<button
 									key={item}
 									draggable
 									onDragStart={(e) => handleDragStart(e, item)}
 									onDragEnd={handleDragEnd}
 									onClick={() => returnItemToList(item)}
 									className={`${getItemClasses(item)} cursor-grab active:cursor-grabbing`}
+									type="button"
 								>
 									{item}
-								</div>
+								</button>
 							))}
 					</div>
 				</div>
