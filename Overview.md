@@ -48,6 +48,4 @@ Email - Undecided what this should involve.
 Future Modules (Placeholders):
 Computational Thinking?
 What is a computer? Input Process Output examples
-Online safety - click on concerns in phishing email
-Social credit score game?
 ASCII decoding?

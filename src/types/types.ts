@@ -3,7 +3,12 @@ export interface HardwareTypes {
 }
 
 export type PageDescription = {
-	id: "home" | "hardware-software" | "online-safety" | "algorithms" | "it-skills";
+	id:
+		| "home"
+		| "hardware-software"
+		| "online-safety"
+		| "algorithms"
+		| "it-skills";
 	emoji: string;
 	title: string;
 	description: string;

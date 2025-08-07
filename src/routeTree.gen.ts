@@ -10,14 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as OnlineSafetyRouteImport } from './routes/online-safety'
-import { Route as ItSkillscopyRouteImport } from './routes/hardware-software'
 import { Route as ItSkillsRouteImport } from './routes/it-skills'
+import { Route as HardwareSoftwareRouteImport } from './routes/hardware-software'
 import { Route as AlgorithmsRouteImport } from './routes/algorithms'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OnlineSafetySocialCreditRouteImport } from './routes/online-safety/social-credit'
 import { Route as OnlineSafetyPhishingRouteImport } from './routes/online-safety/phishing'
 import { Route as ItSkillsMouseSkillsRouteImport } from './routes/it-skills/mouse-skills'
 import { Route as ItSkillsFileSimulationRouteImport } from './routes/it-skills/file-simulation'
+import { Route as HardwareSoftwareNameHardwareRouteImport } from './routes/hardware-software/name-hardware'
 import { Route as HardwareSoftwareInputOutputRouteImport } from './routes/hardware-software/input-output'
 
 const OnlineSafetyRoute = OnlineSafetyRouteImport.update({
@@ -25,14 +26,14 @@ const OnlineSafetyRoute = OnlineSafetyRouteImport.update({
   path: '/online-safety',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ItSkillscopyRoute = ItSkillscopyRouteImport.update({
-  id: '/it-skills copy',
-  path: '/it-skills copy',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ItSkillsRoute = ItSkillsRouteImport.update({
   id: '/it-skills',
   path: '/it-skills',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HardwareSoftwareRoute = HardwareSoftwareRouteImport.update({
+  id: '/hardware-software',
+  path: '/hardware-software',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AlgorithmsRoute = AlgorithmsRouteImport.update({
@@ -66,20 +67,27 @@ const ItSkillsFileSimulationRoute = ItSkillsFileSimulationRouteImport.update({
   path: '/file-simulation',
   getParentRoute: () => ItSkillsRoute,
 } as any)
+const HardwareSoftwareNameHardwareRoute =
+  HardwareSoftwareNameHardwareRouteImport.update({
+    id: '/name-hardware',
+    path: '/name-hardware',
+    getParentRoute: () => HardwareSoftwareRoute,
+  } as any)
 const HardwareSoftwareInputOutputRoute =
   HardwareSoftwareInputOutputRouteImport.update({
-    id: '/hardware-software/input-output',
-    path: '/hardware-software/input-output',
-    getParentRoute: () => rootRouteImport,
+    id: '/input-output',
+    path: '/input-output',
+    getParentRoute: () => HardwareSoftwareRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/algorithms': typeof AlgorithmsRoute
+  '/hardware-software': typeof HardwareSoftwareRouteWithChildren
   '/it-skills': typeof ItSkillsRouteWithChildren
-  '/it-skills copy': typeof ItSkillscopyRoute
   '/online-safety': typeof OnlineSafetyRouteWithChildren
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
+  '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
   '/it-skills/file-simulation': typeof ItSkillsFileSimulationRoute
   '/it-skills/mouse-skills': typeof ItSkillsMouseSkillsRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
@@ -88,10 +96,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/algorithms': typeof AlgorithmsRoute
+  '/hardware-software': typeof HardwareSoftwareRouteWithChildren
   '/it-skills': typeof ItSkillsRouteWithChildren
-  '/it-skills copy': typeof ItSkillscopyRoute
   '/online-safety': typeof OnlineSafetyRouteWithChildren
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
+  '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
   '/it-skills/file-simulation': typeof ItSkillsFileSimulationRoute
   '/it-skills/mouse-skills': typeof ItSkillsMouseSkillsRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
@@ -101,10 +110,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/algorithms': typeof AlgorithmsRoute
+  '/hardware-software': typeof HardwareSoftwareRouteWithChildren
   '/it-skills': typeof ItSkillsRouteWithChildren
-  '/it-skills copy': typeof ItSkillscopyRoute
   '/online-safety': typeof OnlineSafetyRouteWithChildren
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
+  '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
   '/it-skills/file-simulation': typeof ItSkillsFileSimulationRoute
   '/it-skills/mouse-skills': typeof ItSkillsMouseSkillsRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
@@ -115,10 +125,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/algorithms'
+    | '/hardware-software'
     | '/it-skills'
-    | '/it-skills copy'
     | '/online-safety'
     | '/hardware-software/input-output'
+    | '/hardware-software/name-hardware'
     | '/it-skills/file-simulation'
     | '/it-skills/mouse-skills'
     | '/online-safety/phishing'
@@ -127,10 +138,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/algorithms'
+    | '/hardware-software'
     | '/it-skills'
-    | '/it-skills copy'
     | '/online-safety'
     | '/hardware-software/input-output'
+    | '/hardware-software/name-hardware'
     | '/it-skills/file-simulation'
     | '/it-skills/mouse-skills'
     | '/online-safety/phishing'
@@ -139,10 +151,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/algorithms'
+    | '/hardware-software'
     | '/it-skills'
-    | '/it-skills copy'
     | '/online-safety'
     | '/hardware-software/input-output'
+    | '/hardware-software/name-hardware'
     | '/it-skills/file-simulation'
     | '/it-skills/mouse-skills'
     | '/online-safety/phishing'
@@ -152,10 +165,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AlgorithmsRoute: typeof AlgorithmsRoute
+  HardwareSoftwareRoute: typeof HardwareSoftwareRouteWithChildren
   ItSkillsRoute: typeof ItSkillsRouteWithChildren
-  ItSkillscopyRoute: typeof ItSkillscopyRoute
   OnlineSafetyRoute: typeof OnlineSafetyRouteWithChildren
-  HardwareSoftwareInputOutputRoute: typeof HardwareSoftwareInputOutputRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -167,18 +179,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnlineSafetyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/it-skills copy': {
-      id: '/it-skills copy'
-      path: '/it-skills copy'
-      fullPath: '/it-skills copy'
-      preLoaderRoute: typeof ItSkillscopyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/it-skills': {
       id: '/it-skills'
       path: '/it-skills'
       fullPath: '/it-skills'
       preLoaderRoute: typeof ItSkillsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hardware-software': {
+      id: '/hardware-software'
+      path: '/hardware-software'
+      fullPath: '/hardware-software'
+      preLoaderRoute: typeof HardwareSoftwareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/algorithms': {
@@ -223,15 +235,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ItSkillsFileSimulationRouteImport
       parentRoute: typeof ItSkillsRoute
     }
+    '/hardware-software/name-hardware': {
+      id: '/hardware-software/name-hardware'
+      path: '/name-hardware'
+      fullPath: '/hardware-software/name-hardware'
+      preLoaderRoute: typeof HardwareSoftwareNameHardwareRouteImport
+      parentRoute: typeof HardwareSoftwareRoute
+    }
     '/hardware-software/input-output': {
       id: '/hardware-software/input-output'
-      path: '/hardware-software/input-output'
+      path: '/input-output'
       fullPath: '/hardware-software/input-output'
       preLoaderRoute: typeof HardwareSoftwareInputOutputRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof HardwareSoftwareRoute
     }
   }
 }
+
+interface HardwareSoftwareRouteChildren {
+  HardwareSoftwareInputOutputRoute: typeof HardwareSoftwareInputOutputRoute
+  HardwareSoftwareNameHardwareRoute: typeof HardwareSoftwareNameHardwareRoute
+}
+
+const HardwareSoftwareRouteChildren: HardwareSoftwareRouteChildren = {
+  HardwareSoftwareInputOutputRoute: HardwareSoftwareInputOutputRoute,
+  HardwareSoftwareNameHardwareRoute: HardwareSoftwareNameHardwareRoute,
+}
+
+const HardwareSoftwareRouteWithChildren =
+  HardwareSoftwareRoute._addFileChildren(HardwareSoftwareRouteChildren)
 
 interface ItSkillsRouteChildren {
   ItSkillsFileSimulationRoute: typeof ItSkillsFileSimulationRoute
@@ -264,10 +296,9 @@ const OnlineSafetyRouteWithChildren = OnlineSafetyRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlgorithmsRoute: AlgorithmsRoute,
+  HardwareSoftwareRoute: HardwareSoftwareRouteWithChildren,
   ItSkillsRoute: ItSkillsRouteWithChildren,
-  ItSkillscopyRoute: ItSkillscopyRoute,
   OnlineSafetyRoute: OnlineSafetyRouteWithChildren,
-  HardwareSoftwareInputOutputRoute: HardwareSoftwareInputOutputRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
