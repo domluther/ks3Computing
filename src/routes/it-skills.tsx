@@ -25,14 +25,14 @@ function ITSkillsLayout() {
 						<button
 							onClick={() => navigate({ to: "/it-skills/mouse-skills" })}
 							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-colors"
-                            type="button"
+							type="button"
 						>
 							Mouse Skills Challenge
 						</button>
 						<button
 							onClick={() => navigate({ to: "/it-skills/file-simulation" })}
 							className="bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-colors"
-                            type="button"
+							type="button"
 						>
 							File Simulation
 						</button>

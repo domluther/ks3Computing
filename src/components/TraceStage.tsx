@@ -261,7 +261,10 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 				Time: {elapsed.toFixed(1)}s
 			</div>
 			<div className="mb-2">
-				<label htmlFor="line-thickness"className="font-medium text-slate-600 mr-2">
+				<label
+					htmlFor="line-thickness"
+					className="font-medium text-slate-600 mr-2"
+				>
 					Line Thickness:
 				</label>
 				<select

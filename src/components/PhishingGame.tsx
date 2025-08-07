@@ -1051,7 +1051,7 @@ const PhishingGame = () => {
 			<button
 				onClick={() => navigate({ to: "/online-safety" })}
 				className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6 mt-6"
-                type="button"
+				type="button"
 			>
 				Back to Hub
 			</button>
@@ -1121,9 +1121,9 @@ const PhishingGame = () => {
 			}
 
 			return (
-				<span onClick={commonOnClick} className={combinedClassName}>
+				<button onClick={commonOnClick} className={combinedClassName}>
 					{children}
-				</span>
+				</button>
 			);
 		};
 
@@ -1198,7 +1198,7 @@ const PhishingGame = () => {
 					<button
 						onClick={() => handleInitialChoice("phishing")}
 						className="flex items-center justify-center gap-2 text-lg font-bold bg-red-500 text-white py-3 px-8 rounded-lg shadow-md hover:bg-red-600 transition-transform transform hover:scale-105"
-                        type="button"
+						type="button"
 					>
 						<Fish className="w-6 h-6" />
 						Phishing
@@ -1206,7 +1206,7 @@ const PhishingGame = () => {
 					<button
 						onClick={() => handleInitialChoice("legitimate")}
 						className="flex items-center justify-center gap-2 text-lg font-bold bg-green-500 text-white py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition-transform transform hover:scale-105"
-                        type="button"
+						type="button"
 					>
 						<Shield className="w-6 h-6" />
 						Legitimate
@@ -1388,7 +1388,7 @@ const PhishingGame = () => {
 						<button
 							onClick={() => navigate({ to: "/online-safety" })}
 							className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
-                            type="button"
+							type="button"
 						>
 							Back to Hub
 						</button>

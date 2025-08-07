@@ -26,14 +26,14 @@ function OnlineSafetyLayout() {
 						<button
 							onClick={() => navigate({ to: "/online-safety/social-credit" })}
 							className="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-colors"
-                            type="button"
+							type="button"
 						>
 							The Social Credit Game
 						</button>
 						<button
 							onClick={() => navigate({ to: "/online-safety/phishing" })}
 							className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-colors"
-                            type="button"
+							type="button"
 						>
 							Spot the Phish!
 						</button>

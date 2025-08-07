@@ -8,7 +8,7 @@ import {
 	WifiOff,
 	XCircle,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import GameButton from "../components/GameButton";
 import { shuffleArray } from "../utils/utils";
 
@@ -693,7 +693,7 @@ const SocialCreditGame = () => {
 			}
 			setFollowUpQuestions(tempQuestions);
 		}
-	}, [stage, poorChoiceQuestions, scenarios]);
+	}, [stage, poorChoiceQuestions]);
 
 	const handleChoice = (points: number, feedback: string) => {
 		setScore((prev) => Math.max(0, prev + points)); // Ensure score doesn't go below 0
@@ -769,7 +769,7 @@ const SocialCreditGame = () => {
 				<button
 					onClick={() => navigate({ to: "/online-safety" })}
 					className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
-                    type="button"
+					type="button"
 				>
 					Back to Hub
 				</button>
@@ -840,7 +840,15 @@ const SocialCreditGame = () => {
 	};
 
 	const renderResults = () => {
-		let resultData;
+		type ResultData = {
+			title: string;
+			color: string;
+			icon: ReactNode;
+			perks: { text: string; icon: ReactNode }[];
+			message: string;
+		};
+
+		let resultData: ResultData;
 		// New score boundaries for 20 questions
 		if (score >= 700) {
 			resultData = {
@@ -958,7 +966,7 @@ const SocialCreditGame = () => {
 						<button
 							onClick={() => navigate({ to: "/online-safety" })}
 							className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
-                            type="button"
+							type="button"
 						>
 							Back to Hub
 						</button>

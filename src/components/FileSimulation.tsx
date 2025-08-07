@@ -8,8 +8,8 @@ import GameButton from "./GameButton";
 // --- SVG ICONS ---
 const FolderIcon = ({ className }: { className?: string }) => (
 	<svg
-        role="img"
-        aria-label="Folder"
+		role="img"
+		aria-label="Folder"
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
 		fill="currentColor"
@@ -21,8 +21,8 @@ const FolderIcon = ({ className }: { className?: string }) => (
 
 const FileIcon = ({ className }: { className?: string }) => (
 	<svg
-        role="img"
-        aria-label="File"
+		role="img"
+		aria-label="File"
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 24 24"
 		fill="currentColor"
@@ -38,8 +38,8 @@ const FileIcon = ({ className }: { className?: string }) => (
 
 const BackIcon = () => (
 	<svg
-        role="img"
-        aria-label="Back"
+		role="img"
+		aria-label="Back"
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
 		viewBox="0 0 24 24"
@@ -1040,7 +1040,7 @@ const FileSimulation = () => {
 									onClick={handleGoBack}
 									disabled={history.length <= 1}
 									className="p-1 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                                    type="button"
+									type="button"
 								>
 									<BackIcon />
 								</button>
