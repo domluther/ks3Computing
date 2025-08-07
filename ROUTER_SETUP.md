@@ -49,7 +49,7 @@ The router setup follows clean architecture principles:
 | Page | URL | Component | Notes |
 |------|-----|-----------|-------|
 | Home | `/` | HomePage | |
-| Input/Output | `/input-output` | InputOutputTool | |
+| Input/Output | `/hardware-software` | InputOutputTool | |
 | Online Safety Hub | `/online-safety` | OnlineSafetyLayout | Landing page with game selection |
 | Phishing Game | `/online-safety/phishing` | PhishingGame | Nested route under Online Safety |
 | Social Credit Game | `/online-safety/social-credit` | SocialCreditGame | Nested route under Online Safety |
@@ -65,7 +65,7 @@ Routes are centrally defined in `routeConfig.ts`:
 ```typescript
 export const routeConfigs: RouteConfig[] = [
   { page: 'home', path: '/' },
-  { page: 'input-output', path: '/input-output' },
+  { page: 'hardware-software', path: '/hardware-software' },
   { page: 'online-safety', path: '/online-safety' },
   { page: 'algorithms', path: '/algorithms' },
   { page: 'it-skills', path: '/it-skills' },
@@ -163,7 +163,7 @@ function MyComponent() {
   const { navigateToPage } = useAppNavigation();
   
   const handleClick = () => {
-    navigateToPage('input-output');
+    navigateToPage('hardware-software');
   };
   
   // ...
@@ -245,7 +245,7 @@ To add a new route:
 
 2. **Update the Page type** (`types/types.ts`):
    ```typescript
-   export type Page = 'home' | 'input-output' | 'online-safety' | 'algorithms' | 'it-skills' | 'new-page';
+   export type Page = 'home' | 'hardware-software' | 'online-safety' | 'algorithms' | 'it-skills' | 'new-page';
    ```
 
 3. **Add route definition** (`router.tsx`):

@@ -28,7 +28,7 @@ src/types: Centralized TypeScript type definitions.
 The application is structured into several modules, each focusing on a different area of the KS3 Computing curriculum.
 
 Completed Modules:
-Input & Output Tool: A drag-and-drop activity where students categorize computer hardware into a Venn diagram (Input, Output, Both).
+Hardware & Software Tool: A drag-and-drop activity where students categorize computer hardware into a Venn diagram (Input, Output, Both).
 
 Modules in Development:
 IT Skills: This section will focus on fundamental computer literacy.

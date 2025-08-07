@@ -12,8 +12,8 @@ const pageToRoute = (pageId: string): string => {
 	switch (pageId) {
 		case "home":
 			return "/";
-		case "input-output":
-			return "/input-output";
+		case "hardware-software":
+			return "/hardware-software";
 		case "online-safety":
 			return "/online-safety";
 		case "algorithms":

@@ -7,8 +7,8 @@ const pageToRoute = (pageId: string): string => {
 	switch (pageId) {
 		case "home":
 			return "/";
-		case "input-output":
-			return "/input-output";
+		case "hardware-software":
+			return "/hardware-software";
 		case "online-safety":
 			return "/online-safety";
 		case "algorithms":
@@ -23,7 +23,7 @@ const pageToRoute = (pageId: string): string => {
 // Map current pathname to page ID for active state
 const pathToPageId = (pathname: string): string => {
 	if (pathname === "/") return "home";
-	if (pathname === "/input-output") return "input-output";
+	if (pathname === "/hardware-software") return "hardware-software";
 	if (pathname.startsWith("/online-safety")) return "online-safety";
 	if (pathname === "/algorithms") return "algorithms";
 	if (pathname.startsWith("/it-skills")) return "it-skills";

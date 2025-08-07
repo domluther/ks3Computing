@@ -94,7 +94,7 @@ const InputOutputTool: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col md:flex-row min-h-[70vh]">
+		<div className="w-full flex flex-col md:flex-row min-h-[70vh]">
 			{/* Sidebar */}
 			<aside className="w-full md:w-1/4 bg-slate-100 p-4 border-r-2 border-slate-200">
 				<h3 className="text-xl font-bold text-center mb-4">Hardware Items</h3>

@@ -16,9 +16,9 @@ export const navItems: PageDescription[] = [
 		enabled: true,
 	},
 	{
-		id: "input-output",
+		id: "hardware-software",
 		emoji: "🖥️",
-		title: "Input & Output",
+		title: "Hardware & Software",
 		description: "Categorize hardware with a Venn diagram",
 		enabled: true,
 	},
