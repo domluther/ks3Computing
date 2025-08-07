@@ -1121,7 +1121,11 @@ const PhishingGame = () => {
 			}
 
 			return (
-				<button onClick={commonOnClick} className={combinedClassName}>
+				<button
+					onClick={commonOnClick}
+					className={combinedClassName}
+					type="button"
+				>
 					{children}
 				</button>
 			);
@@ -1279,7 +1283,7 @@ const PhishingGame = () => {
 						</div>
 					)}
 
-					<GameButton onClick={handleNextEmail}>
+					<GameButton onClick={handleNextEmail} className="mt-6">
 						{currentEmailIndex < shuffledEmails.length - 1
 							? "Next Email"
 							: "See Results"}

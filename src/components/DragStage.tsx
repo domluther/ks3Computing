@@ -107,7 +107,10 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 		return () => clearInterval(timer);
 	}, [startTime]);
 
-	const handleDragStart = (e: React.DragEvent<HTMLDivElement>, id: number) => {
+	const handleDragStart = (
+		e: React.DragEvent<HTMLButtonElement>,
+		id: number,
+	) => {
 		e.dataTransfer.setData("duckId", id.toString());
 	};
 
@@ -146,10 +149,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 				Time: {elapsed.toFixed(1)}s | Ducks remaining: {ducks.length}
 			</div>
 			<div className="mb-2">
-				<label
-					htmlFor="duck-speed"
-					className="font-medium text-slate-600 mr-2"
-				>
+				<label htmlFor="duck-speed" className="font-medium text-slate-600 mr-2">
 					Duck Speed:
 				</label>
 				<select
@@ -173,11 +173,12 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 					style={{ left: `${pondPos.x}%`, top: `${pondPos.y}%` }}
 				></div>
 				{ducks.map((duck) => (
-					<div
+					<button
 						key={duck.id}
 						draggable
 						onDragStart={(e) => handleDragStart(e, duck.id)}
 						className="absolute text-5xl cursor-grab active:cursor-grabbing transition-all duration-100"
+						type="button"
 						style={{
 							left: `${duck.x}%`,
 							top: `${duck.y}%`,
@@ -185,7 +186,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 						}}
 					>
 						🦆
-					</div>
+					</button>
 				))}
 			</div>
 			<GameButton onClick={onRestart} className="mt-4">

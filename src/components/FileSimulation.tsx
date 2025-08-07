@@ -1084,26 +1084,29 @@ const FileSimulation = () => {
 					>
 						{contextMenu.targetId && contextMenu.targetId !== "root" ? (
 							<>
-								<div
+								<button
 									onClick={handleRenameStart}
-									className="px-3 py-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+									className="px-3 py-1 hover:bg-blue-500 hover:text-white cursor-pointer appearance-none border-none w-full block focus:outline-none"
+									type="button"
 								>
 									Rename
-								</div>
-								<div
+								</button>
+								<button
 									onClick={handleDelete}
-									className="px-3 py-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+									className="px-3 py-1 hover:bg-blue-500 hover:text-white cursor-pointer appearance-none border-none w-full block focus:outline-none"
+									type="button"
 								>
 									Delete
-								</div>
+								</button>
 							</>
 						) : (
-							<div
+							<button
 								onClick={handleCreateFolder}
-								className="px-3 py-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+								className="px-3 py-1 hover:bg-blue-500 hover:text-white cursor-pointer appearance-none border-none w-full block focus:outline-none"
+								type="button"
 							>
 								New folder
-							</div>
+							</button>
 						)}
 					</div>
 				)}
@@ -1201,7 +1204,7 @@ const DesktopIcon = ({
 		}
 	};
 	return (
-		<div
+		<button
 			draggable={!isRenaming}
 			onDragStart={(e) => onItemDragStart(e, item.id)}
 			onDrop={handleDropInternal}
@@ -1214,6 +1217,7 @@ const DesktopIcon = ({
 			}}
 			onDoubleClick={onDoubleClick}
 			onContextMenu={onContextMenu}
+			type="button"
 		>
 			<div className="flex-shrink-0">
 				{item.type === "folder" ? <FolderIcon /> : <FileIcon />}
@@ -1238,7 +1242,7 @@ const DesktopIcon = ({
 					</p>
 				)}
 			</div>
-		</div>
+		</button>
 	);
 };
 

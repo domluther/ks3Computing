@@ -36,7 +36,7 @@ const HomePageButton: React.FC<Props> = ({ navItem, navigate }) => {
 		"bg-gradient-to-br from-slate-600 to-slate-800 cursor-not-allowed";
 
 	return (
-		<div
+		<button
 			key={navItem.id}
 			className={`${baseClasses} ${
 				isEnabled ? enabledClasses : disabledClasses
@@ -44,12 +44,14 @@ const HomePageButton: React.FC<Props> = ({ navItem, navigate }) => {
 			onClick={
 				isEnabled ? () => navigate({ to: pageToRoute(navItem.id) }) : undefined
 			}
+			disabled={!isEnabled}
+			type="button"
 		>
 			<h3 className="text-2xl font-bold mb-2">
 				{navItem.emoji} {navItem.title}
 			</h3>
 			<p>{navItem.description}</p>
-		</div>
+		</button>
 	);
 };
 

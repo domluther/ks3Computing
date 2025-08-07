@@ -133,6 +133,7 @@ const InputOutputTool: React.FC = () => {
 						onDrop={(e) => handleDrop(e, "input")}
 						onDragOver={handleDragOver}
 						onDragLeave={handleDragLeave}
+						role="application"
 						className="absolute top-[15%] left-[12%] w-[25%] h-[60%] rounded-full flex flex-wrap gap-2 p-2 justify-center content-start transition-colors"
 					>
 						{placedItems
@@ -155,6 +156,7 @@ const InputOutputTool: React.FC = () => {
 						onDrop={(e) => handleDrop(e, "output")}
 						onDragOver={handleDragOver}
 						onDragLeave={handleDragLeave}
+						role="application"
 						className="absolute top-[15%] right-[12%] w-[25%] h-[60%] rounded-full flex flex-wrap gap-2 p-2 justify-center content-start transition-colors"
 					>
 						{placedItems
@@ -177,6 +179,7 @@ const InputOutputTool: React.FC = () => {
 						onDrop={(e) => handleDrop(e, "both")}
 						onDragOver={handleDragOver}
 						onDragLeave={handleDragLeave}
+						role="application"
 						className="absolute top-[25%] left-1/2 -translate-x-1/2 w-[30%] h-[40%] flex flex-wrap gap-2 p-2 justify-center content-start transition-colors"
 					>
 						{placedItems

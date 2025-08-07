@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import CelebrationModal from "./CelebrationModal";
 import ClickStage from "./ClickStage";
@@ -7,6 +8,8 @@ import GameButton from "./GameButton";
 import TraceStage from "./TraceStage";
 
 const MouseSkillsChallenge = () => {
+	const navigate = useNavigate();
+
 	type MouseGameStage =
 		| "intro"
 		| "tracing"
@@ -73,6 +76,13 @@ const MouseSkillsChallenge = () => {
 						<GameButton onClick={() => setStage("tracing")}>
 							Start Challenge
 						</GameButton>
+						<button
+							onClick={() => navigate({ to: "/it-skills" })}
+							className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
+							type="button"
+						>
+							Back to Hub
+						</button>
 					</div>
 				);
 			case "tracing":
