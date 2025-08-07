@@ -10,12 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as OnlineSafetyRouteImport } from './routes/online-safety'
+import { Route as MathsRouteImport } from './routes/maths'
 import { Route as ItSkillsRouteImport } from './routes/it-skills'
 import { Route as HardwareSoftwareRouteImport } from './routes/hardware-software'
 import { Route as AlgorithmsRouteImport } from './routes/algorithms'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OnlineSafetySocialCreditRouteImport } from './routes/online-safety/social-credit'
 import { Route as OnlineSafetyPhishingRouteImport } from './routes/online-safety/phishing'
+import { Route as MathsAsciiRouteImport } from './routes/maths/ascii'
 import { Route as ItSkillsMouseSkillsRouteImport } from './routes/it-skills/mouse-skills'
 import { Route as ItSkillsFileSimulationRouteImport } from './routes/it-skills/file-simulation'
 import { Route as HardwareSoftwareNameHardwareRouteImport } from './routes/hardware-software/name-hardware'
@@ -24,6 +26,11 @@ import { Route as HardwareSoftwareInputOutputRouteImport } from './routes/hardwa
 const OnlineSafetyRoute = OnlineSafetyRouteImport.update({
   id: '/online-safety',
   path: '/online-safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MathsRoute = MathsRouteImport.update({
+  id: '/maths',
+  path: '/maths',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ItSkillsRoute = ItSkillsRouteImport.update({
@@ -57,6 +64,11 @@ const OnlineSafetyPhishingRoute = OnlineSafetyPhishingRouteImport.update({
   path: '/phishing',
   getParentRoute: () => OnlineSafetyRoute,
 } as any)
+const MathsAsciiRoute = MathsAsciiRouteImport.update({
+  id: '/ascii',
+  path: '/ascii',
+  getParentRoute: () => MathsRoute,
+} as any)
 const ItSkillsMouseSkillsRoute = ItSkillsMouseSkillsRouteImport.update({
   id: '/mouse-skills',
   path: '/mouse-skills',
@@ -85,11 +97,13 @@ export interface FileRoutesByFullPath {
   '/algorithms': typeof AlgorithmsRoute
   '/hardware-software': typeof HardwareSoftwareRouteWithChildren
   '/it-skills': typeof ItSkillsRouteWithChildren
+  '/maths': typeof MathsRouteWithChildren
   '/online-safety': typeof OnlineSafetyRouteWithChildren
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
   '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
   '/it-skills/file-simulation': typeof ItSkillsFileSimulationRoute
   '/it-skills/mouse-skills': typeof ItSkillsMouseSkillsRoute
+  '/maths/ascii': typeof MathsAsciiRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
 }
@@ -98,11 +112,13 @@ export interface FileRoutesByTo {
   '/algorithms': typeof AlgorithmsRoute
   '/hardware-software': typeof HardwareSoftwareRouteWithChildren
   '/it-skills': typeof ItSkillsRouteWithChildren
+  '/maths': typeof MathsRouteWithChildren
   '/online-safety': typeof OnlineSafetyRouteWithChildren
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
   '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
   '/it-skills/file-simulation': typeof ItSkillsFileSimulationRoute
   '/it-skills/mouse-skills': typeof ItSkillsMouseSkillsRoute
+  '/maths/ascii': typeof MathsAsciiRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
 }
@@ -112,11 +128,13 @@ export interface FileRoutesById {
   '/algorithms': typeof AlgorithmsRoute
   '/hardware-software': typeof HardwareSoftwareRouteWithChildren
   '/it-skills': typeof ItSkillsRouteWithChildren
+  '/maths': typeof MathsRouteWithChildren
   '/online-safety': typeof OnlineSafetyRouteWithChildren
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
   '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
   '/it-skills/file-simulation': typeof ItSkillsFileSimulationRoute
   '/it-skills/mouse-skills': typeof ItSkillsMouseSkillsRoute
+  '/maths/ascii': typeof MathsAsciiRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
 }
@@ -127,11 +145,13 @@ export interface FileRouteTypes {
     | '/algorithms'
     | '/hardware-software'
     | '/it-skills'
+    | '/maths'
     | '/online-safety'
     | '/hardware-software/input-output'
     | '/hardware-software/name-hardware'
     | '/it-skills/file-simulation'
     | '/it-skills/mouse-skills'
+    | '/maths/ascii'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
   fileRoutesByTo: FileRoutesByTo
@@ -140,11 +160,13 @@ export interface FileRouteTypes {
     | '/algorithms'
     | '/hardware-software'
     | '/it-skills'
+    | '/maths'
     | '/online-safety'
     | '/hardware-software/input-output'
     | '/hardware-software/name-hardware'
     | '/it-skills/file-simulation'
     | '/it-skills/mouse-skills'
+    | '/maths/ascii'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
   id:
@@ -153,11 +175,13 @@ export interface FileRouteTypes {
     | '/algorithms'
     | '/hardware-software'
     | '/it-skills'
+    | '/maths'
     | '/online-safety'
     | '/hardware-software/input-output'
     | '/hardware-software/name-hardware'
     | '/it-skills/file-simulation'
     | '/it-skills/mouse-skills'
+    | '/maths/ascii'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
   fileRoutesById: FileRoutesById
@@ -167,6 +191,7 @@ export interface RootRouteChildren {
   AlgorithmsRoute: typeof AlgorithmsRoute
   HardwareSoftwareRoute: typeof HardwareSoftwareRouteWithChildren
   ItSkillsRoute: typeof ItSkillsRouteWithChildren
+  MathsRoute: typeof MathsRouteWithChildren
   OnlineSafetyRoute: typeof OnlineSafetyRouteWithChildren
 }
 
@@ -177,6 +202,13 @@ declare module '@tanstack/react-router' {
       path: '/online-safety'
       fullPath: '/online-safety'
       preLoaderRoute: typeof OnlineSafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/maths': {
+      id: '/maths'
+      path: '/maths'
+      fullPath: '/maths'
+      preLoaderRoute: typeof MathsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/it-skills': {
@@ -220,6 +252,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/online-safety/phishing'
       preLoaderRoute: typeof OnlineSafetyPhishingRouteImport
       parentRoute: typeof OnlineSafetyRoute
+    }
+    '/maths/ascii': {
+      id: '/maths/ascii'
+      path: '/ascii'
+      fullPath: '/maths/ascii'
+      preLoaderRoute: typeof MathsAsciiRouteImport
+      parentRoute: typeof MathsRoute
     }
     '/it-skills/mouse-skills': {
       id: '/it-skills/mouse-skills'
@@ -279,6 +318,16 @@ const ItSkillsRouteWithChildren = ItSkillsRoute._addFileChildren(
   ItSkillsRouteChildren,
 )
 
+interface MathsRouteChildren {
+  MathsAsciiRoute: typeof MathsAsciiRoute
+}
+
+const MathsRouteChildren: MathsRouteChildren = {
+  MathsAsciiRoute: MathsAsciiRoute,
+}
+
+const MathsRouteWithChildren = MathsRoute._addFileChildren(MathsRouteChildren)
+
 interface OnlineSafetyRouteChildren {
   OnlineSafetyPhishingRoute: typeof OnlineSafetyPhishingRoute
   OnlineSafetySocialCreditRoute: typeof OnlineSafetySocialCreditRoute
@@ -298,6 +347,7 @@ const rootRouteChildren: RootRouteChildren = {
   AlgorithmsRoute: AlgorithmsRoute,
   HardwareSoftwareRoute: HardwareSoftwareRouteWithChildren,
   ItSkillsRoute: ItSkillsRouteWithChildren,
+  MathsRoute: MathsRouteWithChildren,
   OnlineSafetyRoute: OnlineSafetyRouteWithChildren,
 }
 export const routeTree = rootRouteImport

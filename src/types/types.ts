@@ -8,9 +8,11 @@ export type PageDescription = {
 		| "hardware-software"
 		| "online-safety"
 		| "algorithms"
+		| "maths"
 		| "it-skills";
 	emoji: string;
 	title: string;
 	description: string;
+	path: string;
 	enabled: boolean;
 };

@@ -1,28 +1,11 @@
 import type { UseNavigateResult } from "@tanstack/react-router";
 import type React from "react";
+import { getRouteByPageId } from "../data/pages";
 import type { PageDescription } from "../types/types";
 
 type Props = {
 	navItem: PageDescription;
 	navigate: UseNavigateResult<string>;
-};
-
-// Map page IDs to routes
-const pageToRoute = (pageId: string): string => {
-	switch (pageId) {
-		case "home":
-			return "/";
-		case "hardware-software":
-			return "/hardware-software";
-		case "online-safety":
-			return "/online-safety";
-		case "algorithms":
-			return "/algorithms";
-		case "it-skills":
-			return "/it-skills";
-		default:
-			return "/";
-	}
 };
 
 const HomePageButton: React.FC<Props> = ({ navItem, navigate }) => {
@@ -42,7 +25,9 @@ const HomePageButton: React.FC<Props> = ({ navItem, navigate }) => {
 				isEnabled ? enabledClasses : disabledClasses
 			}`}
 			onClick={
-				isEnabled ? () => navigate({ to: pageToRoute(navItem.id) }) : undefined
+				isEnabled
+					? () => navigate({ to: getRouteByPageId(navItem.id) })
+					: undefined
 			}
 			disabled={!isEnabled}
 			type="button"

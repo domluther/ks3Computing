@@ -6,6 +6,7 @@ export const navItems: PageDescription[] = [
 		emoji: "",
 		title: "Home",
 		description: "Welcome to KS3 Computing",
+		path: "/",
 		enabled: true,
 	},
 	{
@@ -13,6 +14,7 @@ export const navItems: PageDescription[] = [
 		emoji: "🖱️",
 		title: "IT Skills",
 		description: "Practice mouse & folder skills",
+		path: "/it-skills",
 		enabled: true,
 	},
 	{
@@ -20,6 +22,7 @@ export const navItems: PageDescription[] = [
 		emoji: "🖥️",
 		title: "Hardware & Software",
 		description: "Categorize hardware with a Venn diagram",
+		path: "/hardware-software",
 		enabled: true,
 	},
 	{
@@ -27,13 +30,27 @@ export const navItems: PageDescription[] = [
 		emoji: "🌐",
 		title: "Online Safety",
 		description: "Learn about staying safe online",
+		path: "/online-safety",
 		enabled: true,
 	},
 	{
-		id: "algorithms",
-		emoji: "🔄",
-		title: "Algorithms",
-		description: "Understand basic algorithms",
-		enabled: false,
+		id: "maths",
+		emoji: "🧮",
+		title: "Maths",
+		description: "Understand basic Computing Maths",
+		path: "/maths",
+		enabled: true,
 	},
 ];
+
+export const getRouteByPageId = (pageId: string): string => {
+	const item = navItems.find((navItem) => navItem.id === pageId);
+	return item?.path ?? "/";
+};
+
+export const pathToPageId = (pathname: string): string => {
+	const match = navItems.find((item) =>
+		item.path === "/" ? pathname === "/" : pathname.startsWith(item.path),
+	);
+	return match?.id ?? "home";
+};
