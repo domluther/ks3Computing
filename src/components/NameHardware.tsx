@@ -1,5 +1,5 @@
 import { CheckCircle, XCircle } from "lucide-react";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { shuffleArray } from "../utils/utils";
 import GameButton from "./GameButton";
 
