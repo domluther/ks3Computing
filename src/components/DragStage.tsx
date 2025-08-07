@@ -3,6 +3,9 @@ import type React from "react";
 import { useCallback, useEffect, useState } from "react";
 import GameButton from "./GameButton";
 
+// --- TYPE DEFINITIONS ---
+type DuckSpeed = "slow" | "default" | "fast";
+
 interface DragStageProps {
 	onComplete: (time: number) => void;
 	onRestart: () => void;
@@ -17,26 +20,31 @@ interface Duck {
 }
 
 const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
+	const DUCK_COUNT = 15; // Number of ducks to generate
+
 	const [ducks, setDucks] = useState<Duck[]>([]);
 	const [pondPos, setPondPos] = useState({ x: 45, y: 40 });
 	const [startTime, setStartTime] = useState<number | null>(null);
 	const [elapsed, setElapsed] = useState<number>(0);
+	const [duckSpeed, setDuckSpeed] = useState<DuckSpeed>("default");
 
 	const generateDucks = useCallback(() => {
+		const speedMultiplier =
+			duckSpeed === "fast" ? 2 : duckSpeed === "slow" ? 0.5 : 1;
 		const newDucks = [];
-		for (let i = 0; i < 5; i++) {
-			// Generate 15 ducks
+		for (let i = 0; i < DUCK_COUNT; i++) {
+			// Generate 5 ducks
 			newDucks.push({
 				id: i,
 				x: Math.random() * 85,
 				y: Math.random() * 80,
-				vx: (Math.random() - 0.5) * 2, // Random velocity between -1 and 1
-				vy: (Math.random() - 0.5) * 2,
+				vx: (Math.random() - 0.5) * speedMultiplier, // Use speed multiplier
+				vy: (Math.random() - 0.5) * speedMultiplier, // Use speed multiplier
 			});
 		}
 		setDucks(newDucks);
 		setStartTime(Date.now());
-	}, []);
+	}, [duckSpeed]);
 
 	useEffect(() => {
 		generateDucks();
@@ -48,6 +56,8 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 
 		// Duck movement interval
 		const duckInterval = setInterval(() => {
+			const speedMultiplier =
+				duckSpeed === "fast" ? 2 : duckSpeed === "slow" ? 0.5 : 1;
 			setDucks((prevDucks) =>
 				prevDucks.map((duck) => {
 					let newX = duck.x + duck.vx;
@@ -67,8 +77,8 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 
 					// Occasionally change direction randomly (10% chance each update)
 					if (Math.random() < 0.1) {
-						newVx = (Math.random() - 0.5) * 2;
-						newVy = (Math.random() - 0.5) * 2;
+						newVx = (Math.random() - 0.5) * speedMultiplier; // Use speed multiplier
+						newVy = (Math.random() - 0.5) * speedMultiplier; // Use speed multiplier
 					}
 
 					return {
@@ -86,7 +96,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 			clearInterval(pondInterval);
 			clearInterval(duckInterval);
 		};
-	}, [generateDucks]);
+	}, [generateDucks, duckSpeed]);
 
 	useEffect(() => {
 		const timer = setInterval(() => {
@@ -134,6 +144,24 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 			</p>
 			<div className="mb-2 text-lg font-semibold text-slate-700">
 				Time: {elapsed.toFixed(1)}s | Ducks remaining: {ducks.length}
+			</div>
+			<div className="mb-2">
+				<label
+					htmlFor="duck-speed"
+					className="font-medium text-slate-600 mr-2"
+				>
+					Duck Speed:
+				</label>
+				<select
+					id="duck-speed"
+					value={duckSpeed}
+					onChange={(e) => setDuckSpeed(e.target.value as DuckSpeed)}
+					className="border border-slate-400 rounded px-2 py-1"
+				>
+					<option value="fast">Fast</option>
+					<option value="default">Default</option>
+					<option value="slow">Slow</option>
+				</select>
 			</div>
 			<div className="w-full h-full border-4 border-slate-300 rounded-lg relative bg-green-200 overflow-hidden">
 				<div

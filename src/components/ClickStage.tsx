@@ -3,6 +3,9 @@ import type React from "react";
 import { useCallback, useEffect, useState } from "react";
 import GameButton from "./GameButton";
 
+// --- TYPE DEFINITIONS ---
+type CircleSize = "small" | "default" | "large";
+
 interface ClickStageProps {
 	onComplete: (time: number) => void;
 	onRestart: () => void;
@@ -20,6 +23,7 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 	const [startTime, setStartTime] = useState<number | null>(null);
 	const [elapsed, setElapsed] = useState<number>(0);
 	const [clickCounts, setClickCounts] = useState<Record<number, number>>({});
+	const [circleSize, setCircleSize] = useState<CircleSize>("default");
 
 	useEffect(() => {
 		const timer = setInterval(() => {
@@ -83,6 +87,17 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 		}
 	};
 
+	const getSizeClasses = (size: CircleSize) => {
+		switch (size) {
+			case "small":
+				return "w-8 h-8 text-base"; // Half size
+			case "large":
+				return "w-24 h-24 text-2xl"; // 50% bigger
+			default:
+				return "w-16 h-16 text-xl"; // Default size
+		}
+	};
+
 	return (
 		<div className="w-full h-[60vh] flex flex-col items-center p-4">
 			<h3 className="text-2xl font-bold text-slate-700 mb-2">
@@ -96,6 +111,27 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 			<div className="mb-2 text-lg font-semibold text-slate-700">
 				Time: {elapsed.toFixed(1)}s
 			</div>
+			<div className="mb-2">
+				<label
+					htmlFor="circle-size"
+					className="font-medium text-slate-600 mr-2"
+				>
+					Circle Size:
+				</label>
+				<select
+					id="circle-size"
+					value={circleSize}
+					onChange={(e) => {
+						setCircleSize(e.target.value as CircleSize);
+						generateItems(); // Reset the game when difficulty changes
+					}}
+					className="border border-slate-400 rounded px-2 py-1"
+				>
+					<option value="large">Large</option>
+					<option value="default">Default</option>
+					<option value="small">Small</option>
+				</select>
+			</div>
 			<div
 				role="application"
 				className="w-full h-full border-4 border-slate-300 rounded-lg relative bg-slate-50"
@@ -105,7 +141,8 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 					<button
 						key={item.id}
 						onMouseDown={(e) => handleClick(e, item)}
-						className={`absolute w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold text-white cursor-pointer select-none transition-transform hover:scale-110
+						className={`absolute rounded-full flex items-center justify-center font-bold text-white cursor-pointer select-none transition-transform hover:scale-110
+              ${getSizeClasses(circleSize)}
               ${item.type.startsWith("L") ? "bg-blue-500" : "bg-red-500"}`}
 						style={{ left: `${item.x}%`, top: `${item.y}%` }}
 						type="button"
