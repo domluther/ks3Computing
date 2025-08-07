@@ -1049,7 +1049,7 @@ const PhishingGame = () => {
 				</GameButton>
 			</div>
 			<button
-				onClick={() => navigate({ to: "/online-safety" as any })}
+				onClick={() => navigate({ to: "/online-safety" })}
 				className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6 mt-6"
 			>
 				Back to Hub
@@ -1383,7 +1383,7 @@ const PhishingGame = () => {
 					<div className="flex justify-center gap-4 mt-8">
 						<GameButton onClick={resetGame}>Play Again</GameButton>
 						<button
-							onClick={() => navigate({ to: "/online-safety" as any })}
+							onClick={() => navigate({ to: "/online-safety" })}
 							className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
 						>
 							Back to Hub

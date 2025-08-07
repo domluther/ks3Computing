@@ -292,8 +292,8 @@ const simulationLevels: Level[] = [
 					);
 					if (!picsFolder) return false;
 					return (
-						items["img1"]?.parentId === picsFolder.id &&
-						items["img2"]?.parentId === picsFolder.id
+						items.img1?.parentId === picsFolder.id &&
+						items.img2?.parentId === picsFolder.id
 					);
 				},
 			},
@@ -307,8 +307,8 @@ const simulationLevels: Level[] = [
 					);
 					if (!docsFolder) return false;
 					return (
-						items["doc1"]?.parentId === docsFolder.id &&
-						items["doc2"]?.parentId === docsFolder.id
+						items.doc1?.parentId === docsFolder.id &&
+						items.doc2?.parentId === docsFolder.id
 					);
 				},
 			},
@@ -320,7 +320,7 @@ const simulationLevels: Level[] = [
 						(i) => i.name === "Archives",
 					);
 					if (!archFolder) return false;
-					return items["other"]?.parentId === archFolder.id;
+					return items.other?.parentId === archFolder.id;
 				},
 			},
 		],
@@ -373,7 +373,7 @@ const simulationLevels: Level[] = [
 				description: "Move 'Fractions Practice.pdf' into the 'Maths' folder.",
 				isCompleted: (items) => {
 					const maths = Object.values(items).find((i) => i.name === "Maths");
-					return !!(maths && items["maths_homework"].parentId === maths.id);
+					return !!(maths && items.maths_homework.parentId === maths.id);
 				},
 			},
 			{
@@ -383,7 +383,7 @@ const simulationLevels: Level[] = [
 					const english = Object.values(items).find(
 						(i) => i.name === "English",
 					);
-					return !!(english && items["eng_essay"].parentId === english.id);
+					return !!(english && items.eng_essay.parentId === english.id);
 				},
 			},
 			{
@@ -394,7 +394,7 @@ const simulationLevels: Level[] = [
 					const science = Object.values(items).find(
 						(i) => i.name === "Science",
 					);
-					return !!(science && items["sci_project"].parentId === science.id);
+					return !!(science && items.sci_project.parentId === science.id);
 				},
 			},
 		],
@@ -458,7 +458,7 @@ const simulationLevels: Level[] = [
 				description:
 					"Delete the files that are not school-related: 'Silly Face.png' and 'Funny Dog.jpg'.",
 				isCompleted: (items) => {
-					return !items["file3"] && !items["file5"];
+					return !items.file3 && !items.file5;
 				},
 			},
 			{
@@ -479,7 +479,7 @@ const simulationLevels: Level[] = [
 					"Move 'Times Tables Practice.docx' into the 'Maths' folder.",
 				isCompleted: (items) => {
 					const maths = Object.values(items).find((i) => i.name === "Maths");
-					return !!(maths && items["file1"]?.parentId === maths.id);
+					return !!(maths && items.file1?.parentId === maths.id);
 				},
 			},
 			{
@@ -505,7 +505,7 @@ const simulationLevels: Level[] = [
 				description: "Move 'Checklist.docx' into the 'Other' folder.",
 				isCompleted: (items) => {
 					const other = Object.values(items).find((i) => i.name === "Other");
-					return !!(other && items["file4"]?.parentId === other.id);
+					return !!(other && items.file4?.parentId === other.id);
 				},
 			},
 		],
@@ -624,7 +624,7 @@ const simulationLevels: Level[] = [
 				description: "Move 'Melting Glacier.png' into the 'Images' folder.",
 				isCompleted: (items) => {
 					const images = Object.values(items).find((i) => i.name === "Images");
-					return !!(images && items["desktop_file3"]?.parentId === images.id);
+					return !!(images && items.desktop_file3?.parentId === images.id);
 				},
 			},
 		],
@@ -816,7 +816,7 @@ const FileSimulation = () => {
 		setSelectedId(null);
 		if (renamingId) {
 			const originalItem = items[renamingId];
-			if (originalItem && originalItem.name.startsWith("New folder")) {
+			if (originalItem?.name.startsWith("New folder")) {
 				const updatedItems = { ...items };
 				delete updatedItems[renamingId];
 				setItems(updatedItems);
@@ -990,7 +990,7 @@ const FileSimulation = () => {
 								: `Step ${stepIndex + 1}: ${currentStep?.description}`}
 					</p>
 					<GameButton
-						onClick={() => navigate({ to: "/it-skills" as any })}
+						onClick={() => navigate({ to: "/it-skills" })}
 						className="!absolute top-1/2 -translate-y-1/2 right-4 !py-2 !px-4"
 					>
 						Exit
