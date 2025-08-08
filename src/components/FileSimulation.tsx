@@ -817,7 +817,7 @@ const FileSimulation = () => {
 		}
 	};
 
-	const handleContainerClick = (e: React.MouseEvent) => {
+	const handleContainerClick = (e: React.MouseEvent | React.KeyboardEvent) => {
 		e.stopPropagation();
 		setSelectedId(null);
 		if (renamingId) {
@@ -1048,10 +1048,24 @@ const FileSimulation = () => {
 									{pathString}
 								</div>
 							</div>
-							<div
+							<button
 								className="p-4 flex flex-wrap gap-4 content-start flex-grow overflow-y-auto"
 								onClick={handleContainerClick}
 								onContextMenu={(e) => handleRightClick(e)}
+								onKeyDown={(e) => {
+									if (
+										e.target === e.currentTarget &&
+										(e.key === "Enter" || e.key === " ")
+									) {
+										console.log("here");
+										e.preventDefault();
+										handleContainerClick(e);
+									}
+								}}
+								type="button"
+								// role="button"
+								tabIndex={0}
+								aria-label="File explorer window - click to deselect items, right-click for context menu"
 							>
 								{windowCurrentItems.map((item) => (
 									<DesktopIcon
@@ -1071,7 +1085,7 @@ const FileSimulation = () => {
 										onItemDrop={handleDrop}
 									/>
 								))}
-							</div>
+							</button>
 						</div>
 					)}
 				</div>
