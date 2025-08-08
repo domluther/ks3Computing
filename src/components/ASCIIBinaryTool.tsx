@@ -40,15 +40,25 @@ const ASCIIBinaryTool: React.FC = () => {
 	const [showAnswers, setShowAnswers] = useState(false);
 	const [showASCIITable, setShowASCIITable] = useState(false);
 	const [showInstructions, setShowInstructions] = useState(true);
+	const [focusedIndex, setFocusedIndex] = useState<number | null>(null); // Add this line
 
 	// Create refs for each input field
 	const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-	// Initialize answers array when message or mode changes
+	// Initialize answers, reset state, and focus the first input when the message changes
 	useEffect(() => {
 		setUserAnswers(new Array(currentMessage.length).fill(""));
 		setIsMarked(false);
 		setShowAnswers(false);
+
+		// We add a small delay to ensure the DOM has updated before focusing.
+		const timer = setTimeout(() => {
+			if (inputRefs.current[0]) {
+				inputRefs.current[0].focus();
+			}
+		}, 100); // 100ms delay
+
+		return () => clearTimeout(timer); // Cleanup the timer
 	}, [currentMessage]);
 
 	// Generate ASCII table for printable characters (32-126)
@@ -72,17 +82,30 @@ const ASCIIBinaryTool: React.FC = () => {
 		setUserAnswers(newAnswers);
 		setIsMarked(false);
 
-		// In ASCII to Text mode, if a character is entered, move focus to the next input.
-		if (mode === "asciiToText" && value.length > 0) {
-			// Find the next input element in our refs array
-			const nextInput = inputRefs.current[index + 1];
+		// Determine if we should move focus to the next input.
+		// In ASCII -> Text mode, move after 1 character.
+		// In Text -> ASCII, if it's in range
+		let shouldFocusNext = false;
 
-			// If the next input exists, focus it
+		if (mode === "asciiToText" && value.length > 0) {
+			shouldFocusNext = true;
+		} else if (mode === "textToAscii") {
+			const numericValue = parseInt(value, 10);
+			// Move focus if the entered value is a valid ASCII number in our range.
+			if (
+				!Number.isNaN(numericValue) &&
+				numericValue >= 32 &&
+				numericValue <= 126
+			) {
+				shouldFocusNext = true;
+			}
+		}
+		if (shouldFocusNext) {
+			const nextInput = inputRefs.current[index + 1];
 			if (nextInput) {
 				nextInput.focus();
 			}
 		}
-
 	};
 
 	// Check if answer is correct (used for practice mode automatic feedback)
@@ -97,19 +120,9 @@ const ASCIIBinaryTool: React.FC = () => {
 		}
 	};
 
-	// Check if answer should show as incomplete (for Text → ASCII partial entries)
-	const isAnswerIncomplete = (index: number, value: string) => {
-		if (mode === "textToAscii" && value.length > 0) {
-			const char = currentMessage[index];
-			const expectedAscii = char.charCodeAt(0).toString();
-			return !expectedAscii.startsWith(value) && value !== expectedAscii;
-		}
-		return false;
-	};
-
-	const handleMarkWork = () => {
+	const handleMarkWork = useCallback(() => {
 		setIsMarked(true);
-	};
+	}, []);
 
 	const resetTool = useCallback(() => {
 		setUserAnswers(new Array(currentMessage.length).fill(""));
@@ -117,7 +130,7 @@ const ASCIIBinaryTool: React.FC = () => {
 		setShowAnswers(false);
 	}, [currentMessage.length]);
 
-	const getNewMessage = () => {
+	const getNewMessage = useCallback(() => {
 		const messagePool =
 			gameMode === "practice" ? practiceMessages : testMessages;
 		const availableMessages = messagePool.filter(
@@ -125,8 +138,48 @@ const ASCIIBinaryTool: React.FC = () => {
 		);
 		const randomMessage =
 			availableMessages[Math.floor(Math.random() * availableMessages.length)];
-		setCurrentMessage(randomMessage);
-	};
+
+		if (randomMessage) {
+			setCurrentMessage(randomMessage);
+		} else if (messagePool.length > 0) {
+			// Fallback in case all messages have been seen, preventing a crash.
+			setCurrentMessage(messagePool[0]);
+		}
+	}, [gameMode, currentMessage]);
+
+	// Handle 'Enter' key press for marking work and getting a new message
+	useEffect(() => {
+		const handleEnterPress = (event: KeyboardEvent) => {
+			if (event.key !== "Enter") return;
+
+			// In test mode, 'Enter' first marks the work, then gets a new message.
+			if (gameMode === "test") {
+				if (isMarked) {
+					getNewMessage();
+				} else {
+					handleMarkWork();
+				}
+				return; // End execution for test mode
+			}
+
+			// In practice mode, 'Enter' gets a new message if all answers are filled.
+			if (gameMode === "practice") {
+				const isPracticeModeComplete =
+					userAnswers.length > 0 &&
+					userAnswers.every((answer) => answer.trim() !== "");
+
+				if (isPracticeModeComplete) {
+					getNewMessage();
+				}
+			}
+		};
+
+		window.addEventListener("keydown", handleEnterPress);
+
+		return () => {
+			window.removeEventListener("keydown", handleEnterPress);
+		};
+	}, [gameMode, isMarked, userAnswers, getNewMessage, handleMarkWork]);
 
 	const switchGameMode = (newGameMode: "practice" | "test") => {
 		setGameMode(newGameMode);
@@ -159,17 +212,32 @@ const ASCIIBinaryTool: React.FC = () => {
 	const getCellClasses = (index: number, userAnswer: string) => {
 		const baseClasses =
 			"w-16 h-16 text-center border-2 rounded-lg text-lg font-bold transition-all";
+		const isFocused = focusedIndex === index;
 
 		// In practice mode, show immediate feedback
 		if (gameMode === "practice" && userAnswer.length > 0) {
-			if (isAnswerIncomplete(index, userAnswer)) {
-				return `${baseClasses} bg-yellow-100 border-yellow-400 text-yellow-800`;
-			} else if (isAnswerCorrect(index, userAnswer)) {
+			const isCorrect = isAnswerCorrect(index, userAnswer);
+
+			if (isCorrect) {
 				return `${baseClasses} bg-green-100 border-green-500 text-green-800`;
-			} else if (
-				mode === "asciiToText" ||
-				(mode === "textToAscii" && userAnswer.length >= 2)
-			) {
+			}
+
+			// For Text -> ASCII mode, provide nuanced feedback
+			if (mode === "textToAscii") {
+				const char = currentMessage[index];
+				const expectedAscii = char.charCodeAt(0).toString();
+				const isPotentiallyCorrect = expectedAscii.startsWith(userAnswer);
+
+				// If focused, or if the answer is a valid partial prefix, show as "in progress" (amber)
+				if (isFocused || isPotentiallyCorrect) {
+					return `${baseClasses} bg-yellow-100 border-yellow-400 text-yellow-800`;
+				}
+				// Otherwise, if it's not focused and not a valid prefix, it's wrong (red)
+				return `${baseClasses} bg-red-100 border-red-500 text-red-800`;
+			}
+
+			// For ASCII -> Text mode, feedback is simple: if it's not correct, it's red.
+			if (mode === "asciiToText") {
 				return `${baseClasses} bg-red-100 border-red-500 text-red-800`;
 			}
 		}
@@ -323,15 +391,21 @@ const ASCIIBinaryTool: React.FC = () => {
 									? "Get immediate feedback as you type! Perfect for learning."
 									: "Complete the entire message before marking your work."}
 							</p>
-							<p>
+							<p className="mb-2">
 								{mode === "asciiToText"
 									? "Look at the ASCII values and type the corresponding letters. Remember: it's case sensitive!"
 									: "Look at the message and type the ASCII decimal value for each character. Use the ASCII table for help!"}
 							</p>
-							{gameMode === "practice" && mode === "textToAscii" && (
+							{gameMode === "practice" && (
 								<p className="text-sm text-blue-600 mt-2">
-									💡 Tip: Cells turn yellow while you're typing, green when
-									correct!
+									💡 Tip: Once you fill all the answers, press Enter to get a
+									new word!
+								</p>
+							)}
+							{gameMode === "test" && (
+								<p className="text-sm text-blue-600 mt-2">
+									💡 Tip: After you mark your work, press Enter to get a new
+									sentence!
 								</p>
 							)}
 						</div>
@@ -361,10 +435,7 @@ const ASCIIBinaryTool: React.FC = () => {
 						{messageRows.map((row, rowIndex) => {
 							const startIndex = rowIndex * 10;
 							return (
-								<div
-									key={row}
-									className="flex flex-col items-center gap-4"
-								>
+								<div key={row} className="flex flex-col items-center gap-4">
 									{/* Top row - ASCII values or message characters */}
 									<div className="flex gap-2 flex-wrap justify-center">
 										{row.split("").map((char, colIndex) => {
@@ -392,13 +463,17 @@ const ASCIIBinaryTool: React.FC = () => {
 
 											return (
 												<input
-													ref={(el) => { inputRefs.current[globalIndex] = el; }}
+													ref={(el) => {
+														inputRefs.current[globalIndex] = el;
+													}}
 													key={`input-${globalIndex}`}
 													type="text"
 													value={userAnswer}
 													onChange={(e) =>
 														handleAnswerChange(globalIndex, e.target.value)
 													}
+													onFocus={() => setFocusedIndex(globalIndex)}
+													onBlur={() => setFocusedIndex(null)}
 													className={getCellClasses(globalIndex, userAnswer)}
 													maxLength={mode === "asciiToText" ? 1 : 3}
 													placeholder={mode === "asciiToText" ? "?" : "XXX"}

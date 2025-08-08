@@ -55,9 +55,7 @@ const createWordHint = (phrase: string): string => {
 			if (word.length <= 2) {
 				return word;
 			}
-			return (
-				`${word[0]} ${"_ ".repeat(word.length - 2)}${word[word.length - 1]}`
-			);
+			return `${word[0]} ${"_ ".repeat(word.length - 2)}${word[word.length - 1]}`;
 		})
 		.join(" / ");
 };
