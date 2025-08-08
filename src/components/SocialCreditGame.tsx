@@ -792,9 +792,9 @@ const SocialCreditGame = () => {
 						{currentScenario.text}
 					</p>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-						{currentScenario.choices.map((choice, index) => (
+						{currentScenario.choices.map((choice) => (
 							<button
-								key={`${currentScenario.id}-choice-${index}`}
+								key={currentScenario.id}
 								onClick={() => handleChoice(choice.points, choice.feedback)}
 								className="bg-slate-100 text-slate-800 font-semibold p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left"
 								type="button"
@@ -933,9 +933,9 @@ const SocialCreditGame = () => {
 							Your Status Unlocks:
 						</h4>
 						<ul className="space-y-3">
-							{resultData.perks.map((perk, index) => (
+							{resultData.perks.map((perk) => (
 								<li
-									key={`perk-${index}`}
+									key={perk.text}
 									className="flex items-center text-lg text-slate-600"
 								>
 									{perk.icon}
@@ -952,9 +952,9 @@ const SocialCreditGame = () => {
 								Follow up questions:
 							</h4>
 							<ul className="space-y-4 list-disc list-inside text-slate-700">
-								{followUpQuestions.map((q, i) => (
-									<li key={i} className="text-lg">
-										{q}
+								{followUpQuestions.map((question) => (
+									<li key={question} className="text-lg">
+										{question}
 									</li>
 								))}
 							</ul>

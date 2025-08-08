@@ -1157,8 +1157,8 @@ const PhishingGame = () => {
 					</p>
 				</div>
 				<div className="p-6 space-y-4 text-slate-700">
-					{email.body.map((part, index) => (
-						<p key={index} className="whitespace-pre-wrap">
+					{email.body.map((part) => (
+						<p key={part.text} className="whitespace-pre-wrap">
 							<ClickablePart clue={part}>{part.text}</ClickablePart>
 						</p>
 					))}

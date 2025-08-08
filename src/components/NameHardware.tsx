@@ -1,5 +1,6 @@
 import { CheckCircle, XCircle } from "lucide-react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import type React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { shuffleArray } from "../utils/utils";
 import GameButton from "./GameButton";
 
@@ -55,7 +56,7 @@ const createWordHint = (phrase: string): string => {
 				return word;
 			}
 			return (
-				word[0] + " " + "_ ".repeat(word.length - 2) + word[word.length - 1]
+				`${word[0]} ${"_ ".repeat(word.length - 2)}${word[word.length - 1]}`
 			);
 		})
 		.join(" / ");
@@ -236,9 +237,9 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
 			<div className="h-64 overflow-y-auto bg-slate-50 p-4 rounded-lg border border-slate-200">
 				<ul className="space-y-2">
-					{enteredWords.map((item, index) => (
+					{enteredWords.map((item) => (
 						<li
-							key={index}
+							key={item.word}
 							className={`p-2 rounded-md text-white font-semibold flex items-center gap-3 ${
 								item.status === "correct" ? "bg-green-500" : "bg-amber-500"
 							}`}
@@ -395,7 +396,6 @@ const NameHardware = () => {
 				return <NameTheHardware onBack={() => setMode("menu")} />;
 			case "guessTheWord":
 				return <GuessTheWord onBack={() => setMode("menu")} />;
-			case "menu":
 			default:
 				return (
 					<Card>

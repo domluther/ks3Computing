@@ -1,9 +1,8 @@
 import type React from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { shuffleArray } from "../utils/utils";
 
 const ASCIIBinaryTool: React.FC = () => {
-	// Sample messages for practice mode
 	const practiceMessages = [
 		"Welcome",
 		"Hello world",
@@ -17,7 +16,6 @@ const ASCIIBinaryTool: React.FC = () => {
 		"I love coding",
 	];
 
-	// Test mode messages about ducks, Mario, and Spongebob
 	const testMessages = [
 		"Ducks love swimming in the pond.",
 		"Yellow ducks waddle by the lake.",
@@ -42,6 +40,9 @@ const ASCIIBinaryTool: React.FC = () => {
 	const [showAnswers, setShowAnswers] = useState(false);
 	const [showASCIITable, setShowASCIITable] = useState(false);
 	const [showInstructions, setShowInstructions] = useState(true);
+
+	// Create refs for each input field
+	const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
 	// Initialize answers array when message or mode changes
 	useEffect(() => {
@@ -70,6 +71,18 @@ const ASCIIBinaryTool: React.FC = () => {
 		newAnswers[index] = value;
 		setUserAnswers(newAnswers);
 		setIsMarked(false);
+
+		// In ASCII to Text mode, if a character is entered, move focus to the next input.
+		if (mode === "asciiToText" && value.length > 0) {
+			// Find the next input element in our refs array
+			const nextInput = inputRefs.current[index + 1];
+
+			// If the next input exists, focus it
+			if (nextInput) {
+				nextInput.focus();
+			}
+		}
+
 	};
 
 	// Check if answer is correct (used for practice mode automatic feedback)
@@ -349,7 +362,7 @@ const ASCIIBinaryTool: React.FC = () => {
 							const startIndex = rowIndex * 10;
 							return (
 								<div
-									key={rowIndex}
+									key={row}
 									className="flex flex-col items-center gap-4"
 								>
 									{/* Top row - ASCII values or message characters */}
@@ -379,7 +392,8 @@ const ASCIIBinaryTool: React.FC = () => {
 
 											return (
 												<input
-													key={globalIndex}
+													ref={(el) => { inputRefs.current[globalIndex] = el; }}
+													key={`input-${globalIndex}`}
 													type="text"
 													value={userAnswer}
 													onChange={(e) =>
@@ -405,7 +419,7 @@ const ASCIIBinaryTool: React.FC = () => {
 							</h4>
 							<div className="flex gap-2 flex-wrap">
 								{currentMessage.split("").map((char, index) => (
-									<div key={index} className="text-center">
+									<div key={`answer-${index}-${char}`} className="text-center">
 										<div className="w-16 h-8 bg-yellow-100 border border-yellow-300 rounded flex items-center justify-center text-sm font-bold">
 											{mode === "asciiToText" ? char : char.charCodeAt(0)}
 										</div>
