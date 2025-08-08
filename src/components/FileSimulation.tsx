@@ -1003,12 +1003,23 @@ const FileSimulation = () => {
 					</GameButton>
 				</div>
 
-				<div
-					className="w-full h-[50vh] bg-teal-600 p-4 relative"
+				<button
+					type="button"
+					className="w-full h-[50vh] bg-teal-600 p-4 relative border-0 outline-0 cursor-default"
 					onClick={handleContainerClick}
+					onKeyDown={(e) => {
+						if (
+							e.target === e.currentTarget &&
+							(e.key === "Enter" || e.key === " ")
+						) {
+							e.preventDefault();
+							handleContainerClick(e);
+						}
+					}}
 					onContextMenu={(e) =>
 						handleRightClick(e, currentPathId === "root" ? "root" : null)
 					}
+					aria-label="Desktop area - click to deselect items, right-click for context menu"
 				>
 					<div className="w-full h-full flex flex-wrap gap-4 content-start">
 						{currentPathId === "root" &&
@@ -1053,6 +1064,7 @@ const FileSimulation = () => {
 								onClick={handleContainerClick}
 								onContextMenu={(e) => handleRightClick(e)}
 								onKeyDown={(e) => {
+									// Ensures it doesn't trigger on the input element inside the div
 									if (
 										e.target === e.currentTarget &&
 										(e.key === "Enter" || e.key === " ")
@@ -1088,7 +1100,7 @@ const FileSimulation = () => {
 							</button>
 						</div>
 					)}
-				</div>
+				</button>
 
 				{contextMenu.visible && (
 					<div

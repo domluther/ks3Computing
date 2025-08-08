@@ -107,7 +107,9 @@ const Card: React.FC<{ children: React.ReactNode; className?: string }> = ({
  * Users have 2 minutes to list as many hardware devices as they can.
  */
 const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
-	const [timeLeft, setTimeLeft] = useState(120);
+	const INITIAL_SECONDS = 60;
+
+	const [timeLeft, setTimeLeft] = useState(INITIAL_SECONDS);
 	const [inputValue, setInputValue] = useState("");
 	const [enteredWords, setEnteredWords] = useState<
 		{ word: string; status: "correct" | "incorrect" }[]
@@ -115,6 +117,10 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 	const [correctWords, setCorrectWords] = useState<Set<string>>(new Set());
 	const [isFinished, setIsFinished] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
+
+	const finishGame = useCallback(() => {
+		setIsFinished(true);
+	}, []);
 
 	// Timer logic
 	useEffect(() => {
@@ -132,7 +138,7 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 		}, 1000);
 
 		return () => clearInterval(timer);
-	}, [isFinished]);
+	}, [isFinished, finishGame]);
 
 	// Focus input on mount
 	useEffect(() => {
@@ -161,10 +167,6 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 		}
 		setInputValue("");
 	};
-
-	const finishGame = useCallback(() => {
-		setIsFinished(true);
-	}, []);
 
 	const getMissedWords = () => {
 		const allHardware = shuffleArray(hardwareList);
@@ -208,8 +210,8 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 				</div>
 			</div>
 			<p className="text-slate-600 mb-6">
-				You have 2 minutes to name all the computer hardware you can think of.
-				Good luck!
+				You have {INITIAL_SECONDS} seconds to name all the computer hardware you
+				can think of. Good luck!
 			</p>
 
 			<form
