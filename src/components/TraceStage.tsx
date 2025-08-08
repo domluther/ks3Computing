@@ -245,7 +245,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 				onComplete(timeTaken);
 			}
 		} else {
-			setMessage("Good! Keep going...");
+			setMessage("Good! Now get to the end...");
 		}
 	};
 

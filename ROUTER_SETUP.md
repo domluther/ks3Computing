@@ -1,46 +1,65 @@
-# Tanstack Router Setup
+# TanStack Router Setup
 
-This document explains how routing is set up in the KS3 Computing application using Tanstack Router.
+This document explains how routing is set up in the KS3 Computing application using TanStack Router's **file-based routing**.
 
 ## Overview
 
-The application has been migrated from state-based routing to proper URL-based routing using [Tanstack Router](https://tanstack.com/router/latest). This provides several benefits:
+The application uses [TanStack Router](https://tanstack.com/router/latest) with **file-based routing** for a modern, type-safe routing experience. This provides several benefits:
 
 - **URL-based navigation**: Each page has its own URL
 - **Browser history support**: Back/forward buttons work correctly
 - **Bookmarkable pages**: Users can bookmark specific pages
 - **Better UX**: Direct links to specific sections
-- **Type safety**: All routes are type-checked
+- **Type safety**: All routes are automatically type-checked
+- **File-based routing**: Routes are automatically generated from file structure
+- **Code splitting**: Automatic route-based bundle splitting
 
 ## File Structure
 
 ```
 src/
-├── router.tsx           # Main router configuration
-├── routeConfig.ts       # Centralized route definitions
-├── hooks/
-│   └── useAppNavigation.ts  # Navigation hook
-├── main.tsx            # App entry point with RouterProvider
-├── components/
-│   ├── ITSkillsLayout.tsx       # IT Skills hub layout with nested routing
-│   ├── OnlineSafetyLayout.tsx   # Online Safety hub layout with nested routing
-│   ├── MouseSkillsChallenge.tsx # Works directly with router
-│   ├── FileSimulation.tsx       # Uses router hook for navigation
-│   ├── PhishingGame.tsx         # Uses router hook for navigation
-│   └── SocialCreditGame.tsx     # Uses router hook for navigation
-└── pages/
-    ├── ITSkillsGame.old.tsx     # Original component (preserved for reference)
-    └── OnlineSafetyPage.old.tsx # Original component (preserved for reference)
+├── routes/                  # File-based routing (auto-generated)
+│   ├── __root.tsx          # Root layout component
+│   ├── index.tsx           # Home route (/)
+│   ├── hardware-software.tsx    # Hardware & Software tool
+│   ├── algorithms.tsx      # Algorithms (placeholder)
+│   ├── maths.tsx          # Maths section
+│   ├── it-skills.tsx      # IT Skills hub with nested routing
+│   ├── online-safety.tsx  # Online Safety hub with nested routing
+│   ├── hardware-software/
+│   │   ├── ascii-binary.tsx     # ASCII/Binary converter
+│   │   └── name-hardware.tsx    # Hardware naming activity
+│   ├── it-skills/
+│   │   ├── mouse-skills.tsx     # Mouse Skills Challenge
+│   │   └── file-simulation.tsx  # File & Folder Simulation
+│   ├── online-safety/
+│   │   ├── phishing.tsx         # Spot the Phish! game
+│   │   └── social-credit.tsx    # Social Credit Game
+│   └── maths/
+│       └── [...routes]          # Math activities
+├── components/             # All UI components (self-contained)
+│   ├── PhishingGame.tsx    # Phishing detection game
+│   ├── SocialCreditGame.tsx # Social credit scenarios
+│   ├── MouseSkillsChallenge.tsx # Mouse skills activities
+│   ├── FileSimulation.tsx  # File system simulation
+│   ├── InputOutputTool.tsx # Hardware categorization
+│   ├── ASCIIBinaryTool.tsx # ASCII/Binary conversion
+│   ├── NameHardware.tsx    # Hardware identification
+│   └── [other components]
+├── main.tsx               # App entry point with auto-generated router
+└── routeTree.gen.ts       # Auto-generated route tree (DO NOT EDIT)
 ```
 
 ## Clean Architecture Principles
 
-The router setup follows clean architecture principles:
+The current routing setup follows modern best practices:
 
-- **Router (`router.tsx`)**: Pure route definitions, no layout logic
-- **Layout Components**: Handle UI and user interactions
-- **Self-contained Components**: Use router hooks directly when needed
-- **No Unnecessary Wrappers**: Components handle their own navigation needs
+- **File-based routing**: Routes automatically generated from folder structure
+- **Self-contained components**: Each component handles its own navigation
+- **Type safety**: Auto-generated types for all routes
+- **Direct navigation**: Components use `useNavigate()` directly
+- **Layout components**: Embedded in route files for nested routing
+- **No prop drilling**: Navigation functions aren't passed through props
 
 ## Route Configuration
 
@@ -48,237 +67,263 @@ The router setup follows clean architecture principles:
 
 | Page | URL | Component | Notes |
 |------|-----|-----------|-------|
-| Home | `/` | HomePage | |
-| Input/Output | `/hardware-software` | InputOutputTool | |
-| Online Safety Hub | `/online-safety` | OnlineSafetyLayout | Landing page with game selection |
-| Phishing Game | `/online-safety/phishing` | PhishingGame | Nested route under Online Safety |
-| Social Credit Game | `/online-safety/social-credit` | SocialCreditGame | Nested route under Online Safety |
-| Algorithms | `/algorithms` | PlaceholderPage | |
-| IT Skills Hub | `/it-skills` | ITSkillsLayout | Landing page with activity selection |
-| Mouse Skills | `/it-skills/mouse-skills` | MouseSkillsChallenge | Nested route under IT Skills |
-| File Simulation | `/it-skills/file-simulation` | FileSimulation | Nested route under IT Skills |
+| Home | `/` | HomePage | Welcome page with navigation to all sections |
+| Hardware & Software Hub | `/hardware-software` | Hardware/Software Layout | Tools for learning about computer hardware |
+| ├─ Input/Output Tool | `/hardware-software` | InputOutputTool | Drag-and-drop Venn diagram activity |
+| ├─ ASCII/Binary Tool | `/hardware-software/ascii-binary` | ASCIIBinaryTool | Convert between text and binary |
+| ├─ Name Hardware | `/hardware-software/name-hardware` | NameHardware | Hardware identification activity |
+| Online Safety Hub | `/online-safety` | OnlineSafety Layout | Landing page with safety game selection |
+| ├─ Phishing Game | `/online-safety/phishing` | PhishingGame | "Spot the Phish!" email detection game |
+| ├─ Social Credit Game | `/online-safety/social-credit` | SocialCreditGame | Digital citizenship scenarios |
+| IT Skills Hub | `/it-skills` | ITSkills Layout | Landing page with computer skills activities |
+| ├─ Mouse Skills | `/it-skills/mouse-skills` | MouseSkillsChallenge | Mouse control practice activities |
+| ├─ File Simulation | `/it-skills/file-simulation` | FileSimulation | Windows file system simulation |
+| Mathematics Hub | `/maths` | Maths Layout | Mathematical computing concepts |
+| Algorithms | `/algorithms` | PlaceholderPage | Future algorithms section |
 
-### Route Definitions
+### File-Based Routing
 
-Routes are centrally defined in `routeConfig.ts`:
+Routes are automatically generated from the file structure in `src/routes/`. The router plugin scans this directory and creates a route tree with full TypeScript support.
 
-```typescript
-export const routeConfigs: RouteConfig[] = [
-  { page: 'home', path: '/' },
-  { page: 'hardware-software', path: '/hardware-software' },
-  { page: 'online-safety', path: '/online-safety' },
-  { page: 'algorithms', path: '/algorithms' },
-  { page: 'it-skills', path: '/it-skills' },
-];
+**Example Route Creation:**
+```
+src/routes/online-safety/phishing.tsx
+└─ Creates route: /online-safety/phishing
+```
+
+**Route File Structure:**
+```tsx
+import { createFileRoute } from '@tanstack/react-router'
+import ComponentName from '../../components/ComponentName'
+
+export const Route = createFileRoute('/route-path')({
+  component: ComponentName,
+})
 ```
 
 ## Nested Routes
 
-The application demonstrates nested routing patterns in two sections:
+The application demonstrates nested routing patterns in multiple sections:
 
 ### Online Safety Route Structure
 ```
-/online-safety                     # Landing page with game selection
-├── /online-safety/phishing        # Spot the Phish! game
-└── /online-safety/social-credit   # The Social Credit Game
+/online-safety                     # Hub with game selection
+├── /online-safety/phishing        # "Spot the Phish!" email game
+└── /online-safety/social-credit   # Digital citizenship scenarios
 ```
 
 ### IT Skills Route Structure
 ```
-/it-skills                    # Landing page with activity selection
-├── /it-skills/mouse-skills   # Mouse Skills Challenge
-└── /it-skills/file-simulation # File & Folder Simulation
+/it-skills                    # Hub with activity selection
+├── /it-skills/mouse-skills   # Mouse control practice
+└── /it-skills/file-simulation # File & folder management
+```
+
+### Hardware & Software Route Structure
+```
+/hardware-software                      # Input/Output tool (main activity)
+├── /hardware-software/ascii-binary    # ASCII to binary converter
+└── /hardware-software/name-hardware   # Hardware identification quiz
 ```
 
 ### Implementation Details
 
-**Parent Route** (`/it-skills`):
-- Uses `ITSkillsLayout` component
-- Shows intro page when at base route
-- Renders child routes using `<Outlet />` for nested paths
+**Parent Routes** (e.g., `/it-skills.tsx`):
+- Contain layout logic for the hub page
+- Show intro/navigation when at base route
+- Use `<Outlet />` to render child routes for nested paths
+- Handle navigation between child activities
 
-**Child Routes**:
-- `/mouse-skills` - Renders `MouseSkillsChallenge` component
-- `/file-simulation` - Renders `FileSimulation` with navigation back to parent
+**Child Routes** (e.g., `/it-skills/mouse-skills.tsx`):
+- Import and render the specific component
+- Self-contained with direct navigation back to parent
+- Use `useNavigate()` hook for routing
 
-**Navigation**:
-- From IT Skills hub: Click buttons to navigate to child routes
-- From child routes: Use "Exit" or back functionality to return to hub
-- From navbar: Always goes to the IT Skills hub (`/it-skills`)
+**Navigation Example:**
+```tsx
+// In a component
+import { useNavigate } from '@tanstack/react-router'
 
-### Adding More Nested Routes
-
-To add additional activities under IT Skills:
-
-1. **Create the child route**:
-   ```typescript
-   const newActivityRoute = createRoute({
-     getParentRoute: () => itSkillsRoute,
-     path: '/new-activity',
-     component: NewActivityComponent,
-   });
-   ```
-
-2. **Add to route tree**:
-   ```typescript
-   itSkillsRoute.addChildren([
-     itSkillsIndexRoute,
-     mouseSkillsRoute,
-     fileSimulationRoute,
-     newActivityRoute, // Add here
-   ])
-   ```
-
-3. **Update the ITSkillsLayout** to include navigation button:
-   ```tsx
-   <GameButton onClick={() => navigate({ to: '/it-skills/new-activity' as any })}>
-     New Activity
-   </GameButton>
-   ```
-
-### Main Router (`router.tsx`)
-
-The router is configured with:
-
-1. **Root Route**: Provides the main layout (Header, Navbar, content area)
-2. **Child Routes**: Each page is a child route that renders in the content area
-3. **Navigation Wrapper**: Handles the integration between the existing Navbar component and the router
-
-### Key Components
-
-- `RootLayout`: The main layout component that wraps all pages
-- `HomePageWrapper`: Wrapper for the HomePage that provides router-aware navigation
-- Route definitions for each page
+function GameComponent() {
+  const navigate = useNavigate()
+  
+  const exitGame = () => {
+    navigate({ to: '/it-skills' }) // Direct, type-safe navigation
+  }
+  
+  return <button onClick={exitGame}>Back to Hub</button>
+}
+```
 
 ## Navigation
 
-### Using the Navigation Hook
+### Modern Navigation Pattern
 
-Components can use the `useAppNavigation` hook for type-safe navigation:
+Components use TanStack Router hooks directly for type-safe navigation:
 
-```typescript
-import { useAppNavigation } from '../hooks/useAppNavigation';
+```tsx
+import { useNavigate, useLocation } from '@tanstack/react-router'
 
 function MyComponent() {
-  const { navigateToPage } = useAppNavigation();
+  const navigate = useNavigate()
+  const location = useLocation()
   
-  const handleClick = () => {
-    navigateToPage('hardware-software');
-  };
+  const handleNavigation = () => {
+    navigate({ to: '/online-safety/phishing' }) // Fully type-safe
+  }
   
-  // ...
+  const isActive = location.pathname === '/online-safety'
+  
+  return (
+    <button onClick={handleNavigation}>
+      Go to Phishing Game
+    </button>
+  )
 }
 ```
 
-### Existing Component Integration
+### Component Integration
 
-The existing `Navbar` and `HomePage` components continue to work unchanged because:
+All components are self-contained and handle their own navigation:
 
-1. The router provides navigation functions that match their expected interface
-2. Wrapper components handle the integration between router hooks and component props
+- **Navbar**: Uses `useLocation()` for active state detection
+- **Game Components**: Use `useNavigate()` for exit/back functionality  
+- **HomePage**: Navigation buttons use direct route paths
+- **Layout Components**: Handle hub-to-activity navigation
+
+### Type Safety
+
+The router automatically generates types from your route structure:
+
+```tsx
+// This is type-checked and autocompleted
+navigate({ to: '/it-skills/mouse-skills' })
+
+// TypeScript will error if route doesn't exist
+navigate({ to: '/invalid-route' }) // ❌ Type error
+```
 
 ## Development Tools
 
-The router includes Tanstack Router DevTools in development mode, which provides:
+The router includes TanStack Router DevTools in development mode, which provides:
 
-- Route visualization
-- Navigation history
+- Route visualization and debugging
+- Navigation history tracking
 - Performance metrics
-- Debugging information
-
-## Type Safety
-
-The router setup includes full TypeScript support:
-
-```typescript
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
-}
-```
-
-This ensures that:
-- All routes are type-checked
-- Navigation is type-safe
-- IDE provides autocompletion for routes
-
-## Migration Notes
-
-### What Changed
-
-1. **Entry Point**: `main.tsx` now uses `RouterProvider` instead of the `App` component
-2. **Navigation**: URL-based instead of state-based
-3. **Layout**: Moved from `App.tsx` to `RootLayout` in `router.tsx`
-
-### What Stayed the Same
-
-1. **Component Interface**: All existing page components work unchanged
-2. **Styling**: All Tailwind classes and layout remain identical
-3. **Functionality**: All interactive features continue to work
-
-### What Was Replaced
-
-The following components have been replaced with router-aware layout components:
-
-- **`ITSkillsGame.tsx`** → **`ITSkillsLayout.tsx`** (with nested routing)
-- **`OnlineSafetyPage.tsx`** → **`OnlineSafetyLayout.tsx`** (with nested routing)
-
-The original files have been renamed to `.old.tsx` for reference but are no longer used by the application.
-
-### Backward Compatibility
-
-The old `App.tsx` has been preserved as `App.old.tsx` for reference. To revert to state-based routing:
-
-1. Restore `App.old.tsx` to `App.tsx`
-2. Update `main.tsx` to use the `App` component
-3. Remove router-related packages if desired
+- Real-time route tree inspection
 
 ## Adding New Routes
 
-To add a new route:
+To add a new route using file-based routing:
 
-1. **Add to route config** (`routeConfig.ts`):
-   ```typescript
-   { page: 'new-page', path: '/new-page' }
-   ```
+### 1. Simple Route
+Create a new file in `src/routes/`:
+```tsx
+// src/routes/new-page.tsx
+import { createFileRoute } from '@tanstack/react-router'
+import NewPageComponent from '../components/NewPageComponent'
 
-2. **Update the Page type** (`types/types.ts`):
-   ```typescript
-   export type Page = 'home' | 'hardware-software' | 'online-safety' | 'algorithms' | 'it-skills' | 'new-page';
-   ```
+export const Route = createFileRoute('/new-page')({
+  component: NewPageComponent,
+})
+```
 
-3. **Add route definition** (`router.tsx`):
-   ```typescript
-   const newPageRoute = createRoute({
-     getParentRoute: () => rootRoute,
-     path: '/new-page',
-     component: NewPageComponent,
-   });
-   ```
+### 2. Nested Route
+Create a new file in an existing directory:
+```tsx
+// src/routes/it-skills/new-activity.tsx
+import { createFileRoute } from '@tanstack/react-router'
+import NewActivityComponent from '../../components/NewActivityComponent'
 
-4. **Add to route tree**:
-   ```typescript
-   const routeTree = rootRoute.addChildren([
-     // ... existing routes
-     newPageRoute,
-   ]);
-   ```
+export const Route = createFileRoute('/it-skills/new-activity')({
+  component: NewActivityComponent,
+})
+```
 
-## Performance
+### 3. Hub with Children
+Create both the parent and child routes:
+```tsx
+// src/routes/new-section.tsx (Hub)
+import { createFileRoute, Outlet, useNavigate, useLocation } from '@tanstack/react-router'
 
-The router setup is optimized for:
+function NewSectionLayout() {
+  const navigate = useNavigate()
+  const location = useLocation()
 
-- **Code splitting**: Each route can be lazy-loaded if needed
-- **Type safety**: Compile-time route checking
-- **Bundle size**: Only includes necessary router code
-- **Runtime performance**: Efficient route matching and navigation
+  if (location.pathname === '/new-section') {
+    return (
+      <div>
+        <h2>New Section Hub</h2>
+        <button onClick={() => navigate({ to: '/new-section/activity1' })}>
+          Activity 1
+        </button>
+      </div>
+    )
+  }
+
+  return <Outlet />
+}
+
+export const Route = createFileRoute('/new-section')({
+  component: NewSectionLayout,
+})
+```
+
+### 4. Update Navigation
+Add your new route to the navbar in `src/data/pages.ts`:
+```tsx
+export const navItems: PageDescription[] = [
+  // ... existing items
+  { 
+    id: 'new-section', 
+    emoji: '🆕', 
+    title: 'New Section', 
+    description: 'Description of new section',
+    enabled: true 
+  },
+];
+```
+
+## Migration Summary
+
+### What Changed from Old System
+
+1. **❌ Removed Files:**
+   - `routeConfig.ts` - Manual route mapping
+   - `router.tsx` - Programmatic router setup
+   - `useAppNavigation.ts` - Custom navigation hook
+   - `src/pages/` directory - Separate pages folder
+   - Layout components in `/components` (moved to route files)
+
+2. **✅ New File-Based System:**
+   - `src/routes/` - Auto-generated routing from file structure
+   - `routeTree.gen.ts` - Auto-generated type definitions
+   - Direct navigation with `useNavigate()`
+   - Layout logic embedded in route files
+
+### What Stayed the Same
+
+1. **Component Interface**: All game/activity components work unchanged
+2. **Styling**: All Tailwind classes and styling remain identical  
+3. **Functionality**: All interactive features continue to work
+4. **User Experience**: Navigation and URLs remain the same
+
+## Performance Benefits
+
+The file-based routing system provides:
+
+- **Automatic code splitting**: Each route loads only when needed
+- **Type safety**: Compile-time route validation
+- **Smaller bundles**: Tree-shaking of unused routes
+- **Better caching**: Route-based cache invalidation
+- **Development speed**: Hot module replacement for route changes
 
 ## Testing
 
-To test the router setup:
+To test the routing system:
 
-1. **Development**: Run `npm run dev` and navigate between pages
-2. **Type checking**: Run `npm run type-check`
-3. **Browser testing**: Test back/forward buttons, direct URL access, and bookmarking
-4. **DevTools**: Use the Tanstack Router DevTools panel for debugging
+1. **Development**: Run `npm run dev` and navigate between all sections
+2. **Type checking**: TypeScript validates all route references
+3. **Browser testing**: Test back/forward buttons, direct URL access, bookmarking
+4. **DevTools**: Use TanStack Router DevTools for debugging
+5. **Route generation**: Check that `routeTree.gen.ts` updates automatically
