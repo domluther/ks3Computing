@@ -1081,6 +1081,15 @@ const FileSimulation = () => {
 						style={{ top: contextMenu.y, left: contextMenu.x }}
 						className="absolute bg-gray-200 border border-gray-400 rounded shadow-lg py-1 w-40 z-50 text-sm"
 						onClick={(e) => e.stopPropagation()}
+						onKeyDown={(e) => {
+							if (e.key === "Escape") {
+								setContextMenu({ ...contextMenu, visible: false });
+							}
+							e.stopPropagation();
+						}}
+						role="menu"
+						tabIndex={-1}
+						aria-label="Context menu"
 					>
 						{contextMenu.targetId && contextMenu.targetId !== "root" ? (
 							<>
