@@ -73,7 +73,7 @@ const MouseSkillsChallenge = () => {
 							help you practice tracing, clicking, dragging and dropping. Click
 							the button below to start.
 						</p>
-						<GameButton onClick={() => setStage("dragDropping")}>
+						<GameButton onClick={() => setStage("tracing")}>
 							Start Challenge
 						</GameButton>
 						<button
