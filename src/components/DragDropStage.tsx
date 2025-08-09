@@ -1,7 +1,8 @@
 // DragStage.tsx
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import GameButton from "./GameButton";
+import { useStageTimer } from "../hooks/useStageTimer";
+import GameStage from "./GameStage";
 
 // --- TYPE DEFINITIONS ---
 type DragLevel = "open" | "simple" | "zigzag" | "narrow" | "maze";
@@ -15,11 +16,13 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 	onComplete,
 	onRestart,
 }) => {
+	// Use the shared timer logic
+	const { elapsed, startTime, startTimer, resetTimer, completeStage } =
+		useStageTimer();
+
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [level, setLevel] = useState<DragLevel>("open");
 	const [isDragging, setIsDragging] = useState(false);
-	const [startTime, setStartTime] = useState<number | null>(null);
-	const [elapsed, setElapsed] = useState<number>(0);
 	const [message, setMessage] = useState("Drag the duck to the pond!");
 	const [duckPos, setDuckPos] = useState<{ x: number; y: number }>({
 		x: 0,
@@ -35,15 +38,6 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 	});
 
 	const levels: DragLevel[] = ["open", "simple", "zigzag", "narrow", "maze"];
-
-	useEffect(() => {
-		const timer = setInterval(() => {
-			if (startTime) {
-				setElapsed((Date.now() - startTime) / 1000);
-			}
-		}, 100);
-		return () => clearInterval(timer);
-	}, [startTime]);
 
 	const drawWalls = useCallback(
 		(ctx: CanvasRenderingContext2D, w: number, h: number) => {
@@ -182,6 +176,40 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 		[level],
 	);
 
+	const updatePositions = useCallback(() => {
+		const canvas = canvasRef.current;
+		if (!canvas) return;
+
+		const parent = canvas.parentElement;
+		if (parent) {
+			const w = parent.offsetWidth;
+			const h = parent.offsetHeight;
+
+			const newStartPos = { x: w * 0.1, y: h * 0.5 };
+			const newGoalPos = { x: w * 0.85, y: h * 0.5 };
+
+			// Update positions if they've changed significantly or are uninitialized
+			if (
+				startPos.x === 0 ||
+				Math.abs(startPos.x - newStartPos.x) > 5 ||
+				Math.abs(startPos.y - newStartPos.y) > 5
+			) {
+				setStartPos(newStartPos);
+				// Only update duck position if not currently dragging
+				if (!isDragging) {
+					setDuckPos(newStartPos);
+				}
+			}
+			if (
+				goalPos.x === 0 ||
+				Math.abs(goalPos.x - newGoalPos.x) > 5 ||
+				Math.abs(goalPos.y - newGoalPos.y) > 5
+			) {
+				setGoalPos(newGoalPos);
+			}
+		}
+	}, [startPos, goalPos, isDragging]);
+
 	const draw = useCallback(() => {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
@@ -194,31 +222,31 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 			canvas.height = parent.offsetHeight;
 		}
 
+		// Update positions whenever we draw
+		updatePositions();
+
 		const w = canvas.width;
 		const h = canvas.height;
 
 		// Clear canvas
 		ctx.clearRect(0, 0, w, h);
 
-		// Set positions for this level
-		const newStartPos = { x: w * 0.1, y: h * 0.5 };
-		const newGoalPos = { x: w * 0.85, y: h * 0.5 };
-
-		if (startPos.x !== newStartPos.x || startPos.y !== newStartPos.y) {
-			setStartPos(newStartPos);
-			setDuckPos(newStartPos);
-		}
-		if (goalPos.x !== newGoalPos.x || goalPos.y !== newGoalPos.y) {
-			setGoalPos(newGoalPos);
-		}
+		// Calculate positions for this level (don't update state here)
+		const currentGoalPos = { x: w * 0.85, y: h * 0.5 };
 
 		// Draw walls
 		drawWalls(ctx, w, h);
 
-		// Draw pond (goal)
+		// Draw pond (goal) - use state goalPos for consistency with collision detection
 		ctx.fillStyle = "#3b82f6";
 		ctx.beginPath();
-		ctx.arc(goalPos.x, goalPos.y, 75, 0, 2 * Math.PI);
+		ctx.arc(
+			goalPos.x || currentGoalPos.x,
+			goalPos.y || currentGoalPos.y,
+			75,
+			0,
+			2 * Math.PI,
+		);
 		ctx.fill();
 
 		// Add pond label
@@ -226,14 +254,13 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 		ctx.font = "bold 16px sans-serif";
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
-		// ctx.fillText('POND', goalPos.x, goalPos.y);
 
 		// Draw duck emoji
 		ctx.font = "50px Arial";
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
 		ctx.fillText("🐥", duckPos.x, duckPos.y);
-	}, [duckPos, startPos, goalPos, drawWalls]);
+	}, [duckPos, goalPos, drawWalls, updatePositions]);
 
 	useEffect(() => {
 		draw();
@@ -267,7 +294,10 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 
 		if (isPointNear(x, y, duckPos.x, duckPos.y)) {
 			setIsDragging(true);
-			if (!startTime) setStartTime(Date.now());
+			// Only start the timer if it hasn't been started yet
+			if (!startTime) {
+				startTimer(); // Start the timer when game begins
+			}
 			setMessage("Dragging the duck! Avoid the purple walls.");
 		}
 	};
@@ -307,7 +337,6 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 			isPointNear(duckPos.x, duckPos.y, goalPos.x, goalPos.y, 60)
 		) {
 			// Duck was dropped in the pond - complete level
-			const timeTaken = (Date.now() - (startTime ?? Date.now())) / 1000;
 			const currentIndex = levels.indexOf(level);
 			if (currentIndex < levels.length - 1) {
 				setLevel(levels[currentIndex + 1]);
@@ -315,7 +344,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 				setDuckPos(startPos);
 				setMessage("Great! Level complete. Try the next one!");
 			} else {
-				onComplete(timeTaken);
+				completeStage(onComplete); // Use shared completion logic
 			}
 		} else {
 			setIsDragging(false);
@@ -325,21 +354,22 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 		}
 	};
 
+	const handleRestart = () => {
+		// Reset all state and restart the game
+		setLevel("open");
+		setIsDragging(false);
+		setMessage("Drag the duck to the pond!");
+		resetTimer(); // Reset the timer completely
+		onRestart();
+	};
+
 	return (
-		<div className="w-full h-[60vh] flex flex-col items-center justify-center p-4">
-			<h3 className="text-2xl font-bold text-slate-700 mb-2">
-				Stage 3: Duck Dragging
-			</h3>
-			<p className="text-lg text-slate-500 mb-2 bg-yellow-100 p-2 rounded-lg">
-				{message}
-			</p>
-			<div className="mb-2 text-lg font-semibold text-slate-700">
-				Time: {elapsed.toFixed(1)}s
-			</div>
-			<div className="mb-2 text-md text-slate-600">
-				Level: {levels.indexOf(level) + 1} of {levels.length} -{" "}
-				{level.charAt(0).toUpperCase() + level.slice(1)}
-			</div>
+		<GameStage
+			title="Stage 3: Duck Dragging"
+			instructions={message}
+			elapsed={elapsed}
+			onRestart={handleRestart}
+		>
 			<div className="w-full h-full border-4 border-slate-300 rounded-lg overflow-hidden">
 				<canvas
 					ref={canvasRef}
@@ -350,10 +380,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 					className="w-full h-full bg-slate-50 cursor-pointer"
 				/>
 			</div>
-			<GameButton onClick={onRestart} className="mt-4">
-				Restart Game
-			</GameButton>
-		</div>
+		</GameStage>
 	);
 };
 

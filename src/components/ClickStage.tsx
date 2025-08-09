@@ -1,7 +1,8 @@
 // ClickingStage.tsx
 import type React from "react";
 import { useCallback, useEffect, useState } from "react";
-import GameButton from "./GameButton";
+import { useStageTimer } from "../hooks/useStageTimer";
+import GameStage from "./GameStage";
 
 // --- TYPE DEFINITIONS ---
 type CircleSize = "small" | "default" | "large";
@@ -12,6 +13,9 @@ interface ClickStageProps {
 }
 
 const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
+	// Use the shared timer logic
+	const { elapsed, startTimer, completeStage } = useStageTimer();
+
 	const [items, setItems] = useState<
 		{
 			id: number;
@@ -20,19 +24,8 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 			y: number;
 		}[]
 	>([]);
-	const [startTime, setStartTime] = useState<number | null>(null);
-	const [elapsed, setElapsed] = useState<number>(0);
 	const [clickCounts, setClickCounts] = useState<Record<number, number>>({});
 	const [circleSize, setCircleSize] = useState<CircleSize>("default");
-
-	useEffect(() => {
-		const timer = setInterval(() => {
-			if (startTime) {
-				setElapsed((Date.now() - startTime) / 1000);
-			}
-		}, 100);
-		return () => clearInterval(timer);
-	}, [startTime]);
 
 	const generateItems = useCallback(() => {
 		const newItems = [];
@@ -47,9 +40,9 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 			});
 		}
 		setItems(newItems);
-		setStartTime(Date.now());
+		startTimer(); // Start the timer when game begins
 		setClickCounts({});
-	}, []);
+	}, [startTimer]);
 
 	useEffect(() => {
 		generateItems();
@@ -80,9 +73,7 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 			const newItems = items.filter((i) => i.id !== item.id);
 			setItems(newItems);
 			if (newItems.length === 0) {
-				const endTime = Date.now();
-				const timeTaken = (endTime - (startTime ?? endTime)) / 1000;
-				onComplete(timeTaken);
+				completeStage(onComplete); // Use shared completion logic
 			}
 		}
 	};
@@ -98,40 +89,40 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 		}
 	};
 
+	const handleRestart = () => {
+		generateItems(); // This will reset timer and items
+		onRestart();
+	};
+
+	const instructions = (
+		<>
+			<span className="font-bold text-blue-600">LEFT-CLICK</span> L or LL,
+			<span className="font-bold text-red-600"> RIGHT-CLICK</span> R or RR.
+			Double-click LL/RR!
+		</>
+	);
+
 	return (
-		<div className="w-full h-[60vh] flex flex-col items-center p-4">
-			<h3 className="text-2xl font-bold text-slate-700 mb-2">
-				Stage 2: Clicking
-			</h3>
-			<p className="text-lg text-slate-500 mb-2 bg-yellow-100 p-2 rounded-lg">
-				<span className="font-bold text-blue-600">LEFT-CLICK</span> L or LL,
-				<span className="font-bold text-red-600"> RIGHT-CLICK</span> R or RR.
-				Double-click LL/RR!
-			</p>
-			<div className="mb-2 text-lg font-semibold text-slate-700">
-				Time: {elapsed.toFixed(1)}s
-			</div>
-			<div className="mb-2">
-				<label
-					htmlFor="circle-size"
-					className="font-medium text-slate-600 mr-2"
-				>
-					Circle Size:
-				</label>
-				<select
-					id="circle-size"
-					value={circleSize}
-					onChange={(e) => {
-						setCircleSize(e.target.value as CircleSize);
-						generateItems(); // Reset the game when difficulty changes
-					}}
-					className="border border-slate-400 rounded px-2 py-1"
-				>
-					<option value="large">Large</option>
-					<option value="default">Default</option>
-					<option value="small">Small</option>
-				</select>
-			</div>
+		<GameStage
+			title="Stage 2: Clicking"
+			instructions={instructions}
+			elapsed={elapsed}
+			onRestart={handleRestart}
+			difficultySelector={{
+				label: "Circle Size",
+				id: "circle-size",
+				value: circleSize,
+				onChange: (value) => {
+					setCircleSize(value as CircleSize);
+					generateItems(); // Reset the game when difficulty changes
+				},
+				options: [
+					{ value: "large", label: "Large" },
+					{ value: "default", label: "Default" },
+					{ value: "small", label: "Small" },
+				],
+			}}
+		>
 			<div
 				role="application"
 				className="w-full h-full border-4 border-slate-300 rounded-lg relative bg-slate-50"
@@ -151,10 +142,7 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 					</button>
 				))}
 			</div>
-			<GameButton onClick={onRestart} className="mt-4">
-				Restart Game
-			</GameButton>
-		</div>
+		</GameStage>
 	);
 };
 

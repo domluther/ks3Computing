@@ -1069,7 +1069,6 @@ const FileSimulation = () => {
 										e.target === e.currentTarget &&
 										(e.key === "Enter" || e.key === " ")
 									) {
-										console.log("here");
 										e.preventDefault();
 										handleContainerClick(e);
 									}

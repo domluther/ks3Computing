@@ -14,8 +14,8 @@ const MouseSkillsChallenge = () => {
 		| "intro"
 		| "tracing"
 		| "clicking"
-		| "dragging"
 		| "dragDropping"
+		| "dragging"
 		| "results";
 	interface TimeRecord {
 		tracing: number | null;
@@ -53,8 +53,8 @@ const MouseSkillsChallenge = () => {
 		setTimes({
 			tracing: null,
 			clicking: null,
-			dragging: null,
 			dragDropping: null,
+			dragging: null,
 		});
 		setStage("intro");
 		setShowCelebration(false); // reset modal
@@ -73,7 +73,7 @@ const MouseSkillsChallenge = () => {
 							help you practice tracing, clicking, dragging and dropping. Click
 							the button below to start.
 						</p>
-						<GameButton onClick={() => setStage("tracing")}>
+						<GameButton onClick={() => setStage("dragDropping")}>
 							Start Challenge
 						</GameButton>
 						<button

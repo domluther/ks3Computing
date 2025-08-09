@@ -1,7 +1,8 @@
 // ClickingStage.tsx
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import GameButton from "./GameButton";
+import { useStageTimer } from "../hooks/useStageTimer";
+import GameStage from "./GameStage";
 
 // --- TYPE DEFINITIONS ---
 type TraceLevel = "line" | "wave" | "square" | "circle" | "star";
@@ -13,11 +14,13 @@ interface TraceStageProps {
 }
 
 const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
+	// Use the shared timer logic
+	const { elapsed, startTime, startTimer, resetTimer, completeStage } =
+		useStageTimer();
+
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [level, setLevel] = useState<TraceLevel>("line");
 	const [isDrawing, setIsDrawing] = useState(false);
-	const [startTime, setStartTime] = useState<number | null>(null);
-	const [elapsed, setElapsed] = useState<number>(0);
 	const [message, setMessage] = useState(
 		"Move your mouse to the START circle to begin!",
 	);
@@ -26,15 +29,6 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 	const levels: TraceLevel[] = ["line", "wave", "square", "circle", "star"];
 	const startRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 	const endRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-
-	useEffect(() => {
-		const timer = setInterval(() => {
-			if (startTime) {
-				setElapsed((Date.now() - startTime) / 1000);
-			}
-		}, 100);
-		return () => clearInterval(timer);
-	}, [startTime]);
 
 	const draw = useCallback(() => {
 		const canvas = canvasRef.current;
@@ -57,6 +51,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 
 		const w = canvas.width;
 		const h = canvas.height;
+
 		let startPos = { x: 0, y: 0 };
 		let endPos = { x: 0, y: 0 };
 
@@ -218,7 +213,10 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 			const s = startRef.current;
 			if (isPointNear(x, y, s.x, s.y)) {
 				setIsDrawing(true);
-				if (!startTime) setStartTime(Date.now());
+				// Only start timer once per game session (not on level restart)
+				if (!startTime) {
+					startTimer();
+				}
 				setMessage("Go! Trace the path to the END circle.");
 			}
 			return;
@@ -235,49 +233,46 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 
 		const ePos = endRef.current;
 		if (isPointNear(x, y, ePos.x, ePos.y)) {
-			const timeTaken = (Date.now() - (startTime ?? Date.now())) / 1000;
 			const currentIndex = levels.indexOf(level);
 			if (currentIndex < levels.length - 1) {
 				setLevel(levels[currentIndex + 1]);
 				setIsDrawing(false);
 				setMessage("Great! Get ready for the next one. Go to START.");
 			} else {
-				onComplete(timeTaken);
+				completeStage(onComplete); // Use shared completion logic
 			}
 		} else {
 			setMessage("Good! Now get to the end...");
 		}
 	};
 
+	const handleRestart = () => {
+		// Reset all state and restart the game
+		setLevel("line");
+		setIsDrawing(false);
+		setMessage("Move your mouse to the START circle to begin!");
+		resetTimer(); // Reset the timer completely
+		onRestart();
+	};
+
 	return (
-		<div className="w-full h-[60vh] flex flex-col items-center justify-center p-4">
-			<h3 className="text-2xl font-bold text-slate-700 mb-2">
-				Stage 1: Mouse Tracing
-			</h3>
-			<p className="text-lg text-slate-500 mb-2 bg-yellow-100 p-2 rounded-lg">
-				{message}
-			</p>
-			<div className="mb-2 text-lg font-semibold text-slate-700">
-				Time: {elapsed.toFixed(1)}s
-			</div>
-			<div className="mb-2">
-				<label
-					htmlFor="line-thickness"
-					className="font-medium text-slate-600 mr-2"
-				>
-					Line Thickness:
-				</label>
-				<select
-					id="line-thickness"
-					value={lineThickness}
-					onChange={(e) => setLineThickness(e.target.value as LineThickness)}
-					className="border border-slate-400 rounded px-2 py-1"
-				>
-					<option value="thick">Thick</option>
-					<option value="default">Default</option>
-					<option value="thin">Thin</option>
-				</select>
-			</div>
+		<GameStage
+			title="Stage 1: Mouse Tracing"
+			instructions={message}
+			elapsed={elapsed}
+			onRestart={handleRestart}
+			difficultySelector={{
+				label: "Line Thickness",
+				id: "line-thickness",
+				value: lineThickness,
+				onChange: (value) => setLineThickness(value as LineThickness),
+				options: [
+					{ value: "thick", label: "Thick" },
+					{ value: "default", label: "Default" },
+					{ value: "thin", label: "Thin" },
+				],
+			}}
+		>
 			<div className="w-full h-full border-4 border-slate-300 rounded-lg overflow-hidden">
 				<canvas
 					ref={canvasRef}
@@ -285,10 +280,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 					className="w-full h-full bg-slate-50"
 				/>
 			</div>
-			<GameButton onClick={onRestart} className="mt-4">
-				Restart Game
-			</GameButton>
-		</div>
+		</GameStage>
 	);
 };
 
