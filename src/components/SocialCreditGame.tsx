@@ -660,6 +660,7 @@ const SocialCreditGame = () => {
 				"State what a deepfake is. Explain why creating one of a friend without their permission is a bad idea.",
 		},
 	];
+
 	const questionsToAsk = scenarios.length;
 	// const questionsToAsk = 5;
 

@@ -13,8 +13,6 @@ import { useState } from "react";
 import GameButton from "../components/GameButton";
 import { shuffleArray } from "../utils/utils";
 
-// --- GAME CONFIGURATION ---
-const EMAILS_PER_GAME = 10;
 
 // --- PHISHING GAME COMPONENT ---
 const PhishingGame = () => {
@@ -39,6 +37,9 @@ const PhishingGame = () => {
 		subject: ClickableClue;
 		body: ClickableClue[];
 	}
+
+	// --- GAME CONFIGURATION ---
+	const EMAILS_PER_GAME = 10;
 
 	// --- STATE MANAGEMENT ---
 	const [stage, setStage] = useState<GameStage>("intro");
