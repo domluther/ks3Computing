@@ -1,6 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import CelebrationModal from "./CelebrationModal";
 import ClickStage from "./ClickStage";
 import DragDropStage from "./DragDropStage";
 import DragStage from "./DragStage";
@@ -31,14 +30,6 @@ const MouseSkillsChallenge = () => {
 		dragDropping: null,
 		dragging: null,
 	});
-	const [showCelebration, setShowCelebration] = useState(false);
-
-	// ✅ Trigger celebration modal when stage becomes "results"
-	useEffect(() => {
-		if (stage === "results") {
-			setShowCelebration(true);
-		}
-	}, [stage]);
 
 	const handleComplete = (
 		stageName: keyof TimeRecord,
@@ -57,7 +48,6 @@ const MouseSkillsChallenge = () => {
 			dragging: null,
 		});
 		setStage("intro");
-		setShowCelebration(false); // reset modal
 	};
 
 	const renderStage = () => {
@@ -157,14 +147,7 @@ const MouseSkillsChallenge = () => {
 			}
 		}
 	};
-	return (
-		<>
-			{renderStage()}
-			{showCelebration && (
-				<CelebrationModal onClose={() => setShowCelebration(false)} />
-			)}
-		</>
-	);
+	return <>{renderStage()}</>;
 };
 
 export default MouseSkillsChallenge;
