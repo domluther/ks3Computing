@@ -14,6 +14,11 @@ function HardwareSoftwareLayout() {
 					color: "green",
 				},
 				{
+					text: "Software identification game",
+					route: "/hardware-software/identify-software",
+					color: "orange",
+				},
+				{
 					text: "Input Output Challenge",
 					route: "/hardware-software/input-output",
 					color: "blue",
