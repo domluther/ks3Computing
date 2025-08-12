@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ClickStage from "./ClickStage";
 import DragDropStage from "./DragDropStage";
 import DragStage from "./DragStage";

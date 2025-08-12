@@ -1,12 +1,12 @@
 import {
-	CheckCircle,
-	HelpCircle,
-	Monitor,
-	FileText,
-	Image,
 	BarChart3,
+	CheckCircle,
+	FileText,
 	Globe,
+	HelpCircle,
+	Image,
 	Layout,
+	Monitor,
 	XCircle,
 } from "lucide-react";
 import { type ReactNode, useState } from "react";
@@ -38,28 +38,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Word processing software",
 					softwareName: "Microsoft Word",
 					isCorrect: true,
-					feedback: "Perfect! Word processing software is designed for creating, editing and formatting text documents like essays.",
+					feedback:
+						"Perfect! Word processing software is designed for creating, editing and formatting text documents like essays.",
 				},
 				{
 					softwareType: "Presentation software",
 					softwareName: "PowerPoint",
 					isCorrect: false,
-					feedback: "Presentation software is for creating slides, not writing long text documents like essays.",
+					feedback:
+						"Presentation software is for creating slides, not writing long text documents like essays.",
 				},
 				{
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: false,
-					feedback: "Spreadsheet software is for working with numbers and data in tables, not writing essays.",
+					feedback:
+						"Spreadsheet software is for working with numbers and data in tables, not writing essays.",
 				},
 				{
 					softwareType: "Graphics software",
 					softwareName: "Adobe Photoshop",
 					isCorrect: false,
-					feedback: "Graphics software is for creating and editing images, not writing text documents.",
+					feedback:
+						"Graphics software is for creating and editing images, not writing text documents.",
 				},
 			],
-			explanation: "Essays require creating, editing and formatting text documents - this is exactly what word processing software does best.",
+			explanation:
+				"Essays require creating, editing and formatting text documents - this is exactly what word processing software does best.",
 			correctSoftware: "Word Processing",
 		},
 		{
@@ -70,28 +75,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Desktop Publishing software",
 					softwareName: "Publisher",
 					isCorrect: true,
-					feedback: "Excellent! DTP software is specifically designed for creating posters, flyers and other publications with text and images.",
+					feedback:
+						"Excellent! DTP software is specifically designed for creating posters, flyers and other publications with text and images.",
 				},
 				{
 					softwareType: "Presentation software",
 					softwareName: "PowerPoint",
 					isCorrect: false,
-					feedback: "While you could make a poster in PowerPoint, DTP software is more appropriate for printed posters with professional layouts.",
+					feedback:
+						"While you could make a poster in PowerPoint, DTP software is more appropriate for printed posters with professional layouts.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "Word is mainly for text documents. DTP software has better tools for combining text and images in poster layouts.",
+					feedback:
+						"Word is mainly for text documents. DTP software has better tools for combining text and images in poster layouts.",
 				},
 				{
 					softwareType: "Web browser",
 					softwareName: "Google Chrome",
 					isCorrect: false,
-					feedback: "A web browser is for viewing websites, not creating posters.",
+					feedback:
+						"A web browser is for viewing websites, not creating posters.",
 				},
 			],
-			explanation: "Posters need professional layout tools that combine text and images effectively - DTP software is designed specifically for this purpose.",
+			explanation:
+				"Posters need professional layout tools that combine text and images effectively - DTP software is designed specifically for this purpose.",
 			correctSoftware: "Desktop Publishing",
 		},
 		{
@@ -102,28 +112,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Presentation software",
 					softwareName: "PowerPoint",
 					isCorrect: true,
-					feedback: "Perfect! Presentation software lets you create slides with images, text and animations to support your talk.",
+					feedback:
+						"Perfect! Presentation software lets you create slides with images, text and animations to support your talk.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "Word is for documents, not for creating visual slides to show during a presentation.",
+					feedback:
+						"Word is for documents, not for creating visual slides to show during a presentation.",
 				},
 				{
 					softwareType: "Desktop Publishing software",
 					softwareName: "Publisher",
 					isCorrect: false,
-					feedback: "DTP is for printed materials like posters. Presentation software is better for on-screen slides.",
+					feedback:
+						"DTP is for printed materials like posters. Presentation software is better for on-screen slides.",
 				},
 				{
 					softwareType: "Graphics software",
 					softwareName: "Adobe Photoshop",
 					isCorrect: false,
-					feedback: "Graphics software creates individual images, but you need slides with text and multiple images for a presentation.",
+					feedback:
+						"Graphics software creates individual images, but you need slides with text and multiple images for a presentation.",
 				},
 			],
-			explanation: "Presentations require slides with images, text and possibly animations - this is what presentation software is designed for.",
+			explanation:
+				"Presentations require slides with images, text and possibly animations - this is what presentation software is designed for.",
 			correctSoftware: "Presentation",
 		},
 		{
@@ -134,28 +149,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Web browser",
 					softwareName: "Chrome",
 					isCorrect: true,
-					feedback: "Exactly right! Web browsers are designed to open and view web pages from the internet.",
+					feedback:
+						"Exactly right! Web browsers are designed to open and view web pages from the internet.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "Word is for creating documents, not for viewing websites on the internet.",
+					feedback:
+						"Word is for creating documents, not for viewing websites on the internet.",
 				},
 				{
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: false,
-					feedback: "Spreadsheets work with numbers and data, not for browsing websites.",
+					feedback:
+						"Spreadsheets work with numbers and data, not for browsing websites.",
 				},
 				{
 					softwareType: "Graphics software",
 					softwareName: "Adobe Photoshop",
 					isCorrect: false,
-					feedback: "Graphics software is for creating and editing images, not browsing the web.",
+					feedback:
+						"Graphics software is for creating and editing images, not browsing the web.",
 				},
 			],
-			explanation: "To view websites and research online, you need web browser software that connects to the internet.",
+			explanation:
+				"To view websites and research online, you need web browser software that connects to the internet.",
 			correctSoftware: "Web Browser",
 		},
 		{
@@ -166,28 +186,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: true,
-					feedback: "Perfect! Spreadsheet software is excellent for organizing data and creating charts and graphs.",
+					feedback:
+						"Perfect! Spreadsheet software is excellent for organizing data and creating charts and graphs.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "While Word can make basic charts, spreadsheet software has much better tools for working with data and creating charts.",
+					feedback:
+						"While Word can make basic charts, spreadsheet software has much better tools for working with data and creating charts.",
 				},
 				{
 					softwareType: "Graphics software",
 					softwareName: "Adobe Photoshop",
 					isCorrect: false,
-					feedback: "Graphics software creates images, but spreadsheet software is better for charts based on actual data.",
+					feedback:
+						"Graphics software creates images, but spreadsheet software is better for charts based on actual data.",
 				},
 				{
 					softwareType: "Web browser",
 					softwareName: "Chrome",
 					isCorrect: false,
-					feedback: "Web browsers are for viewing websites, not creating charts from data.",
+					feedback:
+						"Web browsers are for viewing websites, not creating charts from data.",
 				},
 			],
-			explanation: "Working with numerical data and creating charts requires spreadsheet software's specialized tools.",
+			explanation:
+				"Working with numerical data and creating charts requires spreadsheet software's specialized tools.",
 			correctSoftware: "Spreadsheet",
 		},
 		{
@@ -198,28 +223,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Graphics software",
 					softwareName: "Adobe Photoshop",
 					isCorrect: true,
-					feedback: "Excellent! Graphics software has tools specifically designed for editing and enhancing photos.",
+					feedback:
+						"Excellent! Graphics software has tools specifically designed for editing and enhancing photos.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "Word can insert photos but doesn't have advanced tools for editing images like removing red-eye.",
+					feedback:
+						"Word can insert photos but doesn't have advanced tools for editing images like removing red-eye.",
 				},
 				{
 					softwareType: "Presentation software",
 					softwareName: "PowerPoint",
 					isCorrect: false,
-					feedback: "PowerPoint has basic image tools, but graphics software has much better photo editing capabilities.",
+					feedback:
+						"PowerPoint has basic image tools, but graphics software has much better photo editing capabilities.",
 				},
 				{
 					softwareType: "Web browser",
 					softwareName: "Safari",
 					isCorrect: false,
-					feedback: "Web browsers are for viewing websites, not editing photos.",
+					feedback:
+						"Web browsers are for viewing websites, not editing photos.",
 				},
 			],
-			explanation: "Photo editing requires specialized tools for adjusting colours, removing red-eye and enhancing images - this is what graphics software provides.",
+			explanation:
+				"Photo editing requires specialized tools for adjusting colours, removing red-eye and enhancing images - this is what graphics software provides.",
 			correctSoftware: "Graphics",
 		},
 		{
@@ -230,28 +260,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Desktop Publishing software",
 					softwareName: "Publisher",
 					isCorrect: true,
-					feedback: "Perfect! DTP software is designed for creating professional-looking publications like newsletters with complex layouts.",
+					feedback:
+						"Perfect! DTP software is designed for creating professional-looking publications like newsletters with complex layouts.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "While Word can make newsletters, DTP software has better tools for professional multi-column layouts.",
+					feedback:
+						"While Word can make newsletters, DTP software has better tools for professional multi-column layouts.",
 				},
 				{
 					softwareType: "Presentation software",
 					softwareName: "PowerPoint",
 					isCorrect: false,
-					feedback: "PowerPoint is for slides shown on screen, not for printed publications like newsletters.",
+					feedback:
+						"PowerPoint is for slides shown on screen, not for printed publications like newsletters.",
 				},
 				{
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: false,
-					feedback: "Spreadsheets work with numbers and data, not for creating formatted publications.",
+					feedback:
+						"Spreadsheets work with numbers and data, not for creating formatted publications.",
 				},
 			],
-			explanation: "Newsletters need professional layout tools for columns, text formatting and image placement - DTP software specializes in this.",
+			explanation:
+				"Newsletters need professional layout tools for columns, text formatting and image placement - DTP software specializes in this.",
 			correctSoftware: "Desktop Publishing",
 		},
 		{
@@ -262,28 +297,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: true,
-					feedback: "Excellent! Spreadsheets are perfect for tracking numbers, doing calculations and keeping running totals.",
+					feedback:
+						"Excellent! Spreadsheets are perfect for tracking numbers, doing calculations and keeping running totals.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "Word is for text documents, not for calculating totals and working with numerical data.",
+					feedback:
+						"Word is for text documents, not for calculating totals and working with numerical data.",
 				},
 				{
 					softwareType: "Graphics software",
 					softwareName: "Adobe Photoshop",
 					isCorrect: false,
-					feedback: "Graphics software is for images, not for tracking money and doing calculations.",
+					feedback:
+						"Graphics software is for images, not for tracking money and doing calculations.",
 				},
 				{
 					softwareType: "Desktop Publishing software",
 					softwareName: "Publisher",
 					isCorrect: false,
-					feedback: "DTP is for creating publications, not for tracking numbers and doing calculations.",
+					feedback:
+						"DTP is for creating publications, not for tracking numbers and doing calculations.",
 				},
 			],
-			explanation: "Tracking money and calculating totals requires spreadsheet software's mathematical and data organization capabilities.",
+			explanation:
+				"Tracking money and calculating totals requires spreadsheet software's mathematical and data organization capabilities.",
 			correctSoftware: "Spreadsheet",
 		},
 		{
@@ -294,28 +334,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: true,
-					feedback: "Perfect! Word processing software has templates and formatting tools ideal for creating formal letters.",
+					feedback:
+						"Perfect! Word processing software has templates and formatting tools ideal for creating formal letters.",
 				},
 				{
 					softwareType: "Presentation software",
 					softwareName: "PowerPoint",
 					isCorrect: false,
-					feedback: "PowerPoint is for creating slides for presentations, not for writing formal letters.",
+					feedback:
+						"PowerPoint is for creating slides for presentations, not for writing formal letters.",
 				},
 				{
 					softwareType: "Web browser",
 					softwareName: "Microsoft Edge",
 					isCorrect: false,
-					feedback: "Web browsers are for viewing websites, not creating documents like letters.",
+					feedback:
+						"Web browsers are for viewing websites, not creating documents like letters.",
 				},
 				{
 					softwareType: "Graphics software",
 					softwareName: "Adobe Photoshop",
 					isCorrect: false,
-					feedback: "Graphics software is for creating and editing images, not writing text documents.",
+					feedback:
+						"Graphics software is for creating and editing images, not writing text documents.",
 				},
 			],
-			explanation: "Formal letters require proper text formatting, spell-check and document templates - word processing software provides all these features.",
+			explanation:
+				"Formal letters require proper text formatting, spell-check and document templates - word processing software provides all these features.",
 			correctSoftware: "Word Processing",
 		},
 		{
@@ -326,28 +371,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Web browser",
 					softwareName: "Microsoft Edge",
 					isCorrect: true,
-					feedback: "Correct! You need a web browser to access and view websites on the internet.",
+					feedback:
+						"Correct! You need a web browser to access and view websites on the internet.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "Word creates documents, but you need a web browser to view websites online.",
+					feedback:
+						"Word creates documents, but you need a web browser to view websites online.",
 				},
 				{
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: false,
-					feedback: "Spreadsheets work with data and numbers, not for browsing websites.",
+					feedback:
+						"Spreadsheets work with data and numbers, not for browsing websites.",
 				},
 				{
 					softwareType: "Desktop Publishing software",
 					softwareName: "Publisher",
 					isCorrect: false,
-					feedback: "DTP creates publications, but you need a web browser to access websites.",
+					feedback:
+						"DTP creates publications, but you need a web browser to access websites.",
 				},
 			],
-			explanation: "To access any website, you need web browser software that can connect to the internet and display web pages.",
+			explanation:
+				"To access any website, you need web browser software that can connect to the internet and display web pages.",
 			correctSoftware: "Web Browser",
 		},
 		{
@@ -358,19 +408,22 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Graphics software",
 					softwareName: "Paint, Photoshop",
 					isCorrect: true,
-					feedback: "Excellent! Graphics software has drawing tools, brushes and colours perfect for creating digital artwork.",
+					feedback:
+						"Excellent! Graphics software has drawing tools, brushes and colours perfect for creating digital artwork.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "Word is mainly for text, not for creating detailed digital drawings and artwork.",
+					feedback:
+						"Word is mainly for text, not for creating detailed digital drawings and artwork.",
 				},
 				{
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: false,
-					feedback: "Spreadsheets work with numbers and data, not for creating drawings and artwork.",
+					feedback:
+						"Spreadsheets work with numbers and data, not for creating drawings and artwork.",
 				},
 				{
 					softwareType: "Web browser",
@@ -379,7 +432,8 @@ const SoftwareIdentificationGame = () => {
 					feedback: "Web browsers view websites, not create digital drawings.",
 				},
 			],
-			explanation: "Creating digital art requires specialized drawing tools, brushes and colour palettes that graphics software provides.",
+			explanation:
+				"Creating digital art requires specialized drawing tools, brushes and colour palettes that graphics software provides.",
 			correctSoftware: "Graphics",
 		},
 		{
@@ -390,28 +444,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: true,
-					feedback: "Perfect! Spreadsheets excel at organizing financial data, calculating totals and creating budgets.",
+					feedback:
+						"Perfect! Spreadsheets excel at organizing financial data, calculating totals and creating budgets.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "While you could make a list in Word, spreadsheet software has better tools for calculations and budgets.",
+					feedback:
+						"While you could make a list in Word, spreadsheet software has better tools for calculations and budgets.",
 				},
 				{
 					softwareType: "Presentation software",
 					softwareName: "PowerPoint",
 					isCorrect: false,
-					feedback: "PowerPoint is for slides and presentations, not for creating budgets with calculations.",
+					feedback:
+						"PowerPoint is for slides and presentations, not for creating budgets with calculations.",
 				},
 				{
 					softwareType: "Graphics software",
 					softwareName: "Paint, Photoshop",
 					isCorrect: false,
-					feedback: "Graphics software is for images and artwork, not for financial calculations and budgets.",
+					feedback:
+						"Graphics software is for images and artwork, not for financial calculations and budgets.",
 				},
 			],
-			explanation: "Budgets involve numbers, calculations and data organization - spreadsheet software is designed specifically for this type of work.",
+			explanation:
+				"Budgets involve numbers, calculations and data organization - spreadsheet software is designed specifically for this type of work.",
 			correctSoftware: "Spreadsheet",
 		},
 		{
@@ -422,28 +481,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Presentation software",
 					softwareName: "PowerPoint",
 					isCorrect: true,
-					feedback: "Correct! Presentation software lets you create slides with text, images and formatting to showcase information.",
+					feedback:
+						"Correct! Presentation software lets you create slides with text, images and formatting to showcase information.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "Word is great for essays, but presentation software is better for creating visual slides.",
+					feedback:
+						"Word is great for essays, but presentation software is better for creating visual slides.",
 				},
 				{
 					softwareType: "Desktop Publishing software",
 					softwareName: "Publisher",
 					isCorrect: false,
-					feedback: "DTP is for printed materials. For on-screen slides, presentation software is more appropriate.",
+					feedback:
+						"DTP is for printed materials. For on-screen slides, presentation software is more appropriate.",
 				},
 				{
 					softwareType: "Web browser",
 					softwareName: "Safari",
 					isCorrect: false,
-					feedback: "Web browsers view websites, not create presentation slides.",
+					feedback:
+						"Web browsers view websites, not create presentation slides.",
 				},
 			],
-			explanation: "Creating slides to display information requires presentation software's slide layout and formatting tools.",
+			explanation:
+				"Creating slides to display information requires presentation software's slide layout and formatting tools.",
 			correctSoftware: "Presentation",
 		},
 		{
@@ -454,28 +518,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Desktop Publishing software",
 					softwareName: "Publisher",
 					isCorrect: true,
-					feedback: "Excellent! DTP software has templates and design tools perfect for creating attractive printed invitations.",
+					feedback:
+						"Excellent! DTP software has templates and design tools perfect for creating attractive printed invitations.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "While Word can make invitations, DTP software has better design tools and templates for this purpose.",
+					feedback:
+						"While Word can make invitations, DTP software has better design tools and templates for this purpose.",
 				},
 				{
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: false,
-					feedback: "Spreadsheets are for numbers and data, not for creating designed invitations.",
+					feedback:
+						"Spreadsheets are for numbers and data, not for creating designed invitations.",
 				},
 				{
 					softwareType: "Web browser",
 					softwareName: "MicrosoftEdge",
 					isCorrect: false,
-					feedback: "Web browsers view websites, not create printed invitations.",
+					feedback:
+						"Web browsers view websites, not create printed invitations.",
 				},
 			],
-			explanation: "Creating attractive printed materials like invitations requires DTP software's specialized design and layout tools.",
+			explanation:
+				"Creating attractive printed materials like invitations requires DTP software's specialized design and layout tools.",
 			correctSoftware: "Desktop Publishing",
 		},
 		{
@@ -486,28 +555,33 @@ const SoftwareIdentificationGame = () => {
 					softwareType: "Web browser",
 					softwareName: "Google Chrome",
 					isCorrect: true,
-					feedback: "Perfect! Web browsers are essential for accessing and reading information on websites.",
+					feedback:
+						"Perfect! Web browsers are essential for accessing and reading information on websites.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
-					feedback: "You'll use Word to write up your research, but first you need a web browser to access the websites.",
+					feedback:
+						"You'll use Word to write up your research, but first you need a web browser to access the websites.",
 				},
 				{
 					softwareType: "Presentation software",
 					softwareName: "PowerPoint",
 					isCorrect: false,
-					feedback: "PowerPoint might be used to present your findings, but you need a web browser to research first.",
+					feedback:
+						"PowerPoint might be used to present your findings, but you need a web browser to research first.",
 				},
 				{
 					softwareType: "Graphics software",
 					softwareName: "Photoshop",
 					isCorrect: false,
-					feedback: "Graphics software works with images, but you need a web browser to read information online.",
+					feedback:
+						"Graphics software works with images, but you need a web browser to read information online.",
 				},
 			],
-			explanation: "Any online research requires web browser software to access and view educational websites on the internet.",
+			explanation:
+				"Any online research requires web browser software to access and view educational websites on the internet.",
 			correctSoftware: "Web Browser",
 		},
 		{
@@ -543,12 +617,13 @@ const SoftwareIdentificationGame = () => {
 						"This is used for creating slides, not for looking up live information online.",
 				},
 			],
-			explanation: "To find the score of a sports game, you need to access a sports news website or a live score service, which requires a web browser.",
+			explanation:
+				"To find the score of a sports game, you need to access a sports news website or a live score service, which requires a web browser.",
 			correctSoftware: "Web Browser",
 		},
 		{
 			id: 17,
-						text: "For your food technology homework, you've been asked to calculate the total cost of ingredients for a recipe and create a chart of the costs. What is the most appropriate software?",
+			text: "For your food technology homework, you've been asked to calculate the total cost of ingredients for a recipe and create a chart of the costs. What is the most appropriate software?",
 			choices: [
 				{
 					softwareType: "Spreadsheet software",
@@ -579,7 +654,8 @@ const SoftwareIdentificationGame = () => {
 						"Incorrect. Presentation software is for slides, not for managing and calculating data.",
 				},
 			],
-			explanation: "To calculate costs and create charts, you need software that can handle data and perform calculations, which is best done with a spreadsheet.",
+			explanation:
+				"To calculate costs and create charts, you need software that can handle data and perform calculations, which is best done with a spreadsheet.",
 			correctSoftware: "Spreadsheet Software",
 		},
 		{
@@ -615,9 +691,10 @@ const SoftwareIdentificationGame = () => {
 						"Incorrect. Spreadsheets are for numbers and data, not for detailed image editing.",
 				},
 			],
-			explanation: "To edit a photo, you need software that specializes in image manipulation, which is best provided by graphics editing tools.",
+			explanation:
+				"To edit a photo, you need software that specializes in image manipulation, which is best provided by graphics editing tools.",
 			correctSoftware: "Graphics Software",
-		}
+		},
 	];
 
 	const questionsToAsk = 10; // Can be adjusted
@@ -672,7 +749,7 @@ const SoftwareIdentificationGame = () => {
 		} else {
 			setIncorrectAnswers((prev) => [...prev, currentScenario.correctSoftware]);
 		}
-		
+
 		setLastChoice({
 			isCorrect,
 			feedback,
@@ -693,10 +770,12 @@ const SoftwareIdentificationGame = () => {
 	};
 
 	const startGame = () => {
-		const shuffled = shuffleArray(scenarios).slice(0, questionsToAsk).map((s) => ({
-			...s,
-			choices: shuffleArray(s.choices),
-		}));
+		const shuffled = shuffleArray(scenarios)
+			.slice(0, questionsToAsk)
+			.map((s) => ({
+				...s,
+				choices: shuffleArray(s.choices),
+			}));
 
 		setShuffledScenarios(shuffled);
 		setScore(0);
@@ -714,7 +793,7 @@ const SoftwareIdentificationGame = () => {
 	const renderScoreBar = () => {
 		const maxScore = questionsToAsk * 10;
 		const percentage = (score / maxScore) * 100;
-		
+
 		return (
 			<div className="w-full max-w-2xl bg-gray-200 rounded-full h-8 dark:bg-gray-700 my-4 shadow-inner">
 				<div
@@ -734,10 +813,11 @@ const SoftwareIdentificationGame = () => {
 				Software Identification Game
 			</h1>
 			<p className="text-lg text-slate-600 mb-6">
-				Test your knowledge of different types of software! You'll face {questionsToAsk} scenarios
-				where you need to choose the most appropriate software for each task.
+				Test your knowledge of different types of software! You'll face{" "}
+				{questionsToAsk} scenarios where you need to choose the most appropriate
+				software for each task.
 			</p>
-			
+
 			<div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-8 text-sm">
 				<div className="bg-blue-50 p-4 rounded-lg">
 					<FileText className="w-8 h-8 text-blue-600 mx-auto mb-2" />
@@ -775,6 +855,7 @@ const SoftwareIdentificationGame = () => {
 				<button
 					onClick={startGame}
 					className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
+					type="button"
 				>
 					Start Game
 				</button>
@@ -800,14 +881,19 @@ const SoftwareIdentificationGame = () => {
 						Which type of software would be most appropriate?
 					</p>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-						{currentScenario.choices.map((choice, index) => (
+						{currentScenario.choices.map((choice) => (
 							<button
-								key={index}
+								key={choice.softwareType}
 								onClick={() => handleChoice(choice.isCorrect, choice.feedback)}
-								className="bg-slate-100 text-slate-800 font-semibold p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left"
+								className="bg-slate-100 text-slate-800 p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left flex flex-col justify-center"
 								type="button"
 							>
-								{choice.softwareType}
+								<span className="font-semibold text-base">
+									{choice.softwareType}
+								</span>
+								<span className="text-sm text-blue-700 font-normal mt-1">
+									(e.g., {choice.softwareName})
+								</span>
 							</button>
 						))}
 					</div>
@@ -818,7 +904,7 @@ const SoftwareIdentificationGame = () => {
 
 	const renderFeedback = () => {
 		if (!lastChoice) return null;
-		
+
 		return (
 			<div className="w-full max-w-3xl p-8 text-center flex flex-col items-center">
 				{renderScoreBar()}
@@ -838,14 +924,19 @@ const SoftwareIdentificationGame = () => {
 					</h3>
 					<p className="text-xl text-slate-600 mb-4">{lastChoice.feedback}</p>
 					<div className="bg-slate-50 p-4 rounded-lg mb-6">
-						<p className="text-slate-700 font-medium">Why this is the best choice:</p>
+						<p className="text-slate-700 font-medium">
+							Why this is the best choice:
+						</p>
 						<p className="text-slate-600 mt-2">{lastChoice.explanation}</p>
 					</div>
 					<button
 						onClick={handleNext}
 						className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
+						type="button"
 					>
-						{currentScenarioIndex < questionsToAsk - 1 ? "Next Question" : "See Results"}
+						{currentScenarioIndex < questionsToAsk - 1
+							? "Next Question"
+							: "See Results"}
 					</button>
 				</div>
 			</div>
@@ -853,17 +944,26 @@ const SoftwareIdentificationGame = () => {
 	};
 
 	const renderResults = () => {
+		type ResultData = {
+			title: string;
+			color: string;
+			bgColor: string;
+			icon: ReactNode;
+			message: string;
+		};
+
+		let resultData: ResultData;
 		const maxScore = questionsToAsk * 10;
 		const percentage = Math.round((score / maxScore) * 100);
-		
-		let resultData;
+
 		if (percentage >= 80) {
 			resultData = {
 				title: "Software Expert!",
 				color: "text-green-600",
 				bgColor: "bg-green-50 border-green-500",
 				icon: <CheckCircle className="w-20 h-20 mx-auto text-green-600" />,
-				message: "Excellent work! You have a strong understanding of when to use different types of software.",
+				message:
+					"Excellent work! You have a strong understanding of when to use different types of software.",
 			};
 		} else if (percentage >= 60) {
 			resultData = {
@@ -871,7 +971,8 @@ const SoftwareIdentificationGame = () => {
 				color: "text-blue-600",
 				bgColor: "bg-blue-50 border-blue-500",
 				icon: <Monitor className="w-20 h-20 mx-auto text-blue-600" />,
-				message: "Well done! You have good software knowledge with room for some improvement.",
+				message:
+					"Well done! You have good software knowledge with room for some improvement.",
 			};
 		} else {
 			resultData = {
@@ -879,7 +980,8 @@ const SoftwareIdentificationGame = () => {
 				color: "text-orange-600",
 				bgColor: "bg-orange-50 border-orange-500",
 				icon: <HelpCircle className="w-20 h-20 mx-auto text-orange-600" />,
-				message: "Keep practicing! Review the different types of software and their best uses.",
+				message:
+					"Keep practicing! Review the different types of software and their best uses.",
 			};
 		}
 
@@ -888,7 +990,9 @@ const SoftwareIdentificationGame = () => {
 
 		return (
 			<div className="text-center p-8 max-w-3xl mx-auto">
-				<div className={`bg-white p-8 rounded-xl shadow-2xl border-t-8 ${resultData.bgColor}`}>
+				<div
+					className={`bg-white p-8 rounded-xl shadow-2xl border-t-8 ${resultData.bgColor}`}
+				>
 					{resultData.icon}
 					<h2 className={`text-4xl font-bold mt-4 mb-2 ${resultData.color}`}>
 						{resultData.title}
@@ -906,9 +1010,14 @@ const SoftwareIdentificationGame = () => {
 							</h4>
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 								{uniqueIncorrectAnswers.map((software) => (
-									<div key={software} className="flex items-center text-amber-700">
+									<div
+										key={software}
+										className="flex items-center text-amber-700"
+									>
 										{getSoftwareIcon(software)}
-										<span className="ml-2 font-medium">{software} Software</span>
+										<span className="ml-2 font-medium">
+											{software} Software
+										</span>
 									</div>
 								))}
 							</div>
@@ -919,6 +1028,7 @@ const SoftwareIdentificationGame = () => {
 						<button
 							onClick={resetGame}
 							className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
+							type="button"
 						>
 							Play Again
 						</button>

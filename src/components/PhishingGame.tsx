@@ -13,7 +13,6 @@ import { useState } from "react";
 import GameButton from "../components/GameButton";
 import { shuffleArray } from "../utils/utils";
 
-
 // --- PHISHING GAME COMPONENT ---
 const PhishingGame = () => {
 	const navigate = useNavigate();
