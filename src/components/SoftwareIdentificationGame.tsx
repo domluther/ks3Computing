@@ -1,8 +1,10 @@
 import { useNavigate } from "@tanstack/react-router";
 import {
 	BarChart3,
+	Blocks,
 	CheckCircle,
 	FileText,
+	Film,
 	Globe,
 	HelpCircle,
 	Image,
@@ -627,23 +629,360 @@ const SoftwareIdentificationGame = () => {
 				"To find current information on the internet, you need web browser software to access and view websites.",
 			correctSoftware: "Web Browser",
 		},
+		{
+			id: 17,
+			text: "For your drama homework, you need to film and edit a short movie trailer based on a play you are studying.",
+			choices: [
+				{
+					softwareType: "Video editing software",
+					softwareName: "iMovie, Clipchamp",
+					isCorrect: true,
+					feedback:
+						"Great choice! Video editing software is perfect for cutting clips, adding music and creating titles for a movie trailer.",
+				},
+				{
+					softwareType: "Presentation software",
+					softwareName: "PowerPoint",
+					isCorrect: false,
+					feedback:
+						"PowerPoint is for making slides. You need video editing tools to work with video clips.",
+				},
+				{
+					softwareType: "Graphics software",
+					softwareName: "Photoshop",
+					isCorrect: false,
+					feedback:
+						"Photoshop is for still images. Video editing software is needed to combine and edit video files.",
+				},
+				{
+					softwareType: "Web browser",
+					softwareName: "Chrome",
+					isCorrect: false,
+					feedback:
+						"A web browser lets you watch videos online, but you need special software to edit your own.",
+				},
+			],
+			explanation:
+				"Movie trailers involve combining video clips, adding sound effects, music and text titles, which are all key features of video editing software.",
+			correctSoftware: "Video Editing",
+		},
+		{
+			id: 18,
+			text: "In your computing class, you've been asked to design a simple interactive story where the user can make choices.",
+			choices: [
+				{
+					softwareType: "Programming tools",
+					softwareName: "Scratch",
+					isCorrect: true,
+					feedback:
+						"Spot on! Block-based programming tools like Scratch are ideal for creating interactive stories and simple games.",
+				},
+				{
+					softwareType: "Word processing software",
+					softwareName: "Word",
+					isCorrect: false,
+					feedback:
+						"Word is for writing linear stories, but it can't handle the interactive choices and logic that programming software can.",
+				},
+				{
+					softwareType: "Presentation software",
+					softwareName: "PowerPoint",
+					isCorrect: false,
+					feedback:
+						"While you can link slides, it's not true programming. Tools like Scratch give you much more control for interactive projects.",
+				},
+				{
+					softwareType: "Desktop Publishing software",
+					softwareName: "Publisher",
+					isCorrect: false,
+					feedback:
+						"DTP is for page layout for print, not for creating interactive digital programs.",
+				},
+			],
+			explanation:
+				"Creating an interactive story requires programming logic to handle user choices and change the outcome. Block-based tools like Scratch are designed for this.",
+			correctSoftware: "Programming",
+		},
+		{
+			id: 19,
+			text: "You've recorded several video clips from your family holiday and want to join them together, add background music and share it as a single video.",
+			choices: [
+				{
+					softwareType: "Video editing software",
+					softwareName: "iMovie, Clipchamp",
+					isCorrect: true,
+					feedback:
+						"Perfect! Video editing software lets you arrange clips, add a soundtrack and export it all as one movie.",
+				},
+				{
+					softwareType: "Graphics software",
+					softwareName: "Paint",
+					isCorrect: false,
+					feedback:
+						"Paint is for creating simple drawings. You need video editing software to work with movie files.",
+				},
+				{
+					softwareType: "Spreadsheet software",
+					softwareName: "Excel",
+					isCorrect: false,
+					feedback:
+						"Spreadsheets are for numbers and charts, not for editing video clips.",
+				},
+				{
+					softwareType: "Word processing software",
+					softwareName: "Word",
+					isCorrect: false,
+					feedback:
+						"You might write a script in Word, but you can't use it to properly edit and combine multiple video files with music.",
+				},
+			],
+			explanation:
+				"Combining multiple video files, trimming them and adding a music soundtrack are core tasks of video editing software.",
+			correctSoftware: "Video Editing",
+		},
+		{
+			id: 20,
+			text: "Your task is to create a simple maze game where a character has to be guided to a goal using the arrow keys.",
+			choices: [
+				{
+					softwareType: "Programming tools",
+					softwareName: "Scratch",
+					isCorrect: true,
+					feedback:
+						"Excellent! Tools like Scratch are perfect for learning the basics of game development and creating characters that respond to keyboard input.",
+				},
+				{
+					softwareType: "Graphics software",
+					softwareName: "Photoshop",
+					isCorrect: false,
+					feedback:
+						"You could design the character in Photoshop, but you need programming software to make it an interactive game.",
+				},
+				{
+					softwareType: "Presentation software",
+					softwareName: "PowerPoint",
+					isCorrect: false,
+					feedback:
+						"PowerPoint can't handle the real-time input and collision detection needed for a maze game.",
+				},
+				{
+					softwareType: "Web browser",
+					softwareName: "Safari",
+					isCorrect: false,
+					feedback:
+						"You might play a game in a web browser, but you need programming tools to build one.",
+				},
+			],
+			explanation:
+				"Making a game requires programming logic to control a character with key presses and to check if it has reached the goal. This is exactly what tools like Scratch are for.",
+			correctSoftware: "Programming",
+		},
+		{
+			id: 21,
+			text: "You are helping to run a bake sale for charity and need to create a professional-looking menu with prices and pictures to put on the table.",
+			choices: [
+				{
+					softwareType: "Desktop Publishing software",
+					softwareName: "Publisher",
+					isCorrect: true,
+					feedback:
+						"Great! DTP software is best for creating well-designed, single-page documents like menus that combine text and images.",
+				},
+				{
+					softwareType: "Word processing software",
+					softwareName: "Word",
+					isCorrect: false,
+					feedback:
+						"Word could do a basic job, but DTP software gives you much more control over the layout to make it look really professional.",
+				},
+				{
+					softwareType: "Spreadsheet software",
+					softwareName: "Excel",
+					isCorrect: false,
+					feedback:
+						"You'd use a spreadsheet to calculate your profits, but not to design the final printed menu.",
+				},
+				{
+					softwareType: "Video editing software",
+					softwareName: "iMovie",
+					isCorrect: false,
+					feedback:
+						"Video editing software is for making movies, not for creating printed documents like a menu.",
+				},
+			],
+			explanation:
+				"Menus require precise control over the placement of text boxes, images and prices for a visually appealing layout, which is the speciality of DTP software.",
+			correctSoftware: "Desktop Publishing",
+		},
+		{
+			id: 22,
+			text: "You are writing the script for a short play. It needs to have the character names in bold followed by their lines, and some notes about actions.",
+			choices: [
+				{
+					softwareType: "Word processing software",
+					softwareName: "Word, Google Docs",
+					isCorrect: true,
+					feedback:
+						"Exactly. Word processing software is perfect for writing and formatting text-heavy documents like scripts.",
+				},
+				{
+					softwareType: "Presentation software",
+					softwareName: "PowerPoint",
+					isCorrect: false,
+					feedback:
+						"A script is a text document. You might turn it into a presentation later, but you'd write it in a word processor first.",
+				},
+				{
+					softwareType: "Programming tools",
+					softwareName: "Scratch",
+					isCorrect: false,
+					feedback:
+						"Scratch is for making interactive programs, not for writing a linear script for actors.",
+				},
+				{
+					softwareType: "Spreadsheet software",
+					softwareName: "Excel",
+					isCorrect: false,
+					feedback:
+						"Spreadsheets are for numbers and data, not for writing dialogue and stage directions.",
+				},
+			],
+			explanation:
+				"Writing a script involves a lot of text typing, formatting (like bolding names) and editing, which are the main functions of word processing software.",
+			correctSoftware: "Word Processing",
+		},
+		{
+			id: 23,
+			text: "You're planning a birthday party for 10 friends. You need to list all the costs (food, decorations, activities) and work out the total cost and the cost per person.",
+			choices: [
+				{
+					softwareType: "Spreadsheet software",
+					softwareName: "Excel",
+					isCorrect: true,
+					feedback:
+						"Perfect! Spreadsheets are designed for budgeting, listing items and using formulas to calculate totals and averages automatically.",
+				},
+				{
+					softwareType: "Word processing software",
+					softwareName: "Word",
+					isCorrect: false,
+					feedback:
+						"You could make a list in Word, but you'd have to do the maths yourself. A spreadsheet does all the calculations for you.",
+				},
+				{
+					softwareType: "Desktop Publishing software",
+					softwareName: "Publisher",
+					isCorrect: false,
+					feedback:
+						"You would use DTP to design the invitations, but a spreadsheet is the tool for managing the budget.",
+				},
+				{
+					softwareType: "Video editing software",
+					softwareName: "Clipchamp",
+					isCorrect: false,
+					feedback:
+						"Video editing software is for making movies, not for planning party finances.",
+				},
+			],
+			explanation:
+				"Budgeting requires organizing costs and using formulas to perform calculations (like SUM and AVERAGE), which is the primary purpose of spreadsheet software.",
+			correctSoftware: "Spreadsheet",
+		},
+		{
+			id: 24,
+			text: "You want to create a new profile picture for your online accounts by combining a photo of yourself with a cool background you found, and adding some text with your username.",
+			choices: [
+				{
+					softwareType: "Graphics software",
+					softwareName: "Photoshop, GIMP",
+					isCorrect: true,
+					feedback:
+						"Spot on! Graphics software is ideal for editing photos, cutting out parts of images, combining them in layers and adding stylish text.",
+				},
+				{
+					softwareType: "Presentation software",
+					softwareName: "PowerPoint",
+					isCorrect: false,
+					feedback:
+						"PowerPoint has very basic image tools. Proper graphics software gives you much more power and control for a better result.",
+				},
+				{
+					softwareType: "Word processing software",
+					softwareName: "Word",
+					isCorrect: false,
+					feedback:
+						"Word can place images, but it's not designed for advanced editing like cutting out a person from a background.",
+				},
+				{
+					softwareType: "Programming tools",
+					softwareName: "Scratch",
+					isCorrect: false,
+					feedback:
+						"Scratch is for making animations and games, not for editing high-quality still images.",
+				},
+			],
+			explanation:
+				"Combining images, using layers and applying effects are advanced tasks that require the specialised tools found in graphics software.",
+			correctSoftware: "Graphics",
+		},
+		{
+			id: 25,
+			text: "Your football coach has asked you to create a short 'highlights reel' of the team's best goals from the season, with slow-motion effects on the best ones.",
+			choices: [
+				{
+					softwareType: "Video editing software",
+					softwareName: "iMovie, Clipchamp",
+					isCorrect: true,
+					feedback:
+						"Excellent choice! Video editing software is perfect for cutting together the best clips and applying effects like slow-motion.",
+				},
+				{
+					softwareType: "Presentation software",
+					softwareName: "PowerPoint",
+					isCorrect: false,
+					feedback:
+						"PowerPoint is for slide shows and can't be used to edit video clips or add effects like slow-motion.",
+				},
+				{
+					softwareType: "Spreadsheet software",
+					softwareName: "Excel",
+					isCorrect: false,
+					feedback:
+						"You might use a spreadsheet to track the scores, but not to create a video of the goals.",
+				},
+				{
+					softwareType: "Graphics software",
+					softwareName: "Paint",
+					isCorrect: false,
+					feedback:
+						"Paint is for still images. You need video editing software to work with and add effects to video files.",
+				},
+			],
+			explanation:
+				"Creating a highlights reel requires trimming and joining video clips and applying special effects like slow-motion, which are core features of video editing software.",
+			correctSoftware: "Video Editing",
+		},
 	];
 
 	// --- UTILITY FUNCTIONS ---
 	const getSoftwareIcon = (software: string): ReactNode => {
 		switch (software.toLowerCase()) {
-			case "word processing":
-				return <FileText className="w-6 h-6" />;
+			case "desktop publishing":
+				return <Layout className="w-6 h-6" />;
 			case "graphics":
 				return <Image className="w-6 h-6" />;
 			case "presentation":
 				return <Monitor className="w-6 h-6" />;
+			case "programming":
+				return <Blocks className="w-6 h-6" />;
 			case "spreadsheet":
 				return <BarChart3 className="w-6 h-6" />;
+			case "video editing":
+				return <Film className="w-6 h-6" />;
 			case "web browser":
 				return <Globe className="w-6 h-6" />;
-			case "desktop publishing":
-				return <Layout className="w-6 h-6" />;
+			case "word processing":
+				return <FileText className="w-6 h-6" />;
 			default:
 				return <Monitor className="w-6 h-6" />;
 		}
@@ -867,15 +1206,15 @@ const SoftwareIdentificationGame = () => {
 				description={
 					<>
 						<p className="mb-4">
-							Test your knowledge of different types of software! You'll face
-							scenarios where you need to choose the most appropriate software
-							for each task.
+							Test your knowledge of different types of software! You'll read
+							scenarios and then need to pick the most appropriate software for
+							each task.
 						</p>
-						<div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-8 text-sm">
+						<div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8 text-sm">
 							<div className="bg-blue-50 p-4 rounded-lg">
 								<FileText className="w-8 h-8 text-blue-600 mx-auto mb-2" />
 								<div className="font-semibold">Word Processing</div>
-								<div className="text-slate-600">Microsoft Word</div>
+								<div className="text-slate-600">Word, Docs</div>
 							</div>
 							<div className="bg-green-50 p-4 rounded-lg">
 								<Image className="w-8 h-8 text-green-600 mx-auto mb-2" />
@@ -885,12 +1224,12 @@ const SoftwareIdentificationGame = () => {
 							<div className="bg-purple-50 p-4 rounded-lg">
 								<Monitor className="w-8 h-8 text-purple-600 mx-auto mb-2" />
 								<div className="font-semibold">Presentation</div>
-								<div className="text-slate-600">PowerPoint</div>
+								<div className="text-slate-600">PowerPoint, Slides</div>
 							</div>
 							<div className="bg-orange-50 p-4 rounded-lg">
 								<BarChart3 className="w-8 h-8 text-orange-600 mx-auto mb-2" />
 								<div className="font-semibold">Spreadsheet</div>
-								<div className="text-slate-600">Excel</div>
+								<div className="text-slate-600">Excel, Sheets</div>
 							</div>
 							<div className="bg-indigo-50 p-4 rounded-lg">
 								<Globe className="w-8 h-8 text-indigo-600 mx-auto mb-2" />
@@ -902,10 +1241,17 @@ const SoftwareIdentificationGame = () => {
 								<div className="font-semibold">Desktop Publishing</div>
 								<div className="text-slate-600">Publisher</div>
 							</div>
+							<div className="bg-cyan-50 p-4 rounded-lg">
+								<Film className="w-8 h-8 text-cyan-600 mx-auto mb-2" />
+								<div className="font-semibold">Video Editing</div>
+								<div className="text-slate-600">iMovie, Clipchamp</div>
+							</div>
+							<div className="bg-lime-50 p-4 rounded-lg">
+								<Blocks className="w-8 h-8 text-lime-600 mx-auto mb-2" />
+								<div className="font-semibold">Programming</div>
+								<div className="text-slate-600">Scratch, Thonny</div>
+							</div>{" "}
 						</div>
-						<p className="text-base">
-							Which type of software would be most appropriate?
-						</p>
 					</>
 				}
 				scenarios={scenarios}
