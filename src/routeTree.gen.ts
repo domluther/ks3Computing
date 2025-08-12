@@ -22,6 +22,7 @@ import { Route as ItSkillsMouseSkillsRouteImport } from './routes/it-skills/mous
 import { Route as ItSkillsFileSimulationRouteImport } from './routes/it-skills/file-simulation'
 import { Route as HardwareSoftwareNameHardwareRouteImport } from './routes/hardware-software/name-hardware'
 import { Route as HardwareSoftwareInputOutputRouteImport } from './routes/hardware-software/input-output'
+import { Route as HardwareSoftwareIdentifySoftwareRouteImport } from './routes/hardware-software/identify-software'
 
 const OnlineSafetyRoute = OnlineSafetyRouteImport.update({
   id: '/online-safety',
@@ -91,6 +92,12 @@ const HardwareSoftwareInputOutputRoute =
     path: '/input-output',
     getParentRoute: () => HardwareSoftwareRoute,
   } as any)
+const HardwareSoftwareIdentifySoftwareRoute =
+  HardwareSoftwareIdentifySoftwareRouteImport.update({
+    id: '/identify-software',
+    path: '/identify-software',
+    getParentRoute: () => HardwareSoftwareRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/it-skills': typeof ItSkillsRouteWithChildren
   '/maths': typeof MathsRouteWithChildren
   '/online-safety': typeof OnlineSafetyRouteWithChildren
+  '/hardware-software/identify-software': typeof HardwareSoftwareIdentifySoftwareRoute
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
   '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
   '/it-skills/file-simulation': typeof ItSkillsFileSimulationRoute
@@ -114,6 +122,7 @@ export interface FileRoutesByTo {
   '/it-skills': typeof ItSkillsRouteWithChildren
   '/maths': typeof MathsRouteWithChildren
   '/online-safety': typeof OnlineSafetyRouteWithChildren
+  '/hardware-software/identify-software': typeof HardwareSoftwareIdentifySoftwareRoute
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
   '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
   '/it-skills/file-simulation': typeof ItSkillsFileSimulationRoute
@@ -130,6 +139,7 @@ export interface FileRoutesById {
   '/it-skills': typeof ItSkillsRouteWithChildren
   '/maths': typeof MathsRouteWithChildren
   '/online-safety': typeof OnlineSafetyRouteWithChildren
+  '/hardware-software/identify-software': typeof HardwareSoftwareIdentifySoftwareRoute
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
   '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
   '/it-skills/file-simulation': typeof ItSkillsFileSimulationRoute
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/it-skills'
     | '/maths'
     | '/online-safety'
+    | '/hardware-software/identify-software'
     | '/hardware-software/input-output'
     | '/hardware-software/name-hardware'
     | '/it-skills/file-simulation'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/it-skills'
     | '/maths'
     | '/online-safety'
+    | '/hardware-software/identify-software'
     | '/hardware-software/input-output'
     | '/hardware-software/name-hardware'
     | '/it-skills/file-simulation'
@@ -177,6 +189,7 @@ export interface FileRouteTypes {
     | '/it-skills'
     | '/maths'
     | '/online-safety'
+    | '/hardware-software/identify-software'
     | '/hardware-software/input-output'
     | '/hardware-software/name-hardware'
     | '/it-skills/file-simulation'
@@ -288,15 +301,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HardwareSoftwareInputOutputRouteImport
       parentRoute: typeof HardwareSoftwareRoute
     }
+    '/hardware-software/identify-software': {
+      id: '/hardware-software/identify-software'
+      path: '/identify-software'
+      fullPath: '/hardware-software/identify-software'
+      preLoaderRoute: typeof HardwareSoftwareIdentifySoftwareRouteImport
+      parentRoute: typeof HardwareSoftwareRoute
+    }
   }
 }
 
 interface HardwareSoftwareRouteChildren {
+  HardwareSoftwareIdentifySoftwareRoute: typeof HardwareSoftwareIdentifySoftwareRoute
   HardwareSoftwareInputOutputRoute: typeof HardwareSoftwareInputOutputRoute
   HardwareSoftwareNameHardwareRoute: typeof HardwareSoftwareNameHardwareRoute
 }
 
 const HardwareSoftwareRouteChildren: HardwareSoftwareRouteChildren = {
+  HardwareSoftwareIdentifySoftwareRoute: HardwareSoftwareIdentifySoftwareRoute,
   HardwareSoftwareInputOutputRoute: HardwareSoftwareInputOutputRoute,
   HardwareSoftwareNameHardwareRoute: HardwareSoftwareNameHardwareRoute,
 }
