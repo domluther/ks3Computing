@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import {
 	BarChart3,
 	CheckCircle,
@@ -9,28 +10,32 @@ import {
 	Monitor,
 	XCircle,
 } from "lucide-react";
-import { type ReactNode, useState } from "react";
-import { shuffleArray } from '../utils/utils';
+import type { ReactNode } from "react";
+import ScenarioBasedGame, {
+	type GameResults,
+	type GenericChoice,
+	type GenericScenario,
+} from "./ScenarioBasedGame";
+
+// --- TYPE DEFINITIONS ---
+interface SoftwareChoice extends GenericChoice {
+	softwareType: string;
+	softwareName: string;
+	isCorrect: boolean;
+	feedback: string;
+}
+
+interface SoftwareScenario extends GenericScenario<SoftwareChoice> {
+	explanation: string;
+	correctSoftware: string;
+}
 
 const SoftwareIdentificationGame = () => {
-	// --- TYPE DEFINITIONS ---
-	type GameStage = "intro" | "playing" | "feedback" | "results";
-
-	interface Scenario {
-		id: number;
-		text: string;
-		choices: {
-			softwareType: string;
-			softwareName: string;
-			isCorrect: boolean;
-			feedback: string;
-		}[];
-		explanation: string;
-		correctSoftware: string;
-	}
+	const QUESTIONS_TO_ASK = 10;
+	const navigate = useNavigate();
 
 	// --- GAME DATA ---
-	const scenarios: Scenario[] = [
+	const scenarios: SoftwareScenario[] = [
 		{
 			id: 1,
 			text: "Your teacher asks you to write a 500-word essay about your summer holidays for homework.",
@@ -77,32 +82,32 @@ const SoftwareIdentificationGame = () => {
 					softwareName: "Publisher",
 					isCorrect: true,
 					feedback:
-						"Excellent! DTP software is specifically designed for creating posters, flyers and other publications with text and images.",
-				},
-				{
-					softwareType: "Presentation software",
-					softwareName: "PowerPoint",
-					isCorrect: false,
-					feedback:
-						"While you could make a poster in PowerPoint, DTP software is more appropriate for printed posters with professional layouts.",
+						"Excellent! DTP software combines text and graphics with professional layout tools, perfect for creating eye-catching posters.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
 					feedback:
-						"Word is mainly for text documents. DTP software has better tools for combining text and images in poster layouts.",
+						"While Word can make basic posters, DTP software has much better design tools and templates for professional-looking results.",
 				},
 				{
-					softwareType: "Web browser",
-					softwareName: "Google Chrome",
+					softwareType: "Graphics software",
+					softwareName: "Paint",
 					isCorrect: false,
 					feedback:
-						"A web browser is for viewing websites, not creating posters.",
+						"Graphics software is great for images, but posters need both text and images combined professionally.",
+				},
+				{
+					softwareType: "Presentation software",
+					softwareName: "PowerPoint",
+					isCorrect: false,
+					feedback:
+						"PowerPoint is for on-screen presentations, not printed posters. DTP software is better for this.",
 				},
 			],
 			explanation:
-				"Posters need professional layout tools that combine text and images effectively - DTP software is designed specifically for this purpose.",
+				"Posters require combining text and images with professional layout tools - DTP software specializes in this type of design work.",
 			correctSoftware: "Desktop Publishing",
 		},
 		{
@@ -172,34 +177,34 @@ const SoftwareIdentificationGame = () => {
 					softwareName: "Adobe Photoshop",
 					isCorrect: false,
 					feedback:
-						"Graphics software is for creating and editing images, not browsing the web.",
+						"Graphics software is for images, not for browsing and reading web content.",
 				},
 			],
 			explanation:
-				"To view websites and research online, you need web browser software that connects to the internet.",
+				"Researching online requires web browser software to access and view websites on the internet.",
 			correctSoftware: "Web Browser",
 		},
 		{
 			id: 5,
-			text: "Your maths teacher asks you to create a chart showing the favourite pets of students in your class using survey data.",
+			text: "You need to calculate how much pocket money you'll have saved after 6 months and create a chart showing your progress.",
 			choices: [
 				{
 					softwareType: "Spreadsheet software",
 					softwareName: "Excel",
 					isCorrect: true,
 					feedback:
-						"Perfect! Spreadsheet software is excellent for organizing data and creating charts and graphs.",
+						"Perfect! Spreadsheets excel at calculations and creating charts from numerical data.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
 					feedback:
-						"While Word can make basic charts, spreadsheet software has much better tools for working with data and creating charts.",
+						"Word is for text, not calculations. While it can insert charts, spreadsheet software is much better for this.",
 				},
 				{
 					softwareType: "Graphics software",
-					softwareName: "Adobe Photoshop",
+					softwareName: "Paint",
 					isCorrect: false,
 					feedback:
 						"Graphics software creates images, but spreadsheet software is better for charts based on actual data.",
@@ -299,32 +304,32 @@ const SoftwareIdentificationGame = () => {
 					softwareName: "Excel",
 					isCorrect: true,
 					feedback:
-						"Excellent! Spreadsheets are perfect for tracking numbers, doing calculations and keeping running totals.",
+						"Excellent! Spreadsheets are perfect for tracking data over time and calculating running totals.",
 				},
 				{
 					softwareType: "Word processing software",
 					softwareName: "Word",
 					isCorrect: false,
 					feedback:
-						"Word is for text documents, not for calculating totals and working with numerical data.",
+						"Word is for text documents. Spreadsheet software is much better for tracking numbers and calculations.",
 				},
 				{
 					softwareType: "Graphics software",
-					softwareName: "Adobe Photoshop",
+					softwareName: "Paint",
 					isCorrect: false,
 					feedback:
-						"Graphics software is for images, not for tracking money and doing calculations.",
+						"Graphics software is for images, not for tracking financial data and calculations.",
 				},
 				{
-					softwareType: "Desktop Publishing software",
-					softwareName: "Publisher",
+					softwareType: "Presentation software",
+					softwareName: "PowerPoint",
 					isCorrect: false,
 					feedback:
-						"DTP is for creating publications, not for tracking numbers and doing calculations.",
+						"PowerPoint is for presentations. You need spreadsheet software for numerical tracking and calculations.",
 				},
 			],
 			explanation:
-				"Tracking money and calculating totals requires spreadsheet software's mathematical and data organization capabilities.",
+				"Tracking money over time and calculating totals requires spreadsheet software's data organization and calculation features.",
 			correctSoftware: "Spreadsheet",
 		},
 		{
@@ -460,7 +465,7 @@ const SoftwareIdentificationGame = () => {
 					softwareName: "PowerPoint",
 					isCorrect: false,
 					feedback:
-						"PowerPoint is for slides and presentations, not for creating budgets with calculations.",
+						"PowerPoint is for creating slides for presentations, not for creating budgets with calculations.",
 				},
 				{
 					softwareType: "Graphics software",
@@ -615,104 +620,16 @@ const SoftwareIdentificationGame = () => {
 					softwareName: "PowerPoint",
 					isCorrect: false,
 					feedback:
-						"This is used for creating slides, not for looking up live information online.",
+						"PowerPoint is for creating slide presentations, not for accessing websites.",
 				},
 			],
 			explanation:
-				"To find the score of a sports game, you need to access a sports news website or a live score service, which requires a web browser.",
+				"To find current information on the internet, you need web browser software to access and view websites.",
 			correctSoftware: "Web Browser",
-		},
-		{
-			id: 17,
-			text: "For your food technology homework, you've been asked to calculate the total cost of ingredients for a recipe and create a chart of the costs. What is the most appropriate software?",
-			choices: [
-				{
-					softwareType: "Spreadsheet software",
-					softwareName: "Excel",
-					isCorrect: true,
-					feedback:
-						"Perfect! Spreadsheet software is the best tool for calculations, managing data in cells, and creating charts.",
-				},
-				{
-					softwareType: "Graphics software",
-					softwareName: "Photoshop",
-					isCorrect: false,
-					feedback:
-						"Not suitable. Graphics software is for drawing and editing images, not for performing calculations.",
-				},
-				{
-					softwareType: "Word processing software",
-					softwareName: "Google Docs",
-					isCorrect: false,
-					feedback:
-						"You could write the list of ingredients, but it can't automatically calculate the total cost or easily create a chart from the data.",
-				},
-				{
-					softwareType: "Presentation software",
-					softwareName: "PowerPoint",
-					isCorrect: false,
-					feedback:
-						"Incorrect. Presentation software is for slides, not for managing and calculating data.",
-				},
-			],
-			explanation:
-				"To calculate costs and create charts, you need software that can handle data and perform calculations, which is best done with a spreadsheet.",
-			correctSoftware: "Spreadsheet Software",
-		},
-		{
-			id: 18,
-			text: "You have taken a great photo of your dog and want to crop it, change the brightness, and add a funny hat on top. What kind of software would you use?",
-			choices: [
-				{
-					softwareType: "Graphics software",
-					softwareName: "Photoshop",
-					isCorrect: true,
-					feedback:
-						"You got it! Graphics software is used to create and edit images, which includes cropping, adjustments, and adding elements.",
-				},
-				{
-					softwareType: "Word processing software",
-					softwareName: "Google Docs",
-					isCorrect: false,
-					feedback:
-						"You can insert pictures into a word processor, but it has very limited tools for editing them properly.",
-				},
-				{
-					softwareType: "Web browser",
-					softwareName: "Chrome",
-					isCorrect: false,
-					feedback:
-						"A web browser lets you view images online, but it doesn't have the tools to edit your own photos.",
-				},
-				{
-					softwareType: "Spreadsheet software",
-					softwareName: "Excel",
-					isCorrect: false,
-					feedback:
-						"Incorrect. Spreadsheets are for numbers and data, not for detailed image editing.",
-				},
-			],
-			explanation:
-				"To edit a photo, you need software that specializes in image manipulation, which is best provided by graphics editing tools.",
-			correctSoftware: "Graphics Software",
 		},
 	];
 
-	const questionsToAsk = 10; // Can be adjusted
-
-	// --- STATE MANAGEMENT ---
-	const [stage, setStage] = useState<GameStage>("intro");
-	const [score, setScore] = useState(0);
-	const [shuffledScenarios, setShuffledScenarios] = useState<Scenario[]>([]);
-	const [currentScenarioIndex, setCurrentScenarioIndex] = useState(0);
-	const [lastChoice, setLastChoice] = useState<{
-		isCorrect: boolean;
-		feedback: string;
-		explanation: string;
-		correctSoftware: string;
-	} | null>(null);
-	const [incorrectAnswers, setIncorrectAnswers] = useState<string[]>([]);
-
+	// --- UTILITY FUNCTIONS ---
 	const getSoftwareIcon = (software: string): ReactNode => {
 		switch (software.toLowerCase()) {
 			case "word processing":
@@ -732,209 +649,119 @@ const SoftwareIdentificationGame = () => {
 		}
 	};
 
-	// --- GAME LOGIC ---
-	const handleChoice = (isCorrect: boolean, feedback: string) => {
-		const currentScenario = shuffledScenarios[currentScenarioIndex];
-		if (isCorrect) {
-			setScore((prev) => prev + 10);
-		} else {
-			setIncorrectAnswers((prev) => [...prev, currentScenario.correctSoftware]);
-		}
+	// --- RENDER FUNCTIONS ---
+	const choiceRenderer = (
+		choice: SoftwareChoice,
+		onSelect: () => void,
+		_scenario: GenericScenario<SoftwareChoice>,
+		index?: number,
+	) => (
+		<button
+			key={choice.softwareType}
+			onClick={onSelect}
+			className="bg-slate-100 text-slate-800 p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left flex items-start gap-3"
+			type="button"
+		>
+			{index !== undefined && (
+				<span className="bg-blue-600 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">
+					{index + 1}
+				</span>
+			)}
+			<div className="flex flex-col justify-center flex-1">
+				<span className="font-semibold text-base">{choice.softwareType}</span>
+				<span className="text-sm text-blue-700 font-normal mt-1">
+					(e.g., {choice.softwareName})
+				</span>
+			</div>
+		</button>
+	);
 
-		setLastChoice({
-			isCorrect,
-			feedback,
-			explanation: currentScenario.explanation,
-			correctSoftware: currentScenario.correctSoftware,
-		});
-		setStage("feedback");
+	const scoreCalculator = (choice: SoftwareChoice, currentScore: number) => {
+		return choice.isCorrect ? currentScore + 10 : currentScore;
 	};
 
-	const handleNext = () => {
-		if (currentScenarioIndex < questionsToAsk - 1) {
-			setCurrentScenarioIndex((prev) => prev + 1);
-			setStage("playing");
-		} else {
-			setStage("results");
-		}
-		setLastChoice(null);
-	};
-
-	const startGame = () => {
-		const shuffled = shuffleArray(scenarios)
-			.slice(0, questionsToAsk)
-			.map((s) => ({
-				...s,
-				choices: shuffleArray(s.choices),
-			}));
-
-		setShuffledScenarios(shuffled);
-		setScore(0);
-		setCurrentScenarioIndex(0);
-		setLastChoice(null);
-		setIncorrectAnswers([]);
-		setStage("playing");
-	};
-
-	const resetGame = () => {
-		setStage("intro");
-	};
-
-	// --- UI RENDERING ---
-	const renderScoreBar = () => {
-		const maxScore = questionsToAsk * 10;
+	const scoreRenderer = (score: number) => {
+		const maxScore = QUESTIONS_TO_ASK * 10;
 		const percentage = (score / maxScore) * 100;
 
 		return (
-			<div className="w-full max-w-2xl bg-gray-200 rounded-full h-8 dark:bg-gray-700 my-4 shadow-inner">
+			<div className="w-full max-w-3xl bg-slate-200 rounded-full h-8 mb-6 shadow-inner relative">
 				<div
 					className="bg-gradient-to-r from-blue-500 via-green-500 to-emerald-500 h-8 rounded-full transition-all duration-500 ease-out"
 					style={{ width: `${percentage}%` }}
 				></div>
-				<span className="relative bottom-8 text-center w-full block font-bold text-slate-800">
-					{`Score: ${score}/${maxScore}`}
+				<span className="absolute inset-0 flex items-center justify-center font-bold text-sm text-slate-800 drop-shadow-sm">
+					Score: {score}/{maxScore}
 				</span>
 			</div>
 		);
 	};
 
-	const renderIntro = () => (
-		<div className="text-center p-8 max-w-3xl mx-auto">
-			<h1 className="text-4xl font-bold text-slate-800 mb-4">
-				Software Identification Game
-			</h1>
-			<p className="text-lg text-slate-600 mb-6">
-				Test your knowledge of different types of software! You'll face{" "}
-				{questionsToAsk} scenarios where you need to choose the most appropriate
-				software for each task.
-			</p>
-
-			<div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-8 text-sm">
-				<div className="bg-blue-50 p-4 rounded-lg">
-					<FileText className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-					<div className="font-semibold">Word Processing</div>
-					<div className="text-slate-600">Microsoft Word</div>
-				</div>
-				<div className="bg-green-50 p-4 rounded-lg">
-					<Image className="w-8 h-8 text-green-600 mx-auto mb-2" />
-					<div className="font-semibold">Graphics</div>
-					<div className="text-slate-600">Paint, Photoshop</div>
-				</div>
-				<div className="bg-purple-50 p-4 rounded-lg">
-					<Monitor className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-					<div className="font-semibold">Presentation</div>
-					<div className="text-slate-600">PowerPoint</div>
-				</div>
-				<div className="bg-orange-50 p-4 rounded-lg">
-					<BarChart3 className="w-8 h-8 text-orange-600 mx-auto mb-2" />
-					<div className="font-semibold">Spreadsheet</div>
-					<div className="text-slate-600">Excel</div>
-				</div>
-				<div className="bg-indigo-50 p-4 rounded-lg">
-					<Globe className="w-8 h-8 text-indigo-600 mx-auto mb-2" />
-					<div className="font-semibold">Web Browser</div>
-					<div className="text-slate-600">Chrome, Safari</div>
-				</div>
-				<div className="bg-red-50 p-4 rounded-lg">
-					<Layout className="w-8 h-8 text-red-600 mx-auto mb-2" />
-					<div className="font-semibold">Desktop Publishing</div>
-					<div className="text-slate-600">Publisher</div>
-				</div>
-			</div>
-
-			<div className="flex justify-center gap-4">
-				<button
-					onClick={startGame}
-					className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
-					type="button"
+	const feedbackRenderer = (
+		choice: SoftwareChoice,
+		_scoreChange: number,
+		scenario: GenericScenario<SoftwareChoice>,
+	) => {
+		const softwareScenario = scenario as SoftwareScenario;
+		return (
+			<div className="text-center">
+				{choice.isCorrect ? (
+					<CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+				) : (
+					<XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+				)}
+				<h3
+					className={`text-3xl font-bold mb-4 flex items-center justify-center gap-2 ${
+						choice.isCorrect ? "text-green-600" : "text-red-600"
+					}`}
 				>
-					Start Game
-				</button>
-			</div>
-		</div>
-	);
-
-	const renderPlaying = () => {
-		if (shuffledScenarios.length === 0) return null;
-		const currentScenario = shuffledScenarios[currentScenarioIndex];
-
-		return (
-			<div className="w-full max-w-3xl p-8">
-				{renderScoreBar()}
-				<div className="bg-white p-8 rounded-xl shadow-lg text-center">
-					<p className="text-gray-500 font-medium mb-4">
-						Question {currentScenarioIndex + 1} of {questionsToAsk}
+					{getSoftwareIcon(softwareScenario.correctSoftware)}
+					{choice.isCorrect ? "Correct!" : "Incorrect"}
+				</h3>
+				<p className="text-xl text-slate-600 mb-4">{choice.feedback}</p>
+				<div className="bg-slate-50 p-4 rounded-lg mb-6">
+					<p className="text-slate-700 font-medium">
+						Why this is the best choice:
 					</p>
-					<p className="text-2xl font-semibold text-slate-700 mb-8">
-						{currentScenario.text}
-					</p>
-					<p className="text-lg text-slate-600 mb-8">
-						Which type of software would be most appropriate?
-					</p>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-						{currentScenario.choices.map((choice) => (
-							<button
-								key={choice.softwareType}
-								onClick={() => handleChoice(choice.isCorrect, choice.feedback)}
-								className="bg-slate-100 text-slate-800 p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left flex flex-col justify-center"
-								type="button"
-							>
-								<span className="font-semibold text-base">
-									{choice.softwareType}
-								</span>
-								<span className="text-sm text-blue-700 font-normal mt-1">
-									(e.g., {choice.softwareName})
-								</span>
-							</button>
-						))}
-					</div>
+					<p className="text-slate-600 mt-2">{softwareScenario.explanation}</p>
 				</div>
 			</div>
 		);
 	};
 
-	const renderFeedback = () => {
-		if (!lastChoice) return null;
+	const resultAnalyzer = (
+		finalScore: number,
+		allChoices: Array<{
+			scenario: GenericScenario<SoftwareChoice>;
+			choice: SoftwareChoice;
+			scoreChange: number;
+		}>,
+	): GameResults<SoftwareChoice> => {
+		const correctAnswers = allChoices.filter((c) => c.choice.isCorrect);
+		const incorrectAnswers = allChoices.filter((c) => !c.choice.isCorrect);
 
-		return (
-			<div className="w-full max-w-3xl p-8 text-center flex flex-col items-center">
-				{renderScoreBar()}
-				<div className="bg-white p-8 rounded-xl shadow-lg w-full">
-					{lastChoice.isCorrect ? (
-						<CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-					) : (
-						<XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-					)}
-					<h3
-						className={`text-3xl font-bold mb-4 flex items-center justify-center gap-2 ${
-							lastChoice.isCorrect ? "text-green-600" : "text-red-600"
-						}`}
-					>
-						{getSoftwareIcon(lastChoice.correctSoftware)}
-						{lastChoice.isCorrect ? "Correct!" : "Incorrect"}
-					</h3>
-					<p className="text-xl text-slate-600 mb-4">{lastChoice.feedback}</p>
-					<div className="bg-slate-50 p-4 rounded-lg mb-6">
-						<p className="text-slate-700 font-medium">
-							Why this is the best choice:
-						</p>
-						<p className="text-slate-600 mt-2">{lastChoice.explanation}</p>
-					</div>
-					<button
-						onClick={handleNext}
-						className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
-						type="button"
-					>
-						{currentScenarioIndex < questionsToAsk - 1
-							? "Next Question"
-							: "See Results"}
-					</button>
-				</div>
-			</div>
-		);
+		return {
+			finalScore,
+			allChoices,
+			summary: {
+				totalQuestions: allChoices.length,
+				correctCount: correctAnswers.length,
+				incorrectCount: incorrectAnswers.length,
+				percentage: Math.round(
+					(correctAnswers.length / allChoices.length) * 100,
+				),
+				incorrectSoftwareTypes: incorrectAnswers.map(
+					(c) => (c.scenario as SoftwareScenario).correctSoftware,
+				),
+			},
+		};
 	};
 
-	const renderResults = () => {
+	const resultsRenderer = (results: GameResults<SoftwareChoice>) => {
+		const { finalScore, summary } = results;
+		const maxScore = results.allChoices.length * 10;
+		const percentage = summary.percentage || 0;
+
 		type ResultData = {
 			title: string;
 			color: string;
@@ -944,8 +771,6 @@ const SoftwareIdentificationGame = () => {
 		};
 
 		let resultData: ResultData;
-		const maxScore = questionsToAsk * 10;
-		const percentage = Math.round((score / maxScore) * 100);
 
 		if (percentage >= 80) {
 			resultData = {
@@ -972,29 +797,45 @@ const SoftwareIdentificationGame = () => {
 				bgColor: "bg-orange-50 border-orange-500",
 				icon: <HelpCircle className="w-20 h-20 mx-auto text-orange-600" />,
 				message:
-					"Keep practicing! Review the different types of software and their best uses.",
+					"Don't worry! Understanding software takes practice. Review the different types and try again.",
 			};
 		}
 
-		// Get unique incorrect software types for review
-		const uniqueIncorrectAnswers = [...new Set(incorrectAnswers)];
+		const uniqueIncorrectAnswers = Array.from(
+			new Set(summary.incorrectSoftwareTypes || []),
+		);
 
 		return (
-			<div className="text-center p-8 max-w-3xl mx-auto">
+			<div className="text-center space-y-6">
 				<div
-					className={`bg-white p-8 rounded-xl shadow-2xl border-t-8 ${resultData.bgColor}`}
+					className={`bg-white p-8 rounded-xl shadow-2xl border-t-8 ${resultData.bgColor.split(" ")[1]}`}
 				>
-					{resultData.icon}
+					<div className={resultData.color}>{resultData.icon}</div>
 					<h2 className={`text-4xl font-bold mt-4 mb-2 ${resultData.color}`}>
 						{resultData.title}
 					</h2>
 					<p className="text-2xl font-bold text-slate-800 mb-6">
-						Final Score: {score}/{maxScore} ({percentage}%)
+						Score: {finalScore}/{maxScore} ({percentage}%)
 					</p>
 					<p className="text-lg text-slate-600 mb-8">{resultData.message}</p>
 
+					<div className="grid grid-cols-2 gap-4 text-center mb-6">
+						<div className="bg-green-50 p-4 rounded-lg">
+							<div className="text-2xl font-bold text-green-600">
+								{summary.correctCount}
+							</div>
+							<div className="text-green-800">Correct</div>
+						</div>
+						<div className="bg-red-50 p-4 rounded-lg">
+							<div className="text-2xl font-bold text-red-600">
+								{summary.incorrectCount}
+							</div>
+							<div className="text-red-800">Incorrect</div>
+						</div>
+					</div>
+
 					{uniqueIncorrectAnswers.length > 0 && (
-						<div className="text-left bg-amber-50 border-l-4 border-amber-400 p-6 rounded-lg mb-8">
+						<div className="text-left bg-amber-50 border-l-4 border-amber-400 p-6 rounded-lg mb-6">
 							<h4 className="font-bold text-xl mb-4 text-amber-800 flex items-center">
 								<HelpCircle className="w-6 h-6 mr-2" />
 								Areas to review:
@@ -1002,51 +843,82 @@ const SoftwareIdentificationGame = () => {
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 								{uniqueIncorrectAnswers.map((software) => (
 									<div
-										key={software}
+										key={software as string}
 										className="flex items-center text-amber-700"
 									>
-										{getSoftwareIcon(software)}
+										{getSoftwareIcon(software as string)}
 										<span className="ml-2 font-medium">
-											{software} Software
+											{software as string} Software
 										</span>
 									</div>
 								))}
 							</div>
 						</div>
 					)}
-
-					<div className="flex justify-center gap-4 mt-8">
-						<button
-							onClick={resetGame}
-							className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-200"
-							type="button"
-						>
-							Play Again
-						</button>
-					</div>
 				</div>
 			</div>
 		);
 	};
 
-	const renderStage = () => {
-		switch (stage) {
-			case "intro":
-				return renderIntro();
-			case "playing":
-				return renderPlaying();
-			case "feedback":
-				return renderFeedback();
-			case "results":
-				return renderResults();
-			default:
-				return renderIntro();
-		}
-	};
-
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center p-4">
-			{renderStage()}
+		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+			<ScenarioBasedGame
+				title="Software Identification Game"
+				description={
+					<>
+						<p className="mb-4">
+							Test your knowledge of different types of software! You'll face
+							scenarios where you need to choose the most appropriate software
+							for each task.
+						</p>
+						<div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-8 text-sm">
+							<div className="bg-blue-50 p-4 rounded-lg">
+								<FileText className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+								<div className="font-semibold">Word Processing</div>
+								<div className="text-slate-600">Microsoft Word</div>
+							</div>
+							<div className="bg-green-50 p-4 rounded-lg">
+								<Image className="w-8 h-8 text-green-600 mx-auto mb-2" />
+								<div className="font-semibold">Graphics</div>
+								<div className="text-slate-600">Paint, Photoshop</div>
+							</div>
+							<div className="bg-purple-50 p-4 rounded-lg">
+								<Monitor className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+								<div className="font-semibold">Presentation</div>
+								<div className="text-slate-600">PowerPoint</div>
+							</div>
+							<div className="bg-orange-50 p-4 rounded-lg">
+								<BarChart3 className="w-8 h-8 text-orange-600 mx-auto mb-2" />
+								<div className="font-semibold">Spreadsheet</div>
+								<div className="text-slate-600">Excel</div>
+							</div>
+							<div className="bg-indigo-50 p-4 rounded-lg">
+								<Globe className="w-8 h-8 text-indigo-600 mx-auto mb-2" />
+								<div className="font-semibold">Web Browser</div>
+								<div className="text-slate-600">Chrome, Safari</div>
+							</div>
+							<div className="bg-red-50 p-4 rounded-lg">
+								<Layout className="w-8 h-8 text-red-600 mx-auto mb-2" />
+								<div className="font-semibold">Desktop Publishing</div>
+								<div className="text-slate-600">Publisher</div>
+							</div>
+						</div>
+						<p className="text-base">
+							Which type of software would be most appropriate?
+						</p>
+					</>
+				}
+				scenarios={scenarios}
+				initialScore={0}
+				questionsToAsk={QUESTIONS_TO_ASK}
+				choiceRenderer={choiceRenderer}
+				scoreCalculator={scoreCalculator}
+				resultAnalyzer={resultAnalyzer}
+				scoreRenderer={scoreRenderer}
+				feedbackRenderer={feedbackRenderer}
+				resultsRenderer={resultsRenderer}
+				onNavigateHome={() => navigate({ to: "/" })}
+			/>
 		</div>
 	);
 };

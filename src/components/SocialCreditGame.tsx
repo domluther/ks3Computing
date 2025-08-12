@@ -1,36 +1,28 @@
 import { useNavigate } from "@tanstack/react-router";
-import {
-	CheckCircle,
-	HelpCircle,
-	Lock,
-	Shield,
-	Wifi,
-	WifiOff,
-	XCircle,
-} from "lucide-react";
-import { type ReactNode, useEffect, useState } from "react";
-import GameButton from "../components/GameButton";
-import { shuffleArray } from "../utils/utils";
+import { CheckCircle, HelpCircle, XCircle } from "lucide-react";
+import ScenarioBasedGame, {
+	type GameResults,
+	type GenericChoice,
+	type GenericScenario,
+} from "./ScenarioBasedGame";
+
+// --- TYPE DEFINITIONS ---
+interface SocialChoice extends GenericChoice {
+	text: string;
+	points: number;
+	feedback: string;
+}
+
+interface SocialScenario extends GenericScenario<SocialChoice> {
+	followUpQuestion: string;
+}
 
 const SocialCreditGame = () => {
+	const QUESTIONS_TO_ASK = 10;
 	const navigate = useNavigate();
 
-	// --- TYPE DEFINITIONS ---
-	type GameStage = "intro" | "playing" | "feedback" | "results";
-
-	interface Scenario {
-		id: number;
-		text: string;
-		choices: {
-			text: string;
-			points: number;
-			feedback: string;
-		}[];
-		followUpQuestion: string;
-	}
-
 	// --- GAME DATA ---
-	const scenarios: Scenario[] = [
+	const scenarios: SocialScenario[] = [
 		{
 			id: 1,
 			text: "You see a classmate's embarrassing photo posted in a group chat. What do you do?",
@@ -48,954 +40,670 @@ const SocialCreditGame = () => {
 						"Good choice. Standing up for others, even in private, is a positive action.",
 				},
 				{
-					text: "Report the photo to the group admin or a trusted adult.",
-					points: 20,
+					text: "Screenshot it before it gets deleted.",
+					points: -30,
 					feedback:
-						"Excellent. Reporting harmful content is the most effective way to stop its spread.",
+						"Taking screenshots to keep embarrassing content is harmful and wrong.",
 				},
 				{
-					text: "Ignore it. It's not your problem.",
-					points: -5,
+					text: "Ignore it completely.",
+					points: 5,
 					feedback:
-						"Doing nothing allows negative behaviour to continue. It's always better to act.",
+						"Not participating is better than spreading it, but you could do more to help.",
 				},
 			],
-			followUpQuestion:
-				"Explain why sharing an embarrassing photo of someone else, even as a joke, could be hurtful.",
+			followUpQuestion: "How should we respond to cyberbullying?",
 		},
 		{
 			id: 2,
-			text: "A new app asks for permission to access your contacts, location, and photos. The app lets you add funny filters to pictures.",
+			text: "A friend asks you to help them hack into someone's social media account to get back at them. What do you do?",
 			choices: [
 				{
-					text: "Accept all permissions without reading. You want the filters!",
-					points: -25,
+					text: "Help them because they're your friend.",
+					points: -40,
 					feedback:
-						"Always question why an app needs certain data. Giving away personal info can be risky.",
+						"Helping with hacking is illegal and can get you in serious trouble.",
 				},
 				{
-					text: "Deny all permissions.",
-					points: 5,
+					text: "Refuse and explain why it's wrong.",
+					points: 20,
 					feedback:
-						"This is safe, but you might miss out on app features. There's a more balanced option.",
+						"Excellent! True friends help each other make good choices, not bad ones.",
 				},
 				{
-					text: "Check the app's privacy policy and only grant permissions that seem necessary.",
+					text: "Tell them to find someone else to help.",
+					points: -10,
+					feedback:
+						"While you didn't help directly, you didn't discourage the harmful behavior.",
+				},
+				{
+					text: "Report their plan to a trusted adult.",
 					points: 25,
 					feedback:
-						"Perfect! Being an informed digital citizen means understanding what you're sharing.",
-				},
-				{
-					text: "Only allow the permissions while using the app.",
-					points: 15,
-					feedback:
-						"A smart compromise — this limits access and improves privacy while using the app.",
+						"Perfect! Sometimes protecting others means getting help from adults.",
 				},
 			],
 			followUpQuestion:
-				"Describe what could go wrong if you give an app permission to access your contacts, location, and photos.",
+				"When is it appropriate to report concerning online behavior?",
 		},
 		{
 			id: 3,
-			text: "Someone you don't know follows you on social media and sends a message saying 'hey'.",
+			text: "You find out someone has been spreading false rumors about you online. How do you respond?",
 			choices: [
 				{
-					text: "Follow them back and start a conversation.",
-					points: -25,
+					text: "Start spreading rumors about them in return.",
+					points: -35,
 					feedback:
-						"Interacting with strangers online can be dangerous. You don't know who they really are.",
+						"Fighting fire with fire online just creates more drama and hurt.",
 				},
 				{
-					text: "Check their profile for mutual friends before deciding.",
-					points: 10,
-					feedback:
-						"A good first step, but profiles can be faked. It's still a risk.",
-				},
-				{
-					text: "Ignore the message and block the user.",
+					text: "Ask a trusted adult for advice on how to handle it.",
 					points: 25,
 					feedback:
-						"This is the safest option. You are in control of who you interact with online.",
+						"Smart choice! Adults can help you handle difficult situations properly.",
 				},
 				{
-					text: "Ask a parent or trusted adult what to do before responding.",
+					text: "Confront the person publicly online.",
+					points: -15,
+					feedback:
+						"Public confrontations online often escalate problems instead of solving them.",
+				},
+				{
+					text: "Talk to the person privately to resolve the issue.",
 					points: 15,
 					feedback:
-						"Excellent. Seeking adult advice before acting is always a good step.",
+						"Good approach! Direct, private communication is often the best first step.",
 				},
 			],
-			followUpQuestion:
-				"Explain why it is risky to talk to strangers online, even if they seem friendly or have mutual friends.",
+			followUpQuestion: "What are effective ways to handle online conflicts?",
 		},
 		{
 			id: 4,
-			text: "You're playing an online game and another player starts using abusive language towards your teammate.",
+			text: "Your friend shares a video of someone getting hurt as a 'funny' clip. What's your response?",
 			choices: [
 				{
-					text: "Join in and insult them back.",
-					points: -40,
+					text: "Laugh along and share it with others.",
+					points: -30,
 					feedback:
-						"Adding to the negativity makes the online space worse for everyone.",
+						"Finding entertainment in others' pain and spreading it is harmful behavior.",
 				},
 				{
-					text: "Use the game's 'report player' function.",
+					text: "Tell your friend you don't find it funny and ask them not to share such content.",
+					points: 20,
+					feedback:
+						"Great! Setting boundaries about harmful content shows good digital citizenship.",
+				},
+				{
+					text: "Just ignore it and say nothing.",
+					points: 0,
+					feedback:
+						"Staying neutral doesn't help, but at least you didn't participate in the harm.",
+				},
+				{
+					text: "Report the content to the platform.",
 					points: 25,
 					feedback:
-						"The best action. Reporting helps keep the game fun and safe for all players.",
-				},
-				{
-					text: "Send your teammate a supportive message.",
-					points: 15,
-					feedback:
-						"A kind gesture that can make a big difference to someone's experience.",
-				},
-				{
-					text: "Quit the game.",
-					points: -5,
-					feedback:
-						"While this removes you from the situation, it doesn't help solve the problem.",
+						"Excellent! Reporting harmful content helps protect others and maintains community standards.",
 				},
 			],
 			followUpQuestion:
-				"Explain why joining in with insults online makes the situation worse than just ignoring it.",
+				"How can we promote empathy in our online interactions?",
 		},
 		{
 			id: 5,
-			text: "You get an email saying you've won a new phone. It asks you to click a link and enter your password to claim it.",
+			text: "You receive a friend request from someone you don't know who claims to be from your school. What do you do?",
 			choices: [
 				{
-					text: "Click the link and enter your details.",
-					points: -30,
+					text: "Accept immediately - they seem friendly.",
+					points: -20,
 					feedback:
-						"This is a classic phishing scam. Never enter personal details from suspicious links.",
+						"Accepting requests from strangers can put your personal information at risk.",
 				},
 				{
-					text: "Delete the email and ignore it.",
+					text: "Check with mutual friends or ask the person questions to verify their identity.",
 					points: 15,
-					feedback: "Good. Deleting it is a safe action.",
+					feedback:
+						"Good thinking! Verifying identity helps protect you from potential scams or predators.",
 				},
 				{
-					text: "Report the email as phishing or junk.",
-					points: 25,
+					text: "Ignore the request completely.",
+					points: 10,
 					feedback:
-						"Excellent. Reporting helps email providers block these scams for everyone.",
+						"Safe approach! When in doubt, it's better to be cautious with unknown contacts.",
 				},
 				{
-					text: "Forward it to a friend to see if they think it's real.",
-					points: -10,
+					text: "Ask a parent or teacher for advice.",
+					points: 20,
 					feedback:
-						"This could spread the scam to your friends. It's better not to share it.",
+						"Excellent! Getting guidance from trusted adults helps you make safer decisions online.",
 				},
 			],
 			followUpQuestion:
-				"State three signs that an email or message might be a phishing scam.",
+				"What safety measures should we take when connecting with others online?",
 		},
 		{
 			id: 6,
-			text: "You're about to post a group photo from a party. You look a bit silly in it, but it's funny.",
+			text: "You see a post where someone is threatening to harm themselves. What should you do?",
 			choices: [
 				{
-					text: "Post it. It's just a laugh and part of my digital footprint.",
-					points: -15,
+					text: "Share the post to get more people to help.",
+					points: -10,
 					feedback:
-						"This photo is now part of your digital footprint forever. Future schools or employers might see it.",
+						"While your intention is good, sharing could violate their privacy. Direct action is better.",
 				},
 				{
-					text: "Ask the friends in the photo if they're okay with you posting it.",
-					points: 25,
-					feedback:
-						"Great idea. Always get consent before posting photos of others.",
-				},
-				{
-					text: "Post it but only to your 'close friends' list.",
+					text: "Comment with advice on how they should feel better.",
 					points: 5,
 					feedback:
-						"Better, but 'close friends' can still screenshot and share it. Think before you post.",
+						"Showing care is good, but this situation needs professional help, not amateur advice.",
 				},
 				{
-					text: "Decide not to post it.",
+					text: "Report the post to the platform and contact a trusted adult immediately.",
+					points: 30,
+					feedback:
+						"Perfect! Situations involving self-harm require immediate adult intervention and proper resources.",
+				},
+				{
+					text: "Send them a private message asking if they're okay.",
 					points: 10,
-					feedback: "A safe choice. Not everything needs to be shared online.",
+					feedback:
+						"Showing personal concern is kind, but this serious situation needs adult help.",
 				},
 			],
-			followUpQuestion:
-				"Define what 'digital footprint' means. Explain how a photo you post today could affect you in the future.",
+			followUpQuestion: "How should we respond to mental health crises online?",
 		},
 		{
 			id: 7,
-			text: 'You get a text from an unknown number: "Hi mum, I\'ve broken my phone. Can you send me £50 to get it fixed?"',
+			text: "Someone posts a mean comment on your photo. How do you handle it?",
 			choices: [
 				{
-					text: "Send the money immediately. You have to help!",
-					points: -40,
+					text: "Respond with an even meaner comment.",
+					points: -25,
 					feedback:
-						"This is a common scam. Scammers pretend to be family members in trouble.",
+						"Escalating negativity creates more conflict and can hurt your own reputation.",
 				},
 				{
-					text: 'Text back asking "who is this?".',
-					points: -5,
-					feedback:
-						"Replying confirms your number is active. They might target you with more scams.",
-				},
-				{
-					text: "Try to call your mum's original number to check if she's okay.",
-					points: 25,
-					feedback:
-						"The best action. Always verify unusual requests through a different, trusted method.",
-				},
-				{
-					text: "Ignore and delete the message.",
+					text: "Delete their comment and block them.",
 					points: 15,
-					feedback: "A good, safe option.",
+					feedback:
+						"Good boundary setting! Removing negativity from your space protects your mental health.",
+				},
+				{
+					text: "Ask your followers to attack the person.",
+					points: -35,
+					feedback:
+						"Organizing harassment is a serious form of cyberbullying and can have legal consequences.",
+				},
+				{
+					text: "Report the comment and document it.",
+					points: 20,
+					feedback:
+						"Smart approach! Keeping records helps if the behavior continues or escalates.",
 				},
 			],
 			followUpQuestion:
-				"Explain why you shouldn't reply to a scam text message, even to ask who it is.",
+				"What are healthy ways to protect yourself from online negativity?",
 		},
 		{
 			id: 8,
-			text: "Your friend tells you a secret and makes you promise not to tell anyone. Later, your other friend asks you what's going on.",
+			text: "You discover that a friend is being catfished by someone pretending to be a celebrity. What do you do?",
 			choices: [
 				{
-					text: "Tell them the secret. They're your best friend too.",
-					points: -25,
-					feedback:
-						"Breaking someone's trust by sharing information without consent can damage a friendship.",
-				},
-				{
-					text: "Tell them you can't say because you promised.",
-					points: 25,
-					feedback:
-						"Respecting people's privacy and consent is a key part of being a good friend.",
-				},
-				{
-					text: "Hint at the secret without giving all the details.",
+					text: "Mind your own business - it's not your problem.",
 					points: -10,
 					feedback:
-						"This is still a form of gossip and can lead to the secret getting out.",
+						"Friends look out for each other. Ignoring potential harm isn't good friendship.",
 				},
 				{
-					text: "Change the subject or distract them without mentioning the secret.",
-					points: 15,
+					text: "Gently show them evidence that it's not real and offer support.",
+					points: 25,
 					feedback:
-						"A subtle way to protect your friend's privacy without creating tension.",
+						"Perfect! Helping friends recognize scams with kindness and evidence is true friendship.",
+				},
+				{
+					text: "Publicly embarrass them by posting about how gullible they are.",
+					points: -30,
+					feedback:
+						"Public humiliation is cruel and will damage your friendship and their trust.",
+				},
+				{
+					text: "Report the fake account to the platform.",
+					points: 20,
+					feedback:
+						"Good action! Reporting fake accounts helps protect not just your friend but others too.",
 				},
 			],
 			followUpQuestion:
-				"Define what 'consent' means in the context of sharing information online.",
+				"How can we help friends make better decisions online without being judgmental?",
 		},
 		{
 			id: 9,
-			text: "In a YouTube comment section, you see someone making discriminatory racist comments about a creator.",
+			text: "You're invited to a private group chat where people regularly share inappropriate content. What's your choice?",
 			choices: [
 				{
-					text: "Reply to the comment and argue with them.",
-					points: -5,
+					text: "Join and participate - everyone else is doing it.",
+					points: -40,
 					feedback:
-						"Arguing with trolls often encourages them. It's better not to engage directly.",
+						"Following the crowd into inappropriate behavior can have serious consequences for your future.",
 				},
 				{
-					text: "Report the comment for hate speech.",
-					points: 25,
+					text: "Join but don't participate actively.",
+					points: -15,
 					feedback:
-						"Perfect. Reporting is the most effective tool to get harmful content removed.",
+						"Silent participation still associates you with inappropriate content and normalizes the behavior.",
 				},
 				{
-					text: "'Dislike' the comment.",
-					points: 5,
-					feedback: "A small action, but reporting is much more powerful.",
+					text: "Decline the invitation and distance yourself from the group.",
+					points: 20,
+					feedback:
+						"Wise choice! Avoiding situations that compromise your values protects your reputation and future.",
 				},
 				{
-					text: "Just scroll past it.",
-					points: 0,
+					text: "Report the group to appropriate authorities if content is illegal.",
+					points: 30,
 					feedback:
-						"Ignoring it doesn't help, but at least you're not making it worse.",
+						"Excellent! Taking action against illegal content helps protect vulnerable people.",
 				},
 			],
 			followUpQuestion:
-				"Describe why it is more effective to report hateful comments than to argue with the person who posted them.",
+				"How do we maintain our values when facing peer pressure online?",
 		},
 		{
 			id: 10,
-			text: 'You post a video of your new hobby, and a troll comments "this is so boring, get a life".',
+			text: "You accidentally share personal information about someone else online. What do you do?",
 			choices: [
 				{
-					text: "Post an angry reply defending your hobby.",
-					points: -10,
-					feedback: "This is what a troll wants! They feed on angry reactions.",
+					text: "Hope no one notices and do nothing.",
+					points: -20,
+					feedback:
+						"Ignoring mistakes doesn't fix them and can make the consequences worse.",
 				},
 				{
-					text: "Delete their comment and block the user.",
+					text: "Delete the post immediately and apologize to the person privately.",
 					points: 25,
 					feedback:
-						"A great way to manage your online space. You don't have to put up with negativity.",
+						"Perfect! Quick action and sincere apology show responsibility and respect for others.",
 				},
 				{
-					text: "Reply with a joke.",
-					points: 10,
+					text: "Delete it but don't tell the person - they might not have seen it.",
+					points: 5,
 					feedback:
-						"Sometimes humour can disarm a troll, but blocking is often safer and easier.",
+						"While deleting helps, the person deserves to know about the privacy breach.",
 				},
 				{
-					text: "Feel sad and delete your video.",
-					points: -15,
+					text: "Leave it up but add a comment saying it was an accident.",
+					points: -10,
 					feedback:
-						"Don't let one negative person stop you from enjoying your hobbies.",
+						"Explaining doesn't protect their privacy. The information should be removed immediately.",
 				},
 			],
 			followUpQuestion:
-				"State what a 'troll' is. Describe what the best way to deal with trolling comments is.",
+				"How do we respect others' privacy in our digital communications?",
 		},
 		{
 			id: 11,
-			text: "A cool online quiz promises to tell you your 'spirit animal' if you enter your full name, date of birth, and primary school.",
+			text: "Someone tries to get you to meet them in person after chatting online. You've never met them before. What do you do?",
 			choices: [
 				{
-					text: "Enter all the details to get your result.",
-					points: -25,
+					text: "Agree to meet them alone at a private location.",
+					points: -50,
 					feedback:
-						"This is way too much personal information. It can be used for identity theft.",
+						"This is extremely dangerous! Meeting strangers alone puts you at serious risk.",
 				},
 				{
-					text: "Make up fake details to do the quiz.",
-					points: 15,
+					text: "Suggest meeting in a public place with friends present.",
+					points: 5,
 					feedback:
-						"A clever way to protect your privacy while still having fun.",
+						"Better than meeting alone, but meeting online strangers still carries significant risks.",
 				},
 				{
-					text: "Close the page. It's not worth the risk.",
+					text: "Decline and discuss the situation with a trusted adult.",
+					points: 30,
+					feedback:
+						"Perfect! Adults can help you assess whether online relationships are safe and legitimate.",
+				},
+				{
+					text: "Block them immediately - any request to meet is suspicious.",
 					points: 25,
-					feedback: "A very sensible and safe decision.",
-				},
-				{
-					text: "Use your real name but a fake birthday and school.",
-					points: -10,
 					feedback:
-						"Still risky. Your full name is a key piece of personal data.",
+						"Smart protective instinct! People who quickly push for meetings often have bad intentions.",
 				},
 			],
 			followUpQuestion:
-				"List three pieces of personal information you should never share online and explain why.",
+				"What safety precautions should we always take with online relationships?",
 		},
 		{
 			id: 12,
-			text: "You and your friends are hanging out in a town centre. You notice there are lots of CCTV cameras.",
+			text: "You find a USB drive in the school hallway. What do you do with it?",
 			choices: [
 				{
-					text: "Do a silly dance in front of a camera.",
-					points: 0,
+					text: "Plug it into your computer to see what's on it.",
+					points: -30,
 					feedback:
-						"Harmless fun, but it highlights that you are being recorded in public spaces.",
+						"Unknown USB drives can contain malware that damages your computer or steals your data.",
 				},
 				{
-					text: "Feel worried and want to go home.",
-					points: -5,
-					feedback:
-						"It's okay to be aware of cameras, but they are also there for public safety.",
-				},
-				{
-					text: "Discuss with your friends why the cameras are there.",
-					points: 15,
-					feedback:
-						"Good. Thinking critically about surveillance and its purpose (like safety) is a smart habit.",
-				},
-				{
-					text: "Look around to see if there are signs explaining who owns the cameras.",
+					text: "Turn it in to the school office without examining it.",
 					points: 25,
 					feedback:
-						"Good thinking. It's useful to know who is collecting data in public spaces.",
+						"Excellent! School staff can handle found items safely and return them to the owner.",
+				},
+				{
+					text: "Post about it on social media asking if anyone lost it.",
+					points: 10,
+					feedback:
+						"Good intention, but this could attract false claims. Official channels are safer.",
+				},
+				{
+					text: "Keep it for yourself since no one claimed it.",
+					points: -20,
+					feedback:
+						"Taking someone else's property is theft, even if you found it.",
 				},
 			],
 			followUpQuestion:
-				"State two pros and cons of having CCTV cameras in public places.",
+				"How do physical security practices relate to digital safety?",
 		},
 		{
 			id: 13,
-			text: "You're playing a game on your phone that's connected to your parents' account. A pop-up offers a special item that you want for £9.99.",
+			text: "A classmate asks you to share your streaming service password so they can watch shows. What's your response?",
 			choices: [
 				{
-					text: "Buy it without asking. You can pay them back later.",
-					points: -30,
+					text: "Share it freely - what could go wrong?",
+					points: -25,
 					feedback:
-						"Making purchases without permission is like stealing and can get you into serious trouble.",
+						"Sharing passwords violates terms of service and can compromise your account security.",
 				},
 				{
-					text: "Ask your parents if you can buy it.",
+					text: "Share it but ask them to change it back after.",
+					points: -15,
+					feedback:
+						"Even temporary sharing violates terms of service and creates security risks.",
+				},
+				{
+					text: "Decline and explain the risks of password sharing.",
+					points: 20,
+					feedback:
+						"Good! Protecting your accounts and explaining why helps others learn about security.",
+				},
+				{
+					text: "Suggest they get their own account or ask their parents.",
 					points: 25,
 					feedback:
-						"You always have to get permission before spending money online.",
-				},
-				{
-					text: "Close the pop-up and keep playing without the item.",
-					points: 15,
-					feedback:
-						"Good self-control! You don't need to spend money to have fun.",
-				},
-				{
-					text: "Look for a free alternative to the paid item.",
-					points: 10,
-					feedback:
-						"A creative solution — you’re making thoughtful financial decisions.",
+						"Perfect! Encouraging legitimate access respects the service's rules and protects your security.",
 				},
 			],
 			followUpQuestion:
-				"Describe why it is important to always get permission before making any in-app purchases.",
+				"Why is password security so important in the digital age?",
 		},
 		{
 			id: 14,
-			text: 'You see a shocking headline on a news site you\'ve never heard of: "Scientists Prove Eating Chocolate Cures All Illness!".',
+			text: "You see someone live-streaming from school without permission, showing other students. What do you do?",
 			choices: [
 				{
-					text: "Share it on social media immediately. Everyone needs to know!",
+					text: "Join the stream and try to get on camera.",
 					points: -20,
 					feedback:
-						"Spreading misinformation is easy. Always check the source before you share.",
+						"Participating in unauthorized streaming violates privacy and school policies.",
 				},
 				{
-					text: "Check a trusted news source like the BBC to see if they are reporting it.",
-					points: 25,
+					text: "Ignore it - it's not your responsibility.",
+					points: -5,
 					feedback:
-						"Excellent critical thinking. Verifying information with reliable sources is a vital skill.",
+						"Bystander inaction allows privacy violations to continue affecting others.",
 				},
 				{
-					text: "Assume it's probably fake and just ignore it.",
-					points: 10,
-					feedback: "A good assumption, but actively verifying is even better.",
-				},
-				{
-					text: "Ask someone like a parent or teacher what they think before sharing.",
+					text: "Tell the person to stop and explain the privacy concerns.",
 					points: 15,
 					feedback:
-						"Talking to a trusted adult can help you avoid spreading false information.",
+						"Good peer intervention! Explaining consequences can help people make better choices.",
+				},
+				{
+					text: "Report it to a teacher or administrator immediately.",
+					points: 25,
+					feedback:
+						"Excellent! School staff can address policy violations and protect students' privacy rights.",
 				},
 			],
 			followUpQuestion:
-				"Describe how you can check if a news story you see online is real or fake. Name a trusted news source.",
+				"How do we balance sharing experiences online with respecting others' privacy?",
 		},
 		{
 			id: 15,
-			text: "You're signing up for a new website. It asks for a password.",
+			text: "You receive a message claiming you've won a prize but need to provide personal information to claim it. What do you do?",
 			choices: [
 				{
-					text: "Use the same password you use for everything else.",
-					points: -25,
+					text: "Provide the information immediately - you might really win!",
+					points: -35,
 					feedback:
-						"If one account gets hacked, all your accounts are at risk. Use unique passwords.",
+						"This is likely a scam! Legitimate prizes don't require personal information upfront.",
 				},
 				{
-					text: 'Use your pet\'s name and your birthday, like "Fluffy2012".',
-					points: -15,
-					feedback: "This is easy for someone who knows you to guess.",
-				},
-				{
-					text: 'Use three random words, like "CorrectHorseBattery".',
-					points: 20,
-					feedback: "A great method for creating strong, memorable passwords.",
-				},
-				{
-					text: "Use a password manager to generate a random password.",
+					text: "Ask your parents or a trusted adult about it first.",
 					points: 25,
 					feedback:
-						"The gold standard for password security. Fantastic choice.",
-				},
-			],
-			followUpQuestion:
-				"Explain why using the same password for multiple websites is a bad idea. Describe how to create a strong password.",
-		},
-		{
-			id: 16,
-			text: "You post a great photo on Instagram from your family holiday.",
-			choices: [
-				{
-					text: "Tag the exact hotel you are staying at.",
-					points: -20,
-					feedback:
-						"This tells everyone you're not at home, which could make your house a target for burglary.",
+						"Smart! Adults can help you identify scams and protect your personal information.",
 				},
 				{
-					text: 'Tag the general city you\'re in, like "London".',
-					points: 5,
-					feedback: "Better, but still gives away that you are away from home.",
-				},
-				{
-					text: "Post the photo, but don't add any location tag.",
-					points: 15,
-					feedback:
-						"A safe option. You're sharing the memory without sharing your live location.",
-				},
-				{
-					text: "Wait until you get home to post your holiday photos.",
-					points: 25,
-					feedback:
-						"The safest way to share holiday pictures. It protects your privacy and security.",
-				},
-			],
-			followUpQuestion:
-				"Explain how posting photos while you are on holiday could be a security risk.",
-		},
-		{
-			id: 17,
-			text: "In a class WhatsApp group, a few people are making fun of someone's new haircut using unkind memes.",
-			choices: [
-				{
-					text: "'Like' or react to the funny memes.",
-					points: -25,
-					feedback:
-						"This makes you part of the cyberbullying problem. Your reaction encourages the bullies.",
-				},
-				{
-					text: "Leave the group.",
-					points: -5,
-					feedback:
-						"This removes you from the situation but doesn't help the person being targeted.",
-				},
-				{
-					text: "Privately message the person being made fun of and ask if they are okay.",
-					points: 20,
-					feedback:
-						"An incredibly kind and supportive action. It can make a huge difference.",
-				},
-				{
-					text: "Take a screenshot and show it to a teacher or your parents.",
-					points: 25,
-					feedback:
-						"Excellent. Reporting the bullying to a trusted adult is the best way to make it stop.",
-				},
-			],
-			followUpQuestion:
-				"Describe two different positive actions you could take if you see cyberbullying happening in a group chat.",
-		},
-		{
-			id: 18,
-			text: "You're installing a new game. A huge wall of text appears (the Terms & Conditions).",
-			choices: [
-				{
-					text: "Scroll to the bottom and click 'Agree' without reading.",
+					text: "Provide fake information to see if it's real.",
 					points: -10,
 					feedback:
-						"Very common, but you could be agreeing to anything, like letting them sell your personal information.",
+						"Even fake information can be used against you. It's better to avoid engagement entirely.",
 				},
 				{
-					text: "Ask a parent or older sibling to look at it with you.",
-					points: 15,
+					text: "Delete the message and block the sender.",
+					points: 20,
 					feedback:
-						"A good idea to get help understanding what you're agreeing to.",
-				},
-				{
-					text: "Try to find a summary of the T&Cs online.",
-					points: 25,
-					feedback:
-						"A great research skill. Some websites simplify these long documents.",
-				},
-				{
-					text: "Look for a 'key points' or 'TL;DR' section at the top.",
-					points: 15,
-					feedback:
-						"Smart! Many apps now include summaries — they're easier to understand.",
+						"Good protective action! Ignoring scams prevents further targeting.",
 				},
 			],
 			followUpQuestion:
-				"State what kind of things might you be agreeing to if you don't read the Terms & Conditions.",
-		},
-		{
-			id: 19,
-			text: "A friend tags you in a post where you are complaining about a teacher. This affects your digital footprint.",
-			choices: [
-				{
-					text: "Laugh and share the post.",
-					points: -20,
-					feedback:
-						"This is now part of your digital footprint. It looks disrespectful and could get you in trouble at school.",
-				},
-				{
-					text: "Untag yourself from the post.",
-					points: 15,
-					feedback: "Good. This removes the direct link to your profile.",
-				},
-				{
-					text: "Untag yourself and ask your friend to delete the post.",
-					points: 25,
-					feedback:
-						"The best response. It manages your own reputation and shows respect for others.",
-				},
-				{
-					text: "Comment on the post saying it was just a joke.",
-					points: -5,
-					feedback:
-						"Even if you say it's a joke, the post still reflects poorly on you and stays online.",
-				},
-			],
-			followUpQuestion:
-				"Explain how a negative post about a teacher could damage your digital footprint.",
-		},
-		{
-			id: 20,
-			text: "You find a website that lets you upload a photo of a friend and put their face into a funny video clip.",
-			choices: [
-				{
-					text: "Do it without asking them. It's just a joke.",
-					points: -25,
-					feedback:
-						"This is creating a 'deepfake'. Doing this without consent is a serious breach of their privacy.",
-				},
-				{
-					text: "Ask your friend for permission before you do it.",
-					points: 25,
-					feedback: "Consent is key. If they say yes, it's just harmless fun.",
-				},
-				{
-					text: "Decide not to do it, as it feels a bit weird.",
-					points: 10,
-					feedback:
-						"Trusting your instincts is important. If something feels wrong, it's often best to avoid it.",
-				},
-				{
-					text: "Use a celebrity photo instead of your friend's.",
-					points: 5,
-					feedback:
-						"Better than using a friend without consent — but always consider ethical use and copyright.",
-				},
-			],
-			followUpQuestion:
-				"State what a deepfake is. Explain why creating one of a friend without their permission is a bad idea.",
+				"How can we recognize and avoid online scams and fraud?",
 		},
 	];
 
-	const questionsToAsk = scenarios.length;
-	// const questionsToAsk = 5;
-
-	// --- STATE MANAGEMENT ---
-	const [stage, setStage] = useState<GameStage>("intro");
-	const [score, setScore] = useState(500);
-	const [shuffledScenarios, setShuffledScenarios] = useState<Scenario[]>([]);
-	const [currentScenarioIndex, setCurrentScenarioIndex] = useState(0);
-	const [lastChoice, setLastChoice] = useState<{
-		points: number;
-		feedback: string;
-	} | null>(null);
-	const [poorChoiceQuestions, setPoorChoiceQuestions] = useState<string[]>([]);
-	const [followUpQuestions, setFollowUpQuestions] = useState<string[]>([]);
-
-	// --- GAME LOGIC ---
-
-	// Determine follow-up questions when results stage is reached
-	useEffect(() => {
-		if (stage === "results") {
-			let tempQuestions: string[] = [];
-			if (poorChoiceQuestions.length > 0) {
-				// Shuffle poor choices and take the first two (only 1 mistake -> 1 question)
-				tempQuestions = shuffleArray(poorChoiceQuestions).slice(0, 2);
-			} else {
-				// Pick two random questions from all scenarios for perfect players
-				tempQuestions = scenarios
-					.map((s) => s.followUpQuestion)
-					.sort(() => 0.5 - Math.random())
-					.slice(0, 2);
-			}
-			setFollowUpQuestions(tempQuestions);
-		}
-	}, [stage, poorChoiceQuestions]);
-
-	const handleChoice = (points: number, feedback: string) => {
-		setScore((prev) => Math.max(0, prev + points)); // Ensure score doesn't go below 0
-		setLastChoice({ points, feedback });
-		if (points < 0) {
-			const currentQuestion =
-				shuffledScenarios[currentScenarioIndex].followUpQuestion;
-			// Avoid adding duplicate questions
-			if (!poorChoiceQuestions.includes(currentQuestion)) {
-				setPoorChoiceQuestions((prev) => [...prev, currentQuestion]);
-			}
-		}
-		setStage("feedback");
-	};
-
-	const handleNext = () => {
-		if (currentScenarioIndex < questionsToAsk - 1) {
-			setCurrentScenarioIndex((prev) => prev + 1);
-			setStage("playing");
-		} else {
-			setStage("results");
-		}
-		setLastChoice(null);
-	};
-
-	const startGame = () => {
-		const shuffled = shuffleArray(scenarios).map((s) => ({
-			...s,
-			choices: shuffleArray(s.choices),
-		}));
-
-		setShuffledScenarios(shuffled);
-		setScore(500);
-		setCurrentScenarioIndex(0);
-		setLastChoice(null);
-		setPoorChoiceQuestions([]);
-		setFollowUpQuestions([]);
-		setStage("playing");
-	};
-
-	const resetGame = () => {
-		setStage("intro");
-	};
-
-	// --- UI RENDERING ---
-	const renderScoreBar = () => (
-		<div className="w-full max-w-2xl bg-gray-200 rounded-full h-8 dark:bg-gray-700 my-4 shadow-inner">
-			<div
-				className="bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 h-8 rounded-full transition-all duration-500 ease-out"
-				style={{ width: `${Math.min(100, (score / 1000) * 100)}%` }} // Cap width at 100%
-			></div>
-			<span className="relative bottom-8 text-center w-full block font-bold text-slate-800">{`Score: ${score}`}</span>
-		</div>
+	// --- RENDER FUNCTIONS ---
+	const choiceRenderer = (
+		choice: SocialChoice,
+		onSelect: () => void,
+		_scenario: GenericScenario<SocialChoice>,
+		index?: number,
+	) => (
+		<button
+			key={choice.text}
+			onClick={onSelect}
+			className="bg-slate-100 text-slate-800 font-semibold p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left flex items-start gap-3"
+			type="button"
+		>
+			{index !== undefined && (
+				<span className="bg-blue-600 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+					{index + 1}
+				</span>
+			)}
+			<span className="flex-1">{choice.text}</span>
+		</button>
 	);
 
-	const renderIntro = () => (
-		<div className="text-center p-8 max-w-3xl mx-auto">
-			<h2 className="text-4xl font-bold text-slate-800 mb-4">
-				The Social Credit Game
-			</h2>
-			<p className="text-lg text-slate-600 mb-6">
-				In some places, technology is used to track citizens' behaviour. This
-				creates a 'social credit score' that can affect their lives.
-			</p>
-			<p className="text-lg text-slate-600 mb-8">
-				In this game, you'll face {questionsToAsk} online situations. Your
-				choices will change your social credit score. At the end, you'll get
-				some questions to discuss. See how your digital citizenship skills
-				measure up!
-			</p>
-			<div className="flex justify-center gap-4">
-				<GameButton onClick={startGame}>Start Game</GameButton>
-				<button
-					onClick={() => navigate({ to: "/online-safety" })}
-					className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
-					type="button"
+	const scoreCalculator = (choice: SocialChoice, currentScore: number) => {
+		return Math.max(0, currentScore + choice.points);
+	};
+
+	const scoreRenderer = (score: number) => {
+		const maxScore = 800; // Maximum possible score
+		const percentage = Math.min(100, Math.max(10, (score / maxScore) * 100));
+
+		return (
+			<div className="w-full max-w-3xl bg-slate-200 rounded-full h-8 mb-6 shadow-inner relative">
+				<div
+					className={`h-8 rounded-full transition-all duration-500 ${
+						score >= 400
+							? "bg-gradient-to-r from-blue-500 via-green-500 to-emerald-500"
+							: score >= 200
+								? "bg-gradient-to-r from-blue-500 via-yellow-500 to-orange-500"
+								: "bg-gradient-to-r from-blue-500 via-red-500 to-red-700"
+					}`}
+					style={{ width: `${percentage}%` }}
+				></div>
+				<span className="absolute inset-0 flex items-center justify-center font-bold text-sm text-slate-800 drop-shadow-sm">
+					Social Credit: {score}
+				</span>
+			</div>
+		);
+	};
+
+	const feedbackRenderer = (
+		choice: SocialChoice,
+		_scoreChange: number,
+		scenario: GenericScenario<SocialChoice>,
+	) => {
+		const socialScenario = scenario as SocialScenario;
+		const isPositive = choice.points >= 0;
+		return (
+			<div className="text-center">
+				{isPositive ? (
+					<CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+				) : (
+					<XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+				)}
+				<div
+					className={`text-2xl font-bold mb-4 ${isPositive ? "text-green-600" : "text-red-600"}`}
 				>
-					Back to Hub
-				</button>
-			</div>
-		</div>
-	);
-
-	const renderPlaying = () => {
-		if (shuffledScenarios.length === 0) return null;
-		const currentScenario = shuffledScenarios[currentScenarioIndex];
-
-		return (
-			<div className="w-full max-w-3xl p-8">
-				{renderScoreBar()}
-				<div className="bg-white p-8 rounded-xl shadow-lg text-center">
-					<p className="text-gray-500 font-medium mb-4">
-						Question {currentScenarioIndex + 1} of {questionsToAsk}
+					{choice.points > 0 ? `+${choice.points}` : choice.points} Points
+				</div>
+				<p className="text-lg text-slate-700 mb-6">{choice.feedback}</p>
+				<div className="bg-blue-50 p-4 rounded-lg">
+					<HelpCircle className="w-6 h-6 text-blue-600 mx-auto mb-2" />
+					<p className="text-blue-800 font-medium">
+						{socialScenario.followUpQuestion}
 					</p>
-					<p className="text-2xl font-semibold text-slate-700 mb-8">
-						{currentScenario.text}
-					</p>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-						{currentScenario.choices.map((choice) => (
-							<button
-								key={currentScenario.id}
-								onClick={() => handleChoice(choice.points, choice.feedback)}
-								className="bg-slate-100 text-slate-800 font-semibold p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left"
-								type="button"
-							>
-								{choice.text}
-							</button>
-						))}
-					</div>
 				</div>
 			</div>
 		);
 	};
 
-	const renderFeedback = () => {
-		if (!lastChoice) return null;
-		const isPositive = lastChoice.points > 0;
-		return (
-			<div className="w-full max-w-3xl p-8 text-center flex flex-col items-center">
-				{renderScoreBar()}
-				<div className="bg-white p-8 rounded-xl shadow-lg w-full">
-					{isPositive ? (
-						<CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-					) : (
-						<XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-					)}
-					<h3
-						className={`text-3xl font-bold mb-4 ${isPositive ? "text-green-600" : lastChoice.points === 0 ? "text-slate-600" : "text-red-600"}`}
-					>
-						{lastChoice.points > 0
-							? `+${lastChoice.points}`
-							: lastChoice.points}{" "}
-						Points
-					</h3>
-					<p className="text-xl text-slate-600 mb-8">{lastChoice.feedback}</p>
-					<GameButton onClick={handleNext}>
-						{currentScenarioIndex < questionsToAsk - 1
-							? "Next Question"
-							: "See Results"}
-					</GameButton>
-				</div>
-			</div>
-		);
+	const resultAnalyzer = (
+		finalScore: number,
+		allChoices: Array<{
+			scenario: GenericScenario<SocialChoice>;
+			choice: SocialChoice;
+			scoreChange: number;
+		}>,
+	): GameResults<SocialChoice> => {
+		const poorChoices = allChoices.filter((c) => c.choice.points < 0);
+		const goodChoices = allChoices.filter((c) => c.choice.points > 0);
+
+		return {
+			finalScore,
+			allChoices,
+			summary: {
+				totalQuestions: allChoices.length,
+				poorChoicesCount: poorChoices.length,
+				goodChoicesCount: goodChoices.length,
+				averagePoints:
+					allChoices.reduce((sum, c) => sum + c.choice.points, 0) /
+					allChoices.length,
+			},
+		};
 	};
 
-	const renderResults = () => {
-		type ResultData = {
-			title: string;
-			color: string;
-			icon: ReactNode;
-			perks: { text: string; icon: ReactNode }[];
-			message: string;
+	const resultsRenderer = (results: GameResults<SocialChoice>) => {
+		const { finalScore, summary } = results;
+		const poorChoices = results.allChoices.filter((c) => c.choice.points < 0);
+
+		const getScoreMessage = () => {
+			if (finalScore >= 600) return "Excellent Digital Citizen! 🌟";
+			if (finalScore >= 400) return "Good Digital Citizen! 👍";
+			if (finalScore >= 200) return "Developing Digital Awareness 📚";
+			return "Needs Improvement in Digital Citizenship 📖";
 		};
 
-		let resultData: ResultData;
-		// New score boundaries for 20 questions
-		if (score >= 700) {
-			resultData = {
-				title: "Excellent Digital Citizen!",
-				color: "text-green-600",
-				icon: <CheckCircle className="w-20 h-20 mx-auto" />,
-				perks: [
-					{
-						text: "High-speed internet access",
-						icon: <Wifi className="w-6 h-6 text-green-500" />,
-					},
-					{
-						text: "Access to exclusive online communities",
-						icon: <Lock className="w-6 h-6 text-green-500" />,
-					},
-					{
-						text: "Verified 'Trusted User' status",
-						icon: <Shield className="w-6 h-6 text-green-500" />,
-					},
-				],
-				message:
-					"Your positive and responsible online actions have earned you a high social credit score. You've helped make the internet a better place!",
-			};
-		} else if (score < 500) {
-			resultData = {
-				title: "Low Social Score Warning",
-				color: "text-red-600",
-				icon: <XCircle className="w-20 h-20 mx-auto" />,
-				perks: [
-					{
-						text: "Restricted internet speeds",
-						icon: <WifiOff className="w-6 h-6 text-red-500" />,
-					},
-					{
-						text: "Limited access to social media",
-						icon: <Lock className="w-6 h-6 text-red-500" />,
-					},
-					{
-						text: "Online posts require review",
-						icon: <Shield className="w-6 h-6 text-red-500" />,
-					},
-				],
-				message:
-					"Your choices have resulted in a low social credit score. This could lead to online restrictions. Reflect on how to be a safer and more respectful digital citizen.",
-			};
-		} else {
-			resultData = {
-				title: "Average Digital Citizen",
-				color: "text-slate-800",
-				icon: <Shield className="w-20 h-20 mx-auto text-yellow-500" />,
-				perks: [
-					{
-						text: "Standard internet access",
-						icon: <Wifi className="w-6 h-6 text-slate-500" />,
-					},
-					{
-						text: "Normal access to online services",
-						icon: <Lock className="w-6 h-6 text-slate-500" />,
-					},
-				],
-				message:
-					"Your social credit score is average. You've made some good choices, but there's room for improvement. Keep thinking about the impact of your actions online.",
-			};
-		}
+		const getScoreAdvice = () => {
+			if (finalScore >= 600)
+				return "You consistently make thoughtful, ethical choices online. Keep being a positive digital role model!";
+			if (finalScore >= 400)
+				return "You generally make good choices online. Focus on being more proactive in helping others.";
+			if (finalScore >= 200)
+				return "You're learning! Try to think more about how your online actions affect others.";
+			return "Consider how your digital choices impact others. Seek guidance from trusted adults about online behavior.";
+		};
 
 		return (
-			<div className="text-center p-8 max-w-3xl mx-auto">
-				<div
-					className={`bg-white p-8 rounded-xl shadow-2xl border-t-8 ${score >= 800 ? "border-green-500" : score < 300 ? "border-red-500" : "border-yellow-500"}`}
-				>
-					<div className={resultData.color}>{resultData.icon}</div>
-					<h2 className={`text-4xl font-bold mt-4 mb-2 ${resultData.color}`}>
-						{resultData.title}
-					</h2>
-					<p className="text-2xl font-bold text-slate-800 mb-6">
-						Final Score: {score}
-					</p>
-					<p className="text-lg text-slate-600 mb-8">{resultData.message}</p>
+			<div className="text-center space-y-6">
+				<div className="text-6xl font-bold text-slate-700 mb-2">
+					{finalScore}
+				</div>
+				<div className="text-2xl font-semibold text-slate-600 mb-4">
+					{getScoreMessage()}
+				</div>
+				<div className="bg-blue-50 p-6 rounded-lg mb-6">
+					<p className="text-blue-800 text-lg">{getScoreAdvice()}</p>
+				</div>
 
-					<div className="text-left bg-slate-50 p-6 rounded-lg max-w-md mx-auto">
-						<h4 className="font-bold text-xl mb-4 text-slate-700">
-							Your Status Unlocks:
-						</h4>
-						<ul className="space-y-3">
-							{resultData.perks.map((perk) => (
-								<li
-									key={perk.text}
-									className="flex items-center text-lg text-slate-600"
-								>
-									{perk.icon}
-									<span className="ml-3">{perk.text}</span>
-								</li>
-							))}
-						</ul>
-					</div>
-
-					{followUpQuestions.length > 0 && (
-						<div className="text-left bg-amber-50 border-l-4 border-amber-400 p-6 rounded-lg max-w-2xl mx-auto mt-8">
-							<h4 className="font-bold text-xl mb-4 text-amber-800 flex items-center">
-								<HelpCircle className="w-6 h-6 mr-2" />
-								Follow up questions:
-							</h4>
-							<ul className="space-y-4 list-disc list-inside text-slate-700">
-								{followUpQuestions.map((question) => (
-									<li key={question} className="text-lg">
-										{question}
-									</li>
-								))}
-							</ul>
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+					<div className="bg-green-50 p-4 rounded-lg">
+						<div className="text-2xl font-bold text-green-600">
+							{summary.goodChoicesCount}
 						</div>
-					)}
-
-					<div className="flex justify-center gap-4 mt-8">
-						<GameButton onClick={resetGame}>Play Again</GameButton>
-						<button
-							onClick={() => navigate({ to: "/online-safety" })}
-							className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
-							type="button"
-						>
-							Back to Hub
-						</button>
+						<div className="text-green-800">Good Choices</div>
+					</div>
+					<div className="bg-red-50 p-4 rounded-lg">
+						<div className="text-2xl font-bold text-red-600">
+							{summary.poorChoicesCount}
+						</div>
+						<div className="text-red-800">Poor Choices</div>
+					</div>
+					<div className="bg-blue-50 p-4 rounded-lg">
+						<div className="text-2xl font-bold text-blue-600">
+							{summary.totalQuestions}
+						</div>
+						<div className="text-blue-800">Total Questions</div>
 					</div>
 				</div>
+
+				{poorChoices.length > 0 && (
+					<div className="bg-yellow-50 p-6 rounded-lg mt-6">
+						<h3 className="text-lg font-semibold text-yellow-800 mb-4">
+							Areas for Improvement:
+						</h3>
+						<div className="space-y-2">
+							{poorChoices.slice(0, 3).map((choice) => (
+								<p key={choice.scenario.id} className="text-yellow-700 text-sm">
+									• {(choice.scenario as SocialScenario).followUpQuestion}
+								</p>
+							))}
+						</div>
+					</div>
+				)}
 			</div>
 		);
-	};
-
-	const renderStage = () => {
-		switch (stage) {
-			case "intro":
-				return renderIntro();
-			case "playing":
-				return renderPlaying();
-			case "feedback":
-				return renderFeedback();
-			case "results":
-				return renderResults();
-			default:
-				return renderIntro();
-		}
 	};
 
 	return (
-		<div className="w-full flex flex-col items-center justify-center p-4">
-			{renderStage()}
-		</div>
+		<ScenarioBasedGame
+			title="Social Credit Game"
+			description={
+				<>
+					<p className="mb-4">
+						Make choices about online scenarios and see how they affect your
+						social credit score.
+					</p>
+					<p className="text-base">
+						Your choices have consequences. Think carefully about how your
+						digital actions impact others and yourself.
+					</p>
+				</>
+			}
+			scenarios={scenarios}
+			initialScore={500}
+			questionsToAsk={QUESTIONS_TO_ASK}
+			choiceRenderer={choiceRenderer}
+			scoreCalculator={scoreCalculator}
+			resultAnalyzer={resultAnalyzer}
+			scoreRenderer={scoreRenderer}
+			feedbackRenderer={feedbackRenderer}
+			resultsRenderer={resultsRenderer}
+			onNavigateHome={() => navigate({ to: "/online-safety" })}
+		/>
 	);
 };
 
