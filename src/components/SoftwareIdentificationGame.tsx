@@ -1203,6 +1203,7 @@ const SoftwareIdentificationGame = () => {
 		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
 			<ScenarioBasedGame
 				title="Software Identification Game"
+				hubLink="/hardware-software"
 				description={
 					<>
 						<p className="mb-4">

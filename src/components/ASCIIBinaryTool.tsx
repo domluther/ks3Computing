@@ -1,6 +1,7 @@
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { shuffleArray } from "../utils/utils";
+import { BackToHub } from "./Buttons";
 
 const ASCIIBinaryTool: React.FC = () => {
 	const practiceMessages = [
@@ -271,10 +272,10 @@ const ASCIIBinaryTool: React.FC = () => {
 			{/* Header */}
 			<div className="max-w-6xl mx-auto">
 				<h1 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-					ASCII Binary Learning Tool
+					ASCII Learning Tool
 				</h1>
 				<p className="text-center text-gray-600 mb-6">
-					Learn how computers store text using ASCII values!
+					Learn how computers represent text using ASCII values!
 				</p>
 
 				{/* Compact Options Bar */}
@@ -540,6 +541,7 @@ const ASCIIBinaryTool: React.FC = () => {
 							</div>
 						</>
 					)}
+					<BackToHub location="/maths" />
 				</div>
 			</div>
 		</div>

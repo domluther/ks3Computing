@@ -681,6 +681,7 @@ const SocialCreditGame = () => {
 	return (
 		<ScenarioBasedGame
 			title="Social Credit Game"
+			hubLink="/online-safety"
 			description={
 				<>
 					<p className="mb-4">

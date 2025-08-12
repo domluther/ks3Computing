@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import {
 	AlertTriangle,
 	AtSign,
@@ -10,13 +9,11 @@ import {
 	XCircle,
 } from "lucide-react";
 import { useState } from "react";
-import GameButton from "../components/GameButton";
 import { shuffleArray } from "../utils/utils";
+import { BackToHub, GameButton } from "./Buttons";
 
 // --- PHISHING GAME COMPONENT ---
 const PhishingGame = () => {
-	const navigate = useNavigate();
-
 	// --- TYPE DEFINITIONS ---
 	type GameStage = "intro" | "playing" | "identifying" | "feedback" | "results";
 	type EmailType = "phishing" | "legitimate";
@@ -1048,13 +1045,7 @@ const PhishingGame = () => {
 					Start Game{" "}
 				</GameButton>
 			</div>
-			<button
-				onClick={() => navigate({ to: "/online-safety" })}
-				className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6 mt-6"
-				type="button"
-			>
-				Back to Hub
-			</button>
+			<BackToHub location="/online-safety" />
 		</div>
 	);
 
@@ -1389,13 +1380,7 @@ const PhishingGame = () => {
 
 					<div className="flex justify-center gap-4 mt-8">
 						<GameButton onClick={resetGame}>Play Again</GameButton>
-						<button
-							onClick={() => navigate({ to: "/online-safety" })}
-							className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
-							type="button"
-						>
-							Back to Hub
-						</button>
+						<BackToHub location="/online-safety" />
 					</div>
 				</div>
 			</div>

@@ -1,7 +1,7 @@
 import type React from "react";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
-import GameButton from "./GameButton";
+import { GameButton } from "./Buttons";
 
 interface CelebrationModalProps {
 	onClose: () => void;

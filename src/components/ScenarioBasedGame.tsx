@@ -1,6 +1,6 @@
 import React, { type ReactNode, useCallback, useEffect, useState } from "react";
 import { shuffleArray } from "../utils/utils";
-import GameButton from "./GameButton";
+import { BackToHub, GameButton } from "./Buttons";
 
 // --- GENERIC TYPES ---
 export type GameStage = "intro" | "playing" | "feedback" | "results";
@@ -40,6 +40,7 @@ export interface GameResults<TChoice extends GenericChoice> {
 export interface ScenarioBasedGameProps<TChoice extends GenericChoice> {
 	// Game Configuration
 	title: string;
+	hubLink: string;
 	description: string | ReactNode;
 	scenarios: GenericScenario<TChoice>[];
 	initialScore: number;
@@ -87,6 +88,7 @@ export interface ScenarioBasedGameProps<TChoice extends GenericChoice> {
  */
 export function ScenarioBasedGame<TChoice extends GenericChoice>({
 	title,
+	hubLink,
 	description,
 	scenarios,
 	initialScore,
@@ -279,6 +281,7 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 				<GameButton onClick={startGame} className="text-xl px-8 py-4">
 					Start Game
 				</GameButton>
+				<BackToHub location={hubLink} />
 			</div>
 		</div>
 	);

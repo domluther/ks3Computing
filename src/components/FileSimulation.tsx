@@ -3,7 +3,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import GameButton from "./GameButton";
+import { GameButton } from "./Buttons";
 
 // --- SVG ICONS ---
 const FolderIcon = ({ className }: { className?: string }) => (

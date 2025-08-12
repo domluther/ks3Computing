@@ -1,6 +1,6 @@
 import type React from "react";
 import type { ReactNode } from "react";
-import GameButton from "./GameButton";
+import { GameButton } from "./Buttons";
 
 interface DifficultyOption {
 	value: string;

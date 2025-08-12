@@ -2,7 +2,7 @@ import { CheckCircle, XCircle } from "lucide-react";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { shuffleArray } from "../utils/utils";
-import GameButton from "./GameButton";
+import { BackToHub, GameButton } from "./Buttons";
 
 // --- DATA ---
 // A list of common computer hardware devices.
@@ -679,6 +679,7 @@ const NameHardware = () => {
 								<Button onClick={() => setMode("guessTheWord")}>
 									Guess the Word
 								</Button>
+								<BackToHub location="/hardware-software" />
 							</div>
 						</div>
 					</Card>
