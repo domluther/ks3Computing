@@ -104,7 +104,7 @@ const simulationLevels: Level[] = [
 			{
 				id: 1,
 				description:
-					"First, let's navigate to the 'Documents' folder. Double-click on it.",
+					"First, let's open the 'Documents' folder. Double-click on it.",
 				isCompleted: (_, currentId) => currentId === "docs_folder",
 			},
 			{
@@ -118,7 +118,7 @@ const simulationLevels: Level[] = [
 			{
 				id: 3,
 				description:
-					"Good. Now, move the 'IT Skills Report.docx' file into the 'Computing' folder by dragging and dropping it.",
+					"Good. Drag the 'IT Skills Report.docx' file into the 'Computing' folder to move it.",
 				isCompleted: (items) => {
 					const computingFolder = Object.values(items).find(
 						(i) => i.name === "Computing" && i.parentId === "docs_folder",
@@ -132,7 +132,7 @@ const simulationLevels: Level[] = [
 			},
 			{
 				id: 4,
-				description: "Excellent. Now navigate inside the 'Computing' folder.",
+				description: "Excellent. Now open the 'Computing' folder.",
 				isCompleted: (items, currentId) =>
 					items[currentId]?.name === "Computing",
 			},
@@ -143,21 +143,6 @@ const simulationLevels: Level[] = [
 					Object.values(items).some(
 						(i) => i.name === "IT Skills" && i.parentId === currentId,
 					),
-			},
-			{
-				id: 6,
-				description:
-					"Good. Now, rename the 'IT Skills' folder to 'Web Design'.",
-				isCompleted: (items, currentId) =>
-					Object.values(items).some(
-						(i) => i.name === "Web Design" && i.parentId === currentId,
-					),
-			},
-			{
-				id: 7,
-				description: "Perfect. Finally, delete the 'Web Design' folder.",
-				isCompleted: (items) =>
-					!Object.values(items).some((i) => i.name === "Web Design"),
 			},
 		],
 	},
@@ -176,7 +161,7 @@ const simulationLevels: Level[] = [
 		steps: [
 			{
 				id: 1,
-				description: "Navigate into the 'Documents' folder.",
+				description: "Open the 'Documents' folder.",
 				isCompleted: (_, currentId) => currentId === "docs_folder",
 			},
 			{
@@ -208,7 +193,7 @@ const simulationLevels: Level[] = [
 			},
 			{
 				id: 5,
-				description: "Navigate into the 'Homework' folder.",
+				description: "Open the 'Homework' folder.",
 				isCompleted: (items, currentId) =>
 					items[currentId]?.name === "Homework",
 			},
@@ -639,7 +624,7 @@ const simulationLevels: Level[] = [
 	// More levels can be added here
 ];
 
-const FileSimulation = () => {
+const FilesAndFolders = () => {
 	const navigate = useNavigate();
 
 	// --- STATE MANAGEMENT ---
@@ -980,7 +965,7 @@ const FileSimulation = () => {
 	return (
 		<>
 			<div className="w-full font-sans select-none">
-				<div className="bg-black/50 text-white p-3 rounded-t-lg text-center relative">
+				<div className="relative p-3 text-center text-white rounded-t-lg bg-black/50">
 					<h3 className="text-xl font-bold">
 						{isGameComplete
 							? "Congratulations!"
@@ -1021,7 +1006,7 @@ const FileSimulation = () => {
 					}
 					aria-label="Desktop area - click to deselect items, right-click for context menu"
 				>
-					<div className="w-full h-full flex flex-wrap gap-4 content-start">
+					<div className="flex flex-wrap content-start w-full h-full gap-4">
 						{currentPathId === "root" &&
 							!isWindowOpen &&
 							desktopItems.map((item) => (
@@ -1046,7 +1031,7 @@ const FileSimulation = () => {
 
 					{isWindowOpen && (
 						<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#3a95d5] border-4 border-gray-600 rounded-lg shadow-2xl flex flex-col w-11/12 max-w-4xl h-5/6">
-							<div className="flex items-center bg-gray-200 p-1 border-b-2 border-gray-300 rounded-t-md">
+							<div className="flex items-center p-1 bg-gray-200 border-b-2 border-gray-300 rounded-t-md">
 								<button
 									onClick={handleGoBack}
 									disabled={history.length <= 1}
@@ -1055,12 +1040,12 @@ const FileSimulation = () => {
 								>
 									<BackIcon />
 								</button>
-								<div className="ml-2 p-1 bg-white border border-gray-400 rounded w-full text-gray-700">
+								<div className="w-full p-1 ml-2 text-gray-700 bg-white border border-gray-400 rounded">
 									{pathString}
 								</div>
 							</div>
 							<button
-								className="p-4 flex flex-wrap gap-4 content-start flex-grow overflow-y-auto"
+								className="flex flex-wrap content-start flex-grow gap-4 p-4 overflow-y-auto"
 								onClick={handleContainerClick}
 								onContextMenu={(e) => handleRightClick(e)}
 								onKeyDown={(e) => {
@@ -1104,7 +1089,7 @@ const FileSimulation = () => {
 				{contextMenu.visible && (
 					<div
 						style={{ top: contextMenu.y, left: contextMenu.x }}
-						className="absolute bg-gray-200 border border-gray-400 rounded shadow-lg py-1 w-40 z-50 text-sm"
+						className="absolute z-50 w-40 py-1 text-sm bg-gray-200 border border-gray-400 rounded shadow-lg"
 						onClick={(e) => e.stopPropagation()}
 						onKeyDown={(e) => {
 							if (e.key === "Escape") {
@@ -1120,14 +1105,14 @@ const FileSimulation = () => {
 							<>
 								<button
 									onClick={handleRenameStart}
-									className="px-3 py-1 hover:bg-blue-500 hover:text-white cursor-pointer appearance-none border-none w-full block focus:outline-none"
+									className="block w-full px-3 py-1 border-none appearance-none cursor-pointer hover:bg-blue-500 hover:text-white focus:outline-none"
 									type="button"
 								>
 									Rename
 								</button>
 								<button
 									onClick={handleDelete}
-									className="px-3 py-1 hover:bg-blue-500 hover:text-white cursor-pointer appearance-none border-none w-full block focus:outline-none"
+									className="block w-full px-3 py-1 border-none appearance-none cursor-pointer hover:bg-blue-500 hover:text-white focus:outline-none"
 									type="button"
 								>
 									Delete
@@ -1136,7 +1121,7 @@ const FileSimulation = () => {
 						) : (
 							<button
 								onClick={handleCreateFolder}
-								className="px-3 py-1 hover:bg-blue-500 hover:text-white cursor-pointer appearance-none border-none w-full block focus:outline-none"
+								className="block w-full px-3 py-1 border-none appearance-none cursor-pointer hover:bg-blue-500 hover:text-white focus:outline-none"
 								type="button"
 							>
 								New folder
@@ -1145,7 +1130,7 @@ const FileSimulation = () => {
 					</div>
 				)}
 			</div>
-			<div className="text-center p-2 rounded-b-lg h-20 flex items-center justify-center gap-4">
+			<div className="flex items-center justify-center h-20 gap-4 p-2 text-center rounded-b-lg">
 				{feedback && (
 					<div
 						className={`p-4 rounded-lg shadow-xl text-white ${feedback.type === "success" ? "bg-green-600" : "bg-red-600"} z-50`}
@@ -1256,7 +1241,7 @@ const DesktopIcon = ({
 			<div className="flex-shrink-0">
 				{item.type === "folder" ? <FolderIcon /> : <FileIcon />}
 			</div>
-			<div className="flex-grow w-full flex items-center justify-center mt-1">
+			<div className="flex items-center justify-center flex-grow w-full mt-1">
 				{isRenaming ? (
 					<input
 						ref={inputRef}
@@ -1268,10 +1253,10 @@ const DesktopIcon = ({
 							e.stopPropagation();
 							e.preventDefault();
 						}}
-						className="w-full text-center bg-white border border-blue-500 text-black px-1 text-sm z-10"
+						className="z-10 w-full px-1 text-sm text-center text-black bg-white border border-blue-500"
 					/>
 				) : (
-					<p className="text-center text-white text-sm break-words w-full">
+					<p className="w-full text-sm text-center text-white break-words">
 						{item.name}
 					</p>
 				)}
@@ -1280,4 +1265,4 @@ const DesktopIcon = ({
 	);
 };
 
-export default FileSimulation;
+export default FilesAndFolders;

@@ -96,9 +96,12 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 
 	const instructions = (
 		<>
-			<span className="font-bold text-blue-600">LEFT-CLICK</span> L or LL,
-			<span className="font-bold text-red-600"> RIGHT-CLICK</span> R or RR.
-			Double-click LL/RR!
+			<span className="font-bold text-blue-600">L</span> = left-click,&nbsp;
+			<span className="font-bold text-blue-600">LL</span> = double
+			left-click,&nbsp;
+			<br></br>
+			<span className="font-bold text-red-600">R</span> = right-click,&nbsp;
+			<span className="font-bold text-red-600">RR</span> = double right-click
 		</>
 	);
 
@@ -125,7 +128,7 @@ const ClickStage: React.FC<ClickStageProps> = ({ onComplete, onRestart }) => {
 		>
 			<div
 				role="application"
-				className="w-full h-full border-4 border-slate-300 rounded-lg relative bg-slate-50"
+				className="relative w-full h-full border-4 rounded-lg border-slate-300 bg-slate-50"
 				onContextMenu={(e) => e.preventDefault()}
 			>
 				{items.map((item) => (

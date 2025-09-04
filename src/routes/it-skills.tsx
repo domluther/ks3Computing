@@ -14,8 +14,8 @@ function ITSkillsLayout() {
 					color: "blue",
 				},
 				{
-					text: "File Simulation",
-					route: "/it-skills/file-simulation",
+					text: "Files & Folders",
+					route: "/it-skills/files-and-folders",
 					color: "green",
 				},
 			]}

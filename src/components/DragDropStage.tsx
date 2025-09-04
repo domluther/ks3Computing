@@ -6,6 +6,7 @@ import GameStage from "./GameStage";
 
 // --- TYPE DEFINITIONS ---
 type DragLevel = "open" | "simple" | "zigzag" | "narrow" | "maze";
+type DuckSize = "small" | "medium" | "large";
 
 interface DragDropStageProps {
 	onComplete: (time: number) => void;
@@ -24,6 +25,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 	const [level, setLevel] = useState<DragLevel>("open");
 	const [isDragging, setIsDragging] = useState(false);
 	const [message, setMessage] = useState("Drag the duck to the pond!");
+	const [duckSize, setDuckSize] = useState<DuckSize>("medium");
 	const [duckPos, setDuckPos] = useState<{ x: number; y: number }>({
 		x: 0,
 		y: 0,
@@ -38,6 +40,33 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 	});
 
 	const levels: DragLevel[] = ["open", "simple", "zigzag", "narrow", "maze"];
+
+	// Get duck properties based on size
+	const getDuckRadius = () => {
+		switch (duckSize) {
+			case "small":
+				return 15;
+			case "medium":
+				return 20;
+			case "large":
+				return 25;
+			default:
+				return 20;
+		}
+	};
+
+	const getDuckFontSize = () => {
+		switch (duckSize) {
+			case "small":
+				return 30;
+			case "medium":
+				return 40;
+			case "large":
+				return 50;
+			default:
+				return 40;
+		}
+	};
 
 	const drawWalls = useCallback(
 		(ctx: CanvasRenderingContext2D, w: number, h: number) => {
@@ -84,7 +113,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 
 	const isPointInWall = useCallback(
 		(x: number, y: number, w: number, h: number): boolean => {
-			const duckRadius = 25;
+			const duckRadius = getDuckRadius();
 
 			// Check collision geometrically instead of using pixel detection
 			switch (level) {
@@ -173,7 +202,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 					return false;
 			}
 		},
-		[level],
+		[level, duckSize],
 	);
 
 	const updatePositions = useCallback(() => {
@@ -256,11 +285,11 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 		ctx.textBaseline = "middle";
 
 		// Draw duck emoji
-		ctx.font = "50px Arial";
+		ctx.font = `${getDuckFontSize()}px Arial`;
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
 		ctx.fillText("🐥", duckPos.x, duckPos.y);
-	}, [duckPos, goalPos, drawWalls, updatePositions]);
+	}, [duckPos, goalPos, drawWalls, updatePositions, duckSize]);
 
 	useEffect(() => {
 		draw();
@@ -369,15 +398,26 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 			instructions={message}
 			elapsed={elapsed}
 			onRestart={handleRestart}
+			difficultySelector={{
+				label: "Duck Size",
+				id: "duck-size",
+				value: duckSize,
+				onChange: (value) => setDuckSize(value as DuckSize),
+				options: [
+					{ value: "large", label: "Large" },
+					{ value: "medium", label: "Medium" },
+					{ value: "small", label: "Small" },
+				],
+			}}
 		>
-			<div className="w-full h-full border-4 border-slate-300 rounded-lg overflow-hidden">
+			<div className="w-full h-full overflow-hidden border-4 rounded-lg border-slate-300">
 				<canvas
 					ref={canvasRef}
 					onMouseDown={handleMouseDown}
 					onMouseMove={handleMouseMove}
 					onMouseUp={handleMouseUp}
 					onMouseLeave={handleMouseUp}
-					className="w-full h-full bg-slate-50 cursor-pointer"
+					className="w-full h-full cursor-pointer bg-slate-50"
 				/>
 			</div>
 		</GameStage>

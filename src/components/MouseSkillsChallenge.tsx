@@ -20,7 +20,7 @@ const MouseSkillsChallenge = () => {
 		dragging: number | null;
 	}
 
-	const [stage, setStage] = useState<MouseGameStage>("intro");
+	const [stage, setStage] = useState<MouseGameStage>("tracing");
 	const [times, setTimes] = useState<TimeRecord>({
 		tracing: null,
 		clicking: null,
@@ -51,11 +51,11 @@ const MouseSkillsChallenge = () => {
 		switch (stage) {
 			case "intro":
 				return (
-					<div className="text-center p-8">
-						<h2 className="text-4xl font-bold text-slate-800 mb-4">
+					<div className="p-8 text-center">
+						<h2 className="mb-4 text-4xl font-bold text-slate-800">
 							Mouse Skills Challenge
 						</h2>
-						<p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+						<p className="max-w-2xl mx-auto mb-8 text-lg text-slate-600">
 							Get ready to test your mouse skills! This game has four stages to
 							help you practice tracing, clicking, dragging and dropping. Click
 							the button below to start.
@@ -108,14 +108,14 @@ const MouseSkillsChallenge = () => {
 				const formattedTotal = `${minutes}m ${seconds}s`;
 
 				return (
-					<div className="text-center p-8">
-						<h2 className="text-4xl font-bold text-slate-800 mb-4">
+					<div className="p-8 text-center">
+						<h2 className="mb-4 text-4xl font-bold text-slate-800">
 							🏆 Well Done! 🏆
 						</h2>
-						<p className="text-lg text-slate-600 mb-8">
+						<p className="mb-8 text-lg text-slate-600">
 							You completed all the stages. Here are your times:
 						</p>
-						<div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto space-y-3 text-left">
+						<div className="max-w-md p-6 mx-auto space-y-3 text-left bg-white rounded-lg shadow-md">
 							{Object.entries(times).map(([key, value]) => (
 								<div
 									key={key}
@@ -125,7 +125,7 @@ const MouseSkillsChallenge = () => {
 									<span>{value?.toFixed(2)} seconds</span>
 								</div>
 							))}
-							<div className="flex justify-between text-xl font-bold pt-4 border-t border-slate-200">
+							<div className="flex justify-between pt-4 text-xl font-bold border-t border-slate-200">
 								<span>Total time:</span>
 								<span>{formattedTotal}</span>
 							</div>
