@@ -5,8 +5,8 @@ import Navbar from "../components/Navbar";
 
 function RootLayout() {
 	return (
-		<div className="bg-slate-50 min-h-screen font-sans">
-			<div className="max-w-7xl mx-auto bg-white shadow-2xl rounded-b-lg">
+		<div className="min-h-screen font-sans bg-slate-50">
+			<div className="mx-auto bg-white rounded-b-lg shadow-2xl max-w-7xl">
 				<Header />
 				<Navbar />
 				<main>

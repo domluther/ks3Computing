@@ -21,11 +21,11 @@ const CelebrationModal: React.FC<CelebrationModalProps> = ({ onClose }) => {
 			/>
 
 			{/* Modal content */}
-			<div className="bg-white rounded-2xl p-8 shadow-2xl text-center max-w-sm mx-auto relative z-10">
-				<h2 className="text-4xl font-extrabold text-yellow-500 mb-4">
+			<div className="relative z-10 max-w-sm p-8 mx-auto text-center bg-white shadow-2xl rounded-2xl">
+				<h2 className="mb-4 text-4xl font-extrabold text-yellow-500">
 					🎉 Congratulations! 🎉
 				</h2>
-				<p className="text-2xl mb-4">You did it! 🐥🦆</p>
+				<p className="mb-4 text-2xl">You did it! 🐥🦆</p>
 				<GameButton onClick={onClose}>Close</GameButton>
 			</div>
 		</div>

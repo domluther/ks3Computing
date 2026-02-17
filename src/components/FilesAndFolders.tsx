@@ -1045,7 +1045,7 @@ const FilesAndFolders = () => {
 								</div>
 							</div>
 							<button
-								className="flex flex-wrap content-start flex-grow gap-4 p-4 overflow-y-auto"
+								className="flex flex-wrap content-start flex-grow p-4 overflow-y-auto gap-4"
 								onClick={handleContainerClick}
 								onContextMenu={(e) => handleRightClick(e)}
 								onKeyDown={(e) => {
@@ -1130,7 +1130,7 @@ const FilesAndFolders = () => {
 					</div>
 				)}
 			</div>
-			<div className="flex items-center justify-center h-20 gap-4 p-2 text-center rounded-b-lg">
+			<div className="flex items-center justify-center h-20 p-2 text-center rounded-b-lg gap-4">
 				{feedback && (
 					<div
 						className={`p-4 rounded-lg shadow-xl text-white ${feedback.type === "success" ? "bg-green-600" : "bg-red-600"} z-50`}

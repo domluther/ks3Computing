@@ -289,7 +289,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
 		ctx.fillText("🐥", duckPos.x, duckPos.y);
-	}, [duckPos, goalPos, drawWalls, updatePositions, duckSize]);
+	}, [duckPos, goalPos, drawWalls, updatePositions]);
 
 	useEffect(() => {
 		draw();

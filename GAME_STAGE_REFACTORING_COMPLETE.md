@@ -130,8 +130,8 @@ useEffect(() => {
 
 return (
   <div className="w-full h-[60vh] flex flex-col items-center p-4">
-    <h3 className="text-2xl font-bold text-slate-700 mb-2">Stage Title</h3>
-    <p className="text-lg text-slate-500 mb-2 bg-yellow-100 p-2 rounded-lg">
+    <h3 className="mb-2 text-2xl font-bold text-slate-700">Stage Title</h3>
+    <p className="p-2 mb-2 text-lg bg-yellow-100 rounded-lg text-slate-500">
       Instructions
     </p>
     <div className="mb-2 text-lg font-semibold text-slate-700">

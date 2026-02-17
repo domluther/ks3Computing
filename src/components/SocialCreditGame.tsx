@@ -512,7 +512,7 @@ const SocialCreditGame = () => {
 		<button
 			key={choice.text}
 			onClick={onSelect}
-			className="bg-slate-100 text-slate-800 font-semibold p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left flex items-start gap-3"
+			className="flex items-start p-4 font-semibold text-left rounded-lg bg-slate-100 text-slate-800 shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 gap-3"
 			type="button"
 		>
 			{index !== undefined && (
@@ -533,18 +533,18 @@ const SocialCreditGame = () => {
 		const percentage = Math.min(100, Math.max(10, (score / maxScore) * 100));
 
 		return (
-			<div className="w-full max-w-3xl bg-slate-200 rounded-full h-8 mb-6 shadow-inner relative">
+			<div className="relative w-full h-8 max-w-3xl mb-6 rounded-full shadow-inner bg-slate-200">
 				<div
 					className={`h-8 rounded-full transition-all duration-500 ${
 						score >= 400
-							? "bg-gradient-to-r from-blue-500 via-green-500 to-emerald-500"
+							? "bg-linear-to-r from-blue-500 via-green-500 to-emerald-500"
 							: score >= 200
-								? "bg-gradient-to-r from-blue-500 via-yellow-500 to-orange-500"
-								: "bg-gradient-to-r from-blue-500 via-red-500 to-red-700"
+								? "bg-linear-to-r from-blue-500 via-yellow-500 to-orange-500"
+								: "bg-linear-to-r from-blue-500 via-red-500 to-red-700"
 					}`}
 					style={{ width: `${percentage}%` }}
 				></div>
-				<span className="absolute inset-0 flex items-center justify-center font-bold text-sm text-slate-800 drop-shadow-sm">
+				<span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-slate-800 drop-shadow-sm">
 					Social Credit: {score}
 				</span>
 			</div>
@@ -561,19 +561,19 @@ const SocialCreditGame = () => {
 		return (
 			<div className="text-center">
 				{isPositive ? (
-					<CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+					<CheckCircle className="w-16 h-16 mx-auto mb-4 text-green-500" />
 				) : (
-					<XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+					<XCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
 				)}
 				<div
 					className={`text-2xl font-bold mb-4 ${isPositive ? "text-green-600" : "text-red-600"}`}
 				>
 					{choice.points > 0 ? `+${choice.points}` : choice.points} Points
 				</div>
-				<p className="text-lg text-slate-700 mb-6">{choice.feedback}</p>
-				<div className="bg-blue-50 p-4 rounded-lg">
-					<HelpCircle className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-					<p className="text-blue-800 font-medium">
+				<p className="mb-6 text-lg text-slate-700">{choice.feedback}</p>
+				<div className="p-4 rounded-lg bg-blue-50">
+					<HelpCircle className="w-6 h-6 mx-auto mb-2 text-blue-600" />
+					<p className="font-medium text-blue-800">
 						{socialScenario.followUpQuestion}
 					</p>
 				</div>
@@ -629,30 +629,30 @@ const SocialCreditGame = () => {
 
 		return (
 			<div className="text-center space-y-6">
-				<div className="text-6xl font-bold text-slate-700 mb-2">
+				<div className="mb-2 text-6xl font-bold text-slate-700">
 					{finalScore}
 				</div>
-				<div className="text-2xl font-semibold text-slate-600 mb-4">
+				<div className="mb-4 text-2xl font-semibold text-slate-600">
 					{getScoreMessage()}
 				</div>
-				<div className="bg-blue-50 p-6 rounded-lg mb-6">
-					<p className="text-blue-800 text-lg">{getScoreAdvice()}</p>
+				<div className="p-6 mb-6 rounded-lg bg-blue-50">
+					<p className="text-lg text-blue-800">{getScoreAdvice()}</p>
 				</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-					<div className="bg-green-50 p-4 rounded-lg">
+				<div className="text-center grid grid-cols-1 md:grid-cols-3 gap-4">
+					<div className="p-4 rounded-lg bg-green-50">
 						<div className="text-2xl font-bold text-green-600">
 							{summary.goodChoicesCount}
 						</div>
 						<div className="text-green-800">Good Choices</div>
 					</div>
-					<div className="bg-red-50 p-4 rounded-lg">
+					<div className="p-4 rounded-lg bg-red-50">
 						<div className="text-2xl font-bold text-red-600">
 							{summary.poorChoicesCount}
 						</div>
 						<div className="text-red-800">Poor Choices</div>
 					</div>
-					<div className="bg-blue-50 p-4 rounded-lg">
+					<div className="p-4 rounded-lg bg-blue-50">
 						<div className="text-2xl font-bold text-blue-600">
 							{summary.totalQuestions}
 						</div>
@@ -661,13 +661,13 @@ const SocialCreditGame = () => {
 				</div>
 
 				{poorChoices.length > 0 && (
-					<div className="bg-yellow-50 p-6 rounded-lg mt-6">
-						<h3 className="text-lg font-semibold text-yellow-800 mb-4">
+					<div className="p-6 mt-6 rounded-lg bg-yellow-50">
+						<h3 className="mb-4 text-lg font-semibold text-yellow-800">
 							Areas for Improvement:
 						</h3>
 						<div className="space-y-2">
 							{poorChoices.slice(0, 3).map((choice) => (
-								<p key={choice.scenario.id} className="text-yellow-700 text-sm">
+								<p key={choice.scenario.id} className="text-sm text-yellow-700">
 									• {(choice.scenario as SocialScenario).followUpQuestion}
 								</p>
 							))}

@@ -998,17 +998,17 @@ const SoftwareIdentificationGame = () => {
 		<button
 			key={choice.softwareType}
 			onClick={onSelect}
-			className="bg-slate-100 text-slate-800 p-4 rounded-lg shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-left flex items-start gap-3"
+			className="flex items-start p-4 text-left rounded-lg bg-slate-100 text-slate-800 shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 gap-3"
 			type="button"
 		>
 			{index !== undefined && (
-				<span className="bg-blue-600 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">
+				<span className="flex items-center justify-center flex-shrink-0 w-6 h-6 text-sm font-bold text-white bg-blue-600 rounded-full">
 					{index + 1}
 				</span>
 			)}
 			<div className="flex flex-col justify-center flex-1">
-				<span className="font-semibold text-base">{choice.softwareType}</span>
-				<span className="text-sm text-blue-700 font-normal mt-1">
+				<span className="text-base font-semibold">{choice.softwareType}</span>
+				<span className="mt-1 text-sm font-normal text-blue-700">
 					(e.g., {choice.softwareName})
 				</span>
 			</div>
@@ -1024,12 +1024,12 @@ const SoftwareIdentificationGame = () => {
 		const percentage = (score / maxScore) * 100;
 
 		return (
-			<div className="w-full max-w-3xl bg-slate-200 rounded-full h-8 mb-6 shadow-inner relative">
+			<div className="relative w-full h-8 max-w-3xl mb-6 rounded-full shadow-inner bg-slate-200">
 				<div
-					className="bg-gradient-to-r from-blue-500 via-green-500 to-emerald-500 h-8 rounded-full transition-all duration-500 ease-out"
+					className="h-8 rounded-full bg-linear-to-r from-blue-500 via-green-500 to-emerald-500 transition-all duration-500 ease-out"
 					style={{ width: `${percentage}%` }}
 				></div>
-				<span className="absolute inset-0 flex items-center justify-center font-bold text-sm text-slate-800 drop-shadow-sm">
+				<span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-slate-800 drop-shadow-sm">
 					Score: {score}/{maxScore}
 				</span>
 			</div>
@@ -1045,9 +1045,9 @@ const SoftwareIdentificationGame = () => {
 		return (
 			<div className="text-center">
 				{choice.isCorrect ? (
-					<CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+					<CheckCircle className="w-16 h-16 mx-auto mb-4 text-green-500" />
 				) : (
-					<XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+					<XCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
 				)}
 				<h3
 					className={`text-3xl font-bold mb-4 flex items-center justify-center gap-2 ${
@@ -1057,12 +1057,12 @@ const SoftwareIdentificationGame = () => {
 					{getSoftwareIcon(softwareScenario.correctSoftware)}
 					{choice.isCorrect ? "Correct!" : "Incorrect"}
 				</h3>
-				<p className="text-xl text-slate-600 mb-4">{choice.feedback}</p>
-				<div className="bg-slate-50 p-4 rounded-lg mb-6">
-					<p className="text-slate-700 font-medium">
+				<p className="mb-4 text-xl text-slate-600">{choice.feedback}</p>
+				<div className="p-4 mb-6 rounded-lg bg-slate-50">
+					<p className="font-medium text-slate-700">
 						Why this is the best choice:
 					</p>
-					<p className="text-slate-600 mt-2">{softwareScenario.explanation}</p>
+					<p className="mt-2 text-slate-600">{softwareScenario.explanation}</p>
 				</div>
 			</div>
 		);
@@ -1153,19 +1153,19 @@ const SoftwareIdentificationGame = () => {
 					<h2 className={`text-4xl font-bold mt-4 mb-2 ${resultData.color}`}>
 						{resultData.title}
 					</h2>
-					<p className="text-2xl font-bold text-slate-800 mb-6">
+					<p className="mb-6 text-2xl font-bold text-slate-800">
 						Score: {finalScore}/{maxScore} ({percentage}%)
 					</p>
-					<p className="text-lg text-slate-600 mb-8">{resultData.message}</p>
+					<p className="mb-8 text-lg text-slate-600">{resultData.message}</p>
 
-					<div className="grid grid-cols-2 gap-4 text-center mb-6">
-						<div className="bg-green-50 p-4 rounded-lg">
+					<div className="mb-6 text-center grid grid-cols-2 gap-4">
+						<div className="p-4 rounded-lg bg-green-50">
 							<div className="text-2xl font-bold text-green-600">
 								{summary.correctCount}
 							</div>
 							<div className="text-green-800">Correct</div>
 						</div>
-						<div className="bg-red-50 p-4 rounded-lg">
+						<div className="p-4 rounded-lg bg-red-50">
 							<div className="text-2xl font-bold text-red-600">
 								{summary.incorrectCount}
 							</div>
@@ -1174,8 +1174,8 @@ const SoftwareIdentificationGame = () => {
 					</div>
 
 					{uniqueIncorrectAnswers.length > 0 && (
-						<div className="text-left bg-amber-50 border-l-4 border-amber-400 p-6 rounded-lg mb-6">
-							<h4 className="font-bold text-xl mb-4 text-amber-800 flex items-center">
+						<div className="p-6 mb-6 text-left border-l-4 rounded-lg bg-amber-50 border-amber-400">
+							<h4 className="flex items-center mb-4 text-xl font-bold text-amber-800">
 								<HelpCircle className="w-6 h-6 mr-2" />
 								Areas to review:
 							</h4>
@@ -1211,44 +1211,44 @@ const SoftwareIdentificationGame = () => {
 							scenarios and then need to pick the most appropriate software for
 							each task.
 						</p>
-						<div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8 text-sm">
-							<div className="bg-blue-50 p-4 rounded-lg">
-								<FileText className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+						<div className="my-8 text-sm grid grid-cols-2 md:grid-cols-4 gap-4">
+							<div className="p-4 rounded-lg bg-blue-50">
+								<FileText className="w-8 h-8 mx-auto mb-2 text-blue-600" />
 								<div className="font-semibold">Word Processing</div>
 								<div className="text-slate-600">Word, Docs</div>
 							</div>
-							<div className="bg-green-50 p-4 rounded-lg">
-								<Image className="w-8 h-8 text-green-600 mx-auto mb-2" />
+							<div className="p-4 rounded-lg bg-green-50">
+								<Image className="w-8 h-8 mx-auto mb-2 text-green-600" />
 								<div className="font-semibold">Graphics</div>
 								<div className="text-slate-600">Paint, Photoshop</div>
 							</div>
-							<div className="bg-purple-50 p-4 rounded-lg">
-								<Monitor className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+							<div className="p-4 rounded-lg bg-purple-50">
+								<Monitor className="w-8 h-8 mx-auto mb-2 text-purple-600" />
 								<div className="font-semibold">Presentation</div>
 								<div className="text-slate-600">PowerPoint, Slides</div>
 							</div>
-							<div className="bg-orange-50 p-4 rounded-lg">
-								<BarChart3 className="w-8 h-8 text-orange-600 mx-auto mb-2" />
+							<div className="p-4 rounded-lg bg-orange-50">
+								<BarChart3 className="w-8 h-8 mx-auto mb-2 text-orange-600" />
 								<div className="font-semibold">Spreadsheet</div>
 								<div className="text-slate-600">Excel, Sheets</div>
 							</div>
-							<div className="bg-indigo-50 p-4 rounded-lg">
-								<Globe className="w-8 h-8 text-indigo-600 mx-auto mb-2" />
+							<div className="p-4 rounded-lg bg-indigo-50">
+								<Globe className="w-8 h-8 mx-auto mb-2 text-indigo-600" />
 								<div className="font-semibold">Web Browser</div>
 								<div className="text-slate-600">Chrome, Safari</div>
 							</div>
-							<div className="bg-red-50 p-4 rounded-lg">
-								<Layout className="w-8 h-8 text-red-600 mx-auto mb-2" />
+							<div className="p-4 rounded-lg bg-red-50">
+								<Layout className="w-8 h-8 mx-auto mb-2 text-red-600" />
 								<div className="font-semibold">Desktop Publishing</div>
 								<div className="text-slate-600">Publisher</div>
 							</div>
-							<div className="bg-cyan-50 p-4 rounded-lg">
-								<Film className="w-8 h-8 text-cyan-600 mx-auto mb-2" />
+							<div className="p-4 rounded-lg bg-cyan-50">
+								<Film className="w-8 h-8 mx-auto mb-2 text-cyan-600" />
 								<div className="font-semibold">Video Editing</div>
 								<div className="text-slate-600">iMovie, Clipchamp</div>
 							</div>
-							<div className="bg-lime-50 p-4 rounded-lg">
-								<Blocks className="w-8 h-8 text-lime-600 mx-auto mb-2" />
+							<div className="p-4 rounded-lg bg-lime-50">
+								<Blocks className="w-8 h-8 mx-auto mb-2 text-lime-600" />
 								<div className="font-semibold">Programming</div>
 								<div className="text-slate-600">Scratch, Thonny</div>
 							</div>{" "}

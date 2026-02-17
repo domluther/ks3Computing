@@ -273,7 +273,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 				],
 			}}
 		>
-			<div className="w-full h-full border-4 border-slate-300 rounded-lg overflow-hidden">
+			<div className="w-full h-full overflow-hidden border-4 rounded-lg border-slate-300">
 				<canvas
 					ref={canvasRef}
 					onMouseMove={handleMouseMove}

@@ -32,7 +32,7 @@ const HomePageButton: React.FC<Props> = ({ navItem, navigate }) => {
 			disabled={!isEnabled}
 			type="button"
 		>
-			<h3 className="text-2xl font-bold mb-2">
+			<h3 className="mb-2 text-2xl font-bold">
 				{navItem.emoji} {navItem.title}
 			</h3>
 			<p>{navItem.description}</p>

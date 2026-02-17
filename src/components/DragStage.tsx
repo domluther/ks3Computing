@@ -109,7 +109,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 
 	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
 		e.preventDefault();
-		const duckId = parseInt(e.dataTransfer.getData("duckId"));
+		const duckId = parseInt(e.dataTransfer.getData("duckId"), 10);
 		const newDucks = ducks.filter((d) => d.id !== duckId);
 		setDucks(newDucks);
 		e.currentTarget.classList.remove("bg-cyan-300");
@@ -152,13 +152,13 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 				],
 			}}
 		>
-			<div className="w-full h-full border-4 border-slate-300 rounded-lg relative bg-green-200 overflow-hidden">
+			<div className="relative w-full h-full overflow-hidden bg-green-200 border-4 rounded-lg border-slate-300">
 				<div
 					role="application"
 					onDrop={handleDrop}
 					onDragOver={handleDragOver}
 					onDragLeave={handleDragLeave}
-					className="absolute w-48 h-48 bg-blue-400 rounded-full transition-all duration-1000"
+					className="absolute w-48 h-48 transition-all duration-1000 bg-blue-400 rounded-full"
 					style={{ left: `${pondPos.x}%`, top: `${pondPos.y}%` }}
 				></div>
 				{ducks.map((duck) => (
@@ -166,7 +166,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 						key={duck.id}
 						draggable
 						onDragStart={(e) => handleDragStart(e, duck.id)}
-						className="absolute text-5xl cursor-grab active:cursor-grabbing transition-all duration-100"
+						className="absolute text-5xl transition-all duration-100 cursor-grab active:cursor-grabbing"
 						type="button"
 						style={{
 							left: `${duck.x}%`,

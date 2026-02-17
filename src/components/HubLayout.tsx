@@ -36,12 +36,12 @@ const HubLayout: React.FC<HubLayoutProps> = ({
 	if (location.pathname === basePath) {
 		return (
 			<div className="w-full bg-slate-100 p-4 rounded-lg shadow-inner min-h-[85vh] flex flex-col items-center justify-center">
-				<div className="text-center p-8">
-					<h2 className="text-4xl font-bold text-slate-800 mb-4">{title}</h2>
-					<p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+				<div className="p-8 text-center">
+					<h2 className="mb-4 text-4xl font-bold text-slate-800">{title}</h2>
+					<p className="max-w-2xl mx-auto mb-8 text-lg text-slate-600">
 						{description}
 					</p>
-					<div className="flex flex-col md:flex-row justify-center gap-6">
+					<div className="flex flex-col justify-center md:flex-row gap-6">
 						{buttons.map((button) => (
 							<button
 								key={button.route}

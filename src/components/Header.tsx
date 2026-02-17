@@ -1,8 +1,8 @@
 import type React from "react";
 
 const Header: React.FC = () => (
-	<header className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white p-5 text-center shadow-md">
-		<h1 className="text-4xl font-bold mb-2 text-shadow">
+	<header className="p-5 text-center text-white shadow-md bg-linear-to-r from-blue-500 to-cyan-400">
+		<h1 className="mb-2 text-4xl font-bold text-shadow">
 			💻 Mr Luther's KS3 Computing
 		</h1>
 		<p className="text-lg opacity-90">

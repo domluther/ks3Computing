@@ -223,12 +223,12 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 
 	// --- RENDER HELPERS ---
 	const defaultScoreRenderer = (currentScore: number) => (
-		<div className="w-full bg-slate-200 rounded-full h-6 mb-6">
+		<div className="w-full h-6 mb-6 rounded-full bg-slate-200">
 			<div
-				className="bg-gradient-to-r from-blue-500 to-purple-600 h-6 rounded-full transition-all duration-500 flex items-center justify-center"
+				className="flex items-center justify-center h-6 rounded-full transition-all duration-500 bg-linear-to-r from-blue-500 to-purple-600"
 				style={{ width: "100%" }}
 			>
-				<span className="text-white font-semibold text-sm">
+				<span className="text-sm font-semibold text-white">
 					Score: {currentScore}
 				</span>
 			</div>
@@ -253,20 +253,20 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 				{scoreChange >= 0 ? "Good choice!" : "Think about this..."}
 			</div>
 			{hasChoiceFeedback(choice) && (
-				<p className="text-slate-700 mb-4">{choice.feedback}</p>
+				<p className="mb-4 text-slate-700">{choice.feedback}</p>
 			)}
 			{scenario.explanation && (
-				<p className="text-slate-600 text-sm">{scenario.explanation}</p>
+				<p className="text-sm text-slate-600">{scenario.explanation}</p>
 			)}
 		</div>
 	);
 
 	const defaultResultsRenderer = (results: GameResults<TChoice>) => (
 		<div className="text-center">
-			<div className="text-4xl font-bold text-slate-700 mb-4">
+			<div className="mb-4 text-4xl font-bold text-slate-700">
 				Final Score: {results.finalScore}
 			</div>
-			<div className="text-lg text-slate-600 mb-6">
+			<div className="mb-6 text-lg text-slate-600">
 				You completed {results.summary.totalQuestions} questions
 			</div>
 		</div>
@@ -275,10 +275,10 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 	// --- STAGE RENDERING ---
 	const renderIntro = () => (
 		<div className="w-full max-w-2xl p-8 text-center">
-			<div className="bg-white p-8 rounded-xl shadow-lg">
-				<h2 className="text-4xl font-bold text-slate-700 mb-6">{title}</h2>
-				<div className="text-lg text-slate-600 mb-8">{description}</div>
-				<GameButton onClick={startGame} className="text-xl px-8 py-4">
+			<div className="p-8 bg-white shadow-lg rounded-xl">
+				<h2 className="mb-6 text-4xl font-bold text-slate-700">{title}</h2>
+				<div className="mb-8 text-lg text-slate-600">{description}</div>
+				<GameButton onClick={startGame} className="px-8 py-4 text-xl">
 					Start Game
 				</GameButton>
 				<BackToHub location={hubLink} />
@@ -293,14 +293,14 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 		return (
 			<div className="w-full max-w-3xl p-8">
 				{(scoreRenderer || defaultScoreRenderer)(score)}
-				<div className="bg-white p-8 rounded-xl shadow-lg text-center">
-					<p className="text-gray-500 font-medium mb-4">
+				<div className="p-8 text-center bg-white shadow-lg rounded-xl">
+					<p className="mb-4 font-medium text-gray-500">
 						Question {currentScenarioIndex + 1} of {shuffledScenarios.length}
 					</p>
-					<p className="text-2xl font-semibold text-slate-700 mb-8">
+					<p className="mb-8 text-2xl font-semibold text-slate-700">
 						{currentScenario.text}
 					</p>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+					<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 						{currentScenario.choices.map((choice, index) => {
 							const choiceElement = choiceRenderer(
 								choice,
@@ -323,9 +323,9 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 		if (!lastChoice) return null;
 
 		return (
-			<div className="w-full max-w-3xl p-8 text-center flex flex-col items-center">
+			<div className="flex flex-col items-center w-full max-w-3xl p-8 text-center">
 				{(scoreRenderer || defaultScoreRenderer)(score)}
-				<div className="bg-white p-8 rounded-xl shadow-lg w-full">
+				<div className="w-full p-8 bg-white shadow-lg rounded-xl">
 					{(feedbackRenderer || defaultFeedbackRenderer)(
 						lastChoice.choice,
 						lastChoice.scoreChange,
@@ -346,14 +346,14 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 
 		return (
 			<div className="w-full max-w-4xl p-8 text-center">
-				<div className="bg-white p-8 rounded-xl shadow-lg">
-					<h2 className="text-3xl font-bold text-slate-700 mb-6">
+				<div className="p-8 bg-white shadow-lg rounded-xl">
+					<h2 className="mb-6 text-3xl font-bold text-slate-700">
 						Game Complete!
 					</h2>
 
 					{(resultsRenderer || defaultResultsRenderer)(results)}
 
-					<div className="flex gap-4 justify-center mt-8">
+					<div className="flex justify-center mt-8 gap-4">
 						<GameButton onClick={restartGame}>Play Again</GameButton>
 						{onNavigateHome && (
 							<GameButton
@@ -387,7 +387,7 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 
 	return (
 		<div
-			className={`min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center ${className}`}
+			className={`min-h-screen bg-linear-to-br from-blue-50 to-purple-50 flex items-center justify-center ${className}`}
 		>
 			{renderStage()}
 		</div>

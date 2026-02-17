@@ -115,7 +115,7 @@ const MouseSkillsChallenge = () => {
 						<p className="mb-8 text-lg text-slate-600">
 							You completed all the stages. Here are your times:
 						</p>
-						<div className="max-w-md p-6 mx-auto space-y-3 text-left bg-white rounded-lg shadow-md">
+						<div className="max-w-md p-6 mx-auto text-left bg-white rounded-lg shadow-md space-y-3">
 							{Object.entries(times).map(([key, value]) => (
 								<div
 									key={key}

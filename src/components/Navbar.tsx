@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
 	const currentPageId = pathToPageId(location.pathname);
 
 	return (
-		<nav className="bg-slate-900 flex justify-center flex-wrap">
+		<nav className="flex flex-wrap justify-center bg-slate-900">
 			{navItems.map((item) => (
 				<button
 					key={item.id}

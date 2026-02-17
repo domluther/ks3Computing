@@ -3,34 +3,36 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { shuffleArray } from "../utils/utils";
 import { BackToHub } from "./Buttons";
 
+const practiceMessages = [
+	"Ducks",
+	"Gaming fun",
+	"Hello world",
+	"I like Roblox",
+	"I love coding",
+	"Mario & Luigi",
+	"Minecraft",
+	"Nintendo",
+	"Quack quack",
+	"Roblox",
+	"Spongebob",
+	"Welcome",
+];
+
+const testMessages = [
+	"Ducks love swimming in the pond.",
+	"Yellow ducks waddle by the lake.",
+	"Ducks eat breadcrumbs happily.",
+	"Mario jumps on Goombas!",
+	"Super Mario saves Princess Peach!",
+	"Mario collects coins in pipes.",
+	"Luigi helps Mario on adventures.",
+	"Spongebob works at Krusty Krab.",
+	"Patrick and Spongebob are friends?",
+	"Spongebob loves making burgers.",
+	"Squidward plays clarinet music.",
+];
+
 const ASCIIBinaryTool: React.FC = () => {
-	const practiceMessages = [
-		"Welcome",
-		"Hello world",
-		"I like Roblox",
-		"Mario & Luigi",
-		"Minecraft",
-		"Spongebob",
-		"Gaming fun",
-		"Nintendo",
-		"Quack quack",
-		"I love coding",
-	];
-
-	const testMessages = [
-		"Ducks love swimming in the pond.",
-		"Yellow ducks waddle by the lake.",
-		"Ducks eat breadcrumbs happily.",
-		"Mario jumps over the castle walls!",
-		"Super Mario saves Princess Peach!",
-		"Mario collects coins in pipes.",
-		"Luigi helps Mario on adventures.",
-		"Spongebob works at Krusty Krab.",
-		"Patrick and Spongebob are friends?",
-		"Spongebob loves making burgers.",
-		"Squidward plays clarinet music.",
-	];
-
 	const [mode, setMode] = useState<"asciiToText" | "textToAscii">(
 		"asciiToText",
 	);
@@ -268,23 +270,23 @@ const ASCIIBinaryTool: React.FC = () => {
 	const messageRows = chunkMessage(currentMessage);
 
 	return (
-		<div className="w-full min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4">
+		<div className="w-full min-h-screen p-4 bg-linear-to-br from-blue-50 to-purple-50">
 			{/* Header */}
 			<div className="max-w-6xl mx-auto">
-				<h1 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+				<h1 className="mb-2 text-4xl font-bold text-center text-transparent bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text">
 					ASCII Learning Tool
 				</h1>
-				<p className="text-center text-gray-600 mb-6">
+				<p className="mb-6 text-center text-gray-600">
 					Learn how computers represent text using ASCII values!
 				</p>
 
 				{/* Compact Options Bar */}
-				<div className="bg-white rounded-lg shadow-md p-4 mb-4">
+				<div className="p-4 mb-4 bg-white rounded-lg shadow-md">
 					<div className="flex flex-wrap items-center justify-center gap-6">
 						{/* ASCII/Text Mode Toggle */}
 						<div className="flex items-center gap-2">
 							<span className="text-sm font-medium text-gray-600">Mode:</span>
-							<div className="flex bg-gray-100 rounded-lg p-1">
+							<div className="flex p-1 bg-gray-100 rounded-lg">
 								<button
 									onClick={() => switchMode("asciiToText")}
 									className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
@@ -313,7 +315,7 @@ const ASCIIBinaryTool: React.FC = () => {
 						{/* Practice/Test Mode Toggle */}
 						<div className="flex items-center gap-2">
 							<span className="text-sm font-medium text-gray-600">Type:</span>
-							<div className="flex bg-gray-100 rounded-lg p-1">
+							<div className="flex p-1 bg-gray-100 rounded-lg">
 								<button
 									onClick={() => switchGameMode("practice")}
 									className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
@@ -342,7 +344,7 @@ const ASCIIBinaryTool: React.FC = () => {
 						{/* ASCII Table Toggle */}
 						<button
 							onClick={() => setShowASCIITable(!showASCIITable)}
-							className="px-3 py-1 bg-gray-600 text-white text-sm rounded-lg hover:bg-gray-700 transition-colors"
+							className="px-3 py-1 text-sm text-white transition-colors bg-gray-600 rounded-lg hover:bg-gray-700"
 							type="button"
 						>
 							{showASCIITable ? "Hide" : "Show"} ASCII Table
@@ -352,18 +354,18 @@ const ASCIIBinaryTool: React.FC = () => {
 
 				{/* ASCII Table */}
 				{showASCIITable && (
-					<div className="bg-white rounded-lg shadow-lg p-6 mb-6 max-h-80 overflow-y-auto">
-						<h3 className="text-xl font-bold mb-4 text-center">
+					<div className="p-6 mb-6 overflow-y-auto bg-white rounded-lg shadow-lg max-h-80">
+						<h3 className="mb-4 text-xl font-bold text-center">
 							ASCII Reference Table
 						</h3>
-						<div className="grid grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-2 text-sm">
+						<div className="grid grid-cols-6 gap-2 text-sm md:grid-cols-8 lg:grid-cols-12">
 							{asciiTable.map((item) => (
 								<div
 									key={item.decimal}
-									className="bg-gray-50 p-2 rounded text-center border"
+									className="p-2 text-center border rounded bg-gray-50"
 								>
 									<div className="font-bold text-blue-600">{item.decimal}</div>
-									<div className="text-gray-800 font-mono">
+									<div className="font-mono text-gray-800">
 										{item.displayChar}
 									</div>
 								</div>
@@ -374,15 +376,15 @@ const ASCIIBinaryTool: React.FC = () => {
 
 				{/* Collapsible Instructions */}
 				{showInstructions && (
-					<div className="bg-white rounded-lg shadow-lg p-6 mb-6 relative">
+					<div className="relative p-6 mb-6 bg-white rounded-lg shadow-lg">
 						<button
 							onClick={() => setShowInstructions(false)}
-							className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors"
+							className="absolute flex items-center justify-center w-8 h-8 text-gray-500 transition-colors rounded-full top-2 right-2 hover:bg-gray-100 hover:text-gray-700"
 							type="button"
 						>
 							✕
 						</button>
-						<h3 className="text-xl font-bold mb-2">Instructions</h3>
+						<h3 className="mb-2 text-xl font-bold">Instructions</h3>
 						<div className="text-gray-700">
 							<p className="mb-2">
 								<strong>
@@ -398,13 +400,13 @@ const ASCIIBinaryTool: React.FC = () => {
 									: "Look at the message and type the ASCII decimal value for each character. Use the ASCII table for help!"}
 							</p>
 							{gameMode === "practice" && (
-								<p className="text-sm text-blue-600 mt-2">
+								<p className="mt-2 text-sm text-blue-600">
 									💡 Tip: Once you fill all the answers, press Enter to get a
 									new word!
 								</p>
 							)}
 							{gameMode === "test" && (
-								<p className="text-sm text-blue-600 mt-2">
+								<p className="mt-2 text-sm text-blue-600">
 									💡 Tip: After you mark your work, press Enter to get a new
 									sentence!
 								</p>
@@ -414,8 +416,8 @@ const ASCIIBinaryTool: React.FC = () => {
 				)}
 
 				{/* Main Game Area */}
-				<div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-					<div className="flex justify-between items-center mb-4">
+				<div className="p-6 mb-6 bg-white rounded-lg shadow-lg">
+					<div className="flex items-center justify-between mb-4">
 						<h3 className="text-2xl font-bold">
 							{gameMode === "practice" ? "Practice: " : "Test: "}
 							{mode === "asciiToText"
@@ -424,7 +426,7 @@ const ASCIIBinaryTool: React.FC = () => {
 						</h3>
 						<button
 							onClick={getNewMessage}
-							className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors"
+							className="px-4 py-2 text-white transition-colors bg-green-500 rounded-full hover:bg-green-600"
 							type="button"
 						>
 							New {gameMode === "practice" ? "Word" : "Sentence"}
@@ -438,13 +440,13 @@ const ASCIIBinaryTool: React.FC = () => {
 							return (
 								<div key={row} className="flex flex-col items-center gap-4">
 									{/* Top row - ASCII values or message characters */}
-									<div className="flex gap-2 flex-wrap justify-center">
+									<div className="flex flex-wrap justify-center gap-2">
 										{row.split("").map((char, colIndex) => {
 											const globalIndex = startIndex + colIndex;
 											return (
 												<div
 													key={globalIndex}
-													className="w-16 h-16 bg-gray-100 border-2 border-gray-300 rounded-lg flex items-center justify-center text-lg font-bold"
+													className="flex items-center justify-center w-16 h-16 text-lg font-bold bg-gray-100 border-2 border-gray-300 rounded-lg"
 												>
 													{mode === "asciiToText"
 														? char.charCodeAt(0)
@@ -457,7 +459,7 @@ const ASCIIBinaryTool: React.FC = () => {
 									</div>
 
 									{/* Bottom row - User input */}
-									<div className="flex gap-2 flex-wrap justify-center">
+									<div className="flex flex-wrap justify-center gap-2">
 										{row.split("").map((_, colIndex) => {
 											const globalIndex = startIndex + colIndex;
 											const userAnswer = userAnswers[globalIndex] || "";
@@ -489,14 +491,14 @@ const ASCIIBinaryTool: React.FC = () => {
 
 					{/* Show correct answers when marked in test mode */}
 					{gameMode === "test" && isMarked && showAnswers && (
-						<div className="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-							<h4 className="font-bold text-yellow-800 mb-2">
+						<div className="p-4 mt-6 border border-yellow-200 rounded-lg bg-yellow-50">
+							<h4 className="mb-2 font-bold text-yellow-800">
 								Correct Answers:
 							</h4>
-							<div className="flex gap-2 flex-wrap">
+							<div className="flex flex-wrap gap-2">
 								{currentMessage.split("").map((char, index) => (
 									<div key={`answer-${index}-${char}`} className="text-center">
-										<div className="w-16 h-8 bg-yellow-100 border border-yellow-300 rounded flex items-center justify-center text-sm font-bold">
+										<div className="flex items-center justify-center w-16 h-8 text-sm font-bold bg-yellow-100 border border-yellow-300 rounded">
 											{mode === "asciiToText" ? char : char.charCodeAt(0)}
 										</div>
 									</div>
@@ -507,11 +509,11 @@ const ASCIIBinaryTool: React.FC = () => {
 				</div>
 
 				{/* Controls */}
-				<div className="flex items-center gap-4 flex-wrap justify-center">
+				<div className="flex flex-wrap items-center justify-center gap-4">
 					{gameMode === "test" && (
 						<button
 							onClick={handleMarkWork}
-							className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:scale-105 transition-transform"
+							className="px-6 py-3 font-bold text-white transition-transform rounded-full shadow-lg bg-linear-to-r from-purple-600 to-indigo-600 hover:scale-105"
 							type="button"
 						>
 							Mark My Work
@@ -519,7 +521,7 @@ const ASCIIBinaryTool: React.FC = () => {
 					)}
 					<button
 						onClick={resetTool}
-						className="bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:scale-105 transition-transform"
+						className="px-6 py-3 font-bold text-white transition-transform rounded-full shadow-lg bg-linear-to-r from-red-500 to-orange-500 hover:scale-105"
 						type="button"
 					>
 						Reset
@@ -536,7 +538,7 @@ const ASCIIBinaryTool: React.FC = () => {
 								/>
 								Show answers
 							</label>
-							<div className="bg-green-200 text-green-800 font-bold text-xl py-3 px-6 rounded-full">
+							<div className="px-6 py-3 text-xl font-bold text-green-800 bg-green-200 rounded-full">
 								Score: {score} / {currentMessage.length}
 							</div>
 						</>

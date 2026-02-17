@@ -41,7 +41,7 @@ if (!startTime) {
 <div className="mb-2">
 
 // After (FIXED)
-<div className="mb-2 flex items-center justify-center">
+<div className="flex items-center justify-center mb-2">
 ```
 
 ### 4. **Timer Reset Logic** ✅ FIXED
@@ -124,7 +124,7 @@ if (!startTime) {
 <div className="w-full" style={{ height: 'calc(60vh - 200px)' }}> // ✅ Works properly
 
 // Properly centered
-<div className="mb-2 flex items-center justify-center"> // ✅ Centered
+<div className="flex items-center justify-center mb-2"> // ✅ Centered
 ```
 
 ## ✅ **All Issues Resolved:**

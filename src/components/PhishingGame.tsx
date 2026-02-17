@@ -989,16 +989,16 @@ const PhishingGame = () => {
 
 	// --- UI RENDERING ---
 	const renderIntro = () => (
-		<div className="text-center p-8 max-w-3xl mx-auto">
-			<h2 className="text-4xl font-bold text-slate-800 mb-4">
+		<div className="max-w-3xl p-8 mx-auto text-center">
+			<h2 className="mb-4 text-4xl font-bold text-slate-800">
 				Spot the Phish! 🎣
 			</h2>
-			<p className="text-lg text-slate-600 mb-6">
+			<p className="mb-6 text-lg text-slate-600">
 				Phishing emails try to trick you. In this game, you'll learn how to spot
 				them. You'll be shown {EMAILS_PER_GAME} emails—can you tell the real
 				from the fake?
 			</p>
-			<p className="text-sm text-slate-500 mb-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+			<p className="p-4 mb-8 text-sm border rounded-lg text-slate-500 bg-amber-50 border-amber-200">
 				<strong className="flex items-center justify-center mb-2">
 					<AlertTriangle className="w-5 h-5 mr-2 text-amber-600" /> A Quick Note
 					on Safety
@@ -1010,11 +1010,11 @@ const PhishingGame = () => {
 				. Even so, it's always best practice not to use your real details on
 				websites you don't know and trust.
 			</p>
-			<div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+			<div className="max-w-md p-6 mx-auto bg-white rounded-lg shadow-md">
 				<div className="mb-4">
 					<label
 						htmlFor="name"
-						className="flex items-center text-slate-700 font-semibold mb-2"
+						className="flex items-center mb-2 font-semibold text-slate-700"
 					>
 						<User className="w-5 h-5 mr-2" /> Name
 					</label>
@@ -1029,7 +1029,7 @@ const PhishingGame = () => {
 				<div className="mb-6">
 					<label
 						htmlFor="email"
-						className="flex items-center text-slate-700 font-semibold mb-2"
+						className="flex items-center mb-2 font-semibold text-slate-700"
 					>
 						<AtSign className="w-5 h-5 mr-2" /> Email Address
 					</label>
@@ -1123,7 +1123,7 @@ const PhishingGame = () => {
 		};
 
 		return (
-			<div className="w-full max-w-3xl bg-white rounded-xl shadow-lg border border-slate-200">
+			<div className="w-full max-w-3xl bg-white border shadow-lg rounded-xl border-slate-200">
 				<div className="p-4 border-b border-slate-200">
 					<h3 className="text-xl font-bold text-slate-800">
 						<ClickablePart clue={email.subject}>
@@ -1131,7 +1131,7 @@ const PhishingGame = () => {
 						</ClickablePart>
 					</h3>
 				</div>
-				<div className="p-4 border-b border-slate-200 bg-slate-50 text-sm text-slate-600">
+				<div className="p-4 text-sm border-b border-slate-200 bg-slate-50 text-slate-600">
 					<p>
 						<strong>From:</strong>{" "}
 						<ClickablePart clue={email.fromName}>
@@ -1155,18 +1155,18 @@ const PhishingGame = () => {
 					))}
 				</div>
 				{isIdentifying && (
-					<div className="p-4 bg-yellow-50 border-t border-yellow-200 text-center">
+					<div className="p-4 text-center border-t border-yellow-200 bg-yellow-50">
 						<h4 className="font-bold text-yellow-800">
 							Your Mission: Find the Clues!
 						</h4>
-						<p className="text-yellow-700 mb-4">
+						<p className="mb-4 text-yellow-700">
 							Click on all the parts of the email that look suspicious.
 						</p>
-						<p className="font-bold text-lg mb-4 text-slate-700">
+						<p className="mb-4 text-lg font-bold text-slate-700">
 							Clues Found: {identifiedClues.length}
 						</p>
 						{wrongClueId && (
-							<p className="text-red-600 font-semibold mb-2 animate-pulse">
+							<p className="mb-2 font-semibold text-red-600 animate-pulse">
 								That looks safe. Try again!
 							</p>
 						)}
@@ -1181,18 +1181,18 @@ const PhishingGame = () => {
 
 	const renderPlaying = () => (
 		<div className="w-full max-w-3xl p-4 md:p-8">
-			<p className="text-center text-gray-500 font-medium mb-4">
+			<p className="mb-4 font-medium text-center text-gray-500">
 				Email {currentEmailIndex + 1} of {shuffledEmails.length}
 			</p>
 			{renderEmail({})}
 			<div className="mt-6 text-center">
-				<p className="text-xl font-semibold text-slate-700 mb-4">
+				<p className="mb-4 text-xl font-semibold text-slate-700">
 					Is this a real email or a phishing attempt?
 				</p>
 				<div className="flex justify-center gap-4">
 					<button
 						onClick={() => handleInitialChoice("phishing")}
-						className="flex items-center justify-center gap-2 text-lg font-bold bg-red-500 text-white py-3 px-8 rounded-lg shadow-md hover:bg-red-600 transition-transform transform hover:scale-105"
+						className="flex items-center justify-center px-8 py-3 text-lg font-bold text-white bg-red-500 rounded-lg shadow-md gap-2 hover:bg-red-600 transition-transform transform hover:scale-105"
 						type="button"
 					>
 						<Fish className="w-6 h-6" />
@@ -1200,7 +1200,7 @@ const PhishingGame = () => {
 					</button>
 					<button
 						onClick={() => handleInitialChoice("legitimate")}
-						className="flex items-center justify-center gap-2 text-lg font-bold bg-green-500 text-white py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition-transform transform hover:scale-105"
+						className="flex items-center justify-center px-6 py-3 text-lg font-bold text-white bg-green-500 rounded-lg shadow-md gap-2 hover:bg-green-600 transition-transform transform hover:scale-105"
 						type="button"
 					>
 						<Shield className="w-6 h-6" />
@@ -1213,7 +1213,7 @@ const PhishingGame = () => {
 
 	const renderIdentifying = () => (
 		<div className="w-full max-w-3xl p-4 md:p-8">
-			<p className="text-center text-gray-500 font-medium mb-4">
+			<p className="mb-4 font-medium text-center text-gray-500">
 				Email {currentEmailIndex + 1} of {shuffledEmails.length}
 			</p>
 			{renderEmail({ isIdentifying: true })}
@@ -1230,24 +1230,24 @@ const PhishingGame = () => {
 		].filter((p) => p.isSuspicious && p.reason);
 
 		return (
-			<div className="w-full max-w-3xl p-4 md:p-8 text-center flex flex-col items-center gap-6">
+			<div className="flex flex-col items-center w-full max-w-3xl p-4 text-center md:p-8 gap-6">
 				<div
 					className={`bg-white p-8 rounded-xl shadow-lg w-full border-t-8 ${feedback.correct ? "border-green-500" : "border-red-500"}`}
 				>
 					{feedback.correct ? (
-						<CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+						<CheckCircle className="w-16 h-16 mx-auto mb-4 text-green-500" />
 					) : (
-						<XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+						<XCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
 					)}
-					<h3 className="text-3xl font-bold mb-4">{feedback.title}</h3>
-					<p className="text-xl text-slate-600 mb-6">{feedback.message}</p>
+					<h3 className="mb-4 text-3xl font-bold">{feedback.title}</h3>
+					<p className="mb-6 text-xl text-slate-600">{feedback.message}</p>
 
 					{email.type === "phishing" && (
-						<div className="text-left bg-red-50 border-l-4 border-red-400 p-4 rounded-lg my-6">
-							<h4 className="font-bold text-lg mb-2 text-red-800">
+						<div className="p-4 my-6 text-left border-l-4 border-red-400 rounded-lg bg-red-50">
+							<h4 className="mb-2 text-lg font-bold text-red-800">
 								The reasons this was a phishing email:
 							</h4>
-							<ul className="space-y-2 list-disc list-inside text-red-700">
+							<ul className="text-red-700 list-disc list-inside space-y-2">
 								{allClues.map((clue) => (
 									<li
 										key={clue.reason}
@@ -1266,7 +1266,7 @@ const PhishingGame = () => {
 					)}
 					{email.type === "phishing" && (
 						<div className="w-full">
-							<p className="text-slate-600 font-semibold mb-2">
+							<p className="mb-2 font-semibold text-slate-600">
 								Here's a review of the email. Correctly spotted clues are green,
 								missed ones are amber.
 							</p>
@@ -1328,35 +1328,35 @@ const PhishingGame = () => {
 		}
 
 		return (
-			<div className="text-center p-8 max-w-3xl mx-auto">
-				<div className="bg-white p-8 rounded-xl shadow-2xl border-t-8 border-blue-500">
+			<div className="max-w-3xl p-8 mx-auto text-center">
+				<div className="p-8 bg-white border-t-8 border-blue-500 shadow-2xl rounded-xl">
 					<Mail className="w-20 h-20 mx-auto text-blue-500" />
-					<h2 className="text-4xl font-bold mt-4 mb-2 text-slate-800">
+					<h2 className="mt-4 mb-2 text-4xl font-bold text-slate-800">
 						Game Over!
 					</h2>
 
 					<div className="my-8 space-y-4">
-						<div className="bg-slate-100 p-4 rounded-lg">
+						<div className="p-4 rounded-lg bg-slate-100">
 							<p className="text-2xl font-bold text-slate-800">
 								{correctlyIdentifiedEmails} / {EMAILS_PER_GAME}
 							</p>
 							<p className="text-slate-600">Emails Correctly Identified</p>
-							<p className="text-sm mt-2 font-medium">{emailFeedback}</p>
+							<p className="mt-2 text-sm font-medium">{emailFeedback}</p>
 						</div>
-						<div className="bg-slate-100 p-4 rounded-lg">
+						<div className="p-4 rounded-lg bg-slate-100">
 							<p className="text-2xl font-bold text-slate-800">
 								{successfullyFoundClues} / {totalPossibleClues}
 							</p>
 							<p className="text-slate-600">Phishing Clues Found</p>
-							<p className="text-sm mt-2 font-medium">{clueFeedback}</p>
+							<p className="mt-2 text-sm font-medium">{clueFeedback}</p>
 						</div>
 					</div>
 
-					<div className="text-left bg-sky-50 border-t-4 border-sky-400 p-4 rounded-lg my-8">
-						<h4 className="font-bold text-lg mb-2 text-sky-800">
+					<div className="p-4 my-8 text-left border-t-4 rounded-lg bg-sky-50 border-sky-400">
+						<h4 className="mb-2 text-lg font-bold text-sky-800">
 							Key Takeaways: 3 Top Tips
 						</h4>
-						<ul className="space-y-3 list-decimal list-inside text-sky-900">
+						<ul className="list-decimal list-inside space-y-3 text-sky-900">
 							<li>
 								<strong>Check the Sender:</strong> Look closely at the "From"
 								name and email address. Scammers often use misspellt names (like
@@ -1378,7 +1378,7 @@ const PhishingGame = () => {
 						</ul>
 					</div>
 
-					<div className="flex justify-center gap-4 mt-8">
+					<div className="flex justify-center mt-8 gap-4">
 						<GameButton onClick={resetGame}>Play Again</GameButton>
 						<BackToHub location="/online-safety" />
 					</div>
@@ -1405,7 +1405,7 @@ const PhishingGame = () => {
 	};
 
 	return (
-		<div className="w-full flex flex-col items-center justify-center p-4 bg-slate-50 rounded-lg">
+		<div className="flex flex-col items-center justify-center w-full p-4 rounded-lg bg-slate-50">
 			{renderStage()}
 		</div>
 	);

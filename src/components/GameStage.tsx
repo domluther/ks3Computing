@@ -43,10 +43,10 @@ const GameStage: React.FC<GameStageProps> = ({
 			className={`w-full h-[60vh] flex flex-col items-center p-4 ${className}`}
 		>
 			{/* Stage Title */}
-			<h3 className="text-2xl font-bold text-slate-700 mb-2">{title}</h3>
+			<h3 className="mb-2 text-2xl font-bold text-slate-700">{title}</h3>
 
 			{/* Instructions */}
-			<div className="text-lg text-slate-500 mb-2 bg-yellow-100 p-2 rounded-lg text-center">
+			<div className="p-2 mb-2 text-lg text-center bg-yellow-100 rounded-lg text-slate-500">
 				{instructions}
 			</div>
 
@@ -56,10 +56,10 @@ const GameStage: React.FC<GameStageProps> = ({
 			</div>
 			{/* Difficulty Selector */}
 			{difficultySelector ? (
-				<div className="mb-2 flex items-center justify-center">
+				<div className="flex items-center justify-center mb-2">
 					<label
 						htmlFor={difficultySelector.id}
-						className="font-medium text-slate-600 mr-2"
+						className="mr-2 font-medium text-slate-600"
 					>
 						{difficultySelector.label}:
 					</label>
@@ -67,7 +67,7 @@ const GameStage: React.FC<GameStageProps> = ({
 						id={difficultySelector.id}
 						value={difficultySelector.value}
 						onChange={(e) => difficultySelector.onChange(e.target.value)}
-						className="border border-slate-400 rounded px-2 py-1"
+						className="px-2 py-1 border rounded border-slate-400"
 					>
 						{difficultySelector.options.map((option) => (
 							<option key={option.value} value={option.value}>
@@ -81,7 +81,7 @@ const GameStage: React.FC<GameStageProps> = ({
 			)}
 
 			{/* Game Area - Fixed height to ensure consistency */}
-			<div className="w-full flex-1 min-h-0">{children}</div>
+			<div className="flex-1 w-full min-h-0">{children}</div>
 
 			{/* Restart Button */}
 			<GameButton onClick={onRestart} className="mt-4">

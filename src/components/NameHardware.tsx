@@ -7,35 +7,36 @@ import { BackToHub, GameButton } from "./Buttons";
 // --- DATA ---
 // A list of common computer hardware devices.
 const hardwareList: string[] = [
-	"headphones",
-	"printer",
-	"scanner",
-	"game controller",
-	"keyboard",
-	"monitor",
-	"mouse",
-	"webcam",
-	"speakers",
-	"touchscreen",
-	"microphone",
-	"projector",
-	"smartwatch",
 	"button",
-	"switch",
-	"CPU",
-	"RAM",
-	"motherboard",
-	"graphics card",
-	"hard drive",
-	"SSD",
-	"power supply",
 	"case",
-	"fan",
-	"router",
-	"USB drive",
+	"CPU",
 	"digital camera",
 	"earphones",
+	"fan",
+	"game controller",
+	"graphics card",
+	"hard drive",
+	"headphones",
+	"keyboard",
+	"light",
+	"microphone",
+	"monitor",
+	"motherboard",
+	"mouse",
+	"power supply",
+	"printer",
+	"projector",
+	"RAM",
+	"router",
+	"scanner",
+	"smartwatch",
+	"speakers",
+	"SSD",
+	"switch",
+	"touchscreen",
 	"trackpad",
+	"USB drive",
+	"webcam",
 ];
 
 // A Set for quick, case-insensitive lookups.
@@ -95,7 +96,7 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 	const [enteredWords, setEnteredWords] = useState<
 		{ word: string; status: "correct" | "incorrect" }[]
 	>([]);
-	const [correctWords, setCorrectWords] = useState<Set<string>>(new Set());
+	const [correctWords, setCorrectWords] = useState<string[]>([]);
 	const [isFinished, setIsFinished] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -132,14 +133,14 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 		if (!word) return;
 
 		const isCorrect = hardwareSet.has(word);
-		const isNew = !correctWords.has(word);
+		const isNew = !correctWords.some((w) => w.toLowerCase() === word);
 
 		if (isCorrect && isNew) {
 			setEnteredWords((prev) => [
 				{ word: inputValue.trim(), status: "correct" },
 				...prev,
 			]);
-			setCorrectWords((prev) => new Set(prev).add(word));
+			setCorrectWords((prev) => [...prev, inputValue.trim()]);
 		} else {
 			setEnteredWords((prev) => [
 				{ word: inputValue.trim(), status: "incorrect" },
@@ -152,14 +153,14 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 	const getMissedWords = () => {
 		const allHardware = shuffleArray(hardwareList);
 		const missed = allHardware.filter(
-			(hw) => !correctWords.has(hw.toLowerCase()),
+			(hw) => !correctWords.some((w) => w.toLowerCase() === hw.toLowerCase()),
 		);
 		return missed.slice(0, 3);
 	};
 
 	if (isFinished) {
 		const getPerformanceFeedback = () => {
-			const score = correctWords.size;
+			const score = correctWords.length;
 			if (score >= 15)
 				return {
 					title: "Hardware Master!",
@@ -208,21 +209,38 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 		return (
 			<Card>
 				<div className="text-center">
-					<div className="text-6xl mb-4">{feedback.emoji}</div>
+					<div className="mb-4 text-6xl">{feedback.emoji}</div>
 					<h2 className={`text-3xl font-bold mb-2 ${feedback.color}`}>
 						{feedback.title}
 					</h2>
-					<p className="text-lg text-slate-600 mb-6">{feedback.message}</p>
+					<p className="mb-6 text-lg text-slate-600">{feedback.message}</p>
 
-					<div className="bg-slate-50 rounded-lg p-6 mb-6">
-						<p className="text-xl text-slate-700 mb-2">Hardware Items Named</p>
-						<p className="text-6xl font-bold text-blue-600 mb-4">
-							{correctWords.size}
+					<div className="p-6 mb-6 rounded-lg bg-slate-50">
+						<p className="mb-2 text-xl text-slate-700">Hardware Items Named</p>
+						<p className="mb-4 text-6xl font-bold text-blue-600">
+							{correctWords.length}
 						</p>
-						<p className="text-lg text-slate-700 mb-4">
+
+						{correctWords.length > 0 && (
+							<>
+								<p className="mb-2 text-lg font-semibold text-slate-700">
+									Items you named:
+								</p>
+								<ul className="grid grid-cols-2 gap-2 p-4 mb-4 text-sm rounded-lg sm:grid-cols-3 bg-green-50 text-slate-700">
+									{correctWords.map((word) => (
+										<li key={word} className="flex items-center gap-1">
+											<CheckCircle className="w-4 h-4 text-green-600" />
+											{word}
+										</li>
+									))}
+								</ul>
+							</>
+						)}
+
+						<p className="mb-2 text-lg text-slate-700">
 							Here are a few you missed:
 						</p>
-						<ul className="text-slate-600 space-y-1 mb-4">
+						<ul className="mb-4 space-y-1 text-slate-600">
 							{getMissedWords().map((word) => (
 								<li key={word}>{word}</li>
 							))}
@@ -237,20 +255,20 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
 	return (
 		<Card>
-			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-2xl md:text-3xl font-bold text-slate-800">
+			<div className="flex items-center justify-between mb-4">
+				<h2 className="text-2xl font-bold md:text-3xl text-slate-800">
 					Name the Hardware!
 				</h2>
-				<div className="text-3xl font-bold text-red-500 bg-red-100 px-4 py-2 rounded-lg">
+				<div className="px-4 py-2 text-3xl font-bold text-red-500 bg-red-100 rounded-lg">
 					{Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}
 				</div>
 			</div>
-			<p className="text-slate-600 mb-6">
+			<p className="mb-6 text-slate-600">
 				You have {INITIAL_SECONDS} seconds to name all the computer hardware you
 				can think of. Good luck!
 			</p>
 
-			<div className="flex flex-col sm:flex-row gap-2 mb-4">
+			<div className="flex flex-col gap-2 mb-4 sm:flex-row">
 				<input
 					ref={inputRef}
 					type="text"
@@ -262,7 +280,7 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 						}
 					}}
 					placeholder="e.g. Keyboard"
-					className="flex-grow w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+					className="w-full px-4 py-3 border-2 rounded-lg grow border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 				/>
 				<Button onClick={handleSubmit} className="w-full sm:w-auto">
 					Enter
@@ -273,7 +291,7 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 				<GameButton onClick={finishGame}>That's All I Know</GameButton>
 			</div>
 
-			<div className="h-64 overflow-y-auto bg-slate-50 p-4 rounded-lg border border-slate-200">
+			<div className="h-64 p-4 overflow-y-auto border rounded-lg bg-slate-50 border-slate-200">
 				<ul className="space-y-2">
 					{enteredWords.map((item, index) => (
 						<li
@@ -283,9 +301,9 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 							}`}
 						>
 							{item.status === "correct" ? (
-								<CheckCircle className="h-6 w-6" />
+								<CheckCircle className="w-6 h-6" />
 							) : (
-								<XCircle className="h-6 w-6" />
+								<XCircle className="w-6 h-6" />
 							)}
 							{item.word}
 						</li>
@@ -357,7 +375,7 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
 			// Defer focus to the first empty input box
 			setTimeout(() => {
-				const firstEmptyIndex = initialGuess.findIndex((char) => char === "");
+				const firstEmptyIndex = initialGuess.indexOf("");
 				if (firstEmptyIndex !== -1) {
 					inputRefs.current[firstEmptyIndex]?.focus();
 				}
@@ -513,14 +531,14 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 		return (
 			<Card>
 				<div className="text-center">
-					<div className="text-6xl mb-4">{feedback.emoji}</div>
+					<div className="mb-4 text-6xl">{feedback.emoji}</div>
 					<h2 className={`text-3xl font-bold mb-2 ${feedback.color}`}>
 						{feedback.title}
 					</h2>
-					<p className="text-lg text-slate-600 mb-6">{feedback.message}</p>
+					<p className="mb-6 text-lg text-slate-600">{feedback.message}</p>
 
-					<div className="bg-slate-50 rounded-lg p-6 mb-6">
-						<p className="text-xl text-slate-700 mb-2">Your Score</p>
+					<div className="p-6 mb-6 rounded-lg bg-slate-50">
+						<p className="mb-2 text-xl text-slate-700">Your Score</p>
 						<div className="flex items-center justify-center gap-4 mb-4">
 							<span className="text-5xl font-bold text-blue-600">{score}</span>
 							<span className="text-2xl text-slate-400">/</span>
@@ -528,9 +546,9 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 								{questions.length}
 							</span>
 						</div>
-						<div className="w-full bg-slate-200 rounded-full h-3 mb-2">
+						<div className="w-full h-3 mb-2 rounded-full bg-slate-200">
 							<div
-								className="bg-blue-600 h-3 rounded-full transition-all duration-500"
+								className="h-3 transition-all duration-500 bg-blue-600 rounded-full"
 								style={{ width: `${percentage}%` }}
 							></div>
 						</div>
@@ -539,7 +557,7 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 						</p>
 					</div>
 
-					<div className="flex flex-col sm:flex-row gap-3 justify-center">
+					<div className="flex flex-col justify-center gap-3 sm:flex-row">
 						<Button onClick={onBack}>Play Again</Button>
 						<Button variant="secondary" onClick={onBack}>
 							Try Different Mode
@@ -560,17 +578,17 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
 	return (
 		<Card>
-			<div className="flex justify-between items-center mb-4">
-				<h2 className="text-2xl md:text-3xl font-bold text-slate-800">
+			<div className="flex items-center justify-between mb-4">
+				<h2 className="text-2xl font-bold md:text-3xl text-slate-800">
 					Guess the Word!
 				</h2>
-				<div className="text-xl font-bold text-slate-600 bg-slate-100 px-4 py-2 rounded-lg">
+				<div className="px-4 py-2 text-xl font-bold rounded-lg text-slate-600 bg-slate-100">
 					{currentIndex + 1} / {questions.length}
 				</div>
 			</div>
 
-			<div className="text-center my-8">
-				<p className="text-2xl font-semibold text-slate-700 mb-6">
+			<div className="my-8 text-center">
+				<p className="mb-6 text-2xl font-semibold text-slate-700">
 					What hardware is this?
 				</p>
 			</div>
@@ -579,7 +597,7 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 				{questions[currentIndex].split(" ").map((word, wordIndex) => (
 					<div
 						key={word}
-						className="flex justify-center items-center gap-1 sm:gap-2"
+						className="flex items-center justify-center gap-1 sm:gap-2"
 					>
 						{word.split("").map((char, charIndex) => {
 							const globalIndex =
@@ -666,13 +684,13 @@ const NameHardware = () => {
 				return (
 					<Card>
 						<div className="text-center">
-							<h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-2">
+							<h1 className="mb-2 text-4xl font-bold md:text-5xl text-slate-800">
 								Hardware Practice
 							</h1>
-							<p className="text-lg text-slate-600 mb-8">
+							<p className="mb-8 text-lg text-slate-600">
 								Choose a game to play!
 							</p>
-							<div className="flex flex-col md:flex-row gap-4 justify-center">
+							<div className="flex flex-col justify-center gap-4 md:flex-row">
 								<Button onClick={() => setMode("nameTheHardware")}>
 									Name the Hardware
 								</Button>
@@ -688,7 +706,7 @@ const NameHardware = () => {
 	};
 
 	return (
-		<main className="bg-slate-100 min-h-screen w-full flex items-center justify-center p-4 font-sans">
+		<main className="flex items-center justify-center w-full min-h-screen p-4 font-sans bg-slate-100">
 			<div className="w-full">{renderContent()}</div>
 		</main>
 	);

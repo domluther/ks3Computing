@@ -96,15 +96,15 @@ const InputOutputTool: React.FC = () => {
 	return (
 		<div className="w-full flex flex-col md:flex-row min-h-[70vh]">
 			{/* Sidebar */}
-			<aside className="w-full md:w-1/4 bg-slate-100 p-4 border-r-2 border-slate-200">
-				<h3 className="text-xl font-bold text-center mb-4">Hardware Items</h3>
+			<aside className="w-full p-4 border-r-2 md:w-1/4 bg-slate-100 border-slate-200">
+				<h3 className="mb-4 text-xl font-bold text-center">Hardware Items</h3>
 				<div className="space-y-3">
 					{availableItems.map((item) => (
 						<button
 							key={item}
 							draggable
 							onDragStart={(e) => handleDragStart(e, item)}
-							className={`p-3 rounded-lg shadow cursor-grab active:cursor-grabbing text-white font-semibold text-center bg-gradient-to-r from-blue-500 to-cyan-500 appearance-none border-none w-full block focus:outline-none ${draggedItem === item ? "opacity-50" : ""}`}
+							className={`p-3 rounded-lg shadow cursor-grab active:cursor-grabbing text-white font-semibold text-center bg-linear-to-r from-blue-500 to-cyan-500 appearance-none border-none w-full block focus:outline-none ${draggedItem === item ? "opacity-50" : ""}`}
 							type="button"
 						>
 							{item}
@@ -114,16 +114,16 @@ const InputOutputTool: React.FC = () => {
 			</aside>
 
 			{/* Main Diagram Area */}
-			<main className="flex-1 p-6 flex flex-col items-center">
-				<div className="relative w-full max-w-4xl h-[450px] mb-6">
+			<main className="flex flex-col items-center flex-1 p-6">
+				<div className="relative w-full max-w-4xl h-112.5 mb-6">
 					{/* Venn Diagram Circles */}
 					<div className="absolute top-0 left-[10%] w-[55%] h-[90%] border-4 border-red-400 rounded-full bg-red-100/50">
-						<span className="absolute top-4 left-1/4 text-red-600 font-bold text-xl">
+						<span className="absolute text-xl font-bold text-red-600 top-4 left-1/4">
 							INPUT
 						</span>
 					</div>
 					<div className="absolute top-0 right-[10%] w-[55%] h-[90%] border-4 border-blue-400 rounded-full bg-blue-100/50">
-						<span className="absolute top-4 right-1/4 text-blue-600 font-bold text-xl">
+						<span className="absolute text-xl font-bold text-blue-600 top-4 right-1/4">
 							OUTPUT
 						</span>
 					</div>
@@ -201,37 +201,39 @@ const InputOutputTool: React.FC = () => {
 				</div>
 
 				{/* Controls */}
-				<div className="flex items-center gap-4 flex-wrap justify-center">
-					<button
-						onClick={handleMarkWork}
-						className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:scale-105 transition-transform"
-						type="button"
-					>
-						Mark My Work
-					</button>
-					<button
-						onClick={resetAll}
-						className="bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:scale-105 transition-transform"
-						type="button"
-					>
-						Reset
-					</button>
+				<div className="flex flex-col items-center justify-center gap-4">
+					<div className="flex flex-wrap items-center justify-center gap-4">
+						<button
+							onClick={handleMarkWork}
+							className="px-6 py-3 font-bold text-white rounded-full shadow-lg transition-transform bg-linear-to-r from-purple-600 to-indigo-600 hover:scale-105"
+							type="button"
+						>
+							Mark My Work
+						</button>
+						<button
+							onClick={resetAll}
+							className="px-6 py-3 font-bold text-white rounded-full shadow-lg transition-transform bg-linear-to-r from-red-500 to-orange-500 hover:scale-105"
+							type="button"
+						>
+							Reset
+						</button>
+					</div>
 
 					{isMarked && (
-						<>
-							<label className="flex items-center gap-2 text-lg">
+						<div className="flex flex-wrap items-center justify-center gap-4">
+							<label className="flex items-center text-lg gap-2">
 								<input
 									type="checkbox"
 									checked={showAnswers}
 									onChange={(e) => setShowAnswers(e.target.checked)}
 									className="w-5 h-5"
 								/>
-								Answer feedback
+								Highlight Correct/Incorrect
 							</label>
-							<div className="bg-green-200 text-green-800 font-bold text-xl py-3 px-6 rounded-full">
+							<div className="px-6 py-3 text-xl font-bold text-green-800 bg-green-200 rounded-full">
 								Score: {score} / {placedItems.length}
 							</div>
-						</>
+						</div>
 					)}
 				</div>
 			</main>

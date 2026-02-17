@@ -6,7 +6,7 @@ export const BackToHub: React.FC<{ location: string }> = ({ location }) => {
 	return (
 		<button
 			onClick={() => navigate({ to: location })}
-			className="text-slate-600 hover:text-slate-800 font-semibold py-3 px-6"
+			className="px-6 py-3 font-semibold text-slate-600 hover:text-slate-800"
 			type="button"
 		>
 			Back to Hub
@@ -21,7 +21,7 @@ export const GameButton: React.FC<{
 }> = ({ onClick, children, className }) => (
 	<button
 		onClick={onClick}
-		className={`bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:scale-105 transition-transform text-xl ${className}`}
+		className={`bg-linear-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:scale-105 transition-transform text-xl ${className}`}
 		type="button"
 	>
 		{children}
