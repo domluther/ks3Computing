@@ -344,7 +344,7 @@ const ASCIIBinaryTool: React.FC = () => {
 						{/* ASCII Table Toggle */}
 						<button
 							onClick={() => setShowASCIITable(!showASCIITable)}
-							className="px-3 py-1 text-sm text-white transition-colors bg-gray-600 rounded-lg hover:bg-gray-700"
+							className="px-3 py-1 text-sm text-white bg-gray-600 rounded-lg transition-colors hover:bg-gray-700"
 							type="button"
 						>
 							{showASCIITable ? "Hide" : "Show"} ASCII Table
@@ -358,7 +358,7 @@ const ASCIIBinaryTool: React.FC = () => {
 						<h3 className="mb-4 text-xl font-bold text-center">
 							ASCII Reference Table
 						</h3>
-						<div className="grid grid-cols-6 gap-2 text-sm md:grid-cols-8 lg:grid-cols-12">
+						<div className="text-sm grid grid-cols-6 gap-2 md:grid-cols-8 lg:grid-cols-12">
 							{asciiTable.map((item) => (
 								<div
 									key={item.decimal}
@@ -379,7 +379,7 @@ const ASCIIBinaryTool: React.FC = () => {
 					<div className="relative p-6 mb-6 bg-white rounded-lg shadow-lg">
 						<button
 							onClick={() => setShowInstructions(false)}
-							className="absolute flex items-center justify-center w-8 h-8 text-gray-500 transition-colors rounded-full top-2 right-2 hover:bg-gray-100 hover:text-gray-700"
+							className="absolute flex items-center justify-center w-8 h-8 text-gray-500 rounded-full transition-colors top-2 right-2 hover:bg-gray-100 hover:text-gray-700"
 							type="button"
 						>
 							✕
@@ -426,7 +426,7 @@ const ASCIIBinaryTool: React.FC = () => {
 						</h3>
 						<button
 							onClick={getNewMessage}
-							className="px-4 py-2 text-white transition-colors bg-green-500 rounded-full hover:bg-green-600"
+							className="px-4 py-2 text-white bg-green-500 rounded-full transition-colors hover:bg-green-600"
 							type="button"
 						>
 							New {gameMode === "practice" ? "Word" : "Sentence"}
@@ -513,7 +513,7 @@ const ASCIIBinaryTool: React.FC = () => {
 					{gameMode === "test" && (
 						<button
 							onClick={handleMarkWork}
-							className="px-6 py-3 font-bold text-white transition-transform rounded-full shadow-lg bg-linear-to-r from-purple-600 to-indigo-600 hover:scale-105"
+							className="px-6 py-3 font-bold text-white rounded-full shadow-lg transition-transform bg-linear-to-r from-purple-600 to-indigo-600 hover:scale-105"
 							type="button"
 						>
 							Mark My Work
@@ -521,7 +521,7 @@ const ASCIIBinaryTool: React.FC = () => {
 					)}
 					<button
 						onClick={resetTool}
-						className="px-6 py-3 font-bold text-white transition-transform rounded-full shadow-lg bg-linear-to-r from-red-500 to-orange-500 hover:scale-105"
+						className="px-6 py-3 font-bold text-white rounded-full shadow-lg transition-transform bg-linear-to-r from-red-500 to-orange-500 hover:scale-105"
 						type="button"
 					>
 						Reset
@@ -529,7 +529,7 @@ const ASCIIBinaryTool: React.FC = () => {
 
 					{gameMode === "test" && isMarked && (
 						<>
-							<label className="flex items-center gap-2 text-lg">
+							<label className="flex items-center text-lg gap-2">
 								<input
 									type="checkbox"
 									checked={showAnswers}

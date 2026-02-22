@@ -158,7 +158,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 					onDrop={handleDrop}
 					onDragOver={handleDragOver}
 					onDragLeave={handleDragLeave}
-					className="absolute w-48 h-48 transition-all duration-1000 bg-blue-400 rounded-full"
+					className="absolute w-48 h-48 bg-blue-400 rounded-full transition-all duration-1000"
 					style={{ left: `${pondPos.x}%`, top: `${pondPos.y}%` }}
 				></div>
 				{ducks.map((duck) => (

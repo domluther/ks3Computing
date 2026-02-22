@@ -1123,7 +1123,7 @@ const PhishingGame = () => {
 		};
 
 		return (
-			<div className="w-full max-w-3xl bg-white border shadow-lg rounded-xl border-slate-200">
+			<div className="w-full max-w-3xl text-left bg-white border shadow-lg rounded-xl border-slate-200">
 				<div className="p-4 border-b border-slate-200">
 					<h3 className="text-xl font-bold text-slate-800">
 						<ClickablePart clue={email.subject}>
