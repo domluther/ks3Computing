@@ -1023,7 +1023,7 @@ const PhishingGame = () => {
 						id="name"
 						value={userName}
 						onChange={(e) => setUserName(e.target.value)}
-						className="w-full p-2 border border-slate-300 rounded-md"
+						className="w-full p-2 border rounded-md border-slate-300"
 					/>
 				</div>
 				<div className="mb-6">
@@ -1038,7 +1038,7 @@ const PhishingGame = () => {
 						id="email"
 						value={userEmail}
 						onChange={(e) => setUserEmail(e.target.value)}
-						className="w-full p-2 border border-slate-300 rounded-md"
+						className="w-full p-2 border rounded-md border-slate-300"
 					/>
 				</div>
 				<GameButton onClick={startGame} className="w-full">
@@ -1066,7 +1066,9 @@ const PhishingGame = () => {
 			const isIdentified = identifiedClues.includes(clue.reason);
 			const isWrong = wrongClueId === clue.text;
 
-			const classParts = ["transition-all duration-300 p-1 rounded-md"];
+			const classParts = [
+				"transition-all duration-300 p-1 rounded-md text-left",
+			];
 
 			// Determine highlighting based on the game mode (feedback, identifying, or just viewing)
 			if (isFeedback) {
@@ -1147,7 +1149,7 @@ const PhishingGame = () => {
 						<strong>To:</strong> {userName} &lt;{userEmail}&gt;
 					</p>
 				</div>
-				<div className="p-6 space-y-4 text-slate-700">
+				<div className="p-6 space-y-4 text-left text-slate-700">
 					{email.body.map((part) => (
 						<p key={part.text} className="whitespace-pre-wrap">
 							<ClickablePart clue={part}>{part.text}</ClickablePart>
@@ -1192,7 +1194,7 @@ const PhishingGame = () => {
 				<div className="flex justify-center gap-4">
 					<button
 						onClick={() => handleInitialChoice("phishing")}
-						className="flex items-center justify-center px-8 py-3 text-lg font-bold text-white bg-red-500 rounded-lg shadow-md gap-2 hover:bg-red-600 transition-transform transform hover:scale-105"
+						className="flex items-center justify-center gap-2 px-8 py-3 text-lg font-bold text-white transition-transform transform bg-red-500 rounded-lg shadow-md hover:bg-red-600 hover:scale-105"
 						type="button"
 					>
 						<Fish className="w-6 h-6" />
@@ -1200,7 +1202,7 @@ const PhishingGame = () => {
 					</button>
 					<button
 						onClick={() => handleInitialChoice("legitimate")}
-						className="flex items-center justify-center px-6 py-3 text-lg font-bold text-white bg-green-500 rounded-lg shadow-md gap-2 hover:bg-green-600 transition-transform transform hover:scale-105"
+						className="flex items-center justify-center gap-2 px-6 py-3 text-lg font-bold text-white transition-transform transform bg-green-500 rounded-lg shadow-md hover:bg-green-600 hover:scale-105"
 						type="button"
 					>
 						<Shield className="w-6 h-6" />
@@ -1230,7 +1232,7 @@ const PhishingGame = () => {
 		].filter((p) => p.isSuspicious && p.reason);
 
 		return (
-			<div className="flex flex-col items-center w-full max-w-3xl p-4 text-center md:p-8 gap-6">
+			<div className="flex flex-col items-center w-full max-w-3xl gap-6 p-4 text-center md:p-8">
 				<div
 					className={`bg-white p-8 rounded-xl shadow-lg w-full border-t-8 ${feedback.correct ? "border-green-500" : "border-red-500"}`}
 				>
@@ -1247,7 +1249,7 @@ const PhishingGame = () => {
 							<h4 className="mb-2 text-lg font-bold text-red-800">
 								The reasons this was a phishing email:
 							</h4>
-							<ul className="text-red-700 list-disc list-inside space-y-2">
+							<ul className="space-y-2 text-red-700 list-disc list-inside">
 								{allClues.map((clue) => (
 									<li
 										key={clue.reason}
@@ -1356,7 +1358,7 @@ const PhishingGame = () => {
 						<h4 className="mb-2 text-lg font-bold text-sky-800">
 							Key Takeaways: 3 Top Tips
 						</h4>
-						<ul className="list-decimal list-inside space-y-3 text-sky-900">
+						<ul className="space-y-3 list-decimal list-inside text-sky-900">
 							<li>
 								<strong>Check the Sender:</strong> Look closely at the "From"
 								name and email address. Scammers often use misspellt names (like
@@ -1378,7 +1380,7 @@ const PhishingGame = () => {
 						</ul>
 					</div>
 
-					<div className="flex justify-center mt-8 gap-4">
+					<div className="flex justify-center gap-4 mt-8">
 						<GameButton onClick={resetGame}>Play Again</GameButton>
 						<BackToHub location="/online-safety" />
 					</div>
