@@ -8,6 +8,7 @@ import { BackToHub, GameButton } from "./Buttons";
 // A list of common computer hardware devices.
 const hardwareList: string[] = [
 	"button",
+	"camera",
 	"case",
 	"CPU",
 	"digital camera",
