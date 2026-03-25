@@ -15,20 +15,20 @@
 		"@tailwindcss/vite": "^4.2.2",
 		"@tanstack/react-router": "^1.168.3",
 		"@tanstack/react-router-devtools": "^1.166.11",
-		"lucide-react": "^0.536.0",
+		"lucide-react": "^1.6.0",
 		"react": "^19.2.4",
 		"react-confetti": "^6.4.0",
 		"react-dom": "^19.2.4",
 		"react-use": "^17.6.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.2",
+		"@biomejs/biome": "2.4.9",
 		"@tanstack/router-plugin": "^1.167.4",
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
 		"@vitejs/plugin-react-swc": "^3.11.0",
 		"tailwindcss": "^4.2.2",
-		"typescript": "~5.8.3",
+		"typescript": "^6.0.2",
 		"vite": "^7.3.1"
 	}
 }

@@ -1,4 +1,9 @@
-import { Link, createRootRoute, Outlet, useRouter } from "@tanstack/react-router";
+import {
+	createRootRoute,
+	Link,
+	Outlet,
+	useRouter,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
