@@ -9,12 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProgrammingRouteImport } from './routes/programming'
 import { Route as OnlineSafetyRouteImport } from './routes/online-safety'
 import { Route as MathsRouteImport } from './routes/maths'
 import { Route as ItSkillsRouteImport } from './routes/it-skills'
 import { Route as HardwareSoftwareRouteImport } from './routes/hardware-software'
 import { Route as AlgorithmsRouteImport } from './routes/algorithms'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProgrammingTurtleRouteImport } from './routes/programming/turtle'
 import { Route as OnlineSafetySocialCreditRouteImport } from './routes/online-safety/social-credit'
 import { Route as OnlineSafetyPhishingRouteImport } from './routes/online-safety/phishing'
 import { Route as MathsAsciiRouteImport } from './routes/maths/ascii'
@@ -24,6 +26,11 @@ import { Route as HardwareSoftwareNameHardwareRouteImport } from './routes/hardw
 import { Route as HardwareSoftwareInputOutputRouteImport } from './routes/hardware-software/input-output'
 import { Route as HardwareSoftwareIdentifySoftwareRouteImport } from './routes/hardware-software/identify-software'
 
+const ProgrammingRoute = ProgrammingRouteImport.update({
+  id: '/programming',
+  path: '/programming',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OnlineSafetyRoute = OnlineSafetyRouteImport.update({
   id: '/online-safety',
   path: '/online-safety',
@@ -53,6 +60,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ProgrammingTurtleRoute = ProgrammingTurtleRouteImport.update({
+  id: '/turtle',
+  path: '/turtle',
+  getParentRoute: () => ProgrammingRoute,
 } as any)
 const OnlineSafetySocialCreditRoute =
   OnlineSafetySocialCreditRouteImport.update({
@@ -106,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/it-skills': typeof ItSkillsRouteWithChildren
   '/maths': typeof MathsRouteWithChildren
   '/online-safety': typeof OnlineSafetyRouteWithChildren
+  '/programming': typeof ProgrammingRouteWithChildren
   '/hardware-software/identify-software': typeof HardwareSoftwareIdentifySoftwareRoute
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
   '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
@@ -114,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/maths/ascii': typeof MathsAsciiRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
+  '/programming/turtle': typeof ProgrammingTurtleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -122,6 +136,7 @@ export interface FileRoutesByTo {
   '/it-skills': typeof ItSkillsRouteWithChildren
   '/maths': typeof MathsRouteWithChildren
   '/online-safety': typeof OnlineSafetyRouteWithChildren
+  '/programming': typeof ProgrammingRouteWithChildren
   '/hardware-software/identify-software': typeof HardwareSoftwareIdentifySoftwareRoute
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
   '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
@@ -130,6 +145,7 @@ export interface FileRoutesByTo {
   '/maths/ascii': typeof MathsAsciiRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
+  '/programming/turtle': typeof ProgrammingTurtleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -139,6 +155,7 @@ export interface FileRoutesById {
   '/it-skills': typeof ItSkillsRouteWithChildren
   '/maths': typeof MathsRouteWithChildren
   '/online-safety': typeof OnlineSafetyRouteWithChildren
+  '/programming': typeof ProgrammingRouteWithChildren
   '/hardware-software/identify-software': typeof HardwareSoftwareIdentifySoftwareRoute
   '/hardware-software/input-output': typeof HardwareSoftwareInputOutputRoute
   '/hardware-software/name-hardware': typeof HardwareSoftwareNameHardwareRoute
@@ -147,6 +164,7 @@ export interface FileRoutesById {
   '/maths/ascii': typeof MathsAsciiRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
+  '/programming/turtle': typeof ProgrammingTurtleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -157,6 +175,7 @@ export interface FileRouteTypes {
     | '/it-skills'
     | '/maths'
     | '/online-safety'
+    | '/programming'
     | '/hardware-software/identify-software'
     | '/hardware-software/input-output'
     | '/hardware-software/name-hardware'
@@ -165,6 +184,7 @@ export interface FileRouteTypes {
     | '/maths/ascii'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
+    | '/programming/turtle'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -173,6 +193,7 @@ export interface FileRouteTypes {
     | '/it-skills'
     | '/maths'
     | '/online-safety'
+    | '/programming'
     | '/hardware-software/identify-software'
     | '/hardware-software/input-output'
     | '/hardware-software/name-hardware'
@@ -181,6 +202,7 @@ export interface FileRouteTypes {
     | '/maths/ascii'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
+    | '/programming/turtle'
   id:
     | '__root__'
     | '/'
@@ -189,6 +211,7 @@ export interface FileRouteTypes {
     | '/it-skills'
     | '/maths'
     | '/online-safety'
+    | '/programming'
     | '/hardware-software/identify-software'
     | '/hardware-software/input-output'
     | '/hardware-software/name-hardware'
@@ -197,6 +220,7 @@ export interface FileRouteTypes {
     | '/maths/ascii'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
+    | '/programming/turtle'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -206,10 +230,18 @@ export interface RootRouteChildren {
   ItSkillsRoute: typeof ItSkillsRouteWithChildren
   MathsRoute: typeof MathsRouteWithChildren
   OnlineSafetyRoute: typeof OnlineSafetyRouteWithChildren
+  ProgrammingRoute: typeof ProgrammingRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/programming': {
+      id: '/programming'
+      path: '/programming'
+      fullPath: '/programming'
+      preLoaderRoute: typeof ProgrammingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/online-safety': {
       id: '/online-safety'
       path: '/online-safety'
@@ -251,6 +283,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/programming/turtle': {
+      id: '/programming/turtle'
+      path: '/turtle'
+      fullPath: '/programming/turtle'
+      preLoaderRoute: typeof ProgrammingTurtleRouteImport
+      parentRoute: typeof ProgrammingRoute
     }
     '/online-safety/social-credit': {
       id: '/online-safety/social-credit'
@@ -364,6 +403,18 @@ const OnlineSafetyRouteWithChildren = OnlineSafetyRoute._addFileChildren(
   OnlineSafetyRouteChildren,
 )
 
+interface ProgrammingRouteChildren {
+  ProgrammingTurtleRoute: typeof ProgrammingTurtleRoute
+}
+
+const ProgrammingRouteChildren: ProgrammingRouteChildren = {
+  ProgrammingTurtleRoute: ProgrammingTurtleRoute,
+}
+
+const ProgrammingRouteWithChildren = ProgrammingRoute._addFileChildren(
+  ProgrammingRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlgorithmsRoute: AlgorithmsRoute,
@@ -371,6 +422,7 @@ const rootRouteChildren: RootRouteChildren = {
   ItSkillsRoute: ItSkillsRouteWithChildren,
   MathsRoute: MathsRouteWithChildren,
   OnlineSafetyRoute: OnlineSafetyRouteWithChildren,
+  ProgrammingRoute: ProgrammingRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

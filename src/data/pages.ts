@@ -41,6 +41,14 @@ export const navItems: PageDescription[] = [
 		path: "/maths",
 		enabled: true,
 	},
+	{
+		id: "programming",
+		emoji: "💻",
+		title: "Programming",
+		description: "Learn programming with Python",
+		path: "/programming",
+		enabled: true,
+	},
 ];
 
 export const getRouteByPageId = (pageId: string): string => {

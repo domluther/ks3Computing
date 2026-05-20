@@ -9,7 +9,8 @@ export type PageDescription = {
 		| "online-safety"
 		| "algorithms"
 		| "maths"
-		| "it-skills";
+		| "it-skills"
+		| "programming";
 	emoji: string;
 	title: string;
 	description: string;
