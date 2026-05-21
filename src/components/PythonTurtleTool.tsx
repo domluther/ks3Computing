@@ -18,7 +18,7 @@ type CommandType =
 	| "penup"
 	| "pendown";
 type Phase = "drawing" | "animating" | "done";
-type Difficulty = "beginner" | "medium" | "hard";
+type Difficulty = "beginner" | "medium" | "hard" | "expert";
 
 interface TurtleCommand {
 	type: CommandType;
@@ -492,6 +492,225 @@ const HARD_PROGRAMS: Program[] = [
 	},
 ];
 
+const EXPERT_PROGRAMS: Program[] = [
+	{
+		id: "exp-square",
+		code: ["for i in range(4):", "    forward(80)", "    left(90)"],
+		commands: [
+			{ type: "forward", value: 80 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 80 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 80 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 80 },
+			{ type: "left", value: 90 },
+		],
+	},
+	{
+		id: "exp-triangle",
+		code: ["for i in range(3):", "    forward(80)", "    left(120)"],
+		commands: [
+			{ type: "forward", value: 80 },
+			{ type: "left", value: 120 },
+			{ type: "forward", value: 80 },
+			{ type: "left", value: 120 },
+			{ type: "forward", value: 80 },
+			{ type: "left", value: 120 },
+		],
+	},
+	{
+		id: "exp-rectangle",
+		code: [
+			"for i in range(2):",
+			"    forward(90)",
+			"    left(90)",
+			"    forward(45)",
+			"    left(90)",
+		],
+		commands: [
+			{ type: "forward", value: 90 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 45 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 90 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 45 },
+			{ type: "left", value: 90 },
+		],
+	},
+	{
+		id: "exp-staircase",
+		code: [
+			"for i in range(3):",
+			"    forward(50)",
+			"    right(90)",
+			"    forward(50)",
+			"    left(90)",
+		],
+		commands: [
+			{ type: "forward", value: 50 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 50 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 50 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 50 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 50 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 50 },
+			{ type: "left", value: 90 },
+		],
+	},
+	{
+		id: "exp-pentagon",
+		code: ["for i in range(5):", "    forward(60)", "    left(72)"],
+		commands: [
+			{ type: "forward", value: 60 },
+			{ type: "left", value: 72 },
+			{ type: "forward", value: 60 },
+			{ type: "left", value: 72 },
+			{ type: "forward", value: 60 },
+			{ type: "left", value: 72 },
+			{ type: "forward", value: 60 },
+			{ type: "left", value: 72 },
+			{ type: "forward", value: 60 },
+			{ type: "left", value: 72 },
+		],
+	},
+	{
+		id: "exp-hexagon",
+		code: ["for i in range(6):", "    forward(45)", "    left(60)"],
+		commands: [
+			{ type: "forward", value: 45 },
+			{ type: "left", value: 60 },
+			{ type: "forward", value: 45 },
+			{ type: "left", value: 60 },
+			{ type: "forward", value: 45 },
+			{ type: "left", value: 60 },
+			{ type: "forward", value: 45 },
+			{ type: "left", value: 60 },
+			{ type: "forward", value: 45 },
+			{ type: "left", value: 60 },
+			{ type: "forward", value: 45 },
+			{ type: "left", value: 60 },
+		],
+	},
+	{
+		id: "exp-battlements",
+		code: [
+			"for i in range(3):",
+			"    forward(30)",
+			"    left(90)",
+			"    forward(20)",
+			"    right(90)",
+			"    forward(30)",
+			"    right(90)",
+			"    forward(20)",
+			"    left(90)",
+		],
+		commands: [
+			{ type: "forward", value: 30 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 20 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 30 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 20 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 30 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 20 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 30 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 20 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 30 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 20 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 30 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 20 },
+			{ type: "left", value: 90 },
+		],
+	},
+	{
+		id: "exp-line-then-steps",
+		code: [
+			"forward(60)",
+			"for i in range(3):",
+			"    forward(40)",
+			"    right(90)",
+			"    forward(40)",
+			"    left(90)",
+		],
+		commands: [
+			{ type: "forward", value: 60 },
+			{ type: "forward", value: 40 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 40 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 40 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 40 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 40 },
+			{ type: "right", value: 90 },
+			{ type: "forward", value: 40 },
+			{ type: "left", value: 90 },
+		],
+	},
+	{
+		id: "exp-square-then-diagonal",
+		code: [
+			"for i in range(4):",
+			"    forward(60)",
+			"    left(90)",
+			"right(45)",
+			"forward(60)",
+		],
+		commands: [
+			{ type: "forward", value: 60 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 60 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 60 },
+			{ type: "left", value: 90 },
+			{ type: "forward", value: 60 },
+			{ type: "left", value: 90 },
+			{ type: "right", value: 45 },
+			{ type: "forward", value: 60 },
+		],
+	},
+	{
+		id: "exp-dashed-line",
+		code: [
+			"for i in range(3):",
+			"    forward(40)",
+			"    penup()",
+			"    forward(20)",
+			"    pendown()",
+		],
+		commands: [
+			{ type: "forward", value: 40 },
+			{ type: "penup", value: 0 },
+			{ type: "forward", value: 20 },
+			{ type: "pendown", value: 0 },
+			{ type: "forward", value: 40 },
+			{ type: "penup", value: 0 },
+			{ type: "forward", value: 20 },
+			{ type: "pendown", value: 0 },
+			{ type: "forward", value: 40 },
+			{ type: "penup", value: 0 },
+			{ type: "forward", value: 20 },
+			{ type: "pendown", value: 0 },
+		],
+	},
+];
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function commandToString(cmd: TurtleCommand): string {
@@ -572,6 +791,7 @@ const PythonTurtleTool: React.FC = () => {
 	const [shuffledBeginner] = useState(() => shuffleArray(BEGINNER_PROGRAMS));
 	const [shuffledMedium] = useState(() => shuffleArray(MEDIUM_PROGRAMS));
 	const [shuffledHard] = useState(() => shuffleArray(HARD_PROGRAMS));
+	const [shuffledExpert] = useState(() => shuffleArray(EXPERT_PROGRAMS));
 	const [programIndex, setProgramIndex] = useState(0);
 	const [phase, setPhase] = useState<Phase>("drawing");
 	const [isPointerDown, setIsPointerDown] = useState(false);
@@ -591,7 +811,9 @@ const PythonTurtleTool: React.FC = () => {
 			? shuffledBeginner
 			: difficulty === "medium"
 				? shuffledMedium
-				: shuffledHard;
+				: difficulty === "hard"
+					? shuffledHard
+					: shuffledExpert;
 	const program = programs[programIndex % programs.length];
 
 	// ── Starting indicator ──────────────────────────────────────────────────
@@ -999,7 +1221,7 @@ const PythonTurtleTool: React.FC = () => {
 			<div className="flex items-center justify-between mb-4">
 				<BackToHub location="/programming" />
 				<div className="flex gap-2">
-					{(["beginner", "medium", "hard"] as const).map((d) => (
+					{(["beginner", "medium", "hard", "expert"] as const).map((d) => (
 						<button
 							key={d}
 							type="button"
@@ -1010,7 +1232,9 @@ const PythonTurtleTool: React.FC = () => {
 										? "bg-green-500 text-white"
 										: d === "medium"
 											? "bg-amber-500 text-white"
-											: "bg-rose-500 text-white"
+											: d === "hard"
+												? "bg-rose-500 text-white"
+												: "bg-violet-600 text-white"
 									: "bg-slate-200 text-slate-600 hover:bg-slate-300"
 							}`}
 						>
@@ -1018,7 +1242,9 @@ const PythonTurtleTool: React.FC = () => {
 								? "🐢 Beginner"
 								: d === "medium"
 									? "⚡ Medium"
-									: "🔥 Hard"}
+									: d === "hard"
+										? "🔥 Hard"
+										: "💡 Expert"}
 						</button>
 					))}
 				</div>
@@ -1046,14 +1272,18 @@ const PythonTurtleTool: React.FC = () => {
 							{copied ? "✓ Copied!" : "⎘ Copy"}
 						</button>
 					</div>
-					<div className="p-4 font-mono text-sm leading-7 rounded-lg bg-slate-900">
+					<div className="p-4 font-mono text-sm leading-7 whitespace-pre rounded-lg bg-slate-900">
 						{program.code
 							? program.code.map((line, i) => (
 									<div
 										// biome-ignore lint/suspicious/noArrayIndexKey: static program lines
 										key={i}
 										className={
-											/^\w+ =/.test(line) ? "text-amber-300" : "text-green-400"
+											/^for /.test(line)
+												? "text-violet-400"
+												: /^\w+ =/.test(line)
+													? "text-amber-300"
+													: "text-green-400"
 										}
 									>
 										{line}
@@ -1068,7 +1298,7 @@ const PythonTurtleTool: React.FC = () => {
 					</div>
 
 					<div className="p-3 mt-4 space-y-1 text-xs border rounded-lg bg-slate-50 border-slate-200 text-slate-600">
-						{difficulty !== "hard" ? (
+						{difficulty === "beginner" || difficulty === "medium" ? (
 							<>
 								<p className="mb-1 font-semibold text-slate-700">
 									Command guide:
@@ -1109,7 +1339,7 @@ const PythonTurtleTool: React.FC = () => {
 									</>
 								)}
 							</>
-						) : (
+						) : difficulty === "hard" ? (
 							<>
 								<p className="mb-1 font-semibold text-slate-700">
 									Variable rules:
@@ -1132,6 +1362,29 @@ const PythonTurtleTool: React.FC = () => {
 								</p>
 								<p className="pt-1 text-slate-400">
 									Work out the value of each variable before tracing.
+								</p>
+							</>
+						) : (
+							<>
+								<p className="mb-1 font-semibold text-slate-700">Loop rules:</p>
+								<p>
+									<span className="font-mono text-violet-600">
+										for i in range(n):
+									</span>{" "}
+									— repeat the body n times
+								</p>
+								<p>
+									<span className="font-mono text-indigo-600">
+										&nbsp;&nbsp;&nbsp;&nbsp;forward(n)
+									</span>{" "}
+									— indented = inside the loop
+								</p>
+								<p>
+									<span className="font-mono text-indigo-600">forward(n)</span>{" "}
+									— no indent = outside the loop
+								</p>
+								<p className="pt-1 text-slate-400">
+									Count the loop body steps and multiply by range.
 								</p>
 							</>
 						)}
@@ -1234,7 +1487,9 @@ const PythonTurtleTool: React.FC = () => {
 								<span className="inline-block w-4 h-0.5 bg-green-500 rounded" />
 								Actual path
 							</span>
-							{(difficulty === "medium" || difficulty === "hard") && (
+							{(difficulty === "medium" ||
+								difficulty === "hard" ||
+								difficulty === "expert") && (
 								<span className="flex items-center gap-1.5">
 									<span className="inline-block w-4 border-t-2 border-dashed border-slate-400" />
 									Pen up
