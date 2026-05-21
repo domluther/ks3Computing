@@ -530,6 +530,41 @@ function computeSegments(program: Program): Segment[] {
 	return segments;
 }
 
+function drawScaleBarOnCtx(ctx: CanvasRenderingContext2D) {
+	const barLeft = 14;
+	const lineY = 28;
+	const tickTop = 20;
+	const labelY = 38;
+	ctx.fillStyle = "rgba(255,255,255,0.85)";
+	ctx.beginPath();
+	ctx.roundRect(10, 13, 158, 32, 4);
+	ctx.fill();
+	ctx.beginPath();
+	ctx.moveTo(barLeft, lineY);
+	ctx.lineTo(barLeft + 150, lineY);
+	ctx.strokeStyle = "#1e293b";
+	ctx.lineWidth = 1.5;
+	ctx.setLineDash([]);
+	ctx.stroke();
+	for (const offset of [0, 50, 100, 150]) {
+		ctx.beginPath();
+		ctx.moveTo(barLeft + offset, tickTop);
+		ctx.lineTo(barLeft + offset, lineY);
+		ctx.stroke();
+	}
+	ctx.font = "10px monospace";
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.fillStyle = "#1e293b";
+	for (const [offset, label] of [
+		[50, "50"],
+		[100, "100"],
+		[150, "150"],
+	] as const) {
+		ctx.fillText(label, barLeft + offset, labelY);
+	}
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const PythonTurtleTool: React.FC = () => {
@@ -542,11 +577,14 @@ const PythonTurtleTool: React.FC = () => {
 	const [isPointerDown, setIsPointerDown] = useState(false);
 	const [copied, setCopied] = useState(false);
 	const [annotate, setAnnotate] = useState(false);
+	const [showScale, setShowScale] = useState(false);
 
 	const userCanvasRef = useRef<HTMLCanvasElement>(null);
 	const turtleCanvasRef = useRef<HTMLCanvasElement>(null);
 	const animFrameRef = useRef<number>(0);
 	const lastPointRef = useRef<{ x: number; y: number } | null>(null);
+	const showScaleRef = useRef(showScale);
+	showScaleRef.current = showScale;
 
 	const programs =
 		difficulty === "beginner"
@@ -597,6 +635,10 @@ const PythonTurtleTool: React.FC = () => {
 		turtleCtx?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 		setPhase("drawing");
 		drawStartIndicator();
+		if (showScaleRef.current) {
+			const ctx = turtleCanvasRef.current?.getContext("2d");
+			if (ctx) drawScaleBarOnCtx(ctx);
+		}
 	}, [program, drawStartIndicator]);
 
 	useEffect(() => {
@@ -731,7 +773,47 @@ const PythonTurtleTool: React.FC = () => {
 				ctx.fillText(label, lx, ly);
 			}
 		}
-	}, [program, annotate]);
+
+		// Scale bar
+		if (showScale) {
+			const barLeft = 14;
+			const lineY = 28;
+			const tickTop = 20;
+			const labelY = 38;
+			// Background
+			ctx.fillStyle = "rgba(255,255,255,0.85)";
+			ctx.beginPath();
+			ctx.roundRect(10, 13, 158, 32, 4);
+			ctx.fill();
+			// Line
+			ctx.beginPath();
+			ctx.moveTo(barLeft, lineY);
+			ctx.lineTo(barLeft + 150, lineY);
+			ctx.strokeStyle = "#1e293b";
+			ctx.lineWidth = 1.5;
+			ctx.setLineDash([]);
+			ctx.stroke();
+			// Ticks at 0, 50, 100, 150
+			for (const offset of [0, 50, 100, 150]) {
+				ctx.beginPath();
+				ctx.moveTo(barLeft + offset, tickTop);
+				ctx.lineTo(barLeft + offset, lineY);
+				ctx.stroke();
+			}
+			// Labels at 50, 100, 150
+			ctx.font = "10px monospace";
+			ctx.textAlign = "center";
+			ctx.textBaseline = "middle";
+			ctx.fillStyle = "#1e293b";
+			for (const [offset, label] of [
+				[50, "50"],
+				[100, "100"],
+				[150, "150"],
+			] as const) {
+				ctx.fillText(label, barLeft + offset, labelY);
+			}
+		}
+	}, [program, annotate, showScale]);
 
 	// Draw final frame when animation completes (phase flips to "done")
 	// biome-ignore lint/correctness/useExhaustiveDependencies: drawFinalFrame intentionally excluded — we only want this to fire when phase changes, not when program changes
@@ -739,11 +821,26 @@ const PythonTurtleTool: React.FC = () => {
 		if (phase === "done") drawFinalFrame();
 	}, [phase]);
 
-	// Redraw when annotate is toggled while already in "done" state
-	// biome-ignore lint/correctness/useExhaustiveDependencies: phase and drawFinalFrame intentionally excluded — we only want this to fire when annotate changes
+	// Redraw when annotate is toggled while in "done" state
+	// biome-ignore lint/correctness/useExhaustiveDependencies: phase and drawFinalFrame intentionally excluded
 	useEffect(() => {
 		if (phase === "done") drawFinalFrame();
 	}, [annotate]); // eslint-disable-line
+
+	// Handle showScale toggle in both phases
+	// biome-ignore lint/correctness/useExhaustiveDependencies: phase and drawFinalFrame intentionally excluded
+	useEffect(() => {
+		if (phase === "done") {
+			drawFinalFrame();
+		} else if (phase === "drawing") {
+			// Redraw start indicator then overlay scale bar
+			drawStartIndicator();
+			if (showScale) {
+				const ctx = turtleCanvasRef.current?.getContext("2d");
+				if (ctx) drawScaleBarOnCtx(ctx);
+			}
+		}
+	}, [showScale]); // eslint-disable-line
 
 	const animateTurtle = useCallback(() => {
 		const canvas = turtleCanvasRef.current;
@@ -1103,19 +1200,29 @@ const PythonTurtleTool: React.FC = () => {
 						/>
 					</div>
 
-					{/* Annotate toggle */}
-					{phase !== "drawing" && (
-						<label className="flex items-center gap-2 mt-2 text-xs cursor-pointer select-none text-slate-600">
+					{/* Annotate + scale toggles */}
+					<div className="flex flex-wrap gap-4 mt-2">
+						{phase !== "drawing" && (
+							<label className="flex items-center gap-2 text-xs cursor-pointer select-none text-slate-600">
+								<input
+									type="checkbox"
+									checked={annotate}
+									onChange={(e) => setAnnotate(e.target.checked)}
+									className="w-3.5 h-3.5 accent-indigo-500"
+								/>
+								Annotate lengths
+							</label>
+						)}
+						<label className="flex items-center gap-2 text-xs cursor-pointer select-none text-slate-600">
 							<input
 								type="checkbox"
-								checked={annotate}
-								onChange={(e) => setAnnotate(e.target.checked)}
+								checked={showScale}
+								onChange={(e) => setShowScale(e.target.checked)}
 								className="w-3.5 h-3.5 accent-indigo-500"
 							/>
-							Annotate lengths
+							Show scale
 						</label>
-					)}
-
+					</div>
 					{/* Legend */}
 					{phase !== "drawing" && (
 						<div className="flex flex-wrap gap-4 mt-2 text-xs text-slate-500">
