@@ -541,6 +541,7 @@ const PythonTurtleTool: React.FC = () => {
 	const [phase, setPhase] = useState<Phase>("drawing");
 	const [isPointerDown, setIsPointerDown] = useState(false);
 	const [copied, setCopied] = useState(false);
+	const [annotate, setAnnotate] = useState(false);
 
 	const userCanvasRef = useRef<HTMLCanvasElement>(null);
 	const turtleCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -592,6 +593,8 @@ const PythonTurtleTool: React.FC = () => {
 		if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
 		const userCtx = userCanvasRef.current?.getContext("2d");
 		userCtx?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+		const turtleCtx = turtleCanvasRef.current?.getContext("2d");
+		turtleCtx?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 		setPhase("drawing");
 		drawStartIndicator();
 	}, [program, drawStartIndicator]);
@@ -656,6 +659,91 @@ const PythonTurtleTool: React.FC = () => {
 	};
 
 	// ── Turtle animation ─────────────────────────────────────────────────────
+
+	const drawFinalFrame = useCallback(() => {
+		const canvas = turtleCanvasRef.current;
+		if (!canvas) return;
+		const ctx = canvas.getContext("2d");
+		if (!ctx) return;
+
+		const segments = computeSegments(program);
+		const segLengths = segments.map((s) =>
+			Math.sqrt((s.x2 - s.x1) ** 2 + (s.y2 - s.y1) ** 2),
+		);
+		const startX = CANVAS_SIZE / 2;
+		const startY = CANVAS_SIZE / 2;
+
+		ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+
+		// Draw all segments
+		for (let i = 0; i < segments.length; i++) {
+			const seg = segments[i];
+			ctx.beginPath();
+			ctx.moveTo(seg.x1, seg.y1);
+			ctx.lineTo(seg.x2, seg.y2);
+			if (seg.draw) {
+				ctx.strokeStyle = "#16a34a";
+				ctx.lineWidth = 3;
+				ctx.setLineDash([]);
+			} else {
+				ctx.strokeStyle = "#94a3b8";
+				ctx.lineWidth = 2;
+				ctx.setLineDash([6, 6]);
+			}
+			ctx.lineCap = "round";
+			ctx.stroke();
+			ctx.setLineDash([]);
+		}
+
+		// Start dot
+		ctx.beginPath();
+		ctx.arc(startX, startY, 5, 0, Math.PI * 2);
+		ctx.fillStyle = "#6366f1";
+		ctx.fill();
+
+		// Length annotations
+		if (annotate) {
+			ctx.font = "11px monospace";
+			ctx.textAlign = "center";
+			ctx.textBaseline = "middle";
+			for (let i = 0; i < segments.length; i++) {
+				const seg = segments[i];
+				const segLen = segLengths[i];
+				if (segLen < 1) continue;
+				const mx = (seg.x1 + seg.x2) / 2;
+				const my = (seg.y1 + seg.y2) / 2;
+				// Perpendicular offset
+				const dx = seg.x2 - seg.x1;
+				const dy = seg.y2 - seg.y1;
+				const nx = -dy / segLen;
+				const ny = dx / segLen;
+				const lx = mx + nx * 13;
+				const ly = my + ny * 13;
+				const label = Math.round(segLen).toString();
+				const m = ctx.measureText(label);
+				// Background pill
+				ctx.fillStyle = "rgba(255,255,255,0.85)";
+				ctx.beginPath();
+				ctx.roundRect(lx - m.width / 2 - 3, ly - 7, m.width + 6, 14, 3);
+				ctx.fill();
+				// Text
+				ctx.fillStyle = seg.draw ? "#15803d" : "#64748b";
+				ctx.fillText(label, lx, ly);
+			}
+		}
+	}, [program, annotate]);
+
+	// Draw final frame when animation completes (phase flips to "done")
+	// biome-ignore lint/correctness/useExhaustiveDependencies: drawFinalFrame intentionally excluded — we only want this to fire when phase changes, not when program changes
+	useEffect(() => {
+		if (phase === "done") drawFinalFrame();
+	}, [phase]);
+
+	// Redraw when annotate is toggled while already in "done" state
+	// biome-ignore lint/correctness/useExhaustiveDependencies: phase and drawFinalFrame intentionally excluded — we only want this to fire when annotate changes
+	useEffect(() => {
+		if (phase === "done") drawFinalFrame();
+	}, [annotate]); // eslint-disable-line
 
 	const animateTurtle = useCallback(() => {
 		const canvas = turtleCanvasRef.current;
@@ -763,7 +851,7 @@ const PythonTurtleTool: React.FC = () => {
 			distTraveled += TURTLE_SPEED * delta;
 
 			if (distTraveled >= totalLength) {
-				drawFrame(totalLength);
+				drawFinalFrame();
 				setPhase("done");
 				return;
 			}
@@ -773,7 +861,7 @@ const PythonTurtleTool: React.FC = () => {
 		};
 
 		animFrameRef.current = requestAnimationFrame(step);
-	}, [program]);
+	}, [program, drawFinalFrame]);
 
 	// ── Handlers ─────────────────────────────────────────────────────────────
 
@@ -1014,6 +1102,19 @@ const PythonTurtleTool: React.FC = () => {
 							className="absolute inset-0 w-full h-full pointer-events-none"
 						/>
 					</div>
+
+					{/* Annotate toggle */}
+					{phase !== "drawing" && (
+						<label className="flex items-center gap-2 mt-2 text-xs cursor-pointer select-none text-slate-600">
+							<input
+								type="checkbox"
+								checked={annotate}
+								onChange={(e) => setAnnotate(e.target.checked)}
+								className="w-3.5 h-3.5 accent-indigo-500"
+							/>
+							Annotate lengths
+						</label>
+					)}
 
 					{/* Legend */}
 					{phase !== "drawing" && (
