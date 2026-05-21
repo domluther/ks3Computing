@@ -973,7 +973,7 @@ const FilesAndFolders = () => {
 								? `Level ${currentLevel.id} Complete!`
 								: currentLevel.title}
 					</h3>
-					<p className="text-lg text-yellow-300 min-h-[5rem] flex items-center justify-center px-16">
+					<p className="flex items-center justify-center px-16 text-lg text-yellow-300 min-h-20">
 						{isGameComplete
 							? "You've completed all levels! You're a folder navigation pro!"
 							: isLevelComplete
@@ -982,7 +982,7 @@ const FilesAndFolders = () => {
 					</p>
 					<GameButton
 						onClick={() => navigate({ to: "/it-skills" })}
-						className="!absolute top-1/2 -translate-y-1/2 right-4 !py-2 !px-4"
+						className="absolute! top-1/2 -translate-y-1/2 right-4 py-2! px-4!"
 					>
 						Exit
 					</GameButton>
@@ -1045,7 +1045,7 @@ const FilesAndFolders = () => {
 								</div>
 							</div>
 							<button
-								className="flex flex-wrap content-start flex-grow p-4 overflow-y-auto gap-4"
+								className="flex flex-wrap content-start gap-4 p-4 overflow-y-auto grow"
 								onClick={handleContainerClick}
 								onContextMenu={(e) => handleRightClick(e)}
 								onKeyDown={(e) => {
@@ -1130,7 +1130,7 @@ const FilesAndFolders = () => {
 					</div>
 				)}
 			</div>
-			<div className="flex items-center justify-center h-20 p-2 text-center rounded-b-lg gap-4">
+			<div className="flex items-center justify-center h-20 gap-4 p-2 text-center rounded-b-lg">
 				{feedback && (
 					<div
 						className={`p-4 rounded-lg shadow-xl text-white ${feedback.type === "success" ? "bg-green-600" : "bg-red-600"} z-50`}
@@ -1141,7 +1141,7 @@ const FilesAndFolders = () => {
 				{isLevelComplete && !isGameComplete && (
 					<GameButton
 						onClick={handleNext}
-						className="animate-pulse !bg-green-600"
+						className="animate-pulse bg-green-600!"
 					>
 						Next Level
 					</GameButton>
@@ -1151,7 +1151,7 @@ const FilesAndFolders = () => {
 						<GameButton onClick={restartLevel}>Restart Level</GameButton>
 						<GameButton
 							onClick={restartGame}
-							className="!bg-red-600 hover:!bg-red-800"
+							className="bg-red-600! hover:bg-red-800!"
 						>
 							Restart All
 						</GameButton>
@@ -1160,7 +1160,7 @@ const FilesAndFolders = () => {
 				{isGameComplete && (
 					<GameButton
 						onClick={restartGame}
-						className="!bg-blue-600 hover:!bg-blue-800"
+						className="bg-blue-600! hover:bg-blue-800!"
 					>
 						Play Again
 					</GameButton>
@@ -1229,7 +1229,7 @@ const DesktopIcon = ({
 			onDrop={handleDropInternal}
 			onDragOver={handleDragOver}
 			onDragLeave={handleDragLeave}
-			className={`flex flex-col items-center justify-start w-28 h-28 p-2 rounded cursor-pointer transition-colors ${isSelected ? "bg-blue-400/50 border border-blue-500" : "hover:bg-blue-400/30"} ${isDragOver ? "!bg-blue-500/60 border-2 border-dashed border-white" : ""}`}
+			className={`flex flex-col items-center justify-start w-28 h-28 p-2 rounded cursor-pointer transition-colors ${isSelected ? "bg-blue-400/50 border border-blue-500" : "hover:bg-blue-400/30"} ${isDragOver ? "bg-blue-500/60! border-2 border-dashed border-white" : ""}`}
 			onClick={(e) => {
 				e.stopPropagation();
 				onClick();
@@ -1238,10 +1238,10 @@ const DesktopIcon = ({
 			onContextMenu={onContextMenu}
 			type="button"
 		>
-			<div className="flex-shrink-0">
+			<div className="shrink-0">
 				{item.type === "folder" ? <FolderIcon /> : <FileIcon />}
 			</div>
-			<div className="flex items-center justify-center flex-grow w-full mt-1">
+			<div className="flex items-center justify-center w-full mt-1 grow">
 				{isRenaming ? (
 					<input
 						ref={inputRef}
@@ -1256,7 +1256,7 @@ const DesktopIcon = ({
 						className="z-10 w-full px-1 text-sm text-center text-black bg-white border border-blue-500"
 					/>
 				) : (
-					<p className="w-full text-sm text-center text-white break-words">
+					<p className="w-full text-sm text-center text-white wrap-break-word">
 						{item.name}
 					</p>
 				)}

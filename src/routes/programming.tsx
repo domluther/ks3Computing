@@ -8,6 +8,11 @@ function ProgrammingLayout() {
 			route: "/programming/turtle",
 			color: "green" as const,
 		},
+		{
+			text: "Variable Tracer",
+			route: "/programming/variables",
+			color: "purple" as const,
+		},
 	];
 
 	return (

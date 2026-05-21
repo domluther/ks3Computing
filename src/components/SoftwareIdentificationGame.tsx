@@ -998,11 +998,11 @@ const SoftwareIdentificationGame = () => {
 		<button
 			key={choice.softwareType}
 			onClick={onSelect}
-			className="flex items-start p-4 text-left rounded-lg bg-slate-100 text-slate-800 shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 gap-3"
+			className="flex items-start gap-3 p-4 text-left transition-all duration-200 rounded-lg shadow-sm bg-slate-100 text-slate-800 hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 			type="button"
 		>
 			{index !== undefined && (
-				<span className="flex items-center justify-center flex-shrink-0 w-6 h-6 text-sm font-bold text-white bg-blue-600 rounded-full">
+				<span className="flex items-center justify-center w-6 h-6 text-sm font-bold text-white bg-blue-600 rounded-full shrink-0">
 					{index + 1}
 				</span>
 			)}
@@ -1026,7 +1026,7 @@ const SoftwareIdentificationGame = () => {
 		return (
 			<div className="relative w-full h-8 max-w-3xl mb-6 rounded-full shadow-inner bg-slate-200">
 				<div
-					className="h-8 rounded-full bg-linear-to-r from-blue-500 via-green-500 to-emerald-500 transition-all duration-500 ease-out"
+					className="h-8 transition-all duration-500 ease-out rounded-full bg-linear-to-r from-blue-500 via-green-500 to-emerald-500"
 					style={{ width: `${percentage}%` }}
 				></div>
 				<span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-slate-800 drop-shadow-sm">
@@ -1145,7 +1145,7 @@ const SoftwareIdentificationGame = () => {
 		);
 
 		return (
-			<div className="text-center space-y-6">
+			<div className="space-y-6 text-center">
 				<div
 					className={`bg-white p-8 rounded-xl shadow-2xl border-t-8 ${resultData.bgColor.split(" ")[1]}`}
 				>
@@ -1158,7 +1158,7 @@ const SoftwareIdentificationGame = () => {
 					</p>
 					<p className="mb-8 text-lg text-slate-600">{resultData.message}</p>
 
-					<div className="mb-6 text-center grid grid-cols-2 gap-4">
+					<div className="grid grid-cols-2 gap-4 mb-6 text-center">
 						<div className="p-4 rounded-lg bg-green-50">
 							<div className="text-2xl font-bold text-green-600">
 								{summary.correctCount}
@@ -1179,7 +1179,7 @@ const SoftwareIdentificationGame = () => {
 								<HelpCircle className="w-6 h-6 mr-2" />
 								Areas to review:
 							</h4>
-							<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+							<div className="grid grid-cols-1 gap-3 md:grid-cols-2">
 								{uniqueIncorrectAnswers.map((software) => (
 									<div
 										key={software as string}
@@ -1200,7 +1200,7 @@ const SoftwareIdentificationGame = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+		<div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">
 			<ScenarioBasedGame
 				title="Software Identification Game"
 				hubLink="/hardware-software"
@@ -1211,7 +1211,7 @@ const SoftwareIdentificationGame = () => {
 							scenarios and then need to pick the most appropriate software for
 							each task.
 						</p>
-						<div className="my-8 text-sm grid grid-cols-2 md:grid-cols-4 gap-4">
+						<div className="grid grid-cols-2 gap-4 my-8 text-sm md:grid-cols-4">
 							<div className="p-4 rounded-lg bg-blue-50">
 								<FileText className="w-8 h-8 mx-auto mb-2 text-blue-600" />
 								<div className="font-semibold">Word Processing</div>

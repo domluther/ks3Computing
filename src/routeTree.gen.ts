@@ -16,6 +16,7 @@ import { Route as ItSkillsRouteImport } from './routes/it-skills'
 import { Route as HardwareSoftwareRouteImport } from './routes/hardware-software'
 import { Route as AlgorithmsRouteImport } from './routes/algorithms'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProgrammingVariablesRouteImport } from './routes/programming/variables'
 import { Route as ProgrammingTurtleRouteImport } from './routes/programming/turtle'
 import { Route as OnlineSafetySocialCreditRouteImport } from './routes/online-safety/social-credit'
 import { Route as OnlineSafetyPhishingRouteImport } from './routes/online-safety/phishing'
@@ -60,6 +61,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ProgrammingVariablesRoute = ProgrammingVariablesRouteImport.update({
+  id: '/variables',
+  path: '/variables',
+  getParentRoute: () => ProgrammingRoute,
 } as any)
 const ProgrammingTurtleRoute = ProgrammingTurtleRouteImport.update({
   id: '/turtle',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
   '/programming/turtle': typeof ProgrammingTurtleRoute
+  '/programming/variables': typeof ProgrammingVariablesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -146,6 +153,7 @@ export interface FileRoutesByTo {
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
   '/programming/turtle': typeof ProgrammingTurtleRoute
+  '/programming/variables': typeof ProgrammingVariablesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
   '/programming/turtle': typeof ProgrammingTurtleRoute
+  '/programming/variables': typeof ProgrammingVariablesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -185,6 +194,7 @@ export interface FileRouteTypes {
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
     | '/programming/turtle'
+    | '/programming/variables'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -203,6 +213,7 @@ export interface FileRouteTypes {
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
     | '/programming/turtle'
+    | '/programming/variables'
   id:
     | '__root__'
     | '/'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
     | '/programming/turtle'
+    | '/programming/variables'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -283,6 +295,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/programming/variables': {
+      id: '/programming/variables'
+      path: '/variables'
+      fullPath: '/programming/variables'
+      preLoaderRoute: typeof ProgrammingVariablesRouteImport
+      parentRoute: typeof ProgrammingRoute
     }
     '/programming/turtle': {
       id: '/programming/turtle'
@@ -405,10 +424,12 @@ const OnlineSafetyRouteWithChildren = OnlineSafetyRoute._addFileChildren(
 
 interface ProgrammingRouteChildren {
   ProgrammingTurtleRoute: typeof ProgrammingTurtleRoute
+  ProgrammingVariablesRoute: typeof ProgrammingVariablesRoute
 }
 
 const ProgrammingRouteChildren: ProgrammingRouteChildren = {
   ProgrammingTurtleRoute: ProgrammingTurtleRoute,
+  ProgrammingVariablesRoute: ProgrammingVariablesRoute,
 }
 
 const ProgrammingRouteWithChildren = ProgrammingRoute._addFileChildren(
