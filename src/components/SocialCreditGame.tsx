@@ -512,11 +512,11 @@ const SocialCreditGame = () => {
 		<button
 			key={choice.text}
 			onClick={onSelect}
-			className="flex items-start p-4 font-semibold text-left rounded-lg bg-slate-100 text-slate-800 shadow-sm hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 gap-3"
+			className="flex items-start gap-3 p-4 font-semibold text-left transition-all duration-200 rounded-lg shadow-sm bg-slate-100 text-slate-800 hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 			type="button"
 		>
 			{index !== undefined && (
-				<span className="bg-blue-600 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+				<span className="bg-blue-600 text-white text-sm font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5">
 					{index + 1}
 				</span>
 			)}
@@ -628,7 +628,7 @@ const SocialCreditGame = () => {
 		};
 
 		return (
-			<div className="text-center space-y-6">
+			<div className="space-y-6 text-center">
 				<div className="mb-2 text-6xl font-bold text-slate-700">
 					{finalScore}
 				</div>
@@ -639,7 +639,7 @@ const SocialCreditGame = () => {
 					<p className="text-lg text-blue-800">{getScoreAdvice()}</p>
 				</div>
 
-				<div className="text-center grid grid-cols-1 md:grid-cols-3 gap-4">
+				<div className="grid grid-cols-1 gap-4 text-center md:grid-cols-3">
 					<div className="p-4 rounded-lg bg-green-50">
 						<div className="text-2xl font-bold text-green-600">
 							{summary.goodChoicesCount}

@@ -77,7 +77,7 @@ const GameStage: React.FC<GameStageProps> = ({
 					</select>
 				</div>
 			) : (
-				<div className="mb-2 h-[38px]"></div>
+				<div className="mb-2 h-9.5"></div>
 			)}
 
 			{/* Game Area - Fixed height to ensure consistency */}
