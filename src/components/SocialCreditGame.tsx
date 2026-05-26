@@ -17,6 +17,13 @@ interface SocialScenario extends GenericScenario<SocialChoice> {
 	followUpQuestion: string;
 }
 
+interface SocialSummary {
+	totalQuestions: number;
+	poorChoicesCount: number;
+	goodChoicesCount: number;
+	averagePoints: number;
+}
+
 const SocialCreditGame = () => {
 	const QUESTIONS_TO_ASK = 10;
 	const navigate = useNavigate();
@@ -588,7 +595,7 @@ const SocialCreditGame = () => {
 			choice: SocialChoice;
 			scoreChange: number;
 		}>,
-	): GameResults<SocialChoice> => {
+	): GameResults<SocialChoice, SocialSummary> => {
 		const poorChoices = allChoices.filter((c) => c.choice.points < 0);
 		const goodChoices = allChoices.filter((c) => c.choice.points > 0);
 
@@ -606,7 +613,9 @@ const SocialCreditGame = () => {
 		};
 	};
 
-	const resultsRenderer = (results: GameResults<SocialChoice>) => {
+	const resultsRenderer = (
+		results: GameResults<SocialChoice, SocialSummary>,
+	) => {
 		const { finalScore, summary } = results;
 		const poorChoices = results.allChoices.filter((c) => c.choice.points < 0);
 
@@ -679,7 +688,7 @@ const SocialCreditGame = () => {
 	};
 
 	return (
-		<ScenarioBasedGame
+		<ScenarioBasedGame<SocialChoice, SocialSummary>
 			title="Social Credit Game"
 			hubLink="/online-safety"
 			description={

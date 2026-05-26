@@ -155,6 +155,8 @@ const VariableTracerGame = () => {
 
 	const currentProblem = problems[currentIndex];
 	const totalProblems = problems.length;
+	const numberedLines =
+		currentProblem?.lines.map((line, i) => ({ line, lineNum: i + 1 })) ?? [];
 
 	const handleStart = useCallback(() => {
 		setStage("playing");
@@ -199,7 +201,7 @@ const VariableTracerGame = () => {
 			// Focus first input after state update
 			setTimeout(() => firstInputRef.current?.focus(), 50);
 		}
-	}, [currentIndex, totalProblems]);
+	}, [currentIndex]);
 
 	const handleRestart = useCallback(() => {
 		setStage("intro");
@@ -364,13 +366,13 @@ const VariableTracerGame = () => {
 
 					{/* Code block */}
 					<div className="px-6 py-5 font-mono text-base space-y-1.5 bg-slate-900">
-						{currentProblem.lines.map((line, i) => (
+						{numberedLines.map(({ line, lineNum }) => (
 							<div
-								key={`${currentIndex}-line-${i}`}
+								key={`${currentProblem.id}-line-${lineNum}`}
 								className="flex items-baseline gap-4"
 							>
 								<span className="w-4 text-xs text-right select-none text-slate-500 shrink-0">
-									{i + 1}
+									{lineNum}
 								</span>
 								<span className="leading-relaxed text-green-300">{line}</span>
 							</div>

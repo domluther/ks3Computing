@@ -6,7 +6,7 @@ import { BackToHub, GameButton } from "./Buttons";
 export type GameStage = "intro" | "playing" | "feedback" | "results";
 
 export interface GenericChoice {
-	[key: string]: any; // Allow any additional properties
+	[key: string]: unknown;
 }
 
 export interface GenericScenario<TChoice extends GenericChoice> {
@@ -23,21 +23,29 @@ export interface ScoreResult {
 	isPositive?: boolean;
 }
 
-export interface GameResults<TChoice extends GenericChoice> {
+export interface GameResults<
+	TChoice extends GenericChoice,
+	TSummary extends { totalQuestions: number } = {
+		totalQuestions: number;
+		feedback?: string;
+	},
+> {
 	finalScore: number;
 	allChoices: Array<{
 		scenario: GenericScenario<TChoice>;
 		choice: TChoice;
 		scoreChange: number;
 	}>;
-	summary: {
-		totalQuestions: number;
-		[key: string]: any; // Allow custom summary properties
-		feedback?: string; // Explicitly define common properties
-	};
+	summary: TSummary;
 }
 
-export interface ScenarioBasedGameProps<TChoice extends GenericChoice> {
+export interface ScenarioBasedGameProps<
+	TChoice extends GenericChoice,
+	TSummary extends { totalQuestions: number } = {
+		totalQuestions: number;
+		feedback?: string;
+	},
+> {
 	// Game Configuration
 	title: string;
 	hubLink: string;
@@ -63,7 +71,7 @@ export interface ScenarioBasedGameProps<TChoice extends GenericChoice> {
 			choice: TChoice;
 			scoreChange: number;
 		}>,
-	) => GameResults<TChoice>;
+	) => GameResults<TChoice, TSummary>;
 
 	// Display Functions
 	scoreRenderer?: (score: number) => ReactNode;
@@ -72,10 +80,10 @@ export interface ScenarioBasedGameProps<TChoice extends GenericChoice> {
 		scoreChange: number,
 		scenario: GenericScenario<TChoice>,
 	) => ReactNode;
-	resultsRenderer?: (results: GameResults<TChoice>) => ReactNode;
+	resultsRenderer?: (results: GameResults<TChoice, TSummary>) => ReactNode;
 
 	// Event Handlers
-	onGameComplete?: (results: GameResults<TChoice>) => void;
+	onGameComplete?: (results: GameResults<TChoice, TSummary>) => void;
 	onNavigateHome?: () => void;
 
 	// Styling
@@ -86,7 +94,13 @@ export interface ScenarioBasedGameProps<TChoice extends GenericChoice> {
  * Generic component for scenario-based educational games
  * Handles common game flow: intro -> questions -> feedback -> results
  */
-export function ScenarioBasedGame<TChoice extends GenericChoice>({
+export function ScenarioBasedGame<
+	TChoice extends GenericChoice,
+	TSummary extends { totalQuestions: number } = {
+		totalQuestions: number;
+		feedback?: string;
+	},
+>({
 	title,
 	hubLink,
 	description,
@@ -102,7 +116,7 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 	onGameComplete,
 	onNavigateHome,
 	className = "",
-}: ScenarioBasedGameProps<TChoice>) {
+}: ScenarioBasedGameProps<TChoice, TSummary>) {
 	// --- STATE MANAGEMENT ---
 	const [stage, setStage] = useState<GameStage>("intro");
 	const [score, setScore] = useState(initialScore);
@@ -261,7 +275,7 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 		</div>
 	);
 
-	const defaultResultsRenderer = (results: GameResults<TChoice>) => (
+	const defaultResultsRenderer = (results: GameResults<TChoice, TSummary>) => (
 		<div className="text-center">
 			<div className="mb-4 text-4xl font-bold text-slate-700">
 				Final Score: {results.finalScore}
@@ -310,7 +324,7 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 							);
 
 							return React.cloneElement(choiceElement as React.ReactElement, {
-								key: choice.id,
+								key: choice.id as React.Key,
 							});
 						})}
 					</div>
@@ -351,7 +365,9 @@ export function ScenarioBasedGame<TChoice extends GenericChoice>({
 						Game Complete!
 					</h2>
 
-					{(resultsRenderer || defaultResultsRenderer)(results)}
+					{resultsRenderer
+						? resultsRenderer(results)
+						: defaultResultsRenderer(results)}
 
 					<div className="flex justify-center mt-8 gap-4">
 						<GameButton onClick={restartGame}>Play Again</GameButton>

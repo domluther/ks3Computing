@@ -42,7 +42,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 	const levels: DragLevel[] = ["open", "simple", "zigzag", "narrow", "maze"];
 
 	// Get duck properties based on size
-	const getDuckRadius = () => {
+	const getDuckRadius = useCallback(() => {
 		switch (duckSize) {
 			case "small":
 				return 15;
@@ -53,9 +53,9 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 			default:
 				return 20;
 		}
-	};
+	}, [duckSize]);
 
-	const getDuckFontSize = () => {
+	const getDuckFontSize = useCallback(() => {
 		switch (duckSize) {
 			case "small":
 				return 30;
@@ -66,7 +66,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 			default:
 				return 40;
 		}
-	};
+	}, [duckSize]);
 
 	const drawWalls = useCallback(
 		(ctx: CanvasRenderingContext2D, w: number, h: number) => {
@@ -202,7 +202,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 					return false;
 			}
 		},
-		[level, duckSize],
+		[level, getDuckRadius],
 	);
 
 	const updatePositions = useCallback(() => {
@@ -289,7 +289,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
 		ctx.fillText("🐥", duckPos.x, duckPos.y);
-	}, [duckPos, goalPos, drawWalls, updatePositions]);
+	}, [duckPos, goalPos, drawWalls, updatePositions, getDuckFontSize]);
 
 	useEffect(() => {
 		draw();

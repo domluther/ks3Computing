@@ -2,25 +2,25 @@ import { hardwareData, sortedHardwareItems } from "../../data/hardwareData";
 
 describe("hardwareData", () => {
 	it("categorises input devices correctly", () => {
-		expect(hardwareData["Keyboard"]).toBe("input");
-		expect(hardwareData["Mouse"]).toBe("input");
-		expect(hardwareData["Scanner"]).toBe("input");
-		expect(hardwareData["Webcam"]).toBe("input");
-		expect(hardwareData["Microphone"]).toBe("input");
+		expect(hardwareData.Keyboard).toBe("input");
+		expect(hardwareData.Mouse).toBe("input");
+		expect(hardwareData.Scanner).toBe("input");
+		expect(hardwareData.Webcam).toBe("input");
+		expect(hardwareData.Microphone).toBe("input");
 	});
 
 	it("categorises output devices correctly", () => {
-		expect(hardwareData["Monitor"]).toBe("output");
-		expect(hardwareData["Printer"]).toBe("output");
-		expect(hardwareData["Speakers"]).toBe("output");
-		expect(hardwareData["Headphones"]).toBe("output");
-		expect(hardwareData["Projector"]).toBe("output");
+		expect(hardwareData.Monitor).toBe("output");
+		expect(hardwareData.Printer).toBe("output");
+		expect(hardwareData.Speakers).toBe("output");
+		expect(hardwareData.Headphones).toBe("output");
+		expect(hardwareData.Projector).toBe("output");
 	});
 
 	it("categorises both input and output devices correctly", () => {
-		expect(hardwareData["Touchscreen"]).toBe("both");
+		expect(hardwareData.Touchscreen).toBe("both");
 		expect(hardwareData["Game Controller"]).toBe("both");
-		expect(hardwareData["Smartwatch"]).toBe("both");
+		expect(hardwareData.Smartwatch).toBe("both");
 	});
 
 	it("only contains valid category values", () => {

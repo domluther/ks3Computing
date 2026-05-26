@@ -872,7 +872,9 @@ const PythonTurtleTool: React.FC = () => {
 	// ── User drawing ─────────────────────────────────────────────────────────
 
 	const getCanvasPoint = (e: React.PointerEvent<HTMLCanvasElement>) => {
-		const rect = userCanvasRef.current!.getBoundingClientRect();
+		const canvas = userCanvasRef.current;
+		if (!canvas) return { x: 0, y: 0 };
+		const rect = canvas.getBoundingClientRect();
 		return {
 			x: (e.clientX - rect.left) * (CANVAS_SIZE / rect.width),
 			y: (e.clientY - rect.top) * (CANVAS_SIZE / rect.height),

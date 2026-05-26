@@ -95,11 +95,12 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 	const [timeLeft, setTimeLeft] = useState(INITIAL_SECONDS);
 	const [inputValue, setInputValue] = useState("");
 	const [enteredWords, setEnteredWords] = useState<
-		{ word: string; status: "correct" | "incorrect" }[]
+		{ id: number; word: string; status: "correct" | "incorrect" }[]
 	>([]);
 	const [correctWords, setCorrectWords] = useState<string[]>([]);
 	const [isFinished, setIsFinished] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
+	const wordIdRef = useRef(0);
 
 	const finishGame = useCallback(() => {
 		setIsFinished(true);
@@ -137,14 +138,16 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 		const isNew = !correctWords.some((w) => w.toLowerCase() === word);
 
 		if (isCorrect && isNew) {
+			const newId = wordIdRef.current++;
 			setEnteredWords((prev) => [
-				{ word: inputValue.trim(), status: "correct" },
+				{ id: newId, word: inputValue.trim(), status: "correct" },
 				...prev,
 			]);
 			setCorrectWords((prev) => [...prev, inputValue.trim()]);
 		} else {
+			const newId = wordIdRef.current++;
 			setEnteredWords((prev) => [
-				{ word: inputValue.trim(), status: "incorrect" },
+				{ id: newId, word: inputValue.trim(), status: "incorrect" },
 				...prev,
 			]);
 		}
@@ -294,9 +297,9 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
 			<div className="h-64 p-4 overflow-y-auto border rounded-lg bg-slate-50 border-slate-200">
 				<ul className="space-y-2">
-					{enteredWords.map((item, index) => (
+					{enteredWords.map((item) => (
 						<li
-							key={`${item.word}-${index}`}
+							key={item.id}
 							className={`p-2 rounded-md text-white font-semibold flex items-center gap-3 ${
 								item.status === "correct" ? "bg-green-500" : "bg-amber-500"
 							}`}

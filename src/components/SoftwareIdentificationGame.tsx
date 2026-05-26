@@ -32,6 +32,14 @@ interface SoftwareScenario extends GenericScenario<SoftwareChoice> {
 	correctSoftware: string;
 }
 
+interface SoftwareSummary {
+	totalQuestions: number;
+	correctCount: number;
+	incorrectCount: number;
+	percentage: number;
+	incorrectSoftwareTypes: string[];
+}
+
 const SoftwareIdentificationGame = () => {
 	const QUESTIONS_TO_ASK = 10;
 	const navigate = useNavigate();
@@ -1075,7 +1083,7 @@ const SoftwareIdentificationGame = () => {
 			choice: SoftwareChoice;
 			scoreChange: number;
 		}>,
-	): GameResults<SoftwareChoice> => {
+	): GameResults<SoftwareChoice, SoftwareSummary> => {
 		const correctAnswers = allChoices.filter((c) => c.choice.isCorrect);
 		const incorrectAnswers = allChoices.filter((c) => !c.choice.isCorrect);
 
@@ -1096,7 +1104,9 @@ const SoftwareIdentificationGame = () => {
 		};
 	};
 
-	const resultsRenderer = (results: GameResults<SoftwareChoice>) => {
+	const resultsRenderer = (
+		results: GameResults<SoftwareChoice, SoftwareSummary>,
+	) => {
 		const { finalScore, summary } = results;
 		const maxScore = results.allChoices.length * 10;
 		const percentage = summary.percentage || 0;
@@ -1201,7 +1211,7 @@ const SoftwareIdentificationGame = () => {
 
 	return (
 		<div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">
-			<ScenarioBasedGame
+			<ScenarioBasedGame<SoftwareChoice, SoftwareSummary>
 				title="Software Identification Game"
 				hubLink="/hardware-software"
 				description={
