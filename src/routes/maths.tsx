@@ -8,12 +8,11 @@ function MathsLayout() {
 			route: "/maths/ascii",
 			color: "blue" as const,
 		},
-		// Commented out until implementation
-		// {
-		// 	text: "File Simulation",
-		// 	route: "/maths/file-simulation",
-		// 	color: "green" as const,
-		// },
+		{
+			text: "Binary Images",
+			route: "/maths/binary-image",
+			color: "purple" as const,
+		},
 	];
 
 	return (
