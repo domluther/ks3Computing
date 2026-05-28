@@ -60,7 +60,7 @@ const HubLayout: React.FC<HubLayoutProps> = ({
 
 	// Render child routes for sub-pages
 	return (
-		<div className="w-full bg-slate-100 p-4 rounded-lg shadow-inner min-h-[85vh] flex flex-col items-center justify-center">
+		<div className="w-full bg-slate-100 p-4 rounded-lg shadow-inner min-h-[85vh] flex flex-col items-center justify-start">
 			<Outlet />
 		</div>
 	);

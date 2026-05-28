@@ -227,7 +227,7 @@ const VariableTracerGame = () => {
 	// --- RENDER: INTRO ---
 	if (stage === "intro") {
 		return (
-			<div className="flex flex-col items-center justify-center min-h-screen p-6 bg-slate-100">
+			<div className="flex flex-col items-center justify-center w-full p-6">
 				<div className="w-full max-w-2xl text-center space-y-6">
 					<div className="flex justify-center">
 						<div className="p-5 border rounded-full bg-violet-100 border-violet-200">
@@ -281,7 +281,7 @@ const VariableTracerGame = () => {
 						: "🥉 Keep practising!";
 
 		return (
-			<div className="flex flex-col items-center justify-center min-h-screen p-6 bg-slate-100">
+			<div className="flex flex-col items-center justify-center w-full p-6">
 				<div className="w-full max-w-xl text-center space-y-6">
 					<div className="text-6xl">
 						{percent === 100 ? "🏆" : percent >= 70 ? "⭐" : "💡"}
@@ -327,7 +327,7 @@ const VariableTracerGame = () => {
 	);
 
 	return (
-		<div className="flex flex-col items-center justify-start min-h-screen px-4 pt-10 pb-16 bg-slate-100">
+		<div className="flex flex-col items-center justify-start w-full px-4 pt-6 pb-10">
 			<div className="w-full max-w-2xl space-y-6">
 				{/* Header */}
 				<div className="flex items-center justify-between">

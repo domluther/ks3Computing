@@ -403,7 +403,7 @@ export function ScenarioBasedGame<
 
 	return (
 		<div
-			className={`min-h-screen bg-linear-to-br from-blue-50 to-purple-50 flex items-center justify-center ${className}`}
+			className={`w-full bg-linear-to-br from-blue-50 to-purple-50 flex flex-col items-center py-8 ${className}`}
 		>
 			{renderStage()}
 		</div>

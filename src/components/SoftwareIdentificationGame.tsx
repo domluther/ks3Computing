@@ -1210,7 +1210,7 @@ const SoftwareIdentificationGame = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">
+		<div className="w-full">
 			<ScenarioBasedGame<SoftwareChoice, SoftwareSummary>
 				title="Software Identification Game"
 				hubLink="/hardware-software"

@@ -710,7 +710,7 @@ const NameHardware = () => {
 	};
 
 	return (
-		<main className="flex items-center justify-center w-full min-h-screen p-4 font-sans bg-slate-100">
+		<main className="flex items-center justify-center w-full p-4 font-sans">
 			<div className="w-full">{renderContent()}</div>
 		</main>
 	);
