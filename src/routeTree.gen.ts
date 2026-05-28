@@ -21,6 +21,7 @@ import { Route as ProgrammingTurtleRouteImport } from './routes/programming/turt
 import { Route as OnlineSafetySocialCreditRouteImport } from './routes/online-safety/social-credit'
 import { Route as OnlineSafetyPhishingRouteImport } from './routes/online-safety/phishing'
 import { Route as MathsBinaryImageRouteImport } from './routes/maths/binary-image'
+import { Route as MathsBinaryDenaryRouteImport } from './routes/maths/binary-denary'
 import { Route as MathsAsciiRouteImport } from './routes/maths/ascii'
 import { Route as ItSkillsMouseSkillsRouteImport } from './routes/it-skills/mouse-skills'
 import { Route as ItSkillsFilesAndFoldersRouteImport } from './routes/it-skills/files-and-folders'
@@ -89,6 +90,11 @@ const MathsBinaryImageRoute = MathsBinaryImageRouteImport.update({
   path: '/binary-image',
   getParentRoute: () => MathsRoute,
 } as any)
+const MathsBinaryDenaryRoute = MathsBinaryDenaryRouteImport.update({
+  id: '/binary-denary',
+  path: '/binary-denary',
+  getParentRoute: () => MathsRoute,
+} as any)
 const MathsAsciiRoute = MathsAsciiRouteImport.update({
   id: '/ascii',
   path: '/ascii',
@@ -137,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/it-skills/files-and-folders': typeof ItSkillsFilesAndFoldersRoute
   '/it-skills/mouse-skills': typeof ItSkillsMouseSkillsRoute
   '/maths/ascii': typeof MathsAsciiRoute
+  '/maths/binary-denary': typeof MathsBinaryDenaryRoute
   '/maths/binary-image': typeof MathsBinaryImageRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/it-skills/files-and-folders': typeof ItSkillsFilesAndFoldersRoute
   '/it-skills/mouse-skills': typeof ItSkillsMouseSkillsRoute
   '/maths/ascii': typeof MathsAsciiRoute
+  '/maths/binary-denary': typeof MathsBinaryDenaryRoute
   '/maths/binary-image': typeof MathsBinaryImageRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
@@ -178,6 +186,7 @@ export interface FileRoutesById {
   '/it-skills/files-and-folders': typeof ItSkillsFilesAndFoldersRoute
   '/it-skills/mouse-skills': typeof ItSkillsMouseSkillsRoute
   '/maths/ascii': typeof MathsAsciiRoute
+  '/maths/binary-denary': typeof MathsBinaryDenaryRoute
   '/maths/binary-image': typeof MathsBinaryImageRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
@@ -200,6 +209,7 @@ export interface FileRouteTypes {
     | '/it-skills/files-and-folders'
     | '/it-skills/mouse-skills'
     | '/maths/ascii'
+    | '/maths/binary-denary'
     | '/maths/binary-image'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/it-skills/files-and-folders'
     | '/it-skills/mouse-skills'
     | '/maths/ascii'
+    | '/maths/binary-denary'
     | '/maths/binary-image'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
@@ -240,6 +251,7 @@ export interface FileRouteTypes {
     | '/it-skills/files-and-folders'
     | '/it-skills/mouse-skills'
     | '/maths/ascii'
+    | '/maths/binary-denary'
     | '/maths/binary-image'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
@@ -343,6 +355,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MathsBinaryImageRouteImport
       parentRoute: typeof MathsRoute
     }
+    '/maths/binary-denary': {
+      id: '/maths/binary-denary'
+      path: '/binary-denary'
+      fullPath: '/maths/binary-denary'
+      preLoaderRoute: typeof MathsBinaryDenaryRouteImport
+      parentRoute: typeof MathsRoute
+    }
     '/maths/ascii': {
       id: '/maths/ascii'
       path: '/ascii'
@@ -419,11 +438,13 @@ const ItSkillsRouteWithChildren = ItSkillsRoute._addFileChildren(
 
 interface MathsRouteChildren {
   MathsAsciiRoute: typeof MathsAsciiRoute
+  MathsBinaryDenaryRoute: typeof MathsBinaryDenaryRoute
   MathsBinaryImageRoute: typeof MathsBinaryImageRoute
 }
 
 const MathsRouteChildren: MathsRouteChildren = {
   MathsAsciiRoute: MathsAsciiRoute,
+  MathsBinaryDenaryRoute: MathsBinaryDenaryRoute,
   MathsBinaryImageRoute: MathsBinaryImageRoute,
 }
 
