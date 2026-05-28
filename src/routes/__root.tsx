@@ -39,7 +39,7 @@ function RootErrorComponent({ error }: { error: Error }) {
 			<div className="mx-auto bg-white rounded-b-lg shadow-2xl max-w-7xl">
 				<Header />
 				<Navbar />
-				<main className="flex flex-col items-center justify-center gap-6 px-6 py-24 text-center">
+				<main className="flex flex-col items-center justify-center px-6 py-24 text-center gap-6">
 					<div className="text-5xl">⚠️</div>
 					<h1 className="text-2xl font-bold text-slate-800">
 						Oops! This page didn't load
@@ -70,20 +70,20 @@ function RootErrorComponent({ error }: { error: Error }) {
 						<button
 							type="button"
 							onClick={() => router.invalidate()}
-							className="px-4 py-2 font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
+							className="px-4 py-2 font-medium text-white bg-blue-600 rounded-lg transition-colors hover:bg-blue-700"
 						>
 							Try again
 						</button>
 						<button
 							type="button"
 							onClick={() => window.location.reload()}
-							className="px-4 py-2 font-medium transition-colors border rounded-lg border-slate-300 text-slate-700 hover:bg-slate-50"
+							className="px-4 py-2 font-medium border rounded-lg transition-colors border-slate-300 text-slate-700 hover:bg-slate-50"
 						>
 							Refresh page
 						</button>
 						<Link
 							to="/"
-							className="px-4 py-2 font-medium text-white transition-colors rounded-lg bg-slate-700 hover:bg-slate-800"
+							className="px-4 py-2 font-medium text-white rounded-lg transition-colors bg-slate-700 hover:bg-slate-800"
 						>
 							Go to home page
 						</Link>

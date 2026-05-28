@@ -1261,7 +1261,7 @@ const PythonTurtleTool: React.FC = () => {
 			</p>
 
 			{/* Main grid */}
-			<div className="grid items-start gap-6 md:grid-cols-2">
+			<div className="items-start grid gap-6 md:grid-cols-2">
 				{/* Code panel */}
 				<div>
 					<div className="flex items-center justify-between mb-2">
@@ -1274,7 +1274,7 @@ const PythonTurtleTool: React.FC = () => {
 							{copied ? "✓ Copied!" : "⎘ Copy"}
 						</button>
 					</div>
-					<div className="p-4 font-mono text-sm leading-7 whitespace-pre rounded-lg bg-slate-900">
+					<div className="p-4 font-mono text-sm whitespace-pre rounded-lg leading-7 bg-slate-900">
 						{program.code
 							? program.code.map((line, i) => (
 									<div
@@ -1299,7 +1299,7 @@ const PythonTurtleTool: React.FC = () => {
 								))}
 					</div>
 
-					<div className="p-3 mt-4 space-y-1 text-xs border rounded-lg bg-slate-50 border-slate-200 text-slate-600">
+					<div className="p-3 mt-4 text-xs border rounded-lg space-y-1 bg-slate-50 border-slate-200 text-slate-600">
 						{difficulty === "beginner" || difficulty === "medium" ? (
 							<>
 								<p className="mb-1 font-semibold text-slate-700">
@@ -1456,9 +1456,9 @@ const PythonTurtleTool: React.FC = () => {
 					</div>
 
 					{/* Annotate + scale toggles */}
-					<div className="flex flex-wrap gap-4 mt-2">
+					<div className="flex flex-wrap mt-2 gap-4">
 						{phase !== "drawing" && (
-							<label className="flex items-center gap-2 text-xs cursor-pointer select-none text-slate-600">
+							<label className="flex items-center text-xs cursor-pointer select-none gap-2 text-slate-600">
 								<input
 									type="checkbox"
 									checked={annotate}
@@ -1468,7 +1468,7 @@ const PythonTurtleTool: React.FC = () => {
 								Annotate lengths
 							</label>
 						)}
-						<label className="flex items-center gap-2 text-xs cursor-pointer select-none text-slate-600">
+						<label className="flex items-center text-xs cursor-pointer select-none gap-2 text-slate-600">
 							<input
 								type="checkbox"
 								checked={showScale}
@@ -1480,7 +1480,7 @@ const PythonTurtleTool: React.FC = () => {
 					</div>
 					{/* Legend */}
 					{phase !== "drawing" && (
-						<div className="flex flex-wrap gap-4 mt-2 text-xs text-slate-500">
+						<div className="flex flex-wrap mt-2 text-xs gap-4 text-slate-500">
 							<span className="flex items-center gap-1.5">
 								<span className="inline-block w-4 h-0.5 bg-blue-500 rounded" />
 								Your prediction
@@ -1507,12 +1507,12 @@ const PythonTurtleTool: React.FC = () => {
 			</div>
 
 			{/* Action buttons */}
-			<div className="flex items-center justify-center gap-4 mt-6">
+			<div className="flex items-center justify-center mt-6 gap-4">
 				{phase === "drawing" && (
 					<button
 						type="button"
 						onClick={handleSubmit}
-						className="px-8 py-3 font-bold text-white transition-colors bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700"
+						className="px-8 py-3 font-bold text-white bg-indigo-600 rounded-lg shadow-md transition-colors hover:bg-indigo-700"
 					>
 						Submit &amp; See Answer
 					</button>
@@ -1521,7 +1521,7 @@ const PythonTurtleTool: React.FC = () => {
 					<button
 						type="button"
 						onClick={handleNextChallenge}
-						className="px-8 py-3 font-bold text-white transition-colors bg-green-600 rounded-lg shadow-md hover:bg-green-700"
+						className="px-8 py-3 font-bold text-white bg-green-600 rounded-lg shadow-md transition-colors hover:bg-green-700"
 					>
 						Next Challenge →
 					</button>

@@ -228,7 +228,7 @@ const VariableTracerGame = () => {
 	if (stage === "intro") {
 		return (
 			<div className="flex flex-col items-center justify-center min-h-screen p-6 bg-slate-100">
-				<div className="w-full max-w-2xl space-y-6 text-center">
+				<div className="w-full max-w-2xl text-center space-y-6">
 					<div className="flex justify-center">
 						<div className="p-5 border rounded-full bg-violet-100 border-violet-200">
 							<Code2 className="w-14 h-14 text-violet-600" />
@@ -239,7 +239,7 @@ const VariableTracerGame = () => {
 						Can you follow the code and work out what value each variable holds
 						at the end?
 					</p>
-					<div className="p-6 space-y-3 text-left bg-white border shadow-sm border-slate-200 rounded-2xl">
+					<div className="p-6 text-left bg-white border space-y-3 shadow-sm border-slate-200 rounded-2xl">
 						<p className="text-sm font-semibold tracking-wider uppercase text-violet-600">
 							How to play
 						</p>
@@ -282,7 +282,7 @@ const VariableTracerGame = () => {
 
 		return (
 			<div className="flex flex-col items-center justify-center min-h-screen p-6 bg-slate-100">
-				<div className="w-full max-w-xl space-y-6 text-center">
+				<div className="w-full max-w-xl text-center space-y-6">
 					<div className="text-6xl">
 						{percent === 100 ? "🏆" : percent >= 70 ? "⭐" : "💡"}
 					</div>
@@ -302,7 +302,7 @@ const VariableTracerGame = () => {
 						</p>
 						<div className="h-3 mt-4 overflow-hidden rounded-full bg-slate-200">
 							<div
-								className="h-full transition-all duration-700 rounded-full bg-linear-to-r from-violet-500 to-purple-400"
+								className="h-full rounded-full transition-all duration-700 bg-linear-to-r from-violet-500 to-purple-400"
 								style={{ width: `${percent}%` }}
 							/>
 						</div>
@@ -345,7 +345,7 @@ const VariableTracerGame = () => {
 				{/* Progress bar */}
 				<div className="h-2 overflow-hidden rounded-full bg-slate-200">
 					<div
-						className="h-full transition-all duration-500 rounded-full bg-linear-to-r from-violet-500 to-purple-400"
+						className="h-full rounded-full transition-all duration-500 bg-linear-to-r from-violet-500 to-purple-400"
 						style={{
 							width: `${((currentIndex + (stage === "feedback" ? 1 : 0)) / totalProblems) * 100}%`,
 						}}
