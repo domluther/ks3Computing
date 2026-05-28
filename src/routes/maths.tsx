@@ -19,7 +19,7 @@ function MathsLayout() {
 		<HubLayout
 			basePath="/maths"
 			title="Computing Maths Hub"
-			description="Learn how computers represent data. Discover how to decode ASCII and understand how computers represent text!"
+			description="Learn how computers represent data. Discover how to decode ASCII and understand how computers represent text."
 			buttons={buttons}
 		/>
 	);

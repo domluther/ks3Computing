@@ -19,7 +19,7 @@ function ProgrammingLayout() {
 		<HubLayout
 			basePath="/programming"
 			title="Programming Hub"
-			description="Learn to program with Python. Use Python Turtle to create drawings and animations with code!"
+			description="Learn to program with Python. Use Python Turtle to create drawings and animations with code."
 			buttons={buttons}
 		/>
 	);

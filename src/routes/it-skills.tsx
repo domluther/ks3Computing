@@ -6,7 +6,7 @@ function ITSkillsLayout() {
 		<HubLayout
 			basePath="/it-skills"
 			title="IT Skills Hub"
-			description="Practice essential computer skills through hands-on activities. Master mouse control and file management!"
+			description="Practice essential computer skills through hands-on activities. Master mouse control and file management."
 			buttons={[
 				{
 					text: "Mouse Skills Challenge",

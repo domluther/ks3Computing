@@ -357,15 +357,15 @@ const BinaryImageTool: React.FC = () => {
 					</h1>
 					<p className="text-lg text-indigo-600">
 						{mode === "decode"
-							? "Use the binary code and colour key to colour in the pixel grid!"
+							? "Use the binary code and colour key to colour in the pixel grid."
 							: mode === "encode"
-								? "Look at the coloured image and write the binary code!"
-								: "Pick a resolution and type binary values to draw your own pixel image!"}
+								? "Look at the coloured image and write the binary code."
+								: "Pick a resolution and type binary values to draw your own pixel image."}
 					</p>
 				</div>
 
 				{/* Mode selector */}
-				<div className="flex justify-center gap-3 mb-4">
+				<div className="flex justify-center mb-4 gap-3">
 					<button
 						type="button"
 						onClick={() => {
@@ -413,7 +413,7 @@ const BinaryImageTool: React.FC = () => {
 					</button>
 				</div>
 				{mode !== "draw" && (
-					<div className="flex items-center justify-center gap-3 mb-6">
+					<div className="flex items-center justify-center mb-6 gap-3">
 						<span className="text-sm font-semibold text-gray-500">
 							Colour Depth:
 						</span>
@@ -438,15 +438,15 @@ const BinaryImageTool: React.FC = () => {
 				<div className="px-5 py-3 mb-8 text-sm text-center text-gray-600 border border-indigo-100 bg-white/70 rounded-xl">
 					<span className="font-bold text-indigo-700">How to use: </span>
 					{mode === "decode"
-						? "Click each pixel in the grid to cycle through the colours. Match the grid to the binary pattern!"
+						? "Click each pixel in the grid to cycle through the colours. Match the grid to the binary pattern."
 						: mode === "encode"
-							? `Look at the coloured image and type the ${colorDepth}-bit code for each pixel!`
+							? `Look at the coloured image and type the ${colorDepth}-bit code for each pixel.`
 							: "Type the binary value in each pixel to pick its colour."}
 				</div>
 
 				{mode !== "draw" && (
 					<>
-						<div className="grid items-start grid-cols-1 gap-6 lg:grid-cols-3">
+						<div className="items-start grid grid-cols-1 gap-6 lg:grid-cols-3">
 							{/* Binary code panel */}
 							<div
 								className={`bg-white rounded-2xl shadow-md p-6 border border-indigo-100 ${mode === "encode" ? "lg:order-3" : "lg:order-1"}`}
@@ -643,12 +643,12 @@ const BinaryImageTool: React.FC = () => {
 						</div>
 
 						{/* Submit / Result area */}
-						<div className="flex flex-col items-center gap-4 mt-8">
+						<div className="flex flex-col items-center mt-8 gap-4">
 							{!isSubmitted ? (
 								<button
 									type="button"
 									onClick={() => setIsSubmitted(true)}
-									className="px-10 py-4 text-xl font-bold text-white transition-all bg-indigo-600 shadow-lg hover:bg-indigo-700 rounded-2xl hover:shadow-xl active:scale-95"
+									className="px-10 py-4 text-xl font-bold text-white bg-indigo-600 shadow-lg transition-all hover:bg-indigo-700 rounded-2xl hover:shadow-xl active:scale-95"
 								>
 									Submit Answer
 								</button>
@@ -662,8 +662,8 @@ const BinaryImageTool: React.FC = () => {
 											</p>
 											<p className="mt-1 text-green-600">
 												{mode === "decode"
-													? "You decoded the binary image correctly!"
-													: "You encoded the image correctly!"}
+													? "You decoded the binary image correctly."
+													: "You encoded the image correctly."}
 											</p>
 										</div>
 									) : (
@@ -673,8 +673,8 @@ const BinaryImageTool: React.FC = () => {
 											</p>
 											<p className="mt-1 text-amber-600">
 												{mode === "decode"
-													? "Red borders show incorrect pixels — check the binary again!"
-													: "Red boxes show incorrect values — check the colours again!"}
+													? "Red borders show incorrect pixels — check the binary again."
+													: "Red boxes show incorrect values — check the colours again."}
 											</p>
 										</div>
 									)}
@@ -683,7 +683,7 @@ const BinaryImageTool: React.FC = () => {
 										<button
 											type="button"
 											onClick={reset}
-											className="px-6 py-3 font-bold text-indigo-700 transition-all bg-white border-2 border-indigo-400 rounded-xl hover:bg-indigo-50"
+											className="px-6 py-3 font-bold text-indigo-700 bg-white border-2 border-indigo-400 transition-all rounded-xl hover:bg-indigo-50"
 										>
 											{isPerfect ? "Next Puzzle" : "Try Again"}
 										</button>
@@ -691,7 +691,7 @@ const BinaryImageTool: React.FC = () => {
 											<button
 												type="button"
 												onClick={() => setShowAnswer((s) => !s)}
-												className="px-6 py-3 font-bold transition-all bg-white border-2 border-slate-300 text-slate-600 rounded-xl hover:bg-slate-50"
+												className="px-6 py-3 font-bold bg-white border-2 transition-all border-slate-300 text-slate-600 rounded-xl hover:bg-slate-50"
 											>
 												{showAnswer ? "Hide Answer" : "Show Answer"}
 											</button>

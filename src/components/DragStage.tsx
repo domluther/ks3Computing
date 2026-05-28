@@ -136,7 +136,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 	return (
 		<GameStage
 			title="Stage 4: Drag and Duck"
-			instructions="Drag all the ducks to the pond!"
+			instructions="Drag all the ducks to the pond."
 			elapsed={elapsed}
 			additionalInfo={`Ducks remaining: ${ducks.length}`}
 			onRestart={handleRestart}

@@ -24,7 +24,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [level, setLevel] = useState<DragLevel>("open");
 	const [isDragging, setIsDragging] = useState(false);
-	const [message, setMessage] = useState("Drag the duck to the pond!");
+	const [message, setMessage] = useState("Drag the duck to the pond.");
 	const [duckSize, setDuckSize] = useState<DuckSize>("medium");
 	const [duckPos, setDuckPos] = useState<{ x: number; y: number }>({
 		x: 0,
@@ -354,7 +354,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 
 		// Check if reached goal area (but don't complete until mouse up)
 		if (isPointNear(x, y, goalPos.x, goalPos.y, 60)) {
-			setMessage("Great! Now drop the duck in the pond to complete the level!");
+			setMessage("Great! Now drop the duck in the pond to complete the level.");
 		} else {
 			setMessage("Keep going! Drag the duck to the middle of the pond.");
 		}
@@ -371,14 +371,14 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 				setLevel(levels[currentIndex + 1]);
 				setIsDragging(false);
 				setDuckPos(startPos);
-				setMessage("Great! Level complete. Try the next one!");
+				setMessage("Great! Level complete. Try the next one.");
 			} else {
 				completeStage(onComplete); // Use shared completion logic
 			}
 		} else {
 			setIsDragging(false);
 			if (!isPointNear(duckPos.x, duckPos.y, goalPos.x, goalPos.y, 60)) {
-				setMessage("Click and drag the duck to the pond, then drop it!");
+				setMessage("Click and drag the duck to the pond, then drop it.");
 			}
 		}
 	};
@@ -387,7 +387,7 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 		// Reset all state and restart the game
 		setLevel("open");
 		setIsDragging(false);
-		setMessage("Drag the duck to the pond!");
+		setMessage("Drag the duck to the pond.");
 		resetTimer(); // Reset the timer completely
 		onRestart();
 	};

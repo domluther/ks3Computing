@@ -32,7 +32,7 @@ const problems: Problem[] = [
 	{
 		id: 2,
 		title: "Adding to a Variable",
-		hint: "Read each line from top to bottom — the variable changes!",
+		hint: "Read each line from top to bottom — the variable changes.",
 		lines: ["score = 0", "score = score + 1"],
 		variables: [{ name: "score", expectedValue: "1" }],
 	},
@@ -93,7 +93,7 @@ const problems: Problem[] = [
 	{
 		id: 8,
 		title: "Both Variables Change",
-		hint: "Update each variable as you reach its line — the order matters!",
+		hint: "Update each variable as you reach its line — the order matters.",
 		lines: [
 			"a = 12",
 			"b = 3",

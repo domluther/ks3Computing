@@ -22,7 +22,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 	const [level, setLevel] = useState<TraceLevel>("line");
 	const [isDrawing, setIsDrawing] = useState(false);
 	const [message, setMessage] = useState(
-		"Move your mouse to the START circle to begin!",
+		"Move your mouse to the START circle to begin.",
 	);
 	const [lineThickness, setLineThickness] = useState<LineThickness>("default");
 
@@ -250,7 +250,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 		// Reset all state and restart the game
 		setLevel("line");
 		setIsDrawing(false);
-		setMessage("Move your mouse to the START circle to begin!");
+		setMessage("Move your mouse to the START circle to begin.");
 		resetTimer(); // Reset the timer completely
 		onRestart();
 	};

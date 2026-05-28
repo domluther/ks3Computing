@@ -399,8 +399,8 @@ const ASCIIBinaryTool: React.FC = () => {
 							</p>
 							<p className="mb-2">
 								{mode === "asciiToText"
-									? "Look at the ASCII values and type the corresponding letters. Remember: it's case sensitive!"
-									: "Look at the message and type the ASCII decimal value for each character. Use the ASCII table for help!"}
+									? "Look at the ASCII values and type the corresponding letters. Remember: it's case sensitive."
+									: "Look at the message and type the ASCII decimal value for each character. Use the ASCII table for help."}
 							</p>
 							{gameMode === "practice" && (
 								<p className="mt-2 text-sm text-blue-600">
