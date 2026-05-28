@@ -218,8 +218,9 @@ const BinaryImageDrawMode: React.FC = () => {
 								gap: "3px",
 							}}
 						>
-							{drawGrid.map((row, ri) =>
-								row.map((cell, ci) => {
+							{drawGrid
+								.flatMap((row, ri) => row.map((cell, ci) => ({ ri, ci, cell })))
+								.map(({ ri, ci, cell }) => {
 									const isValid = cell.length === drawColorDepth;
 									return (
 										<div
@@ -258,8 +259,7 @@ const BinaryImageDrawMode: React.FC = () => {
 											/>
 										</div>
 									);
-								}),
-							)}
+								})}
 						</div>
 					</div>
 				</div>
