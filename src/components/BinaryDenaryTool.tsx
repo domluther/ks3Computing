@@ -67,8 +67,7 @@ const BinaryDenaryTool: React.FC = () => {
 	// Generate a new question whenever difficulty or mode changes
 	useEffect(() => {
 		nextQuestion(mode, bits, max);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [difficulty, mode]);
+	}, [mode, bits, max, nextQuestion]);
 
 	const checkAnswer = useCallback(
 		(currentBitInputs: string[], currentDenaryInput: string) => {
@@ -250,8 +249,8 @@ const BinaryDenaryTool: React.FC = () => {
 					</div>
 					{streak > 0 && (
 						<div className="flex flex-wrap justify-center gap-0.5 max-w-45">
-							{Array.from({ length: ducksToShow }, (_, i) => (
-								<span key={i} className="text-base leading-none">
+							{[...Array(ducksToShow).keys()].map((n) => (
+								<span key={n} className="text-base leading-none">
 									🦆
 								</span>
 							))}
@@ -370,10 +369,14 @@ const BinaryDenaryTool: React.FC = () => {
 
 						{/* Denary input */}
 						<div className="flex flex-col items-center gap-3">
-							<label className="text-sm font-medium text-slate-500">
+							<label
+								htmlFor="denary-answer"
+								className="text-sm font-medium text-slate-500"
+							>
 								Your denary answer:
 							</label>
 							<input
+								id="denary-answer"
 								ref={denaryRef}
 								type="text"
 								inputMode="numeric"
