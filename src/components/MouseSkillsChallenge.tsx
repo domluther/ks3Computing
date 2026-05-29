@@ -52,6 +52,9 @@ const MouseSkillsChallenge = () => {
 			case "intro":
 				return (
 					<div className="p-8 text-center">
+						<div className="flex justify-start mb-4">
+							<BackToHub location="/it-skills" />
+						</div>
 						<h2 className="mb-4 text-4xl font-bold text-slate-800">
 							Mouse Skills Challenge
 						</h2>
@@ -63,7 +66,6 @@ const MouseSkillsChallenge = () => {
 						<GameButton onClick={() => setStage("tracing")}>
 							Start Challenge
 						</GameButton>
-						<BackToHub location="/it-skills" />
 					</div>
 				);
 			case "tracing":
@@ -109,6 +111,9 @@ const MouseSkillsChallenge = () => {
 
 				return (
 					<div className="p-8 text-center">
+						<div className="flex justify-start mb-4">
+							<BackToHub location="/it-skills" />
+						</div>
 						<h2 className="mb-4 text-4xl font-bold text-slate-800">
 							🏆 Well Done! 🏆
 						</h2>

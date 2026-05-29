@@ -160,17 +160,17 @@ const BinaryDenaryTool: React.FC = () => {
 		DIFFICULTY_CONFIG[difficulty].points + (showPlaceValues ? 0 : 1);
 
 	return (
-		<div className="w-full p-4 flex flex-col items-center gap-5">
+		<div className="flex flex-col items-center w-full p-4 gap-5">
 			{/* Header */}
-			<div className="w-full max-w-3xl flex items-center gap-2">
+			<div className="flex items-center w-full max-w-3xl gap-2">
 				<BackToHub location="/maths" />
 				<h1 className="text-2xl font-bold text-slate-800">Binary ↔ Denary</h1>
 			</div>
 
 			{/* Controls bar */}
-			<div className="w-full max-w-3xl bg-white rounded-2xl shadow-md p-4 flex flex-wrap gap-4 items-center justify-between">
+			<div className="flex flex-wrap items-center justify-between w-full max-w-3xl p-4 bg-white shadow-md rounded-2xl gap-4">
 				{/* Mode toggle */}
-				<div className="flex rounded-xl overflow-hidden border border-slate-200 text-sm font-semibold">
+				<div className="flex overflow-hidden text-sm font-semibold border rounded-xl border-slate-200">
 					<button
 						type="button"
 						onClick={() => setMode("denaryToBinary")}
@@ -196,7 +196,7 @@ const BinaryDenaryTool: React.FC = () => {
 				</div>
 
 				{/* Difficulty */}
-				<div className="flex gap-2 items-center flex-wrap">
+				<div className="flex flex-wrap items-center gap-2">
 					<span className="text-sm font-medium text-slate-500">
 						Difficulty:
 					</span>
@@ -217,7 +217,7 @@ const BinaryDenaryTool: React.FC = () => {
 				</div>
 
 				{/* Place values toggle */}
-				<label className="flex items-center gap-2 cursor-pointer select-none">
+				<label className="flex items-center cursor-pointer select-none gap-2">
 					<input
 						type="checkbox"
 						checked={showPlaceValues}
@@ -231,10 +231,10 @@ const BinaryDenaryTool: React.FC = () => {
 			</div>
 
 			{/* Stats bar */}
-			<div className="w-full max-w-3xl flex gap-3 flex-wrap justify-center">
+			<div className="flex flex-wrap justify-center w-full max-w-3xl gap-3">
 				{/* Streak card */}
 				<div className="flex-1 min-w-37.5 bg-white rounded-2xl shadow-sm px-5 py-3 flex flex-col items-center gap-1">
-					<span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+					<span className="text-xs font-semibold tracking-wide uppercase text-slate-400">
 						🦆 Streak
 					</span>
 					<div className="flex items-baseline gap-2">
@@ -264,16 +264,16 @@ const BinaryDenaryTool: React.FC = () => {
 				</div>
 				{/* Points card */}
 				<div className="flex-1 min-w-37.5 bg-white rounded-2xl shadow-sm px-5 py-3 flex flex-col items-center gap-1">
-					<span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
+					<span className="text-xs font-semibold tracking-wide uppercase text-slate-400">
 						⭐ Points
 					</span>
 					<span className="text-4xl font-bold text-yellow-500 tabular-nums">
 						{points}
 					</span>
-					<span className="text-xs text-slate-400 font-medium">
+					<span className="text-xs font-medium text-slate-400">
 						+{pointsPerCorrect} per correct
 						{!showPlaceValues && (
-							<span className="text-emerald-500 font-semibold">
+							<span className="font-semibold text-emerald-500">
 								{" "}
 								(incl. +1 bonus)
 							</span>
@@ -283,21 +283,21 @@ const BinaryDenaryTool: React.FC = () => {
 			</div>
 
 			{/* Main card */}
-			<div className="w-full max-w-3xl bg-white rounded-2xl shadow-md p-6 flex flex-col items-center gap-6">
+			<div className="flex flex-col items-center w-full max-w-3xl p-6 bg-white shadow-md rounded-2xl gap-6">
 				{mode === "denaryToBinary" ? (
 					<>
 						{/* Prompt */}
 						<div className="text-center">
-							<p className="text-sm font-medium text-slate-500 mb-2">
+							<p className="mb-2 text-sm font-medium text-slate-500">
 								Convert to binary:
 							</p>
-							<p className="text-7xl font-bold text-slate-800 tabular-nums">
+							<p className="font-bold text-7xl text-slate-800 tabular-nums">
 								{currentNumber}
 							</p>
 						</div>
 
 						{/* Bit input grid */}
-						<div className="flex gap-2 flex-wrap justify-center">
+						<div className="flex flex-wrap justify-center gap-2">
 							{placeValues.map((pv, i) => {
 								const isWrongBit =
 									feedback === "incorrect" && bitInputs[i] !== correctBits[i];
@@ -305,7 +305,7 @@ const BinaryDenaryTool: React.FC = () => {
 								return (
 									<div key={pv} className="flex flex-col items-center gap-1">
 										{showPlaceValues && (
-											<span className="text-xs font-mono text-slate-400 tabular-nums">
+											<span className="font-mono text-xs text-slate-400 tabular-nums">
 												{pv}
 											</span>
 										)}
@@ -339,17 +339,17 @@ const BinaryDenaryTool: React.FC = () => {
 					<>
 						{/* Binary display */}
 						<div className="text-center">
-							<p className="text-sm font-medium text-slate-500 mb-2">
+							<p className="mb-2 text-sm font-medium text-slate-500">
 								Convert to denary:
 							</p>
-							<div className="flex gap-2 flex-wrap justify-center">
+							<div className="flex flex-wrap justify-center gap-2">
 								{correctBits.map((bit, i) => (
 									<div
 										key={placeValues[i]}
 										className="flex flex-col items-center gap-1"
 									>
 										{showPlaceValues && (
-											<span className="text-xs font-mono text-slate-400 tabular-nums">
+											<span className="font-mono text-xs text-slate-400 tabular-nums">
 												{placeValues[i]}
 											</span>
 										)}
@@ -420,11 +420,11 @@ const BinaryDenaryTool: React.FC = () => {
 						}`}
 					>
 						{feedback === "correct" ? (
-							<p className="font-semibold text-lg">✅ Correct!</p>
+							<p className="text-lg font-semibold">✅ Correct!</p>
 						) : (
 							<div>
-								<p className="font-semibold text-lg">❌ Not quite!</p>
-								<p className="text-sm mt-1 font-mono font-bold">
+								<p className="text-lg font-semibold">❌ Not quite!</p>
+								<p className="mt-1 font-mono text-sm font-bold">
 									{mode === "denaryToBinary"
 										? `${currentNumber} = ${correctBits.join("")}₂`
 										: `${correctBits.join("")}₂ = ${currentNumber}`}
@@ -439,7 +439,7 @@ const BinaryDenaryTool: React.FC = () => {
 					<button
 						type="button"
 						onClick={handleNextQuestion}
-						className="px-8 py-3 bg-blue-500 text-white font-bold rounded-full hover:bg-blue-600 active:scale-95 transition-all text-lg"
+						className="px-8 py-3 text-lg font-bold text-white bg-blue-500 rounded-full hover:bg-blue-600 active:scale-95 transition-all"
 					>
 						Next →
 					</button>

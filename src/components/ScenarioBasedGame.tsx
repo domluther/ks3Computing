@@ -290,12 +290,14 @@ export function ScenarioBasedGame<
 	const renderIntro = () => (
 		<div className="w-full max-w-2xl p-8 text-center">
 			<div className="p-8 bg-white shadow-lg rounded-xl">
+				<div className="flex justify-start mb-4">
+					<BackToHub location={hubLink} />
+				</div>
 				<h2 className="mb-6 text-4xl font-bold text-slate-700">{title}</h2>
 				<div className="mb-8 text-lg text-slate-600">{description}</div>
 				<GameButton onClick={startGame} className="px-8 py-4 text-xl">
 					Start Game
 				</GameButton>
-				<BackToHub location={hubLink} />
 			</div>
 		</div>
 	);

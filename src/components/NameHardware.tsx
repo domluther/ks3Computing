@@ -701,8 +701,8 @@ const NameHardware = () => {
 								<Button onClick={() => setMode("guessTheWord")}>
 									Guess the Word
 								</Button>
-								<BackToHub location="/hardware-software" />
 							</div>
+							<BackToHub location="/hardware-software" />
 						</div>
 					</Card>
 				);

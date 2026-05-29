@@ -283,6 +283,9 @@ const VariableTracerGame = () => {
 		return (
 			<div className="flex flex-col items-center justify-center w-full p-6">
 				<div className="w-full max-w-xl text-center space-y-6">
+					<div className="flex justify-start">
+						<BackToHub location="/programming" />
+					</div>
 					<div className="text-6xl">
 						{percent === 100 ? "🏆" : percent >= 70 ? "⭐" : "💡"}
 					</div>
@@ -314,7 +317,6 @@ const VariableTracerGame = () => {
 							<RotateCcw className="inline w-5 h-5 mr-2" />
 							Play Again
 						</GameButton>
-						<BackToHub location="/programming" />
 					</div>
 				</div>
 			</div>

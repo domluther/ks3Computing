@@ -276,6 +276,7 @@ const ASCIIBinaryTool: React.FC = () => {
 		<div className="w-full min-h-screen p-4 bg-linear-to-br from-blue-50 to-purple-50">
 			{/* Header */}
 			<div className="max-w-6xl mx-auto">
+				<BackToHub location="/maths" />
 				<h1 className="mb-2 text-4xl font-bold text-center text-transparent bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text">
 					ASCII Learning Tool
 				</h1>
@@ -546,7 +547,6 @@ const ASCIIBinaryTool: React.FC = () => {
 							</div>
 						</>
 					)}
-					<BackToHub location="/maths" />
 				</div>
 			</div>
 		</div>
