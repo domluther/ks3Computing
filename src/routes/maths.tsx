@@ -4,17 +4,17 @@ import HubLayout from "../components/HubLayout";
 function MathsLayout() {
 	const buttons = [
 		{
-			text: "Binary ↔ Denary",
+			text: "Binary numbers",
 			route: "/maths/binary-denary",
 			color: "green" as const,
 		},
 		{
-			text: "ASCII",
+			text: "Characters",
 			route: "/maths/ascii",
 			color: "blue" as const,
 		},
 		{
-			text: "Binary Images",
+			text: "Binary images",
 			route: "/maths/binary-image",
 			color: "purple" as const,
 		},
@@ -24,7 +24,7 @@ function MathsLayout() {
 		<HubLayout
 			basePath="/maths"
 			title="Computing Maths Hub"
-			description="Learn how computers represent data. Discover how to decode ASCII and understand how computers represent text."
+			description="Learn how computers represent data with binary. Understand how numbers, text, and images can be represented with just 0s and 1s."
 			buttons={buttons}
 		/>
 	);
