@@ -1,3 +1,4 @@
+import { ZoomIn, ZoomOut } from "lucide-react";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { shuffleArray } from "../utils/utils";
@@ -796,6 +797,7 @@ const PythonTurtleTool: React.FC = () => {
 	const [phase, setPhase] = useState<Phase>("drawing");
 	const [isPointerDown, setIsPointerDown] = useState(false);
 	const [copied, setCopied] = useState(false);
+	const [codeFontSize, setCodeFontSize] = useState(14);
 	const [annotate, setAnnotate] = useState(false);
 	const [showScale, setShowScale] = useState(false);
 
@@ -1197,6 +1199,20 @@ const PythonTurtleTool: React.FC = () => {
 		setProgramIndex((i) => i + 1);
 	};
 
+	const handleShuffle = () => {
+		if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+		const len = programs.length;
+		if (len <= 1) {
+			setProgramIndex(0);
+			return;
+		}
+		let next: number;
+		do {
+			next = Math.floor(Math.random() * len);
+		} while (next === programIndex % len);
+		setProgramIndex(next);
+	};
+
 	const handleDifficultyChange = (d: Difficulty) => {
 		if (d === difficulty) return;
 		if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
@@ -1252,29 +1268,60 @@ const PythonTurtleTool: React.FC = () => {
 				</div>
 			</div>
 
-			<h2 className="mb-1 text-2xl font-bold text-center text-slate-800">
-				Python Turtle Predictor
-			</h2>
-			<p className="mb-6 text-sm text-center text-slate-500">
-				Read the code, then draw what you think the turtle will trace on the
-				canvas.
-			</p>
+			<div className="relative mb-6">
+				<h2 className="mb-1 text-2xl font-bold text-center text-slate-800">
+					Python Turtle Predictor
+				</h2>
+				<p className="text-sm text-center text-slate-500">
+					Read the code, then draw what you think the turtle will trace on the
+					canvas.
+				</p>
+				<button
+					type="button"
+					onClick={handleShuffle}
+					className="absolute top-0 right-0 px-3 py-2 text-lg font-bold transition-colors rounded-lg shadow-md bg-slate-200 hover:bg-slate-300 text-slate-700"
+					title="Pick a random question"
+				>
+					🎲
+				</button>
+			</div>
 
 			{/* Main grid */}
-			<div className="items-start grid gap-6 md:grid-cols-2">
+			<div className="grid items-start gap-6 md:grid-cols-2">
 				{/* Code panel */}
 				<div>
 					<div className="flex items-center justify-between mb-2">
 						<h3 className="font-semibold text-slate-700">Code to trace:</h3>
-						<button
-							type="button"
-							onClick={handleCopyCode}
-							className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md bg-slate-700 hover:bg-slate-600 text-slate-200 transition-colors"
-						>
-							{copied ? "✓ Copied!" : "⎘ Copy"}
-						</button>
+						<div className="flex items-center gap-1.5">
+							<button
+								type="button"
+								onClick={() => setCodeFontSize((s) => Math.max(10, s - 2))}
+								className="flex items-center justify-center w-6 h-6 text-sm font-bold transition-colors rounded bg-slate-700 hover:bg-slate-600 text-slate-200"
+								title="Decrease font size"
+							>
+								<ZoomOut size={16} />
+							</button>
+							<button
+								type="button"
+								onClick={() => setCodeFontSize((s) => Math.min(28, s + 2))}
+								className="flex items-center justify-center w-6 h-6 text-sm font-bold transition-colors rounded bg-slate-700 hover:bg-slate-600 text-slate-200"
+								title="Increase font size"
+							>
+								<ZoomIn size={16} />
+							</button>
+							<button
+								type="button"
+								onClick={handleCopyCode}
+								className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md bg-slate-700 hover:bg-slate-600 text-slate-200 transition-colors"
+							>
+								{copied ? "✓ Copied!" : "⎘ Copy"}
+							</button>
+						</div>
 					</div>
-					<div className="p-4 font-mono text-sm whitespace-pre rounded-lg leading-7 bg-slate-900">
+					<div
+						className="p-4 font-mono whitespace-pre rounded-lg bg-slate-900"
+						style={{ fontSize: codeFontSize, lineHeight: 1.7 }}
+					>
 						{program.code
 							? program.code.map((line, i) => (
 									<div
@@ -1299,7 +1346,7 @@ const PythonTurtleTool: React.FC = () => {
 								))}
 					</div>
 
-					<div className="p-3 mt-4 text-xs border rounded-lg space-y-1 bg-slate-50 border-slate-200 text-slate-600">
+					<div className="p-3 mt-4 space-y-1 text-xs border rounded-lg bg-slate-50 border-slate-200 text-slate-600">
 						{difficulty === "beginner" || difficulty === "medium" ? (
 							<>
 								<p className="mb-1 font-semibold text-slate-700">
@@ -1456,9 +1503,9 @@ const PythonTurtleTool: React.FC = () => {
 					</div>
 
 					{/* Annotate + scale toggles */}
-					<div className="flex flex-wrap mt-2 gap-4">
+					<div className="flex flex-wrap gap-4 mt-2">
 						{phase !== "drawing" && (
-							<label className="flex items-center text-xs cursor-pointer select-none gap-2 text-slate-600">
+							<label className="flex items-center gap-2 text-xs cursor-pointer select-none text-slate-600">
 								<input
 									type="checkbox"
 									checked={annotate}
@@ -1468,7 +1515,7 @@ const PythonTurtleTool: React.FC = () => {
 								Annotate lengths
 							</label>
 						)}
-						<label className="flex items-center text-xs cursor-pointer select-none gap-2 text-slate-600">
+						<label className="flex items-center gap-2 text-xs cursor-pointer select-none text-slate-600">
 							<input
 								type="checkbox"
 								checked={showScale}
@@ -1480,7 +1527,7 @@ const PythonTurtleTool: React.FC = () => {
 					</div>
 					{/* Legend */}
 					{phase !== "drawing" && (
-						<div className="flex flex-wrap mt-2 text-xs gap-4 text-slate-500">
+						<div className="flex flex-wrap gap-4 mt-2 text-xs text-slate-500">
 							<span className="flex items-center gap-1.5">
 								<span className="inline-block w-4 h-0.5 bg-blue-500 rounded" />
 								Your prediction
@@ -1507,12 +1554,12 @@ const PythonTurtleTool: React.FC = () => {
 			</div>
 
 			{/* Action buttons */}
-			<div className="flex items-center justify-center mt-6 gap-4">
+			<div className="flex items-center justify-center gap-4 mt-6">
 				{phase === "drawing" && (
 					<button
 						type="button"
 						onClick={handleSubmit}
-						className="px-8 py-3 font-bold text-white bg-indigo-600 rounded-lg shadow-md transition-colors hover:bg-indigo-700"
+						className="px-8 py-3 font-bold text-white transition-colors bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700"
 					>
 						Submit &amp; See Answer
 					</button>
@@ -1521,7 +1568,7 @@ const PythonTurtleTool: React.FC = () => {
 					<button
 						type="button"
 						onClick={handleNextChallenge}
-						className="px-8 py-3 font-bold text-white bg-green-600 rounded-lg shadow-md transition-colors hover:bg-green-700"
+						className="px-8 py-3 font-bold text-white transition-colors bg-green-600 rounded-lg shadow-md hover:bg-green-700"
 					>
 						Next Challenge →
 					</button>
