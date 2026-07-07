@@ -21,7 +21,7 @@ description: "Best practices for creating new pages and game components in this 
 
 **1. Route file** — `src/routes/[topic]/[page-name].tsx`
 
-Keep route files minimal — logic belongs in the component:
+Route files must contain only the `createFileRoute` call and a single component import. Do not add loaders, search parameters, hooks, or any other logic to route files:
 ```tsx
 import { createFileRoute } from "@tanstack/react-router";
 import MyNewComponent from "../../components/MyNewComponent";
@@ -53,6 +53,8 @@ Available colours: `"blue" | "green" | "red" | "orange" | "purple" | "yellow" | 
 2. `src/routes/[topic]/[page].tsx` — sub-page route files
 3. `src/data/pages.ts` — add entry to `navItems` array
 4. `src/types/types.ts` — add new id string to `PageDescription.id` union
+
+> If you omit this step, TypeScript will report a type error such as `Type '"my-topic"' is not assignable to type PageDescription["id"]` at the `navItems` entry in `pages.ts`. Fix by adding the new id string to the union in `types.ts` first.
 
 ---
 
@@ -87,17 +89,13 @@ export const Route = createFileRoute("/my-topic")({
 
 `HubLayout` already provides the background, padding, min-height, and horizontal centering for all sub-pages. Components must work **within** this wrapper.
 
-### DO NOT use on outer wrappers of hub sub-page components:
-- ❌ `min-h-screen` — overflows the layout; HubLayout controls height via `min-h-[85vh]`
-- ❌ `bg-slate-100` on the outer div — HubLayout already provides it
-- ❌ Gradient backgrounds on the outer wrapper (e.g. `bg-linear-to-br from-blue-50 to-purple-50`) — redundant
-- ❌ `justify-center` on the outer flex wrapper — HubLayout uses `justify-start` for sub-routes
-
-### DO start components with:
+### Canonical outer wrapper — every hub sub-page component MUST begin with exactly:
 ```tsx
-<div className="w-full ...">
+<div className="w-full">
 ```
-Then apply internal layout, centering, and padding within cards/sections.
+No other classes are permitted on this outermost div. All layout, centering, background, and padding must be applied to inner elements only.
+
+**Prohibited on the outer wrapper:** `min-h-screen`, `bg-slate-100`, gradient backgrounds (e.g. `bg-linear-to-br`), `justify-center`, or any other background/height/layout class.
 
 ### Root layout context for reference:
 ```
@@ -168,6 +166,8 @@ export default MyGame;
 scoreCalculator={(choice, currentScore) => choice.isCorrect ? currentScore + 1 : currentScore}
 ```
 
+> If `questionsToAsk` is greater than the number of items in `scenarios`, the component will repeat shuffled scenarios until the count is reached. To avoid repetition, ensure `scenarios.length >= questionsToAsk`.
+
 **The component handles the outer wrapper** — do not add your own `min-h-screen` wrapper around it.
 
 ---
@@ -196,7 +196,7 @@ const MyTimedGame = () => {
 };
 ```
 
-`GameStage` outer div is `w-full h-[60vh] flex flex-col items-center p-4`. Do not add height constraints to children that would conflict with this.
+`GameStage` outer div is `w-full h-[60vh] flex flex-col items-center p-4`. Do not apply `h-[*]`, `min-h-[*]`, or `max-h-[*]` Tailwind classes to any direct child of `GameStage`. Use `flex-1` or `overflow-y-auto` to fill remaining space instead.
 
 ---
 
@@ -255,7 +255,7 @@ bg-amber-50 border border-amber-300 rounded-lg     ← hint / warning
 ### Layout
 | Pattern | Classes |
 |---|---|
-| Centred content column | `flex flex-col items-center` |
+| Centred content column (inner wrappers only) | `flex flex-col items-center` |
 | Horizontal button row | `flex justify-center gap-4` |
 | Max content width | `w-full max-w-2xl` (intro), `max-w-3xl` (playing), `max-w-4xl` (results) |
 | Grid for choices | `grid grid-cols-1 gap-4 md:grid-cols-2` |
@@ -345,6 +345,17 @@ describe("MyGame", () => {
 });
 ```
 
+**For components using `ScenarioBasedGame`**, mock `shuffleArray` to return a deterministic order:
+```tsx
+vi.mock("../utils/utils", () => ({ shuffleArray: (arr: unknown[]) => arr }));
+```
+
+**For `GameStage` tests**, use fake timers to control elapsed time:
+```tsx
+beforeEach(() => { vi.useFakeTimers(); });
+afterEach(() => { vi.useRealTimers(); });
+```
+
 ---
 
 ## Checklist for a New Sub-Page
@@ -352,7 +363,7 @@ describe("MyGame", () => {
 - [ ] Route file created at `src/routes/[topic]/[page].tsx` (minimal — just `createFileRoute` + import)
 - [ ] Component file created at `src/components/MyComponent.tsx`
 - [ ] Button registered in `src/routes/[topic].tsx`
-- [ ] Outer component wrapper uses `w-full`, no `min-h-screen`, no outer background
+- [ ] Outer component wrapper uses `w-full` only — no `min-h-screen`, no `bg-slate-100`, no gradient background classes (e.g. `bg-linear-to-br`), no `justify-center`
 - [ ] All `<button>` elements have `type="button"`
 - [ ] `BackToHub location="/topic"` added on intro/results screen
 - [ ] `useNavigate` mocked in tests
