@@ -126,7 +126,7 @@ const BinaryImageDrawMode: React.FC = () => {
 	return (
 		<>
 			{/* Top controls: resolution + colour depth */}
-			<div className="flex flex-col items-center mb-6 gap-3 sm:flex-row sm:justify-center sm:gap-8">
+			<div className="flex flex-col items-center gap-3 mb-6 sm:flex-row sm:justify-center sm:gap-8">
 				<div className="flex items-center gap-3">
 					<span className="text-sm font-semibold text-gray-500">
 						Resolution:
@@ -167,7 +167,7 @@ const BinaryImageDrawMode: React.FC = () => {
 				</div>
 			</div>
 			{/* 4-col layout: colour key | draw grid (col-span-3) */}
-			<div className="items-start grid grid-cols-1 gap-6 lg:grid-cols-4">
+			<div className="grid items-start grid-cols-1 gap-6 lg:grid-cols-4">
 				{/* Colour Key + controls */}
 				<div className="p-6 bg-white border border-indigo-100 shadow-md rounded-2xl">
 					<h2 className="mb-5 text-xl font-bold text-center text-indigo-800">
@@ -198,25 +198,25 @@ const BinaryImageDrawMode: React.FC = () => {
 							))}
 						</tbody>
 					</table>
-					<div className="flex flex-col mt-6 gap-2">
+					<div className="flex flex-col gap-2 mt-6">
 						<button
 							type="button"
 							onClick={randomiseDrawColors}
-							className="w-full px-4 py-2 font-bold bg-white border-2 cursor-pointer transition-all rounded-xl text-slate-600 border-slate-300 hover:bg-slate-50"
+							className="w-full px-4 py-2 font-bold transition-all bg-white border-2 cursor-pointer rounded-xl text-slate-600 border-slate-300 hover:bg-slate-50"
 						>
 							Randomise Colours
 						</button>
 						<button
 							type="button"
 							onClick={() => setShowValues((v) => !v)}
-							className="w-full px-4 py-2 font-bold bg-white border-2 cursor-pointer transition-all rounded-xl text-slate-600 border-slate-300 hover:bg-slate-50"
+							className="w-full px-4 py-2 font-bold transition-all bg-white border-2 cursor-pointer rounded-xl text-slate-600 border-slate-300 hover:bg-slate-50"
 						>
 							{showValues ? "Hide Values" : "Show Values"}
 						</button>
 						<button
 							type="button"
 							onClick={requestClearDrawGrid}
-							className="w-full px-4 py-2 font-bold bg-white border-2 cursor-pointer transition-all text-slate-600 border-slate-300 rounded-xl hover:bg-slate-50"
+							className="w-full px-4 py-2 font-bold transition-all bg-white border-2 cursor-pointer text-slate-600 border-slate-300 rounded-xl hover:bg-slate-50"
 						>
 							Clear Grid
 						</button>
@@ -313,20 +313,20 @@ const BinaryImageDrawMode: React.FC = () => {
 						<button
 							type="button"
 							onClick={cancelClearDrawGrid}
-							className="px-4 py-2 font-bold bg-white border-2 cursor-pointer transition-all text-slate-600 border-slate-300 rounded-xl hover:bg-slate-50"
+							className="px-4 py-2 font-bold transition-all bg-white border-2 cursor-pointer text-slate-600 border-slate-300 rounded-xl hover:bg-slate-50"
 						>
 							Cancel
 						</button>
 						<button
 							type="button"
 							onClick={confirmClearDrawGrid}
-							className="px-4 py-2 font-bold text-white bg-red-600 cursor-pointer transition-all rounded-xl hover:bg-red-700"
+							className="px-4 py-2 font-bold text-white transition-all bg-red-600 cursor-pointer rounded-xl hover:bg-red-700"
 						>
 							Clear Grid
 						</button>
 					</div>
 				</div>
-			</dialog>{" "}
+			</dialog>
 		</>
 	);
 };
