@@ -29,6 +29,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 	const [ducks, setDucks] = useState<Duck[]>([]);
 	const [pondPos, setPondPos] = useState({ x: 45, y: 40 });
 	const [duckSpeed, setDuckSpeed] = useState<DuckSpeed>("default");
+	const [draggingDuckId, setDraggingDuckId] = useState<number | null>(null);
 
 	const generateDucks = useCallback(() => {
 		const speedMultiplier =
@@ -105,6 +106,12 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 		id: number,
 	) => {
 		e.dataTransfer.setData("duckId", id.toString());
+		e.dataTransfer.effectAllowed = "move";
+		setDraggingDuckId(id);
+	};
+
+	const handleDragEnd = () => {
+		setDraggingDuckId(null);
 	};
 
 	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -112,6 +119,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 		const duckId = parseInt(e.dataTransfer.getData("duckId"), 10);
 		const newDucks = ducks.filter((d) => d.id !== duckId);
 		setDucks(newDucks);
+		setDraggingDuckId(null);
 		e.currentTarget.classList.remove("bg-cyan-300");
 		if (newDucks.length === 0) {
 			completeStage(onComplete); // Use shared completion logic
@@ -158,7 +166,7 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 					onDrop={handleDrop}
 					onDragOver={handleDragOver}
 					onDragLeave={handleDragLeave}
-					className="absolute w-48 h-48 bg-blue-400 rounded-full transition-all duration-1000"
+					className="absolute w-48 h-48 transition-all duration-1000 bg-blue-400 rounded-full"
 					style={{ left: `${pondPos.x}%`, top: `${pondPos.y}%` }}
 				></div>
 				{ducks.map((duck) => (
@@ -166,7 +174,10 @@ const DragStage: React.FC<DragStageProps> = ({ onComplete, onRestart }) => {
 						key={duck.id}
 						draggable
 						onDragStart={(e) => handleDragStart(e, duck.id)}
-						className="absolute text-5xl transition-all duration-100 cursor-grab active:cursor-grabbing"
+						onDragEnd={handleDragEnd}
+						className={`absolute text-5xl transition-all duration-100 ${
+							draggingDuckId === duck.id ? "cursor-grabbing" : "cursor-grab"
+						}`}
 						type="button"
 						style={{
 							left: `${duck.x}%`,

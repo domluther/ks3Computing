@@ -9,49 +9,29 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProgrammingRouteImport } from './routes/programming'
-import { Route as OnlineSafetyRouteImport } from './routes/online-safety'
-import { Route as MathsRouteImport } from './routes/maths'
-import { Route as ItSkillsRouteImport } from './routes/it-skills'
-import { Route as HardwareSoftwareRouteImport } from './routes/hardware-software'
-import { Route as AlgorithmsRouteImport } from './routes/algorithms'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProgrammingVariablesRouteImport } from './routes/programming/variables'
-import { Route as ProgrammingTurtleRouteImport } from './routes/programming/turtle'
-import { Route as OnlineSafetySocialCreditRouteImport } from './routes/online-safety/social-credit'
-import { Route as OnlineSafetyPhishingRouteImport } from './routes/online-safety/phishing'
-import { Route as MathsBinaryImageRouteImport } from './routes/maths/binary-image'
-import { Route as MathsBinaryDenaryRouteImport } from './routes/maths/binary-denary'
-import { Route as MathsAsciiRouteImport } from './routes/maths/ascii'
-import { Route as ItSkillsMouseSkillsRouteImport } from './routes/it-skills/mouse-skills'
-import { Route as ItSkillsFilesAndFoldersRouteImport } from './routes/it-skills/files-and-folders'
-import { Route as HardwareSoftwareNameHardwareRouteImport } from './routes/hardware-software/name-hardware'
-import { Route as HardwareSoftwareInputOutputRouteImport } from './routes/hardware-software/input-output'
+import { Route as AlgorithmsRouteImport } from './routes/algorithms'
+import { Route as HardwareSoftwareRouteImport } from './routes/hardware-software'
+import { Route as ItSkillsRouteImport } from './routes/it-skills'
+import { Route as MathsRouteImport } from './routes/maths'
+import { Route as OnlineSafetyRouteImport } from './routes/online-safety'
+import { Route as ProgrammingRouteImport } from './routes/programming'
 import { Route as HardwareSoftwareIdentifySoftwareRouteImport } from './routes/hardware-software/identify-software'
+import { Route as HardwareSoftwareInputOutputRouteImport } from './routes/hardware-software/input-output'
+import { Route as HardwareSoftwareNameHardwareRouteImport } from './routes/hardware-software/name-hardware'
+import { Route as ItSkillsFilesAndFoldersRouteImport } from './routes/it-skills/files-and-folders'
+import { Route as ItSkillsMouseSkillsRouteImport } from './routes/it-skills/mouse-skills'
+import { Route as MathsAsciiRouteImport } from './routes/maths/ascii'
+import { Route as MathsBinaryDenaryRouteImport } from './routes/maths/binary-denary'
+import { Route as MathsBinaryImageRouteImport } from './routes/maths/binary-image'
+import { Route as OnlineSafetyPhishingRouteImport } from './routes/online-safety/phishing'
+import { Route as OnlineSafetySocialCreditRouteImport } from './routes/online-safety/social-credit'
+import { Route as ProgrammingTurtleRouteImport } from './routes/programming/turtle'
+import { Route as ProgrammingVariablesRouteImport } from './routes/programming/variables'
 
-const ProgrammingRoute = ProgrammingRouteImport.update({
-  id: '/programming',
-  path: '/programming',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnlineSafetyRoute = OnlineSafetyRouteImport.update({
-  id: '/online-safety',
-  path: '/online-safety',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MathsRoute = MathsRouteImport.update({
-  id: '/maths',
-  path: '/maths',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ItSkillsRoute = ItSkillsRouteImport.update({
-  id: '/it-skills',
-  path: '/it-skills',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HardwareSoftwareRoute = HardwareSoftwareRouteImport.update({
-  id: '/hardware-software',
-  path: '/hardware-software',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AlgorithmsRoute = AlgorithmsRouteImport.update({
@@ -59,61 +39,35 @@ const AlgorithmsRoute = AlgorithmsRouteImport.update({
   path: '/algorithms',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const HardwareSoftwareRoute = HardwareSoftwareRouteImport.update({
+  id: '/hardware-software',
+  path: '/hardware-software',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProgrammingVariablesRoute = ProgrammingVariablesRouteImport.update({
-  id: '/variables',
-  path: '/variables',
-  getParentRoute: () => ProgrammingRoute,
+const ItSkillsRoute = ItSkillsRouteImport.update({
+  id: '/it-skills',
+  path: '/it-skills',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ProgrammingTurtleRoute = ProgrammingTurtleRouteImport.update({
-  id: '/turtle',
-  path: '/turtle',
-  getParentRoute: () => ProgrammingRoute,
+const MathsRoute = MathsRouteImport.update({
+  id: '/maths',
+  path: '/maths',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const OnlineSafetySocialCreditRoute =
-  OnlineSafetySocialCreditRouteImport.update({
-    id: '/social-credit',
-    path: '/social-credit',
-    getParentRoute: () => OnlineSafetyRoute,
-  } as any)
-const OnlineSafetyPhishingRoute = OnlineSafetyPhishingRouteImport.update({
-  id: '/phishing',
-  path: '/phishing',
-  getParentRoute: () => OnlineSafetyRoute,
+const OnlineSafetyRoute = OnlineSafetyRouteImport.update({
+  id: '/online-safety',
+  path: '/online-safety',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const MathsBinaryImageRoute = MathsBinaryImageRouteImport.update({
-  id: '/binary-image',
-  path: '/binary-image',
-  getParentRoute: () => MathsRoute,
+const ProgrammingRoute = ProgrammingRouteImport.update({
+  id: '/programming',
+  path: '/programming',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const MathsBinaryDenaryRoute = MathsBinaryDenaryRouteImport.update({
-  id: '/binary-denary',
-  path: '/binary-denary',
-  getParentRoute: () => MathsRoute,
-} as any)
-const MathsAsciiRoute = MathsAsciiRouteImport.update({
-  id: '/ascii',
-  path: '/ascii',
-  getParentRoute: () => MathsRoute,
-} as any)
-const ItSkillsMouseSkillsRoute = ItSkillsMouseSkillsRouteImport.update({
-  id: '/mouse-skills',
-  path: '/mouse-skills',
-  getParentRoute: () => ItSkillsRoute,
-} as any)
-const ItSkillsFilesAndFoldersRoute = ItSkillsFilesAndFoldersRouteImport.update({
-  id: '/files-and-folders',
-  path: '/files-and-folders',
-  getParentRoute: () => ItSkillsRoute,
-} as any)
-const HardwareSoftwareNameHardwareRoute =
-  HardwareSoftwareNameHardwareRouteImport.update({
-    id: '/name-hardware',
-    path: '/name-hardware',
+const HardwareSoftwareIdentifySoftwareRoute =
+  HardwareSoftwareIdentifySoftwareRouteImport.update({
+    id: '/identify-software',
+    path: '/identify-software',
     getParentRoute: () => HardwareSoftwareRoute,
   } as any)
 const HardwareSoftwareInputOutputRoute =
@@ -122,12 +76,58 @@ const HardwareSoftwareInputOutputRoute =
     path: '/input-output',
     getParentRoute: () => HardwareSoftwareRoute,
   } as any)
-const HardwareSoftwareIdentifySoftwareRoute =
-  HardwareSoftwareIdentifySoftwareRouteImport.update({
-    id: '/identify-software',
-    path: '/identify-software',
+const HardwareSoftwareNameHardwareRoute =
+  HardwareSoftwareNameHardwareRouteImport.update({
+    id: '/name-hardware',
+    path: '/name-hardware',
     getParentRoute: () => HardwareSoftwareRoute,
   } as any)
+const ItSkillsFilesAndFoldersRoute = ItSkillsFilesAndFoldersRouteImport.update({
+  id: '/files-and-folders',
+  path: '/files-and-folders',
+  getParentRoute: () => ItSkillsRoute,
+} as any)
+const ItSkillsMouseSkillsRoute = ItSkillsMouseSkillsRouteImport.update({
+  id: '/mouse-skills',
+  path: '/mouse-skills',
+  getParentRoute: () => ItSkillsRoute,
+} as any)
+const MathsAsciiRoute = MathsAsciiRouteImport.update({
+  id: '/ascii',
+  path: '/ascii',
+  getParentRoute: () => MathsRoute,
+} as any)
+const MathsBinaryDenaryRoute = MathsBinaryDenaryRouteImport.update({
+  id: '/binary-denary',
+  path: '/binary-denary',
+  getParentRoute: () => MathsRoute,
+} as any)
+const MathsBinaryImageRoute = MathsBinaryImageRouteImport.update({
+  id: '/binary-image',
+  path: '/binary-image',
+  getParentRoute: () => MathsRoute,
+} as any)
+const OnlineSafetyPhishingRoute = OnlineSafetyPhishingRouteImport.update({
+  id: '/phishing',
+  path: '/phishing',
+  getParentRoute: () => OnlineSafetyRoute,
+} as any)
+const OnlineSafetySocialCreditRoute =
+  OnlineSafetySocialCreditRouteImport.update({
+    id: '/social-credit',
+    path: '/social-credit',
+    getParentRoute: () => OnlineSafetyRoute,
+  } as any)
+const ProgrammingTurtleRoute = ProgrammingTurtleRouteImport.update({
+  id: '/turtle',
+  path: '/turtle',
+  getParentRoute: () => ProgrammingRoute,
+} as any)
+const ProgrammingVariablesRoute = ProgrammingVariablesRouteImport.update({
+  id: '/variables',
+  path: '/variables',
+  getParentRoute: () => ProgrammingRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -271,39 +271,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/programming': {
-      id: '/programming'
-      path: '/programming'
-      fullPath: '/programming'
-      preLoaderRoute: typeof ProgrammingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/online-safety': {
-      id: '/online-safety'
-      path: '/online-safety'
-      fullPath: '/online-safety'
-      preLoaderRoute: typeof OnlineSafetyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/maths': {
-      id: '/maths'
-      path: '/maths'
-      fullPath: '/maths'
-      preLoaderRoute: typeof MathsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/it-skills': {
-      id: '/it-skills'
-      path: '/it-skills'
-      fullPath: '/it-skills'
-      preLoaderRoute: typeof ItSkillsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hardware-software': {
-      id: '/hardware-software'
-      path: '/hardware-software'
-      fullPath: '/hardware-software'
-      preLoaderRoute: typeof HardwareSoftwareRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/algorithms': {
@@ -313,81 +285,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AlgorithmsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/hardware-software': {
+      id: '/hardware-software'
+      path: '/hardware-software'
+      fullPath: '/hardware-software'
+      preLoaderRoute: typeof HardwareSoftwareRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/programming/variables': {
-      id: '/programming/variables'
-      path: '/variables'
-      fullPath: '/programming/variables'
-      preLoaderRoute: typeof ProgrammingVariablesRouteImport
-      parentRoute: typeof ProgrammingRoute
+    '/it-skills': {
+      id: '/it-skills'
+      path: '/it-skills'
+      fullPath: '/it-skills'
+      preLoaderRoute: typeof ItSkillsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/programming/turtle': {
-      id: '/programming/turtle'
-      path: '/turtle'
-      fullPath: '/programming/turtle'
-      preLoaderRoute: typeof ProgrammingTurtleRouteImport
-      parentRoute: typeof ProgrammingRoute
+    '/maths': {
+      id: '/maths'
+      path: '/maths'
+      fullPath: '/maths'
+      preLoaderRoute: typeof MathsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/online-safety/social-credit': {
-      id: '/online-safety/social-credit'
-      path: '/social-credit'
-      fullPath: '/online-safety/social-credit'
-      preLoaderRoute: typeof OnlineSafetySocialCreditRouteImport
-      parentRoute: typeof OnlineSafetyRoute
+    '/online-safety': {
+      id: '/online-safety'
+      path: '/online-safety'
+      fullPath: '/online-safety'
+      preLoaderRoute: typeof OnlineSafetyRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/online-safety/phishing': {
-      id: '/online-safety/phishing'
-      path: '/phishing'
-      fullPath: '/online-safety/phishing'
-      preLoaderRoute: typeof OnlineSafetyPhishingRouteImport
-      parentRoute: typeof OnlineSafetyRoute
+    '/programming': {
+      id: '/programming'
+      path: '/programming'
+      fullPath: '/programming'
+      preLoaderRoute: typeof ProgrammingRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/maths/binary-image': {
-      id: '/maths/binary-image'
-      path: '/binary-image'
-      fullPath: '/maths/binary-image'
-      preLoaderRoute: typeof MathsBinaryImageRouteImport
-      parentRoute: typeof MathsRoute
-    }
-    '/maths/binary-denary': {
-      id: '/maths/binary-denary'
-      path: '/binary-denary'
-      fullPath: '/maths/binary-denary'
-      preLoaderRoute: typeof MathsBinaryDenaryRouteImport
-      parentRoute: typeof MathsRoute
-    }
-    '/maths/ascii': {
-      id: '/maths/ascii'
-      path: '/ascii'
-      fullPath: '/maths/ascii'
-      preLoaderRoute: typeof MathsAsciiRouteImport
-      parentRoute: typeof MathsRoute
-    }
-    '/it-skills/mouse-skills': {
-      id: '/it-skills/mouse-skills'
-      path: '/mouse-skills'
-      fullPath: '/it-skills/mouse-skills'
-      preLoaderRoute: typeof ItSkillsMouseSkillsRouteImport
-      parentRoute: typeof ItSkillsRoute
-    }
-    '/it-skills/files-and-folders': {
-      id: '/it-skills/files-and-folders'
-      path: '/files-and-folders'
-      fullPath: '/it-skills/files-and-folders'
-      preLoaderRoute: typeof ItSkillsFilesAndFoldersRouteImport
-      parentRoute: typeof ItSkillsRoute
-    }
-    '/hardware-software/name-hardware': {
-      id: '/hardware-software/name-hardware'
-      path: '/name-hardware'
-      fullPath: '/hardware-software/name-hardware'
-      preLoaderRoute: typeof HardwareSoftwareNameHardwareRouteImport
+    '/hardware-software/identify-software': {
+      id: '/hardware-software/identify-software'
+      path: '/identify-software'
+      fullPath: '/hardware-software/identify-software'
+      preLoaderRoute: typeof HardwareSoftwareIdentifySoftwareRouteImport
       parentRoute: typeof HardwareSoftwareRoute
     }
     '/hardware-software/input-output': {
@@ -397,12 +334,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HardwareSoftwareInputOutputRouteImport
       parentRoute: typeof HardwareSoftwareRoute
     }
-    '/hardware-software/identify-software': {
-      id: '/hardware-software/identify-software'
-      path: '/identify-software'
-      fullPath: '/hardware-software/identify-software'
-      preLoaderRoute: typeof HardwareSoftwareIdentifySoftwareRouteImport
+    '/hardware-software/name-hardware': {
+      id: '/hardware-software/name-hardware'
+      path: '/name-hardware'
+      fullPath: '/hardware-software/name-hardware'
+      preLoaderRoute: typeof HardwareSoftwareNameHardwareRouteImport
       parentRoute: typeof HardwareSoftwareRoute
+    }
+    '/it-skills/files-and-folders': {
+      id: '/it-skills/files-and-folders'
+      path: '/files-and-folders'
+      fullPath: '/it-skills/files-and-folders'
+      preLoaderRoute: typeof ItSkillsFilesAndFoldersRouteImport
+      parentRoute: typeof ItSkillsRoute
+    }
+    '/it-skills/mouse-skills': {
+      id: '/it-skills/mouse-skills'
+      path: '/mouse-skills'
+      fullPath: '/it-skills/mouse-skills'
+      preLoaderRoute: typeof ItSkillsMouseSkillsRouteImport
+      parentRoute: typeof ItSkillsRoute
+    }
+    '/maths/ascii': {
+      id: '/maths/ascii'
+      path: '/ascii'
+      fullPath: '/maths/ascii'
+      preLoaderRoute: typeof MathsAsciiRouteImport
+      parentRoute: typeof MathsRoute
+    }
+    '/maths/binary-denary': {
+      id: '/maths/binary-denary'
+      path: '/binary-denary'
+      fullPath: '/maths/binary-denary'
+      preLoaderRoute: typeof MathsBinaryDenaryRouteImport
+      parentRoute: typeof MathsRoute
+    }
+    '/maths/binary-image': {
+      id: '/maths/binary-image'
+      path: '/binary-image'
+      fullPath: '/maths/binary-image'
+      preLoaderRoute: typeof MathsBinaryImageRouteImport
+      parentRoute: typeof MathsRoute
+    }
+    '/online-safety/phishing': {
+      id: '/online-safety/phishing'
+      path: '/phishing'
+      fullPath: '/online-safety/phishing'
+      preLoaderRoute: typeof OnlineSafetyPhishingRouteImport
+      parentRoute: typeof OnlineSafetyRoute
+    }
+    '/online-safety/social-credit': {
+      id: '/online-safety/social-credit'
+      path: '/social-credit'
+      fullPath: '/online-safety/social-credit'
+      preLoaderRoute: typeof OnlineSafetySocialCreditRouteImport
+      parentRoute: typeof OnlineSafetyRoute
+    }
+    '/programming/turtle': {
+      id: '/programming/turtle'
+      path: '/turtle'
+      fullPath: '/programming/turtle'
+      preLoaderRoute: typeof ProgrammingTurtleRouteImport
+      parentRoute: typeof ProgrammingRoute
+    }
+    '/programming/variables': {
+      id: '/programming/variables'
+      path: '/variables'
+      fullPath: '/programming/variables'
+      preLoaderRoute: typeof ProgrammingVariablesRouteImport
+      parentRoute: typeof ProgrammingRoute
     }
   }
 }

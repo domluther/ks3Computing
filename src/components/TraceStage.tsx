@@ -21,6 +21,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [level, setLevel] = useState<TraceLevel>("line");
 	const [isDrawing, setIsDrawing] = useState(false);
+	const [isOffPath, setIsOffPath] = useState(false);
 	const [message, setMessage] = useState(
 		"Move your mouse to the START circle to begin.",
 	);
@@ -213,6 +214,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 			const s = startRef.current;
 			if (isPointNear(x, y, s.x, s.y)) {
 				setIsDrawing(true);
+				setIsOffPath(false);
 				// Only start timer once per game session (not on level restart)
 				if (!startTime) {
 					startTimer();
@@ -228,6 +230,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 		if (!onPath) {
 			setMessage("Oops! You went off the path. Go back to START to try again.");
 			setIsDrawing(false);
+			setIsOffPath(true);
 			return;
 		}
 
@@ -250,6 +253,7 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 		// Reset all state and restart the game
 		setLevel("line");
 		setIsDrawing(false);
+		setIsOffPath(false);
 		setMessage("Move your mouse to the START circle to begin.");
 		resetTimer(); // Reset the timer completely
 		onRestart();
@@ -277,7 +281,13 @@ const TraceStage: React.FC<TraceStageProps> = ({ onComplete, onRestart }) => {
 				<canvas
 					ref={canvasRef}
 					onMouseMove={handleMouseMove}
-					className="w-full h-full bg-slate-50"
+					className={`w-full h-full bg-slate-50 ${
+						isOffPath
+							? "cursor-not-allowed"
+							: isDrawing
+								? "cursor-crosshair"
+								: "cursor-help"
+					}`}
 				/>
 			</div>
 		</GameStage>

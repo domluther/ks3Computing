@@ -45,26 +45,26 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 	const getDuckRadius = useCallback(() => {
 		switch (duckSize) {
 			case "small":
-				return 15;
+				return 12;
 			case "medium":
-				return 20;
+				return 18;
 			case "large":
-				return 25;
+				return 22;
 			default:
-				return 20;
+				return 18;
 		}
 	}, [duckSize]);
 
 	const getDuckFontSize = useCallback(() => {
 		switch (duckSize) {
 			case "small":
-				return 30;
+				return 24;
 			case "medium":
-				return 40;
+				return 36;
 			case "large":
-				return 50;
+				return 44;
 			default:
-				return 40;
+				return 36;
 		}
 	}, [duckSize]);
 
@@ -417,7 +417,9 @@ const DragDropStage: React.FC<DragDropStageProps> = ({
 					onMouseMove={handleMouseMove}
 					onMouseUp={handleMouseUp}
 					onMouseLeave={handleMouseUp}
-					className="w-full h-full cursor-pointer bg-slate-50"
+					className={`w-full h-full bg-slate-50 ${
+						isDragging ? "cursor-grabbing" : "cursor-grab"
+					}`}
 				/>
 			</div>
 		</GameStage>
