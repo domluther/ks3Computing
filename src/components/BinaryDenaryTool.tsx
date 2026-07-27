@@ -168,7 +168,7 @@ const BinaryDenaryTool: React.FC = () => {
 			</div>
 
 			{/* Controls bar */}
-			<div className="flex flex-wrap items-center justify-between w-full max-w-3xl p-4 bg-white shadow-md rounded-2xl gap-4">
+			<div className="flex flex-wrap items-center justify-between w-full max-w-3xl p-4 bg-white shadow-md gap-4 rounded-2xl">
 				{/* Mode toggle */}
 				<div className="flex overflow-hidden text-sm font-semibold border rounded-xl border-slate-200">
 					<button
@@ -177,7 +177,7 @@ const BinaryDenaryTool: React.FC = () => {
 						className={`px-4 py-2 transition-colors ${
 							mode === "denaryToBinary"
 								? "bg-blue-500 text-white"
-								: "bg-white text-slate-600 hover:bg-slate-50"
+								: "bg-white text-slate-600 hover:bg-slate-50 cursor-pointer"
 						}`}
 					>
 						Denary → Binary
@@ -188,7 +188,7 @@ const BinaryDenaryTool: React.FC = () => {
 						className={`px-4 py-2 transition-colors ${
 							mode === "binaryToDenary"
 								? "bg-purple-500 text-white"
-								: "bg-white text-slate-600 hover:bg-slate-50"
+								: "bg-white text-slate-600 hover:bg-slate-50 cursor-pointer"
 						}`}
 					>
 						Binary → Denary
@@ -205,7 +205,7 @@ const BinaryDenaryTool: React.FC = () => {
 							key={d}
 							type="button"
 							onClick={() => setDifficulty(d)}
-							className={`px-3 py-1 rounded-lg text-sm font-semibold capitalize transition-colors ${
+							className={`px-3 py-1 rounded-lg text-sm font-semibold capitalize transition-colors cursor-pointer ${
 								difficulty === d
 									? "bg-amber-500 text-white"
 									: "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -283,7 +283,7 @@ const BinaryDenaryTool: React.FC = () => {
 			</div>
 
 			{/* Main card */}
-			<div className="flex flex-col items-center w-full max-w-3xl p-6 bg-white shadow-md rounded-2xl gap-6">
+			<div className="flex flex-col items-center w-full max-w-3xl p-6 bg-white shadow-md gap-6 rounded-2xl">
 				{mode === "denaryToBinary" ? (
 					<>
 						{/* Prompt */}
@@ -401,7 +401,7 @@ const BinaryDenaryTool: React.FC = () => {
 									type="button"
 									onClick={() => checkAnswer(bitInputs, denaryInput)}
 									disabled={denaryInput === ""}
-									className="px-7 py-2.5 bg-purple-500 text-white font-semibold rounded-full hover:bg-purple-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+									className="px-7 py-2.5 bg-purple-500 text-white font-semibold rounded-full hover:bg-purple-600 transition-colors disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
 								>
 									Check
 								</button>
@@ -439,7 +439,7 @@ const BinaryDenaryTool: React.FC = () => {
 					<button
 						type="button"
 						onClick={handleNextQuestion}
-						className="px-8 py-3 text-lg font-bold text-white bg-blue-500 rounded-full hover:bg-blue-600 active:scale-95 transition-all"
+						className="px-8 py-3 text-lg font-bold text-white bg-blue-500 rounded-full cursor-pointer transition-all hover:bg-blue-600 active:scale-95"
 					>
 						Next →
 					</button>

@@ -519,7 +519,7 @@ const SocialCreditGame = () => {
 		<button
 			key={choice.text}
 			onClick={onSelect}
-			className="flex items-start p-4 font-semibold text-left rounded-lg gap-3 transition-all duration-200 shadow-sm bg-slate-100 text-slate-800 hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+			className="flex items-start p-4 font-semibold text-left rounded-lg cursor-pointer gap-3 transition-all duration-200 shadow-sm bg-slate-100 text-slate-800 hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 			type="button"
 		>
 			{index !== undefined && (

@@ -1244,7 +1244,7 @@ const PythonTurtleTool: React.FC = () => {
 							key={d}
 							type="button"
 							onClick={() => handleDifficultyChange(d)}
-							className={`px-3 py-1 text-sm font-semibold rounded-full transition-colors ${
+							className={`px-3 py-1 text-sm font-semibold rounded-full  transition-colors ${
 								difficulty === d
 									? d === "beginner"
 										? "bg-green-500 text-white"
@@ -1253,7 +1253,7 @@ const PythonTurtleTool: React.FC = () => {
 											: d === "hard"
 												? "bg-rose-500 text-white"
 												: "bg-violet-600 text-white"
-									: "bg-slate-200 text-slate-600 hover:bg-slate-300"
+									: "bg-slate-200 text-slate-600 hover:bg-slate-300 cursor-pointer"
 							}`}
 						>
 							{d === "beginner"
@@ -1279,7 +1279,7 @@ const PythonTurtleTool: React.FC = () => {
 				<button
 					type="button"
 					onClick={handleShuffle}
-					className="absolute top-0 right-0 px-3 py-2 text-lg font-bold transition-colors rounded-lg shadow-md bg-slate-200 hover:bg-slate-300 text-slate-700"
+					className="absolute top-0 right-0 px-3 py-2 text-lg font-bold rounded-lg shadow-md cursor-pointer transition-colors bg-slate-200 hover:bg-slate-300 text-slate-700"
 					title="Pick a random question"
 				>
 					🎲
@@ -1287,7 +1287,7 @@ const PythonTurtleTool: React.FC = () => {
 			</div>
 
 			{/* Main grid */}
-			<div className="grid items-start gap-6 md:grid-cols-2">
+			<div className="items-start grid gap-6 md:grid-cols-2">
 				{/* Code panel */}
 				<div>
 					<div className="flex items-center justify-between mb-2">
@@ -1296,7 +1296,7 @@ const PythonTurtleTool: React.FC = () => {
 							<button
 								type="button"
 								onClick={() => setCodeFontSize((s) => Math.max(10, s - 2))}
-								className="flex items-center justify-center w-6 h-6 text-sm font-bold transition-colors rounded bg-slate-700 hover:bg-slate-600 text-slate-200"
+								className="flex items-center justify-center w-6 h-6 text-sm font-bold rounded cursor-pointer transition-colors bg-slate-700 hover:bg-slate-600 text-slate-200"
 								title="Decrease font size"
 							>
 								<ZoomOut size={16} />
@@ -1304,7 +1304,7 @@ const PythonTurtleTool: React.FC = () => {
 							<button
 								type="button"
 								onClick={() => setCodeFontSize((s) => Math.min(28, s + 2))}
-								className="flex items-center justify-center w-6 h-6 text-sm font-bold transition-colors rounded bg-slate-700 hover:bg-slate-600 text-slate-200"
+								className="flex items-center justify-center w-6 h-6 text-sm font-bold rounded cursor-pointer transition-colors bg-slate-700 hover:bg-slate-600 text-slate-200"
 								title="Increase font size"
 							>
 								<ZoomIn size={16} />
@@ -1312,7 +1312,7 @@ const PythonTurtleTool: React.FC = () => {
 							<button
 								type="button"
 								onClick={handleCopyCode}
-								className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md bg-slate-700 hover:bg-slate-600 text-slate-200 transition-colors"
+								className="flex items-center cursor-pointer gap-1.5 text-xs px-2.5 py-1 rounded-md bg-slate-700 hover:bg-slate-600 text-slate-200 transition-colors"
 							>
 								{copied ? "✓ Copied!" : "⎘ Copy"}
 							</button>
@@ -1346,7 +1346,7 @@ const PythonTurtleTool: React.FC = () => {
 								))}
 					</div>
 
-					<div className="p-3 mt-4 space-y-1 text-xs border rounded-lg bg-slate-50 border-slate-200 text-slate-600">
+					<div className="p-3 mt-4 text-xs border rounded-lg space-y-1 bg-slate-50 border-slate-200 text-slate-600">
 						{difficulty === "beginner" || difficulty === "medium" ? (
 							<>
 								<p className="mb-1 font-semibold text-slate-700">
@@ -1462,9 +1462,9 @@ const PythonTurtleTool: React.FC = () => {
 							<button
 								type="button"
 								onClick={handleClear}
-								className="text-sm transition-colors text-slate-400 hover:text-red-500"
+								className="text-sm cursor-pointer transition-colors text-slate-400 hover:text-red-500"
 							>
-								Clear ✕
+								Clear canvas
 							</button>
 						)}
 					</div>
@@ -1503,31 +1503,31 @@ const PythonTurtleTool: React.FC = () => {
 					</div>
 
 					{/* Annotate + scale toggles */}
-					<div className="flex flex-wrap gap-4 mt-2">
+					<div className="flex flex-wrap mt-2 gap-4">
 						{phase !== "drawing" && (
-							<label className="flex items-center gap-2 text-xs cursor-pointer select-none text-slate-600">
+							<label className="flex items-center text-xs cursor-pointer select-none gap-2 text-slate-600">
 								<input
 									type="checkbox"
 									checked={annotate}
 									onChange={(e) => setAnnotate(e.target.checked)}
-									className="w-3.5 h-3.5 accent-indigo-500"
+									className="w-3.5 h-3.5 accent-indigo-500 cursor-pointer"
 								/>
 								Annotate lengths
 							</label>
 						)}
-						<label className="flex items-center gap-2 text-xs cursor-pointer select-none text-slate-600">
+						<label className="flex items-center text-xs cursor-pointer select-none gap-2 text-slate-600">
 							<input
 								type="checkbox"
 								checked={showScale}
 								onChange={(e) => setShowScale(e.target.checked)}
-								className="w-3.5 h-3.5 accent-indigo-500"
+								className="w-3.5 h-3.5 accent-indigo-500 cursor-pointer"
 							/>
 							Show scale
 						</label>
 					</div>
 					{/* Legend */}
 					{phase !== "drawing" && (
-						<div className="flex flex-wrap gap-4 mt-2 text-xs text-slate-500">
+						<div className="flex flex-wrap mt-2 text-xs gap-4 text-slate-500">
 							<span className="flex items-center gap-1.5">
 								<span className="inline-block w-4 h-0.5 bg-blue-500 rounded" />
 								Your prediction
@@ -1554,12 +1554,12 @@ const PythonTurtleTool: React.FC = () => {
 			</div>
 
 			{/* Action buttons */}
-			<div className="flex items-center justify-center gap-4 mt-6">
+			<div className="flex items-center justify-center mt-6 gap-4">
 				{phase === "drawing" && (
 					<button
 						type="button"
 						onClick={handleSubmit}
-						className="px-8 py-3 font-bold text-white transition-colors bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700"
+						className="px-8 py-3 font-bold text-white bg-indigo-600 rounded-lg shadow-md cursor-pointer transition-colors hover:bg-indigo-700"
 					>
 						Submit &amp; See Answer
 					</button>
@@ -1568,7 +1568,7 @@ const PythonTurtleTool: React.FC = () => {
 					<button
 						type="button"
 						onClick={handleNextChallenge}
-						className="px-8 py-3 font-bold text-white transition-colors bg-green-600 rounded-lg shadow-md hover:bg-green-700"
+						className="px-8 py-3 font-bold text-white bg-green-600 rounded-lg shadow-md cursor-pointer transition-colors hover:bg-green-700"
 					>
 						Next Challenge →
 					</button>

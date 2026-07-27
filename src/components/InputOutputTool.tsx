@@ -205,14 +205,14 @@ const InputOutputTool: React.FC = () => {
 					<div className="flex flex-wrap items-center justify-center gap-4">
 						<button
 							onClick={handleMarkWork}
-							className="px-6 py-3 font-bold text-white rounded-full shadow-lg transition-transform bg-linear-to-r from-purple-600 to-indigo-600 hover:scale-105"
+							className="px-6 py-3 font-bold text-white rounded-full shadow-lg cursor-pointer transition-transform bg-linear-to-r from-purple-600 to-indigo-600 hover:scale-105"
 							type="button"
 						>
 							Mark My Work
 						</button>
 						<button
 							onClick={resetAll}
-							className="px-6 py-3 font-bold text-white rounded-full shadow-lg transition-transform bg-linear-to-r from-red-500 to-orange-500 hover:scale-105"
+							className="px-6 py-3 font-bold text-white rounded-full shadow-lg cursor-pointer transition-transform bg-linear-to-r from-red-500 to-orange-500 hover:scale-105"
 							type="button"
 						>
 							Reset
@@ -226,7 +226,7 @@ const InputOutputTool: React.FC = () => {
 									type="checkbox"
 									checked={showAnswers}
 									onChange={(e) => setShowAnswers(e.target.checked)}
-									className="w-5 h-5"
+									className="w-5 h-5 cursor-pointer"
 								/>
 								Highlight Correct/Incorrect
 							</label>

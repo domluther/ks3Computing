@@ -385,7 +385,9 @@ const VariableTracerGame = () => {
 				{/* Question */}
 				<div className="space-y-4">
 					<p className="text-base font-medium text-center text-slate-700">
-						What are the final values of each variable?
+						{currentProblem.variables.length === 1
+							? `What is the final value of ${currentProblem.variables[0].name}?`
+							: `What are the final values of each variable?`}
 					</p>
 
 					<div className="space-y-3">
@@ -466,7 +468,7 @@ const VariableTracerGame = () => {
 							<button
 								type="button"
 								onClick={() => setShowHint(true)}
-								className="text-sm underline transition-colors text-slate-400 hover:text-slate-600 underline-offset-2"
+								className="text-sm underline cursor-pointer transition-colors text-slate-400 hover:text-slate-600 underline-offset-2"
 							>
 								Show hint
 							</button>
@@ -497,10 +499,7 @@ const VariableTracerGame = () => {
 				{/* Action buttons */}
 				<div className="flex justify-center pt-2">
 					{stage === "playing" ? (
-						<GameButton
-							onClick={handleSubmit}
-							className={!isAllFilled ? "opacity-50 cursor-not-allowed" : ""}
-						>
+						<GameButton onClick={handleSubmit} disabled={!isAllFilled}>
 							Check Answers
 						</GameButton>
 					) : (

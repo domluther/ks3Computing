@@ -41,12 +41,12 @@ const HubLayout: React.FC<HubLayoutProps> = ({
 					<p className="max-w-2xl mx-auto mb-8 text-lg text-slate-600">
 						{description}
 					</p>
-					<div className="flex flex-col justify-center md:flex-row gap-6">
+					<div className="flex flex-col justify-center gap-6 md:flex-row">
 						{buttons.map((button) => (
 							<button
 								key={button.route}
 								onClick={() => navigate({ to: button.route })}
-								className={`${colorClasses[button.color]} text-white font-bold py-4 px-8 rounded-lg text-xl transition-colors`}
+								className={`${colorClasses[button.color]} text-white font-bold py-4 px-8 rounded-lg text-xl transition-colors cursor-pointer`}
 								type="button"
 							>
 								{button.text}

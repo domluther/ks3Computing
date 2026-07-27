@@ -373,7 +373,7 @@ const BinaryImageTool: React.FC = () => {
 							setIsSubmitted(false);
 							setShowAnswer(false);
 						}}
-						className={`px-8 py-3 rounded-xl font-bold text-lg transition-all ${
+						className={`px-8 py-3 rounded-xl font-bold text-lg transition-all cursor-pointer ${
 							mode === "decode"
 								? "bg-indigo-600 text-white shadow-md scale-105"
 								: "bg-white text-indigo-700 border-2 border-indigo-200 hover:border-indigo-500 hover:bg-indigo-50"
@@ -388,7 +388,7 @@ const BinaryImageTool: React.FC = () => {
 							setIsSubmitted(false);
 							setShowAnswer(false);
 						}}
-						className={`px-8 py-3 rounded-xl font-bold text-lg transition-all ${
+						className={`px-8 py-3 rounded-xl font-bold text-lg transition-all cursor-pointer ${
 							mode === "encode"
 								? "bg-indigo-600 text-white shadow-md scale-105"
 								: "bg-white text-indigo-700 border-2 border-indigo-200 hover:border-indigo-500 hover:bg-indigo-50"
@@ -403,7 +403,7 @@ const BinaryImageTool: React.FC = () => {
 							setIsSubmitted(false);
 							setShowAnswer(false);
 						}}
-						className={`px-8 py-3 rounded-xl font-bold text-lg transition-all ${
+						className={`px-8 py-3 rounded-xl font-bold text-lg transition-all cursor-pointer ${
 							mode === "draw"
 								? "bg-emerald-600 text-white shadow-md scale-105"
 								: "bg-white text-emerald-700 border-2 border-emerald-200 hover:border-emerald-500 hover:bg-emerald-50"
@@ -422,7 +422,7 @@ const BinaryImageTool: React.FC = () => {
 								key={d}
 								type="button"
 								onClick={() => changeDepth(d)}
-								className={`px-5 py-2 rounded-lg font-bold text-sm transition-all ${
+								className={`px-5 py-2 rounded-lg font-bold text-sm transition-all cursor-pointer ${
 									colorDepth === d
 										? "bg-purple-600 text-white shadow-md"
 										: "bg-white text-purple-700 border-2 border-purple-200 hover:border-purple-500 hover:bg-purple-50"
@@ -650,7 +650,7 @@ const BinaryImageTool: React.FC = () => {
 								<button
 									type="button"
 									onClick={() => setIsSubmitted(true)}
-									className="px-10 py-4 text-xl font-bold text-white bg-indigo-600 shadow-lg transition-all hover:bg-indigo-700 rounded-2xl hover:shadow-xl active:scale-95"
+									className="px-10 py-4 text-xl font-bold text-white bg-indigo-600 shadow-lg cursor-pointer transition-all hover:bg-indigo-700 rounded-2xl hover:shadow-xl active:scale-95"
 								>
 									Submit Answer
 								</button>
@@ -685,15 +685,15 @@ const BinaryImageTool: React.FC = () => {
 										<button
 											type="button"
 											onClick={reset}
-											className="px-6 py-3 font-bold text-indigo-700 bg-white border-2 border-indigo-400 transition-all rounded-xl hover:bg-indigo-50"
+											className="px-6 py-3 font-bold text-indigo-700 bg-white border-2 border-indigo-400 cursor-pointer transition-all rounded-xl hover:bg-indigo-50"
 										>
-											{isPerfect ? "Next Puzzle" : "Try Again"}
+											Next Puzzle
 										</button>
 										{!isPerfect && (
 											<button
 												type="button"
 												onClick={() => setShowAnswer((s) => !s)}
-												className="px-6 py-3 font-bold bg-white border-2 transition-all border-slate-300 text-slate-600 rounded-xl hover:bg-slate-50"
+												className="px-6 py-3 font-bold bg-white border-2 cursor-pointer transition-all border-slate-300 text-slate-600 rounded-xl hover:bg-slate-50"
 											>
 												{showAnswer ? "Hide Answer" : "Show Answer"}
 											</button>

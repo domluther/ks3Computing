@@ -67,7 +67,7 @@ const GameStage: React.FC<GameStageProps> = ({
 						id={difficultySelector.id}
 						value={difficultySelector.value}
 						onChange={(e) => difficultySelector.onChange(e.target.value)}
-						className="px-2 py-1 border rounded border-slate-400"
+						className="px-2 py-1 border rounded cursor-pointer border-slate-400 disabled:cursor-not-allowed disabled:opacity-60"
 					>
 						{difficultySelector.options.map((option) => (
 							<option key={option.value} value={option.value}>
@@ -79,7 +79,6 @@ const GameStage: React.FC<GameStageProps> = ({
 			) : (
 				<div className="mb-2 h-9.5"></div>
 			)}
-
 			{/* Game Area - Fixed height to ensure consistency */}
 			<div className="flex-1 w-full min-h-0">{children}</div>
 

@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
 				<button
 					key={item.id}
 					onClick={() => navigate({ to: getRouteByPageId(item.id) })}
-					className={`flex-1 min-w-[150px] p-4 text-white font-semibold text-lg cursor-pointer transition-all duration-300
+					className={`flex-1 min-w-37.5 p-4 text-white font-semibold text-lg cursor-pointer transition-all duration-300
                         ${currentPageId === item.id ? "bg-red-600" : "bg-slate-800 hover:bg-blue-700"}`}
 					type="button"
 				>

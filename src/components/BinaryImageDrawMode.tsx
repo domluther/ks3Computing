@@ -1,5 +1,5 @@
 import type React from "react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { shuffleArray } from "../utils/utils";
 
 interface ColorInfo {
@@ -50,6 +50,8 @@ const BinaryImageDrawMode: React.FC = () => {
 		getRandomColorMap(1),
 	);
 	const [showValues, setShowValues] = useState(true);
+	const [showClearConfirm, setShowClearConfirm] = useState(false);
+	const clearConfirmDialogRef = useRef<HTMLDialogElement>(null);
 
 	const bitValues = getBitValues(drawColorDepth);
 
@@ -84,13 +86,34 @@ const BinaryImageDrawMode: React.FC = () => {
 		setDrawColorMap(getRandomColorMap(drawColorDepth));
 	}, [drawColorDepth]);
 
-	const clearDrawGrid = useCallback(() => {
+	const requestClearDrawGrid = useCallback(() => {
+		setShowClearConfirm(true);
+	}, []);
+
+	const confirmClearDrawGrid = useCallback(() => {
 		setDrawGrid((prev) =>
 			Array.from({ length: prev.length }, () =>
 				Array<string>(prev.length).fill(""),
 			),
 		);
+		setShowClearConfirm(false);
 	}, []);
+
+	const cancelClearDrawGrid = useCallback(() => {
+		setShowClearConfirm(false);
+	}, []);
+
+	// Open/close the native <dialog> in response to state changes.
+	useEffect(() => {
+		const dialogEl = clearConfirmDialogRef.current;
+		if (!dialogEl) return;
+
+		if (showClearConfirm && !dialogEl.open) {
+			dialogEl.showModal();
+		} else if (!showClearConfirm && dialogEl.open) {
+			dialogEl.close();
+		}
+	}, [showClearConfirm]);
 
 	const cellPx = drawResolution <= 4 ? 70 : drawResolution <= 8 ? 52 : 34;
 	const cellFontSize =
@@ -113,7 +136,7 @@ const BinaryImageDrawMode: React.FC = () => {
 							key={res}
 							type="button"
 							onClick={() => changeDrawResolution(res)}
-							className={`px-5 py-2 rounded-lg font-bold text-sm transition-all ${
+							className={`px-5 py-2 rounded-lg font-bold text-sm transition-all cursor-pointer ${
 								drawResolution === res
 									? "bg-emerald-600 text-white shadow-md"
 									: "bg-white text-emerald-700 border-2 border-emerald-200 hover:border-emerald-500 hover:bg-emerald-50"
@@ -132,7 +155,7 @@ const BinaryImageDrawMode: React.FC = () => {
 							key={d}
 							type="button"
 							onClick={() => changeColorDepth(d)}
-							className={`px-5 py-2 rounded-lg font-bold text-sm transition-all ${
+							className={`px-5 py-2 rounded-lg font-bold text-sm transition-all cursor-pointer ${
 								drawColorDepth === d
 									? "bg-purple-600 text-white shadow-md"
 									: "bg-white text-purple-700 border-2 border-purple-200 hover:border-purple-500 hover:bg-purple-50"
@@ -143,7 +166,6 @@ const BinaryImageDrawMode: React.FC = () => {
 					))}
 				</div>
 			</div>
-
 			{/* 4-col layout: colour key | draw grid (col-span-3) */}
 			<div className="items-start grid grid-cols-1 gap-6 lg:grid-cols-4">
 				{/* Colour Key + controls */}
@@ -180,25 +202,21 @@ const BinaryImageDrawMode: React.FC = () => {
 						<button
 							type="button"
 							onClick={randomiseDrawColors}
-							className="w-full px-4 py-2 font-bold text-purple-700 bg-white border-2 border-purple-300 transition-all rounded-xl hover:bg-purple-50"
+							className="w-full px-4 py-2 font-bold bg-white border-2 cursor-pointer transition-all rounded-xl text-slate-600 border-slate-300 hover:bg-slate-50"
 						>
 							Randomise Colours
 						</button>
 						<button
 							type="button"
 							onClick={() => setShowValues((v) => !v)}
-							className={`w-full px-4 py-2 font-bold transition-all border-2 rounded-xl ${
-								showValues
-									? "bg-white text-slate-600 border-slate-300 hover:bg-slate-50"
-									: "bg-slate-800 text-white border-slate-700 hover:bg-slate-700"
-							}`}
+							className="w-full px-4 py-2 font-bold bg-white border-2 cursor-pointer transition-all rounded-xl text-slate-600 border-slate-300 hover:bg-slate-50"
 						>
 							{showValues ? "Hide Values" : "Show Values"}
 						</button>
 						<button
 							type="button"
-							onClick={clearDrawGrid}
-							className="w-full px-4 py-2 font-bold bg-white border-2 transition-all text-slate-600 border-slate-300 rounded-xl hover:bg-slate-50"
+							onClick={requestClearDrawGrid}
+							className="w-full px-4 py-2 font-bold bg-white border-2 cursor-pointer transition-all text-slate-600 border-slate-300 rounded-xl hover:bg-slate-50"
 						>
 							Clear Grid
 						</button>
@@ -264,6 +282,51 @@ const BinaryImageDrawMode: React.FC = () => {
 					</div>
 				</div>
 			</div>
+			{/* Clear grid confirmation modal */}
+			<dialog
+				ref={clearConfirmDialogRef}
+				aria-labelledby="clear-grid-title"
+				className="p-0 m-auto backdrop:bg-black/40 rounded-2xl"
+				onClick={(e) => {
+					if (e.target === e.currentTarget) {
+						cancelClearDrawGrid();
+					}
+				}}
+				onKeyDown={(e) => {
+					if (e.key === "Escape") {
+						cancelClearDrawGrid();
+					}
+				}}
+				onClose={() => setShowClearConfirm(false)}
+			>
+				<div className="w-full max-w-sm p-6">
+					<h3
+						id="clear-grid-title"
+						className="mb-2 text-lg font-bold text-slate-800"
+					>
+						Clear the grid?
+					</h3>
+					<p className="mb-6 text-sm text-slate-500">
+						This will erase everything you've drawn. This can't be undone.
+					</p>
+					<div className="flex justify-end gap-3">
+						<button
+							type="button"
+							onClick={cancelClearDrawGrid}
+							className="px-4 py-2 font-bold bg-white border-2 cursor-pointer transition-all text-slate-600 border-slate-300 rounded-xl hover:bg-slate-50"
+						>
+							Cancel
+						</button>
+						<button
+							type="button"
+							onClick={confirmClearDrawGrid}
+							className="px-4 py-2 font-bold text-white bg-red-600 cursor-pointer transition-all rounded-xl hover:bg-red-700"
+						>
+							Clear Grid
+						</button>
+					</div>
+				</div>
+			</dialog>{" "}
 		</>
 	);
 };
