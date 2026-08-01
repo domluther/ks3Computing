@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { logEvent, SITE } from "../lib/analytics";
 import { BackToHub, GameButton } from "./Buttons";
 import ClickStage from "./ClickStage";
 import DragDropStage from "./DragDropStage";
@@ -28,12 +29,25 @@ const MouseSkillsChallenge = () => {
 		dragging: null,
 	});
 
+	const stageNumbers: Record<keyof TimeRecord, number> = {
+		tracing: 1,
+		clicking: 2,
+		dragDropping: 3,
+		dragging: 4,
+	};
+
 	const handleComplete = (
 		stageName: keyof TimeRecord,
 		time: number,
 		nextStage: MouseGameStage,
 	) => {
 		setTimes((prev) => ({ ...prev, [stageName]: time }));
+		logEvent({
+			site: SITE,
+			game: "mouse-skills",
+			level_completed: stageNumbers[stageName],
+			duration_seconds: time,
+		});
 		setStage(nextStage);
 	};
 

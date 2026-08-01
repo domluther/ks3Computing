@@ -1,5 +1,6 @@
 import type React from "react";
 import { Fragment, useCallback, useState } from "react";
+import { logEvent, SITE } from "../lib/analytics";
 import { shuffleArray } from "../utils/utils";
 import BinaryImageDrawMode from "./BinaryImageDrawMode";
 import { BackToHub } from "./Buttons";
@@ -649,7 +650,16 @@ const BinaryImageTool: React.FC = () => {
 							{!isSubmitted ? (
 								<button
 									type="button"
-									onClick={() => setIsSubmitted(true)}
+									onClick={() => {
+										setIsSubmitted(true);
+										logEvent({
+											site: SITE,
+											game: mode === "decode" ? "image-decode" : "image-encode",
+											correct: correctCount === totalCells,
+											score: correctCount,
+											score_max: totalCells,
+										});
+									}}
 									className="px-10 py-4 text-xl font-bold text-white bg-indigo-600 shadow-lg cursor-pointer transition-all hover:bg-indigo-700 rounded-2xl hover:shadow-xl active:scale-95"
 								>
 									Submit Answer

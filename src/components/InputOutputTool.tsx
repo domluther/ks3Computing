@@ -1,6 +1,7 @@
 import type React from "react";
 import { useCallback, useEffect, useState } from "react";
 import { hardwareData, sortedHardwareItems } from "../data/hardwareData";
+import { logEvent, SITE } from "../lib/analytics";
 import type { HardwareTypes } from "../types/types";
 
 const InputOutputTool: React.FC = () => {
@@ -59,6 +60,16 @@ const InputOutputTool: React.FC = () => {
 	// Marking logic
 	const handleMarkWork = () => {
 		setIsMarked(true);
+		const finalScore = Object.keys(userAnswers).filter(
+			(item) => hardwareData[item] === userAnswers[item],
+		).length;
+		logEvent({
+			site: SITE,
+			game: "io-challenge",
+			score: finalScore,
+			score_max: sortedHardwareItems.length,
+			correct: finalScore === sortedHardwareItems.length,
+		});
 	};
 
 	// Reset logic
@@ -205,14 +216,14 @@ const InputOutputTool: React.FC = () => {
 					<div className="flex flex-wrap items-center justify-center gap-4">
 						<button
 							onClick={handleMarkWork}
-							className="px-6 py-3 font-bold text-white rounded-full shadow-lg cursor-pointer transition-transform bg-linear-to-r from-purple-600 to-indigo-600 hover:scale-105"
+							className="px-6 py-3 font-bold text-white transition-transform rounded-full shadow-lg cursor-pointer bg-linear-to-r from-purple-600 to-indigo-600 hover:scale-105"
 							type="button"
 						>
 							Mark My Work
 						</button>
 						<button
 							onClick={resetAll}
-							className="px-6 py-3 font-bold text-white rounded-full shadow-lg cursor-pointer transition-transform bg-linear-to-r from-red-500 to-orange-500 hover:scale-105"
+							className="px-6 py-3 font-bold text-white transition-transform rounded-full shadow-lg cursor-pointer bg-linear-to-r from-red-500 to-orange-500 hover:scale-105"
 							type="button"
 						>
 							Reset
@@ -221,7 +232,7 @@ const InputOutputTool: React.FC = () => {
 
 					{isMarked && (
 						<div className="flex flex-wrap items-center justify-center gap-4">
-							<label className="flex items-center text-lg gap-2">
+							<label className="flex items-center gap-2 text-lg">
 								<input
 									type="checkbox"
 									checked={showAnswers}

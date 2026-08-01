@@ -1,6 +1,7 @@
 import { CheckCircle, XCircle } from "lucide-react";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { logEvent, SITE } from "../lib/analytics";
 import { shuffleArray } from "../utils/utils";
 import { BackToHub, GameButton } from "./Buttons";
 
@@ -105,6 +106,17 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 	const finishGame = useCallback(() => {
 		setIsFinished(true);
 	}, []);
+
+	// Log the result once the round ends
+	useEffect(() => {
+		if (isFinished) {
+			logEvent({
+				site: SITE,
+				game: "name-the-hardware",
+				score: correctWords.length,
+			});
+		}
+	}, [isFinished, correctWords.length]);
 
 	// Timer logic
 	useEffect(() => {
@@ -230,7 +242,7 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 								<p className="mb-2 text-lg font-semibold text-slate-700">
 									Items you named:
 								</p>
-								<ul className="p-4 mb-4 text-sm rounded-lg grid grid-cols-2 gap-2 sm:grid-cols-3 bg-green-50 text-slate-700">
+								<ul className="grid grid-cols-2 gap-2 p-4 mb-4 text-sm rounded-lg sm:grid-cols-3 bg-green-50 text-slate-700">
 									{correctWords.map((word) => (
 										<li key={word} className="flex items-center gap-1">
 											<CheckCircle className="w-4 h-4 text-green-600" />
@@ -272,7 +284,7 @@ const NameTheHardware: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 				can think of. Good luck!
 			</p>
 
-			<div className="flex flex-col mb-4 gap-2 sm:flex-row">
+			<div className="flex flex-col gap-2 mb-4 sm:flex-row">
 				<input
 					ref={inputRef}
 					type="text"
@@ -347,6 +359,18 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 				.slice(0, 10),
 		);
 	}, []);
+
+	// Log the result once all questions are answered
+	useEffect(() => {
+		if (isFinished && questions.length > 0) {
+			logEvent({
+				site: SITE,
+				game: "guess-the-word",
+				score,
+				score_max: questions.length,
+			});
+		}
+	}, [isFinished, questions.length, score]);
 
 	// Reset state and focus when the question changes
 	useEffect(() => {
@@ -543,7 +567,7 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
 					<div className="p-6 mb-6 rounded-lg bg-slate-50">
 						<p className="mb-2 text-xl text-slate-700">Your Score</p>
-						<div className="flex items-center justify-center mb-4 gap-4">
+						<div className="flex items-center justify-center gap-4 mb-4">
 							<span className="text-5xl font-bold text-blue-600">{score}</span>
 							<span className="text-2xl text-slate-400">/</span>
 							<span className="text-5xl font-bold text-slate-400">
@@ -552,7 +576,7 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 						</div>
 						<div className="w-full h-3 mb-2 rounded-full bg-slate-200">
 							<div
-								className="h-3 bg-blue-600 rounded-full transition-all duration-500"
+								className="h-3 transition-all duration-500 bg-blue-600 rounded-full"
 								style={{ width: `${percentage}%` }}
 							></div>
 						</div>
@@ -597,7 +621,7 @@ const GuessTheWord: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 				</p>
 			</div>
 
-			<div className="flex flex-col items-center mb-4 gap-4">
+			<div className="flex flex-col items-center gap-4 mb-4">
 				{questions[currentIndex].split(" ").map((word, wordIndex) => (
 					<div
 						key={word}

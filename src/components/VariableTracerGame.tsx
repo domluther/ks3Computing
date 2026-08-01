@@ -1,5 +1,6 @@
 import { CheckCircle, Code2, RotateCcw, XCircle } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
+import { logEvent, SITE } from "../lib/analytics";
 import { BackToHub, GameButton } from "./Buttons";
 
 // --- TYPES ---
@@ -191,6 +192,13 @@ const VariableTracerGame = () => {
 
 	const handleNext = useCallback(() => {
 		if (currentIndex + 1 >= totalProblems) {
+			logEvent({
+				site: SITE,
+				game: "variable-tracer",
+				score,
+				score_max: totalProblems,
+				correct: score === totalProblems,
+			});
 			setStage("results");
 		} else {
 			setCurrentIndex((i) => i + 1);
@@ -201,7 +209,7 @@ const VariableTracerGame = () => {
 			// Focus first input after state update
 			setTimeout(() => firstInputRef.current?.focus(), 50);
 		}
-	}, [currentIndex]);
+	}, [currentIndex, score]);
 
 	const handleRestart = useCallback(() => {
 		setStage("intro");
@@ -228,7 +236,7 @@ const VariableTracerGame = () => {
 	if (stage === "intro") {
 		return (
 			<div className="flex flex-col items-center justify-center w-full p-6">
-				<div className="w-full max-w-2xl text-center space-y-6">
+				<div className="w-full max-w-2xl space-y-6 text-center">
 					<div className="flex justify-center">
 						<div className="p-5 border rounded-full bg-violet-100 border-violet-200">
 							<Code2 className="w-14 h-14 text-violet-600" />
@@ -239,7 +247,7 @@ const VariableTracerGame = () => {
 						Can you follow the code and work out what value each variable holds
 						at the end?
 					</p>
-					<div className="p-6 text-left bg-white border space-y-3 shadow-sm border-slate-200 rounded-2xl">
+					<div className="p-6 space-y-3 text-left bg-white border shadow-sm border-slate-200 rounded-2xl">
 						<p className="text-sm font-semibold tracking-wider uppercase text-violet-600">
 							How to play
 						</p>
@@ -282,7 +290,7 @@ const VariableTracerGame = () => {
 
 		return (
 			<div className="flex flex-col items-center justify-center w-full p-6">
-				<div className="w-full max-w-xl text-center space-y-6">
+				<div className="w-full max-w-xl space-y-6 text-center">
 					<div className="flex justify-start">
 						<BackToHub location="/programming" />
 					</div>
@@ -305,7 +313,7 @@ const VariableTracerGame = () => {
 						</p>
 						<div className="h-3 mt-4 overflow-hidden rounded-full bg-slate-200">
 							<div
-								className="h-full rounded-full transition-all duration-700 bg-linear-to-r from-violet-500 to-purple-400"
+								className="h-full transition-all duration-700 rounded-full bg-linear-to-r from-violet-500 to-purple-400"
 								style={{ width: `${percent}%` }}
 							/>
 						</div>
@@ -347,7 +355,7 @@ const VariableTracerGame = () => {
 				{/* Progress bar */}
 				<div className="h-2 overflow-hidden rounded-full bg-slate-200">
 					<div
-						className="h-full rounded-full transition-all duration-500 bg-linear-to-r from-violet-500 to-purple-400"
+						className="h-full transition-all duration-500 rounded-full bg-linear-to-r from-violet-500 to-purple-400"
 						style={{
 							width: `${((currentIndex + (stage === "feedback" ? 1 : 0)) / totalProblems) * 100}%`,
 						}}
@@ -468,7 +476,7 @@ const VariableTracerGame = () => {
 							<button
 								type="button"
 								onClick={() => setShowHint(true)}
-								className="text-sm underline cursor-pointer transition-colors text-slate-400 hover:text-slate-600 underline-offset-2"
+								className="text-sm underline transition-colors cursor-pointer text-slate-400 hover:text-slate-600 underline-offset-2"
 							>
 								Show hint
 							</button>

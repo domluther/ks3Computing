@@ -1,5 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { CheckCircle, HelpCircle, XCircle } from "lucide-react";
+import { logEvent, SITE } from "../lib/analytics";
 import ScenarioBasedGame, {
 	type GameResults,
 	type GenericChoice,
@@ -519,7 +520,7 @@ const SocialCreditGame = () => {
 		<button
 			key={choice.text}
 			onClick={onSelect}
-			className="flex items-start p-4 font-semibold text-left rounded-lg cursor-pointer gap-3 transition-all duration-200 shadow-sm bg-slate-100 text-slate-800 hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+			className="flex items-start gap-3 p-4 font-semibold text-left transition-all duration-200 rounded-lg shadow-sm cursor-pointer bg-slate-100 text-slate-800 hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 			type="button"
 		>
 			{index !== undefined && (
@@ -637,7 +638,7 @@ const SocialCreditGame = () => {
 		};
 
 		return (
-			<div className="text-center space-y-6">
+			<div className="space-y-6 text-center">
 				<div className="mb-2 text-6xl font-bold text-slate-700">
 					{finalScore}
 				</div>
@@ -648,7 +649,7 @@ const SocialCreditGame = () => {
 					<p className="text-lg text-blue-800">{getScoreAdvice()}</p>
 				</div>
 
-				<div className="text-center grid grid-cols-1 gap-4 md:grid-cols-3">
+				<div className="grid grid-cols-1 gap-4 text-center md:grid-cols-3">
 					<div className="p-4 rounded-lg bg-green-50">
 						<div className="text-2xl font-bold text-green-600">
 							{summary.goodChoicesCount}
@@ -712,6 +713,16 @@ const SocialCreditGame = () => {
 			scoreRenderer={scoreRenderer}
 			feedbackRenderer={feedbackRenderer}
 			resultsRenderer={resultsRenderer}
+			onGameComplete={(results) =>
+				logEvent({
+					site: SITE,
+					game: "social-credit",
+					score: results.summary.goodChoicesCount,
+					score_max: results.summary.totalQuestions,
+					correct:
+						results.summary.goodChoicesCount === results.summary.totalQuestions,
+				})
+			}
 			onNavigateHome={() => navigate({ to: "/online-safety" })}
 		/>
 	);

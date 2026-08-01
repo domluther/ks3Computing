@@ -3,6 +3,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { logEvent, SITE } from "../lib/analytics";
 import { GameButton } from "./Buttons";
 
 // --- SVG ICONS ---
@@ -732,6 +733,11 @@ const FilesAndFolders = () => {
 						type: "success",
 					});
 					setIsLevelComplete(true);
+					logEvent({
+						site: SITE,
+						game: "folders-files",
+						level_completed: currentLevel.id,
+					});
 
 					// Check if this was the last level
 					if (levelIndex >= simulationLevels.length - 1) {

@@ -13,6 +13,7 @@ import {
 	XCircle,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import { logEvent, SITE } from "../lib/analytics";
 import ScenarioBasedGame, {
 	type GameResults,
 	type GenericChoice,
@@ -1006,7 +1007,7 @@ const SoftwareIdentificationGame = () => {
 		<button
 			key={choice.softwareType}
 			onClick={onSelect}
-			className="flex items-start p-4 text-left rounded-lg cursor-pointer gap-3 transition-all duration-200 shadow-sm bg-slate-100 text-slate-800 hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+			className="flex items-start gap-3 p-4 text-left transition-all duration-200 rounded-lg shadow-sm cursor-pointer bg-slate-100 text-slate-800 hover:bg-slate-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 			type="button"
 		>
 			{index !== undefined && (
@@ -1034,7 +1035,7 @@ const SoftwareIdentificationGame = () => {
 		return (
 			<div className="relative w-full h-8 max-w-3xl mb-6 rounded-full shadow-inner bg-slate-200">
 				<div
-					className="h-8 rounded-full transition-all duration-500 ease-out bg-linear-to-r from-blue-500 via-green-500 to-emerald-500"
+					className="h-8 transition-all duration-500 ease-out rounded-full bg-linear-to-r from-blue-500 via-green-500 to-emerald-500"
 					style={{ width: `${percentage}%` }}
 				></div>
 				<span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-slate-800 drop-shadow-sm">
@@ -1155,7 +1156,7 @@ const SoftwareIdentificationGame = () => {
 		);
 
 		return (
-			<div className="text-center space-y-6">
+			<div className="space-y-6 text-center">
 				<div
 					className={`bg-white p-8 rounded-xl shadow-2xl border-t-8 ${resultData.bgColor.split(" ")[1]}`}
 				>
@@ -1168,7 +1169,7 @@ const SoftwareIdentificationGame = () => {
 					</p>
 					<p className="mb-8 text-lg text-slate-600">{resultData.message}</p>
 
-					<div className="mb-6 text-center grid grid-cols-2 gap-4">
+					<div className="grid grid-cols-2 gap-4 mb-6 text-center">
 						<div className="p-4 rounded-lg bg-green-50">
 							<div className="text-2xl font-bold text-green-600">
 								{summary.correctCount}
@@ -1221,7 +1222,7 @@ const SoftwareIdentificationGame = () => {
 							scenarios and then need to pick the most appropriate software for
 							each task.
 						</p>
-						<div className="my-8 text-sm grid grid-cols-2 gap-4 md:grid-cols-4">
+						<div className="grid grid-cols-2 gap-4 my-8 text-sm md:grid-cols-4">
 							<div className="p-4 rounded-lg bg-blue-50">
 								<FileText className="w-8 h-8 mx-auto mb-2 text-blue-600" />
 								<div className="font-semibold">Word Processing</div>
@@ -1274,6 +1275,16 @@ const SoftwareIdentificationGame = () => {
 				scoreRenderer={scoreRenderer}
 				feedbackRenderer={feedbackRenderer}
 				resultsRenderer={resultsRenderer}
+				onGameComplete={(results) =>
+					logEvent({
+						site: SITE,
+						game: "software-id",
+						score: results.summary.correctCount,
+						score_max: results.summary.totalQuestions,
+						correct:
+							results.summary.correctCount === results.summary.totalQuestions,
+					})
+				}
 				onNavigateHome={() => navigate({ to: "/" })}
 			/>
 		</div>

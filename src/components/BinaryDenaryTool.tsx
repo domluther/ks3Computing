@@ -1,5 +1,6 @@
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { logEvent, SITE } from "../lib/analytics";
 import { BackToHub } from "./Buttons";
 
 type Mode = "denaryToBinary" | "binaryToDenary";
@@ -12,7 +13,7 @@ const DIFFICULTY_CONFIG: Record<
 	easy: { max: 31, bits: 5, label: "Easy (0–31)", points: 1 },
 	medium: { max: 127, bits: 7, label: "Medium (0–127)", points: 2 },
 	hard: { max: 255, bits: 8, label: "Hard (0–255)", points: 3 },
-	expert: { max: 1023, bits: 10, label: "Expert (0–1023)", points: 4 },
+	expert: { max: 1023, bits: 10, label: "Expert (0–1023)", points: 6 },
 };
 
 const getPlaceValues = (bits: number): number[] =>
@@ -78,6 +79,12 @@ const BinaryDenaryTool: React.FC = () => {
 				isCorrect = parseInt(currentDenaryInput, 10) === currentNumber;
 			}
 			setFeedback(isCorrect ? "correct" : "incorrect");
+			logEvent({
+				site: SITE,
+				game: mode === "denaryToBinary" ? "denary-binary" : "binary-denary",
+				correct: isCorrect,
+				difficulty,
+			});
 			if (isCorrect) {
 				const earned =
 					DIFFICULTY_CONFIG[difficulty].points + (showPlaceValues ? 0 : 1);
@@ -160,7 +167,7 @@ const BinaryDenaryTool: React.FC = () => {
 		DIFFICULTY_CONFIG[difficulty].points + (showPlaceValues ? 0 : 1);
 
 	return (
-		<div className="flex flex-col items-center w-full p-4 gap-5">
+		<div className="flex flex-col items-center w-full gap-5 p-4">
 			{/* Header */}
 			<div className="flex items-center w-full max-w-3xl gap-2">
 				<BackToHub location="/maths" />
@@ -168,7 +175,7 @@ const BinaryDenaryTool: React.FC = () => {
 			</div>
 
 			{/* Controls bar */}
-			<div className="flex flex-wrap items-center justify-between w-full max-w-3xl p-4 bg-white shadow-md gap-4 rounded-2xl">
+			<div className="flex flex-wrap items-center justify-between w-full max-w-3xl gap-4 p-4 bg-white shadow-md rounded-2xl">
 				{/* Mode toggle */}
 				<div className="flex overflow-hidden text-sm font-semibold border rounded-xl border-slate-200">
 					<button
@@ -217,7 +224,7 @@ const BinaryDenaryTool: React.FC = () => {
 				</div>
 
 				{/* Place values toggle */}
-				<label className="flex items-center cursor-pointer select-none gap-2">
+				<label className="flex items-center gap-2 cursor-pointer select-none">
 					<input
 						type="checkbox"
 						checked={showPlaceValues}
@@ -283,7 +290,7 @@ const BinaryDenaryTool: React.FC = () => {
 			</div>
 
 			{/* Main card */}
-			<div className="flex flex-col items-center w-full max-w-3xl p-6 bg-white shadow-md gap-6 rounded-2xl">
+			<div className="flex flex-col items-center w-full max-w-3xl gap-6 p-6 bg-white shadow-md rounded-2xl">
 				{mode === "denaryToBinary" ? (
 					<>
 						{/* Prompt */}
@@ -439,7 +446,7 @@ const BinaryDenaryTool: React.FC = () => {
 					<button
 						type="button"
 						onClick={handleNextQuestion}
-						className="px-8 py-3 text-lg font-bold text-white bg-blue-500 rounded-full cursor-pointer transition-all hover:bg-blue-600 active:scale-95"
+						className="px-8 py-3 text-lg font-bold text-white transition-all bg-blue-500 rounded-full cursor-pointer hover:bg-blue-600 active:scale-95"
 					>
 						Next →
 					</button>
