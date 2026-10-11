@@ -24,6 +24,7 @@ import { Route as ItSkillsMouseSkillsRouteImport } from './routes/it-skills/mous
 import { Route as MathsAsciiRouteImport } from './routes/maths/ascii'
 import { Route as MathsBinaryDenaryRouteImport } from './routes/maths/binary-denary'
 import { Route as MathsBinaryImageRouteImport } from './routes/maths/binary-image'
+import { Route as MathsSoundRouteImport } from './routes/maths/sound'
 import { Route as OnlineSafetyPhishingRouteImport } from './routes/online-safety/phishing'
 import { Route as OnlineSafetySocialCreditRouteImport } from './routes/online-safety/social-credit'
 import { Route as ProgrammingTurtleRouteImport } from './routes/programming/turtle'
@@ -107,6 +108,11 @@ const MathsBinaryImageRoute = MathsBinaryImageRouteImport.update({
   path: '/binary-image',
   getParentRoute: () => MathsRoute,
 } as any)
+const MathsSoundRoute = MathsSoundRouteImport.update({
+  id: '/sound',
+  path: '/sound',
+  getParentRoute: () => MathsRoute,
+} as any)
 const OnlineSafetyPhishingRoute = OnlineSafetyPhishingRouteImport.update({
   id: '/phishing',
   path: '/phishing',
@@ -145,6 +151,7 @@ export interface FileRoutesByFullPath {
   '/maths/ascii': typeof MathsAsciiRoute
   '/maths/binary-denary': typeof MathsBinaryDenaryRoute
   '/maths/binary-image': typeof MathsBinaryImageRoute
+  '/maths/sound': typeof MathsSoundRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
   '/programming/turtle': typeof ProgrammingTurtleRoute
@@ -166,6 +173,7 @@ export interface FileRoutesByTo {
   '/maths/ascii': typeof MathsAsciiRoute
   '/maths/binary-denary': typeof MathsBinaryDenaryRoute
   '/maths/binary-image': typeof MathsBinaryImageRoute
+  '/maths/sound': typeof MathsSoundRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
   '/programming/turtle': typeof ProgrammingTurtleRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/maths/ascii': typeof MathsAsciiRoute
   '/maths/binary-denary': typeof MathsBinaryDenaryRoute
   '/maths/binary-image': typeof MathsBinaryImageRoute
+  '/maths/sound': typeof MathsSoundRoute
   '/online-safety/phishing': typeof OnlineSafetyPhishingRoute
   '/online-safety/social-credit': typeof OnlineSafetySocialCreditRoute
   '/programming/turtle': typeof ProgrammingTurtleRoute
@@ -211,6 +220,7 @@ export interface FileRouteTypes {
     | '/maths/ascii'
     | '/maths/binary-denary'
     | '/maths/binary-image'
+    | '/maths/sound'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
     | '/programming/turtle'
@@ -232,6 +242,7 @@ export interface FileRouteTypes {
     | '/maths/ascii'
     | '/maths/binary-denary'
     | '/maths/binary-image'
+    | '/maths/sound'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
     | '/programming/turtle'
@@ -253,6 +264,7 @@ export interface FileRouteTypes {
     | '/maths/ascii'
     | '/maths/binary-denary'
     | '/maths/binary-image'
+    | '/maths/sound'
     | '/online-safety/phishing'
     | '/online-safety/social-credit'
     | '/programming/turtle'
@@ -376,6 +388,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MathsBinaryImageRouteImport
       parentRoute: typeof MathsRoute
     }
+    '/maths/sound': {
+      id: '/maths/sound'
+      path: '/sound'
+      fullPath: '/maths/sound'
+      preLoaderRoute: typeof MathsSoundRouteImport
+      parentRoute: typeof MathsRoute
+    }
     '/online-safety/phishing': {
       id: '/online-safety/phishing'
       path: '/phishing'
@@ -440,12 +459,14 @@ interface MathsRouteChildren {
   MathsAsciiRoute: typeof MathsAsciiRoute
   MathsBinaryDenaryRoute: typeof MathsBinaryDenaryRoute
   MathsBinaryImageRoute: typeof MathsBinaryImageRoute
+  MathsSoundRoute: typeof MathsSoundRoute
 }
 
 const MathsRouteChildren: MathsRouteChildren = {
   MathsAsciiRoute: MathsAsciiRoute,
   MathsBinaryDenaryRoute: MathsBinaryDenaryRoute,
   MathsBinaryImageRoute: MathsBinaryImageRoute,
+  MathsSoundRoute: MathsSoundRoute,
 }
 
 const MathsRouteWithChildren = MathsRoute._addFileChildren(MathsRouteChildren)

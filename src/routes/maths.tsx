@@ -18,6 +18,11 @@ function MathsLayout() {
 			route: "/maths/binary-image",
 			color: "purple" as const,
 		},
+		{
+			text: "Sound",
+			route: "/maths/sound",
+			color: "orange" as const,
+		},
 	];
 
 	return (

@@ -1,5 +1,6 @@
 import {
 	createRootRoute,
+	type ErrorComponentProps,
 	Link,
 	Outlet,
 	useRouter,
@@ -23,8 +24,10 @@ function RootLayout() {
 	);
 }
 
-function RootErrorComponent({ error }: { error: Error }) {
+function RootErrorComponent({ error: rawError }: ErrorComponentProps) {
 	const router = useRouter();
+	const error =
+		rawError instanceof Error ? rawError : new Error(String(rawError));
 	const isChunkError =
 		error?.message?.toLowerCase().includes("failed to fetch") ||
 		error?.message?.toLowerCase().includes("dynamically imported module") ||
